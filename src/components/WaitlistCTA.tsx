@@ -2,19 +2,66 @@
 
 import { useState } from "react";
 
-type Intent = "access" | "informed";
+type UseType = "personal" | "professional";
+type Status = "idle" | "loading" | "success" | "error";
+
+interface FormData {
+  name: string;
+  email: string;
+  useType: UseType;
+  company: string;
+}
+
+const WAITLIST_URL = process.env.NEXT_PUBLIC_WAITLIST_URL ?? "";
 
 export default function WaitlistCTA() {
-  const [email, setEmail] = useState("");
-  const [intent, setIntent] = useState<Intent>("access");
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [form, setForm] = useState<FormData>({
+    name: "",
+    email: "",
+    useType: "professional",
+    company: "",
+  });
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  function update<K extends keyof FormData>(key: K, value: FormData[K]) {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email) return;
-    // TODO: wire to backend / form service — pass `intent` as metadata
-    setStatus("success");
-    setEmail("");
+    setStatus("loading");
+    setErrorMsg("");
+
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      use_type: form.useType,
+      company: form.useType === "professional" ? form.company.trim() : null,
+      source: "purple8.ai/waitlist",
+      submitted_at: new Date().toISOString(),
+    };
+
+    // If no endpoint is configured yet, simulate success (pre-launch placeholder)
+    if (!WAITLIST_URL) {
+      await new Promise((r) => setTimeout(r, 800));
+      setStatus("success");
+      return;
+    }
+
+    try {
+      const res = await fetch(WAITLIST_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`${res.status}`);
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg("Something went wrong — please try again or email hello@purple8.ai");
+      console.error("Waitlist submit error:", err);
+    }
   }
 
   return (
@@ -27,7 +74,7 @@ export default function WaitlistCTA() {
 
           <div className="relative">
             <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
-              Get Involved
+              Get Early Access
             </p>
             <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">
               Be part of what AI runs on next
@@ -39,68 +86,110 @@ export default function WaitlistCTA() {
             </p>
 
             {status === "success" ? (
-              <div className="mx-auto mt-10 flex max-w-sm items-center justify-center gap-3 rounded-2xl border border-green-600/30 bg-green-600/10 px-6 py-4">
-                <svg className="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              <div className="mx-auto mt-10 flex max-w-sm flex-col items-center gap-3 rounded-2xl border border-green-600/30 bg-green-600/10 px-6 py-6">
+                <svg className="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <p className="text-sm text-green-300">
-                  {intent === "access"
-                    ? "You're on the list — we'll reach out directly."
-                    : "Got it — we'll keep you in the loop as we ship."}
-                </p>
+                <p className="text-base font-semibold text-green-300">You&apos;re on the list!</p>
+                <p className="text-sm text-zinc-400">We&apos;ll reach out directly when early access opens.</p>
               </div>
             ) : (
-              <div className="mx-auto mt-10 max-w-lg">
-                {/* Intent toggle */}
-                <div className="mb-6 inline-flex rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
-                  <button
-                    type="button"
-                    onClick={() => setIntent("access")}
-                    className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
-                      intent === "access"
-                        ? "bg-purple-600 text-white shadow"
-                        : "text-zinc-500 hover:text-zinc-300"
-                    }`}
-                  >
-                    Request Early Access
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIntent("informed")}
-                    className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
-                      intent === "informed"
-                        ? "bg-purple-600 text-white shadow"
-                        : "text-zinc-500 hover:text-zinc-300"
-                    }`}
-                  >
-                    Keep Me Informed
-                  </button>
+              <form
+                onSubmit={handleSubmit}
+                className="mx-auto mt-10 max-w-xl space-y-4 text-left"
+              >
+                {/* Name */}
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+                    Full name <span className="text-purple-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={(e) => update("name", e.target.value)}
+                    placeholder="Jane Smith"
+                    className="w-full rounded-xl border border-purple-900/50 bg-[#0a0a0f] px-4 py-3 text-sm text-white placeholder-zinc-600 outline-none transition focus:border-purple-500/60 focus:ring-1 focus:ring-purple-500/30"
+                  />
                 </div>
 
-                {/* Context line */}
-                <p className="mb-5 text-xs text-zinc-600">
-                  {intent === "access"
-                    ? "We work directly with design partners — private beta, dedicated support, and preferential pricing."
-                    : "No commitment. We'll send you a note when we ship something worth knowing about."}
-                </p>
-
-                <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
+                {/* Email */}
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+                    Email <span className="text-purple-500">*</span>
+                  </label>
                   <input
                     type="email"
                     required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@company.com"
-                    className="flex-1 rounded-full border border-purple-900/50 bg-[#0a0a0f] px-5 py-3 text-sm text-white placeholder-zinc-600 outline-none transition focus:border-purple-500/60 focus:ring-1 focus:ring-purple-500/30"
+                    value={form.email}
+                    onChange={(e) => update("email", e.target.value)}
+                    placeholder="jane@company.com"
+                    className="w-full rounded-xl border border-purple-900/50 bg-[#0a0a0f] px-4 py-3 text-sm text-white placeholder-zinc-600 outline-none transition focus:border-purple-500/60 focus:ring-1 focus:ring-purple-500/30"
                   />
-                  <button
-                    type="submit"
-                    className="rounded-full bg-purple-600 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#11111b] shrink-0"
-                  >
-                    {intent === "access" ? "Request Access" : "Stay Updated"}
-                  </button>
-                </form>
-              </div>
+                </div>
+
+                {/* Personal / Professional toggle */}
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+                    How will you use Purple8?
+                  </label>
+                  <div className="inline-flex rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
+                    <button
+                      type="button"
+                      onClick={() => update("useType", "personal")}
+                      className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
+                        form.useType === "personal"
+                          ? "bg-purple-600 text-white shadow"
+                          : "text-zinc-500 hover:text-zinc-300"
+                      }`}
+                    >
+                      Personal / Side project
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update("useType", "professional")}
+                      className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
+                        form.useType === "professional"
+                          ? "bg-purple-600 text-white shadow"
+                          : "text-zinc-500 hover:text-zinc-300"
+                      }`}
+                    >
+                      Professional / Company
+                    </button>
+                  </div>
+                </div>
+
+                {/* Company name — shown only for professional */}
+                {form.useType === "professional" && (
+                  <div>
+                    <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+                      Company name
+                    </label>
+                    <input
+                      type="text"
+                      value={form.company}
+                      onChange={(e) => update("company", e.target.value)}
+                      placeholder="Acme Corp"
+                      className="w-full rounded-xl border border-purple-900/50 bg-[#0a0a0f] px-4 py-3 text-sm text-white placeholder-zinc-600 outline-none transition focus:border-purple-500/60 focus:ring-1 focus:ring-purple-500/30"
+                    />
+                  </div>
+                )}
+
+                {/* Error message */}
+                {status === "error" && (
+                  <p className="rounded-xl border border-red-800/40 bg-red-900/20 px-4 py-3 text-sm text-red-400">
+                    {errorMsg}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full rounded-full bg-purple-600 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#11111b] disabled:opacity-60"
+                >
+                  {status === "loading" ? "Submitting…" : "Request Early Access"}
+                </button>
+              </form>
             )}
 
             <p className="mt-6 text-xs text-zinc-600">
