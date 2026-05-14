@@ -117,12 +117,6 @@ export default function Products() {
               </p>
 
               {/* Live benchmark pills */}
-              <div className="mt-5 grid grid-cols-3 gap-2">
-                <BenchmarkPill metric="MRR@10 — 100K MS MARCO" value="0.4499" />
-                <BenchmarkPill metric="Faster than BM25" value="182×" />
-                <BenchmarkPill metric="Hybrid RAG MRR" value="0.85" />
-              </div>
-
               <div className="mt-5 flex flex-wrap gap-2">
                 <ProductBadge label="openCypher" />
                 <ProductBadge label="Journey Engine" />
