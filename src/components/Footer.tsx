@@ -31,7 +31,7 @@ export default function Footer() {
               anywhere, no external dependencies.
             </p>
             <p className="mt-4 text-xs text-zinc-700">
-              Purple8 Inc. · Incorporated in Delaware, USA
+              Purple8 Inc.
             </p>
           </div>
 
