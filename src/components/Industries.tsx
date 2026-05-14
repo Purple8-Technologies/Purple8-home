@@ -54,8 +54,8 @@ const industries = [
   {
     name: "Security Operations",
     description:
-      "Arm your SOC with autonomous threat detection, graph-powered alert correlation, and containment workflows. Hyper Graph maps lateral movement paths and asset relationships across your environment; the Journey Engine drives automated agent response and human-in-the-loop escalation when containment decisions require approval.",
-    useCases: ["Threat graph correlation", "Autonomous alert triage", "Lateral movement detection", "Containment workflow automation"],
+      "Purple8's built-in SOC vertical runs autonomous threat detection, containment, and audit trails entirely on-prem — no SIEM data egress. 10 threat classes, 4 containment levels, immutable graph-native audit trail.",
+    useCases: ["Insider threat detection", "Tenant boundary enforcement", "Graph-native audit log", "Automated containment"],
     icon: (
       <path
         strokeLinecap="round"
