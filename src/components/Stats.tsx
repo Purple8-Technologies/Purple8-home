@@ -14,7 +14,7 @@ const STATS: Stat[] = [
   { numeric: 9, suffix: "M+", label: "Nodes validated" },
   { numeric: 3.5, suffix: "ms", label: "p50 at 100K passages" },
   { numeric: 182, suffix: "×", label: "Faster than BM25" },
-  { numeric: 4100, suffix: "+", label: "Automated tests" },
+  { numeric: 4600, suffix: "+", label: "Automated tests" },
   { numeric: 70, suffix: "+", label: "File formats (DocIntel)" },
   { numeric: 0.85, decimals: 2, label: "Hybrid RAG MRR@10" },
 ];
