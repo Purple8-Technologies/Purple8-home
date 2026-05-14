@@ -15,7 +15,7 @@ const LINES: CodeLine[] = [
   { text: "# One engine. Graph + vector + full-text.", type: "comment" },
   { text: 'engine = GraphEngine(path="./enterprise")', type: "code" },
   { text: "", type: "blank" },
-  { text: "# Ingest — graph edges, HNSW vectors, BM25", type: "comment" },
+  { text: "# Ingest — graph, vector & full-text", type: "comment" },
   { text: 'engine.add_node("contract_42",', type: "code" },
   { text: '    labels=["Contract"],', type: "code" },
   { text: '    embedding=embed(text))', type: "code" },
@@ -25,7 +25,7 @@ const LINES: CodeLine[] = [
   { text: '    "What are the compliance risks?")', type: "code" },
   { text: "", type: "blank" },
   { text: "▶  Traversing 9M nodes...", type: "output" },
-  { text: "▶  12 graph paths · 8 vector seeds fused", type: "output" },
+  { text: "▶  12 graph paths · semantic context fused", type: "output" },
   { text: "▶  Answer ready in 238ms ✓", type: "output" },
 ];
 

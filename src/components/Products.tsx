@@ -1,14 +1,14 @@
 const hyperGraphFeatures = [
-  "Graph + vector (HNSW) + document store + BM25 full-text — one embedded engine, no JVM",
-  "openCypher query language with hybrid graph-vector MATCH in a single query",
+  "Graph + vector + document store + full-text — one embedded engine, no JVM, no external services",
+  "openCypher query language with native hybrid graph-vector search",
   "Journey Engine: stateful workflow orchestration with SLA monitoring & human-in-the-loop",
   "Native MCP server — Flat Vector, GraphRAG & Hybrid RAG exposed as AI agent tools",
-  "Three RAG architectures: Flat Vector (45ms p50), GraphRAG, Hybrid Graph-Vector (MRR 0.85)",
+  "Three production RAG architectures: Flat Vector, GraphRAG, and Hybrid Graph-Vector (MRR@10: 0.85)",
   "SuperGraph Federation: cross-instance Cypher with explicit human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS KMS, GCP KMS, or Azure Key Vault",
   "Multi-tenancy with per-tenant DEK — 0 isolation leaks validated across 500 tenants",
-  "Rust-accelerated core (PyO3/Rayon) for BM25, SLA scanning & document indexing",
-  "Benchmarked: 9M nodes · 19k edges/sec · 251k QPS doc reads · 0.073ms point lookup",
+  "Rust-accelerated core for full-text search, SLA scanning & document indexing",
+  "Benchmarked: 9M nodes · 19k edges/sec · 251k QPS doc reads · sub-millisecond point lookup",
 ];
 
 const docIntelFeatures = [
@@ -16,12 +16,12 @@ const docIntelFeatures = [
   "IFC/IFCZIP (IFC2x3/4/4x3), DXF, DWG, STEP, STL, OBJ, GLTF/GLB, G-code — CAD & BIM native",
   "Sketch & whiteboard analysis via GPT-4o vision, Azure AI Vision, or Google Vision",
   "5 OCR engines: Tesseract · Azure Document Intelligence · Google Vision · AWS Textract · Purple8 OCR",
-  "Purple8 OCR — self-hosted, zero data egress: layout-aware PP-OCRv4 + 7-step adaptive preprocessing (deskew, CLAHE, NLM denoise, border strip, adaptive binarise). Returns typed blocks with bounding boxes, reading order, and structured table cells",
-  "Proprietary GLiNER-Purple8 NER model — two-pass extraction: entities first, LLM relationship linking second",
+  "Purple8 OCR — self-hosted, zero data egress: proprietary preprocessing pipeline with layout detection and table reconstruction. Keeps sensitive documents entirely within your infrastructure.",
+  "Proprietary GLiNER-Purple8 NER model fine-tuned on domain corpora — multi-stage entity and relationship extraction",
   "Connectors: SharePoint (MS Graph), Confluence, AWS S3, generic webhook (batch + push)",
-  "SSE streaming results, Redis-backed job store, async semaphore-capped pipeline",
-  "Emits structured EmitPayload directly to Purple8 Hyper Graph /ingest/commit",
-  "Sends P8G agentic hints: doc_type, chunking_hint, suggested_embedding_model",
+  "SSE streaming results, Redis-backed job store, concurrent pipeline with backpressure control",
+  "Emits structured entity graphs directly into Purple8 Hyper Graph",
+  "Sends agentic hints to Hyper Graph for optimised chunking and embedding strategy",
 ];
 
 function FeatureList({ items }: { items: string[] }) {
@@ -107,8 +107,8 @@ export default function Products() {
               <p className="mt-1 text-sm text-zinc-500">Hyper Graph DB — new category of database</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                A unified embedded engine combining graph storage, HNSW vector search, document
-                store, and BM25 full-text search. Ships with a Journey Engine for stateful AI
+                A unified embedded engine combining graph storage, vector search, document
+                store, and full-text search. Ships with a Journey Engine for stateful AI
                 workflows, a native MCP server, three production RAG architectures, and AES-256-GCM
                 envelope encryption. No JVM. No Docker required.{" "}
                 <code className="rounded bg-zinc-900 px-1.5 py-0.5 text-xs text-purple-300">
@@ -159,10 +159,10 @@ export default function Products() {
                 <h3 className="text-xl font-bold text-white">Purple8 DocIntel</h3>
                 <span className="rounded-full border border-violet-700/40 bg-violet-900/30 px-2.5 py-0.5 text-xs text-violet-400">v0.8</span>
               </div>
-              <p className="mt-1 text-sm text-zinc-500">Document intelligence microservice · Port 8200</p>
+              <p className="mt-1 text-sm text-zinc-500">Document intelligence microservice</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                A stateless FastAPI microservice that parses 70+ enterprise document formats —
+                A stateless document intelligence microservice that parses 70+ enterprise document formats —
                 including CAD/DXF, BIM/IFC, sketches, and audio — through a proprietary NER model
                 (GLiNER-Purple8) and LLM-assisted extraction. Emits structured entity graphs
                 directly into Purple8 Hyper Graph.

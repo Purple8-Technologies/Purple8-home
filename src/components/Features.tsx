@@ -3,7 +3,7 @@ const features = [
     category: "Hyper Graph",
     title: "Three RAG Architectures, One Engine",
     description:
-      "Flat Vector RAG (45ms p50, MRR 0.64) → GraphRAG with 5-step BFS subgraph context (MRR 0.76) → Hybrid Graph-Vector RAG with dual-seed RRF fusion and semantic path scoring (MRR 0.85, 117% multi-hop improvement). All three exposed as native MCP tools.",
+      "Three production RAG architectures in a single engine: Flat Vector (MRR 0.64), GraphRAG with multi-hop subgraph context (MRR 0.76), and Hybrid Graph-Vector RAG with result fusion and semantic path scoring (MRR 0.85 — 117% multi-hop improvement over flat vector). All three exposed as native MCP tools.",
     icon: (
       <path
         strokeLinecap="round"
@@ -17,7 +17,7 @@ const features = [
     category: "Hyper Graph",
     title: "Journey Engine",
     description:
-      "Stateful workflow orchestration baked into the database. Define multi-step AI pipelines with SLA monitoring, automatic retry, and human-in-the-loop review queues. Benchmarked at 0.234ms stage advance p50, 677 journey instances/sec at 10k scale — no external orchestrator required.",
+      "Stateful workflow orchestration baked into the database. Define multi-step AI pipelines with SLA monitoring, automatic retry, and human-in-the-loop review queues. Benchmarked at sub-millisecond stage advance, hundreds of journey instances per second at scale — no external orchestrator required.",
     icon: (
       <path
         strokeLinecap="round"
@@ -31,7 +31,7 @@ const features = [
     category: "Hyper Graph",
     title: "Native MCP Server",
     description:
-      "The first MCP-native graph database. LLM agents call rag_query, rag_graph_query, and rag_hybrid_query as native tools — traversing knowledge graphs, running HNSW similarity queries, and triggering journeys without custom glue code. Benchmarked at 0.007ms p50 get_node latency.",
+      "The first MCP-native graph database. LLM agents query knowledge graphs, run vector similarity search, and trigger journeys as native tools — without custom glue code. Sub-millisecond node lookup latency.",
     icon: (
       <path
         strokeLinecap="round"
@@ -59,7 +59,7 @@ const features = [
     category: "Hyper Graph",
     title: "Multi-Tenancy & Envelope Encryption",
     description:
-      "Per-tenant AES-256-GCM envelope encryption via Local, HashiCorp Vault, AWS KMS, GCP KMS, or Azure Key Vault. DEK cache hit at 0.003ms. Zero overhead on add_node. 507k QPS aggregate throughput, 8.6ms tenant provisioning, 0 isolation leaks across 500 tenants.",
+      "Per-tenant AES-256-GCM envelope encryption via Local, HashiCorp Vault, AWS KMS, GCP KMS, or Azure Key Vault. Sub-millisecond DEK cache hits. Zero overhead on write operations. 500k+ QPS aggregate throughput, sub-10ms tenant provisioning, 0 isolation leaks across 500 tenants.",
     icon: (
       <path
         strokeLinecap="round"
@@ -73,7 +73,7 @@ const features = [
     category: "DocIntel",
     title: "GLiNER-Purple8 NER Model",
     description:
-      "A proprietary named-entity-recognition model fine-tuned on domain-specific corpora across engineering, legal, financial, and AEC documents. Two-pass pipeline: GLiNER extracts entities per window, then LLM links relationships given the full accumulated entity list — fuzzy dedup via rapidfuzz.",
+      "A proprietary named-entity-recognition model fine-tuned on domain-specific corpora across engineering, legal, financial, and AEC documents. Proprietary multi-stage pipeline for entity extraction and relationship linking — with deduplication across large document sets.",
     icon: (
       <path
         strokeLinecap="round"
@@ -87,7 +87,7 @@ const features = [
     category: "DocIntel",
     title: "70+ Format Extraction incl. CAD & BIM",
     description:
-      "PDF, DOCX, XLSX, PPTX, HTML, CSV, EML — plus IFC/IFCZIP (10-section structured BIM output), DXF/DWG, STEP, STL, OBJ, GLTF, G-code, and sketch/whiteboard analysis (GPT-4o vision). Five OCR engines including Purple8 OCR — a self-hosted, zero-egress pipeline (PP-OCRv4 + adaptive deskew, CLAHE, NLM denoising, layout detection, table reconstruction) for documents that can't leave your infrastructure. All through a single API.",
+      "PDF, DOCX, XLSX, PPTX, HTML, CSV, EML — plus IFC/IFCZIP (10-section structured BIM output), DXF/DWG, STEP, STL, OBJ, GLTF, G-code, and sketch/whiteboard analysis. Five OCR engines including Purple8 OCR — a self-hosted, zero-egress option with proprietary preprocessing and layout detection for documents that can't leave your infrastructure. All through a single API.",
     icon: (
       <path
         strokeLinecap="round"
@@ -101,7 +101,7 @@ const features = [
     category: "DocIntel",
     title: "Enterprise Connectors",
     description:
-      "SharePoint (MS Graph API), Confluence, AWS S3, and generic webhook — each supporting both batch pull and push webhooks. SSE streaming results per job. Redis-backed job store for multi-worker deployments. SSRF-guarded URL processing and Bearer auth throughout.",
+      "SharePoint (MS Graph API), Confluence, AWS S3, and generic webhook — each supporting both batch pull and push webhooks. SSE streaming results per job. Redis-backed job store for multi-worker deployments. Secure URL processing and Bearer auth throughout.",
     icon: (
       <path
         strokeLinecap="round"

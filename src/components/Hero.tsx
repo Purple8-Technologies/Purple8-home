@@ -3,8 +3,8 @@ import NeuralCanvas from "@/components/NeuralCanvas";
 
 const techTags = [
   "openCypher",
-  "HNSW Vector Search",
-  "BM25 Full-Text",
+  "Vector Search",
+  "Full-Text Search",
   "Journey Engine",
   "MCP Native",
   "SuperGraph Federation",
