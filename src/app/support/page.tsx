@@ -25,8 +25,7 @@ export default function SupportPage() {
             <div>
               <h1 className="text-2xl font-bold text-white">Support</h1>
               <p className="mt-1 text-slate-400 text-sm">
-                Our ops agent picks up reports within 15 minutes, 24 / 7. No support ticket queue —
-                most questions get a direct answer.
+                Submit a ticket and we'll get back to you.
               </p>
             </div>
           </div>
