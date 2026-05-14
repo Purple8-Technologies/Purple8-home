@@ -12,7 +12,7 @@ interface FormData {
   company: string;
 }
 
-const WAITLIST_URL = process.env.NEXT_PUBLIC_WAITLIST_URL ?? "";
+const CC_BASE_URL = process.env.NEXT_PUBLIC_CC_BASE_URL ?? "";
 
 export default function WaitlistCTA() {
   const [form, setForm] = useState<FormData>({
@@ -43,14 +43,14 @@ export default function WaitlistCTA() {
     };
 
     // If no endpoint is configured yet, simulate success (pre-launch placeholder)
-    if (!WAITLIST_URL) {
+    if (!CC_BASE_URL) {
       await new Promise((r) => setTimeout(r, 800));
       setStatus("success");
       return;
     }
 
     try {
-      const res = await fetch(WAITLIST_URL, {
+      const res = await fetch(`${CC_BASE_URL}/public/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

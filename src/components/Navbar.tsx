@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
 
 const links = [
   { href: "#products", label: "Products" },
   { href: "#features", label: "Features" },
   { href: "#industries", label: "Industries" },
+  { href: "/support", label: "Support" },
 ];
 
 export default function Navbar() {
@@ -40,13 +42,13 @@ export default function Navbar() {
           {/* Desktop nav */}
           <div className="hidden items-center gap-8 md:flex">
             {links.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
                 className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -95,14 +97,14 @@ export default function Navbar() {
         {open && (
           <div className="md:hidden border-t border-purple-900/30 py-4 flex flex-col gap-4 pb-6">
             {links.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="text-sm text-zinc-400 hover:text-purple-400"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
             <a
               href="#waitlist"
