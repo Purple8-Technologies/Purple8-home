@@ -56,11 +56,10 @@ export default function Features() {
             </p>
             <ul className="mt-8 space-y-3">
               {[
-                "openCypher with native graph-vector hybrid search",
-                "Flat Vector, GraphRAG, and Hybrid RAG — all three built in",
-                "CollectionProfile persistence — retrieval quality metrics saved and replayed automatically",
-                "Journey Engine: stateful pipelines with SLA monitoring",
-                "AES-256-GCM envelope encryption, per-tenant key isolation",
+                "openCypher with native graph-vector hybrid search — plus query plan explain endpoint",
+                "Flat Vector, GraphRAG, and Hybrid RAG — all three built in; autonomous MCP-driven tuning",
+                "Journey Engine: stateful pipelines, SLA monitoring, HITL gates, AI step persistence",
+                "AES-256-GCM envelope encryption · per-tenant key isolation · 5 KMS providers",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-zinc-400">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" />
