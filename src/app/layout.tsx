@@ -59,6 +59,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.purple8.ai",
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
