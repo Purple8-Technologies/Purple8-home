@@ -35,9 +35,6 @@ export default function Navbar() {
             <span className="text-sm font-semibold tracking-tight text-white">
               Purple<span className="text-purple-400">8</span>
             </span>
-            <span className="hidden text-xs font-medium text-zinc-500 sm:block">
-              Technologies
-            </span>
           </a>
 
           {/* Desktop nav */}

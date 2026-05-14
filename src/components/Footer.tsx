@@ -24,7 +24,6 @@ export default function Footer() {
               <span className="text-sm font-semibold tracking-tight text-white">
                 Purple<span className="text-purple-400">8</span>
               </span>
-              <span className="text-xs font-medium text-zinc-500">Technologies</span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-zinc-600">
               AI-native infrastructure for enterprises and developers. Graph,
