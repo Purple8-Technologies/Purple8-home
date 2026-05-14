@@ -55,7 +55,7 @@ export default function SupportPage() {
 
               <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
                 <p className="text-xs text-slate-500">
-                  🔒 Security vulnerabilities? Select <span className="text-purple-400">Bug report</span> and set the subject to <span className="text-slate-300">Security:</span> — tickets are handled confidentially.
+                  🔒 Security vulnerabilities? Select the <span className="text-purple-400">Security</span> category — tickets are handled confidentially.
                 </p>
               </div>
             </div>

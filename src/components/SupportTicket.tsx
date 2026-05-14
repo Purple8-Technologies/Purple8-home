@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-type Category = "bug" | "question" | "feature_request" | "billing" | "other";
+type Category = "bug" | "question" | "feature_request" | "security" | "billing" | "other";
 type Product   = "hyper_graph" | "docintel" | "general";
 type Status    = "idle" | "loading" | "success" | "error";
 
@@ -22,6 +22,7 @@ const CATEGORIES: { value: Category; label: string; emoji: string }[] = [
   { value: "bug",             label: "Bug report",       emoji: "🐛" },
   { value: "question",        label: "Question",         emoji: "❓" },
   { value: "feature_request", label: "Feature request",  emoji: "💡" },
+  { value: "security",        label: "Security",         emoji: "🔒" },
   { value: "billing",         label: "Billing / account",emoji: "💳" },
   { value: "other",           label: "Other",            emoji: "📋" },
 ];
