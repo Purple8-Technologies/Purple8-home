@@ -1,15 +1,14 @@
 const hyperGraphFeatures = [
-  "Graph + vector + document store + full-text — one embedded engine, no JVM, no external services",
-  "openCypher query language with native hybrid graph-vector search",
-  "Journey Engine: stateful workflow orchestration with SLA monitoring & human-in-the-loop",
-  "Native MCP server — Flat Vector, GraphRAG & Hybrid RAG exposed as native AI agent tools",
-  "SuperGraph Federation: cross-instance Cypher with explicit human approval gates",
+  "Graph + vector + document store + full-text — one embedded engine, one process, one port",
+  "openCypher with native hybrid graph-vector search and a cost-based query planner (6 strategies)",
+  "3 built-in RAG modes: Flat Vector (MRR 0.64), GraphRAG (MRR 0.76), Hybrid RAG (MRR 0.85)",
+  "Autonomous RAG tuning — agents profile, grid-search, and persist optimal retrieval params via MCP",
+  "Journey Engine v0.16.2: stateful workflows, SLA monitoring, HITL gates, AI step persistence",
+  "22-tool MCP server across graph.*, rag.*, journey.*, data.* — RBAC-enforced, works with Claude/Cursor/Copilot",
+  "SuperGraph Federation: cross-instance Cypher with human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS KMS, GCP KMS, or Azure Key Vault",
-  "Multi-tenancy with per-tenant DEK — tenant isolation enforced at the storage layer",
-  "Rust-accelerated core for full-text search, SLA scanning & document indexing",
-  "Autonomous RAG tuning — profile_collection & tune_collection optimise retrieval quality automatically",
-  "LCNC Admin Console — no-code graph administration, schema management & real-time monitoring",
-  "Nuitka compiled distribution — zero .py source shipped, tamper-resistant binary for production deployments",
+  "Per-tenant DEK isolation enforced at the storage layer — SOC vertical included",
+  "LCNC Admin Console — browser-based admin UI, zero npm, zero config",
 ];
 
 const docIntelFeatures = [
