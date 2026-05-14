@@ -45,7 +45,7 @@ const features = [
     category: "Hyper Graph",
     title: "Native MCP Server",
     description:
-      "The first MCP-native graph database. LLM agents query knowledge graphs, run vector similarity search, and trigger journeys as native tools — without custom glue code. Sub-millisecond node lookup latency.",
+      "The first MCP-native graph database. Works out of the box with Claude Code, Cursor, GitHub Copilot, Windsurf, and any MCP-compatible AI tool or agent framework. LLM agents query knowledge graphs, run vector similarity search, and trigger journeys as native tools — without custom glue code. Sub-millisecond node lookup latency.",
     icon: (
       <path
         strokeLinecap="round"

@@ -110,6 +110,9 @@ export default function Products() {
                 <ProductBadge label="openCypher" />
                 <ProductBadge label="Journey Engine" />
                 <ProductBadge label="MCP Native" />
+                <ProductBadge label="Claude Code" />
+                <ProductBadge label="Cursor" />
+                <ProductBadge label="GitHub Copilot" />
                 <ProductBadge label="SuperGraph" />
                 <ProductBadge label="Rust Core" />
               </div>
