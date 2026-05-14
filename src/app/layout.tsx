@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.purple8.ai"),
   title: {
-    default: "Purple8 Technologies — AI-Native Infrastructure",
-    template: "%s | Purple8 Technologies",
+    default: "Purple8 — AI-Native Infrastructure",
+    template: "%s | Purple8",
   },
   description:
     "Purple8 Technologies builds AI-native infrastructure: Hyper Graph (unified graph, vector, document & full-text engine) and DocIntel (70-format document intelligence). One process. Zero external dependencies.",
@@ -41,17 +41,17 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "Purple8 Technologies — AI-Native Infrastructure",
+    title: "Purple8 — AI-Native Infrastructure",
     description:
       "Unified graph + vector + document engine with Journey Engine, native MCP tools, and 70-format document intelligence. Built AI-native from the ground up.",
     url: "https://www.purple8.ai",
-    siteName: "Purple8 Technologies",
+    siteName: "Purple8",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Purple8 Technologies — AI-Native Infrastructure",
+    title: "Purple8 — AI-Native Infrastructure",
     description:
       "Unified graph + vector + document engine with Journey Engine, native MCP tools, and 70-format document intelligence.",
     creator: "@purple8ai",
