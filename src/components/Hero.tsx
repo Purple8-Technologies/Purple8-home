@@ -17,7 +17,7 @@ const techTags = [
   "Rust Core",
   "AES-256-GCM",
   "Multi-Tenant",
-  "pip install",
+  "Docker & Native Installers",
 ];
 
 export default function Hero() {

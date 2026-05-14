@@ -99,10 +99,7 @@ export default function Products() {
                 A unified embedded engine combining graph storage, vector search, document
                 store, and full-text search. Ships with a Journey Engine for stateful AI
                 workflows, a native MCP server, three production RAG architectures, and AES-256-GCM
-                envelope encryption. No JVM. No Docker required.{" "}
-                <code className="rounded bg-zinc-900 px-1.5 py-0.5 text-xs text-purple-300">
-                  pip install purple8-hyper-graph
-                </code>
+                envelope encryption. No JVM. Docker image and native installers available.
               </p>
 
               {/* Live benchmark pills */}
