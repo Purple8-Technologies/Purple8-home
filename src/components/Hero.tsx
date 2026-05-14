@@ -55,9 +55,9 @@ export default function Hero() {
 
           {/* Sub-headline */}
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">
-            Graph, vector, document intelligence, and workflow orchestration in
-            one embedded process — no external services, no vector DB sprawl.
-            Purpose-built for AI that needs to reason on real data.
+            From idea to production in days, not months. Graph, vector, document
+            intelligence, and workflow orchestration in one embedded process —
+            no external services, no sprawl.
           </p>
 
           {/* CTAs */}
