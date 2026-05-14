@@ -7,6 +7,7 @@ const techTags = [
   "Full-Text Search",
   "Journey Engine",
   "MCP Native",
+  "Model-Agnostic",
   "SuperGraph Federation",
   "GLiNER-Purple8 NER",
   "70+ File Formats",
