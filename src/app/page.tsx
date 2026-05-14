@@ -5,6 +5,7 @@ import Products from "@/components/Products";
 import Features from "@/components/Features";
 import Industries from "@/components/Industries";
 import Pricing from "@/components/Pricing";
+import BuiltOnPurple8 from "@/components/BuiltOnPurple8";
 import WaitlistCTA from "@/components/WaitlistCTA";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
@@ -27,6 +28,9 @@ export default function Home() {
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <Pricing />
+        </FadeIn>
+        <FadeIn direction="up" delay={0}>
+          <BuiltOnPurple8 />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <WaitlistCTA />
