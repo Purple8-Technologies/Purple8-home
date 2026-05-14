@@ -180,10 +180,10 @@ export default function Features() {
             </p>
             <ul className="mt-8 space-y-3">
               {[
-                "IFC/BIM, DXF/DWG, STEP, STL — full CAD & engineering format support",
+                "IFC/BIM, DXF/DWG, STEP, STL, G-code — full CAD & engineering format support",
+                "Proprietary GLiNER-Purple8 NER (v3) — two-pass hybrid entity + relationship extraction",
                 "Self-hosted Purple8 OCR — documents never leave your infrastructure",
-                "SharePoint, Confluence, S3, and webhook connectors built in",
-                "Emits entity graphs directly into Hyper Graph",
+                "SharePoint, Confluence, S3, and webhook connectors built in — batch and push modes",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-zinc-400">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
