@@ -31,7 +31,8 @@ export default function Pricing() {
           </h3>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-500">
             Paid tiers are finalising — join the waitlist to be notified when
-            they launch and lock in early-access pricing.
+            they launch and lock in early-access pricing. Every install includes
+            a first-run setup wizard and one-click marketplace activation.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">

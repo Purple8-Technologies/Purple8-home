@@ -58,6 +58,7 @@ export default function Features() {
               {[
                 "openCypher with native graph-vector hybrid search",
                 "Flat Vector, GraphRAG, and Hybrid RAG — all three built in",
+                "CollectionProfile persistence — retrieval quality metrics saved and replayed automatically",
                 "Journey Engine: stateful pipelines with SLA monitoring",
                 "AES-256-GCM envelope encryption, per-tenant key isolation",
               ].map((item) => (

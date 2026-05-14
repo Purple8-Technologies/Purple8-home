@@ -7,6 +7,9 @@ const hyperGraphFeatures = [
   "AES-256-GCM envelope encryption via Local, Vault, AWS KMS, GCP KMS, or Azure Key Vault",
   "Multi-tenancy with per-tenant DEK — tenant isolation enforced at the storage layer",
   "Rust-accelerated core for full-text search, SLA scanning & document indexing",
+  "Autonomous RAG tuning — profile_collection & tune_collection optimise retrieval quality automatically",
+  "LCNC Admin Console — no-code graph administration, schema management & real-time monitoring",
+  "Nuitka compiled distribution — zero .py source shipped, tamper-resistant binary for production deployments",
 ];
 
 const docIntelFeatures = [
@@ -91,7 +94,7 @@ export default function Products() {
 
               <div className="flex items-center gap-3">
                 <h3 className="text-xl font-bold text-white">Purple8 Hyper Graph</h3>
-                <span className="rounded-full border border-purple-700/40 bg-purple-900/30 px-2.5 py-0.5 text-xs text-purple-400">v0.46</span>
+                <span className="rounded-full border border-purple-700/40 bg-purple-900/30 px-2.5 py-0.5 text-xs text-purple-400">v0.51</span>
               </div>
               <p className="mt-1 text-sm text-zinc-500">Hyper Graph — a category of one</p>
 
