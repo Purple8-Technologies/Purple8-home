@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Purple8Logo from "@/components/Purple8Logo";
 
 const links = [
   { href: "#products", label: "Products" },
@@ -29,10 +30,10 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
-            <span className="text-xl font-bold tracking-tight text-white">
-              <span className="text-purple-400">Purple</span>
-              <span className="text-white">8</span>
+          <a href="#" className="flex items-center gap-2.5">
+            <Purple8Logo className="h-8 w-16" />
+            <span className="text-sm font-semibold tracking-tight text-white">
+              Purple<span className="text-purple-400">8</span>
             </span>
             <span className="hidden text-xs font-medium text-zinc-500 sm:block">
               Technologies
