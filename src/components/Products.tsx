@@ -2,8 +2,7 @@ const hyperGraphFeatures = [
   "Graph + vector + document store + full-text — one embedded engine, no JVM, no external services",
   "openCypher query language with native hybrid graph-vector search",
   "Journey Engine: stateful workflow orchestration with SLA monitoring & human-in-the-loop",
-  "Native MCP server — Flat Vector, GraphRAG & Hybrid RAG exposed as AI agent tools",
-  "Three production RAG architectures: Flat Vector, GraphRAG, and Hybrid Graph-Vector",
+  "Native MCP server — Flat Vector, GraphRAG & Hybrid RAG exposed as native AI agent tools",
   "SuperGraph Federation: cross-instance Cypher with explicit human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS KMS, GCP KMS, or Azure Key Vault",
   "Multi-tenancy with per-tenant DEK — tenant isolation enforced at the storage layer",
@@ -116,6 +115,47 @@ export default function Products() {
               </div>
 
               <FeatureList items={hyperGraphFeatures} />
+
+              {/* RAG architecture comparison */}
+              <div className="mt-6 rounded-xl border border-purple-900/40 bg-zinc-950/60 p-4">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-purple-500">
+                  Three RAG Architectures, One Engine
+                </p>
+                <div className="space-y-2">
+                  {/* Row header */}
+                  <div className="grid grid-cols-[1fr_auto] gap-2 px-1 text-xs text-zinc-600">
+                    <span>Architecture</span>
+                    <span>MRR@10</span>
+                  </div>
+                  {/* Flat Vector */}
+                  <div className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg bg-zinc-900/60 px-3 py-2">
+                    <div>
+                      <span className="text-sm font-medium text-zinc-300">Flat Vector</span>
+                      <p className="text-xs text-zinc-600">Standard semantic similarity search</p>
+                    </div>
+                    <span className="font-mono text-sm font-bold text-zinc-400">0.64</span>
+                  </div>
+                  {/* GraphRAG */}
+                  <div className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg bg-zinc-900/60 px-3 py-2">
+                    <div>
+                      <span className="text-sm font-medium text-zinc-300">GraphRAG</span>
+                      <p className="text-xs text-zinc-600">Multi-hop subgraph context</p>
+                    </div>
+                    <span className="font-mono text-sm font-bold text-zinc-400">0.76</span>
+                  </div>
+                  {/* Hybrid */}
+                  <div className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg border border-purple-700/30 bg-purple-950/40 px-3 py-2">
+                    <div>
+                      <span className="text-sm font-medium text-purple-300">Hybrid Graph-Vector</span>
+                      <p className="text-xs text-zinc-500">Result fusion + semantic path scoring</p>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-mono text-sm font-bold text-purple-400">0.85</span>
+                      <p className="text-xs text-purple-600">+117% vs flat</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div className="mt-8 flex items-center gap-4">
                 <a href="#waitlist" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
