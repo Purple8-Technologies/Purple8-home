@@ -12,16 +12,16 @@ const hyperGraphFeatures = [
 ];
 
 const docIntelFeatures = [
-  "PDF, DOCX, XLSX, PPTX, HTML, TXT, CSV, EML, EPUB — all standard enterprise formats",
-  "IFC/IFCZIP (IFC2x3/4/4x3), DXF, DWG, STEP, STL, OBJ, GLTF/GLB, G-code — CAD & BIM native",
-  "Sketch & whiteboard analysis via GPT-4o vision, Azure AI Vision, or Google Vision",
+  "PDF, DOCX, XLSX, PPTX, HTML, EML, EPUB, TXT/CSV — all standard enterprise formats",
+  "IFC/IFCZIP (IFC2x3/4/4x3), DXF, DWG, STEP, STL, OBJ, GLTF/GLB, G-code — full CAD & BIM native",
+  "SAP IDocs, financial XML, structured config formats",
+  "Proprietary GLiNER-Purple8 NER model (v3) — two-pass hybrid: GLiNER entities + LLM relationships",
   "5 OCR engines: Tesseract · Azure Document Intelligence · Google Vision · AWS Textract · Purple8 OCR",
-  "Purple8 OCR — self-hosted, zero data egress: proprietary preprocessing pipeline with layout detection and table reconstruction. Keeps sensitive documents entirely within your infrastructure.",
-  "Proprietary GLiNER-Purple8 NER model fine-tuned on domain corpora — multi-stage entity and relationship extraction",
-  "Connectors: SharePoint (MS Graph), Confluence, AWS S3, generic webhook (batch + push)",
-  "SSE streaming results, Redis-backed job store, concurrent pipeline with backpressure control",
-  "Emits structured entity graphs directly into Purple8 Hyper Graph",
-  "Sends agentic hints to Hyper Graph for optimised chunking and embedding strategy",
+  "Purple8 OCR — self-hosted, zero data egress: proprietary preprocessing with layout detection and table reconstruction",
+  "75+ language detection (lingua) — entity names extracted in native script",
+  "5 domain extraction profiles: AEC · Contract · Financial · Scientific · General",
+  "Connectors: SharePoint (MS Graph), Confluence, AWS S3, generic webhook — batch + push",
+  "Emits entity graphs directly into Hyper Graph; sends agentic chunking hints for optimised embedding strategy",
 ];
 
 function FeatureList({ items }: { items: string[] }) {
