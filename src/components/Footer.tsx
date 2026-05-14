@@ -26,9 +26,8 @@ export default function Footer() {
               </span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-zinc-600">
-              AI-native infrastructure for enterprises and developers. Graph,
-              vector, document intelligence, and workflow orchestration — one
-              embedded process, no external dependencies.
+              AI infrastructure software for enterprises and developers — deploy
+              anywhere, no external dependencies.
             </p>
             <p className="mt-4 text-xs text-zinc-700">
               Purple8 Technologies Inc. · Incorporated in Delaware, USA
