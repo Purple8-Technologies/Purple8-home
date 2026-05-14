@@ -93,7 +93,7 @@ export default function Products() {
                 <h3 className="text-xl font-bold text-white">Purple8 Hyper Graph</h3>
                 <span className="rounded-full border border-purple-700/40 bg-purple-900/30 px-2.5 py-0.5 text-xs text-purple-400">v0.46</span>
               </div>
-              <p className="mt-1 text-sm text-zinc-500">Hyper Graph DB — new category of database</p>
+              <p className="mt-1 text-sm text-zinc-500">Hyper Graph — a category of one</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                 A unified embedded engine combining graph storage, vector search, document
