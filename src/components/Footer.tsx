@@ -1,3 +1,5 @@
+import Purple8Logo from "@/components/Purple8Logo";
+
 const productLinks = [
   { label: "Hyper Graph", href: "#products" },
   { label: "DocIntel", href: "#products" },
@@ -17,14 +19,13 @@ export default function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-bold tracking-tight text-white">
-                <span className="text-purple-400">Purple</span>8
+            <a href="#" className="flex items-center gap-2.5">
+              <Purple8Logo className="h-8 w-16" />
+              <span className="text-sm font-semibold tracking-tight text-white">
+                Purple<span className="text-purple-400">8</span>
               </span>
-              <span className="text-xs font-medium text-zinc-600">
-                Technologies
-              </span>
-            </div>
+              <span className="text-xs font-medium text-zinc-500">Technologies</span>
+            </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-zinc-600">
               AI-native infrastructure for enterprises and developers. Graph,
               vector, document intelligence, and workflow orchestration — one
