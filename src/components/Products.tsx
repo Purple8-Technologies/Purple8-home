@@ -3,12 +3,11 @@ const hyperGraphFeatures = [
   "openCypher query language with native hybrid graph-vector search",
   "Journey Engine: stateful workflow orchestration with SLA monitoring & human-in-the-loop",
   "Native MCP server — Flat Vector, GraphRAG & Hybrid RAG exposed as AI agent tools",
-  "Three production RAG architectures: Flat Vector, GraphRAG, and Hybrid Graph-Vector (MRR@10: 0.85)",
+  "Three production RAG architectures: Flat Vector, GraphRAG, and Hybrid Graph-Vector",
   "SuperGraph Federation: cross-instance Cypher with explicit human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS KMS, GCP KMS, or Azure Key Vault",
-  "Multi-tenancy with per-tenant DEK — 0 isolation leaks validated across 500 tenants",
+  "Multi-tenancy with per-tenant DEK — tenant isolation enforced at the storage layer",
   "Rust-accelerated core for full-text search, SLA scanning & document indexing",
-  "Benchmarked: 9M nodes · 19k edges/sec · 251k QPS doc reads · sub-millisecond point lookup",
 ];
 
 const docIntelFeatures = [
@@ -56,15 +55,6 @@ function ProductBadge({ label }: { label: string }) {
     <span className="rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-0.5 text-xs font-medium text-purple-300">
       {label}
     </span>
-  );
-}
-
-function BenchmarkPill({ metric, value }: { metric: string; value: string }) {
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-center">
-      <div className="text-base font-bold text-purple-400">{value}</div>
-      <div className="mt-0.5 text-xs leading-tight text-zinc-600">{metric}</div>
-    </div>
   );
 }
 
@@ -163,16 +153,16 @@ export default function Products() {
               </p>
 
               {/* Stat pills */}
-              <div className="mt-5 grid grid-cols-3 gap-2">
-                <BenchmarkPill metric="File formats" value="70+" />
-                <BenchmarkPill metric="Parallel LLM windows" value="8×" />
-                <BenchmarkPill metric="Connectors" value="4" />
+              <div className="mt-5 flex flex-wrap gap-2">
+                <ProductBadge label="70+ File Formats" />
+                <ProductBadge label="CAD & BIM/IFC Native" />
+                <ProductBadge label="Zero Data Egress" />
+                <ProductBadge label="Self-Hosted OCR" />
+                <ProductBadge label="Parallel Extraction" />
               </div>
 
               <div className="mt-5 flex flex-wrap gap-2">
                 <ProductBadge label="GLiNER-Purple8" />
-                <ProductBadge label="CAD & BIM/IFC" />
-                <ProductBadge label="OCR" />
                 <ProductBadge label="SharePoint" />
                 <ProductBadge label="Confluence" />
               </div>
