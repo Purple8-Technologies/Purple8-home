@@ -30,7 +30,7 @@ export default function Footer() {
               anywhere, no external dependencies.
             </p>
             <p className="mt-4 text-xs text-zinc-700">
-              Purple8 Technologies Inc. · Incorporated in Delaware, USA
+              Purple8 Inc. · Incorporated in Delaware, USA
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-8 sm:flex-row">
           <p className="text-xs text-zinc-700">
-            © {new Date().getFullYear()} Purple8 Technologies Inc. All rights
+            © {new Date().getFullYear()} Purple8 Inc. All rights
             reserved.
           </p>
           <div className="flex gap-6">

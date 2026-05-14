@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     "AI-native",
     "Purple8",
   ],
-  authors: [{ name: "Purple8 Technologies", url: "https://www.purple8.ai" }],
-  creator: "Purple8 Technologies",
+  authors: [{ name: "Purple8 Inc.", url: "https://www.purple8.ai" }],
+  creator: "Purple8 Inc.",
   robots: {
     index: true,
     follow: true,
