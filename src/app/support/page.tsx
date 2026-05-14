@@ -50,49 +50,12 @@ export default function SupportPage() {
                       → GitHub Discussions
                     </a>
                   </li>
-                  <li>
-                    <a href="https://github.com/Purple8-Technologies/purple8-graph/blob/main/CHANGELOG.md"
-                       target="_blank" rel="noopener noreferrer"
-                       className="hover:text-purple-400 transition-colors">
-                      → Changelog
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/Purple8-Technologies/purple8-graph"
-                       target="_blank" rel="noopener noreferrer"
-                       className="hover:text-purple-400 transition-colors">
-                      → GitHub repo
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-slate-300 mb-2">Response times</h3>
-                <ul className="space-y-1.5 text-slate-500">
-                  <li className="flex justify-between">
-                    <span>Bug / question</span>
-                    <span className="text-green-500">≤ 15 min</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Feature request</span>
-                    <span className="text-slate-400">logged + ack'd</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Billing / account</span>
-                    <span className="text-amber-400">human reply</span>
-                  </li>
                 </ul>
               </div>
 
               <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
                 <p className="text-xs text-slate-500">
-                  🔒 Security vulnerabilities? Please email{" "}
-                  <a href="mailto:security@purple8.ai"
-                     className="text-purple-400 hover:text-purple-300">
-                    security@purple8.ai
-                  </a>{" "}
-                  instead of using this form.
+                  🔒 Security vulnerabilities? Select <span className="text-purple-400">Bug report</span> and set the subject to <span className="text-slate-300">Security:</span> — tickets are handled confidentially.
                 </p>
               </div>
             </div>
