@@ -262,7 +262,7 @@ export default function SupportTicket() {
       </button>
 
       <p className="text-center text-xs text-slate-600">
-        Billing or account questions always go to a human — never automated.
+        All tickets are reviewed by the Purple8 team.
       </p>
     </form>
   );
