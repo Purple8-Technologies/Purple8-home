@@ -52,12 +52,6 @@ export default function SupportPage() {
                   </li>
                 </ul>
               </div>
-
-              <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
-                <p className="text-xs text-slate-500">
-                  🔒 Security vulnerabilities? Select the <span className="text-purple-400">Security</span> category — tickets are handled confidentially.
-                </p>
-              </div>
             </div>
           </aside>
 
