@@ -141,10 +141,10 @@ export default function Features() {
             </p>
             <ul className="mt-8 space-y-3">
               {[
-                "Works with any MCP-compatible agent or framework",
-                "Model-agnostic — bring OpenAI, Anthropic, Gemini, or any open-weight model",
-                "Journey Engine handles retries, SLAs, and human approval gates",
-                "Sub-millisecond node lookup; no round-trip to external services",
+                "22 tools across graph.*, rag.*, journey.*, data.* — all RBAC-enforced",
+                "Works with Claude Code, Cursor, GitHub Copilot, Windsurf, and any MCP-compatible agent",
+                "Model-agnostic: OpenAI, Anthropic, Gemini, Ollama, or any open-weight model",
+                "Agents autonomously tune RAG, track SLAs, and resolve HITL decisions — no human intermediary",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-zinc-400">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" />
