@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-type Category = "bug" | "question" | "feature_request" | "security" | "billing" | "other";
+type Category = "bug" | "installation" | "question" | "feature_request" | "documentation" | "security" | "billing" | "other";
 type Product   = "hyper_graph" | "docintel" | "general";
 type Status    = "idle" | "loading" | "success" | "error";
 
@@ -19,12 +19,14 @@ interface FormData {
 const CC_BASE_URL = process.env.NEXT_PUBLIC_CC_BASE_URL ?? "";
 
 const CATEGORIES: { value: Category; label: string; emoji: string }[] = [
-  { value: "bug",             label: "Bug report",       emoji: "🐛" },
-  { value: "question",        label: "Question",         emoji: "❓" },
-  { value: "feature_request", label: "Feature request",  emoji: "💡" },
-  { value: "security",        label: "Security",         emoji: "🔒" },
-  { value: "billing",         label: "Billing / account",emoji: "💳" },
-  { value: "other",           label: "Other",            emoji: "📋" },
+  { value: "bug",             label: "Bug report",         emoji: "🐛" },
+  { value: "installation",    label: "Installation / setup",emoji: "⚙️" },
+  { value: "question",        label: "Question",           emoji: "❓" },
+  { value: "feature_request", label: "Feature request",    emoji: "💡" },
+  { value: "documentation",   label: "Documentation",      emoji: "📖" },
+  { value: "security",        label: "Security",           emoji: "🔒" },
+  { value: "billing",         label: "Billing / account",  emoji: "💳" },
+  { value: "other",           label: "Other",              emoji: "📋" },
 ];
 
 const PRODUCTS: { value: Product; label: string }[] = [
