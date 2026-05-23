@@ -13,7 +13,7 @@ interface Stat {
 const STATS: Stat[] = [
   { numeric: 8.84, decimals: 2, suffix: "M", label: "Nodes validated" },
   { numeric: 3.5, suffix: "ms", label: "p50 at 100K passages" },
-  { numeric: 87, suffix: "%", label: "Fewer servers vs. standard AI stack" },
+  { numeric: 182, suffix: "×", label: "Faster than BM25" },
   { numeric: 4500, suffix: "+", label: "Automated tests" },
   { numeric: 70, suffix: "+", label: "File formats (DocIntel)" },
   { numeric: 67, label: "Graph & AEC algorithms" },

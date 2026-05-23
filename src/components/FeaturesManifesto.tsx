@@ -45,7 +45,7 @@ const EIGHT = [
   {
     claim: "AI-native. Without burning the planet.",
     proof:
-      "One process instead of twelve services means ~87% fewer servers per deployment. The same AI capability. A fraction of the energy. That's not a trade-off — it's the point.",
+      "One process instead of twelve services means fewer servers, less idle compute, and no cross-service network waste. The architecture is the efficiency argument — not a benchmark number.",
   },
   {
     claim: "You own it. Completely.",
