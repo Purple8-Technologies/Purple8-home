@@ -26,7 +26,7 @@ export default function Hero() {
           <p className="mt-7 max-w-lg text-lg leading-relaxed text-zinc-400">
             From idea to production in days, not months. Graph, vector, document
             intelligence, and workflow orchestration — one embedded process, no
-            external services.
+            external services, no wasted compute.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -46,7 +46,7 @@ export default function Hero() {
 
           {/* 4 tags max */}
           <div className="mt-12 flex flex-wrap gap-2.5">
-            {["openCypher", "MCP Native", "Model-Agnostic", "Rust Core"].map((tag) => (
+            {["openCypher", "MCP Native", "Model-Agnostic", "Self-Hosted"].map((tag) => (
               <span
                 key={tag}
                 className="rounded-full border border-zinc-800 bg-zinc-900/60 px-3.5 py-1 text-xs text-zinc-500"
