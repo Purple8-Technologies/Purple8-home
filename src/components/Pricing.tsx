@@ -178,6 +178,26 @@ function Cell({
 export default function Pricing() {
   const [billing, setBilling] = useState<BillingCycle>("monthly");
   const [tableOpen, setTableOpen] = useState(false);
+  const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
+
+  async function handleCheckout(planId: PlanId) {
+    if (loadingPlan) return;
+    setLoadingPlan(planId);
+    try {
+      const res = await fetch("/checkout/create-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: planId, billing }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json();
+      window.location.href = data.checkout_url ?? data.redirect_url;
+    } catch {
+      window.location.href = "mailto:sales@purple8.ai?subject=Checkout%20issue";
+    } finally {
+      setLoadingPlan(null);
+    }
+  }
 
   return (
     <section id="pricing" className="bg-[#0a0a0f] py-24 sm:py-32">
@@ -259,18 +279,38 @@ export default function Pricing() {
                 {plan.tagline}
               </p>
 
-              <a
-                href={plan.ctaHref}
-                className={`mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors ${
-                  plan.highlight
-                    ? "bg-purple-600 text-white hover:bg-purple-500"
-                    : plan.id === "enterprise"
-                    ? "border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
-                    : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
-                }`}
-              >
-                {plan.cta}
-              </a>
+              {plan.id === "developer" ? (
+                /* Developer — direct GitHub download link */
+                <a
+                  href={plan.ctaHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
+                >
+                  {plan.cta}
+                </a>
+              ) : plan.id === "enterprise" ? (
+                /* Enterprise — direct mailto */
+                <a
+                  href={plan.ctaHref}
+                  className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
+                >
+                  {plan.cta}
+                </a>
+              ) : (
+                /* Starter / Pro — Stripe checkout via POST */
+                <button
+                  onClick={() => handleCheckout(plan.id)}
+                  disabled={loadingPlan !== null}
+                  className={`mt-6 w-full rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
+                    plan.highlight
+                      ? "bg-purple-600 text-white hover:bg-purple-500"
+                      : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
+                  }`}
+                >
+                  {loadingPlan === plan.id ? "Redirecting…" : plan.cta}
+                </button>
+              )}
             </div>
           ))}
         </div>
