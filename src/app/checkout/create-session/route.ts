@@ -10,12 +10,12 @@
  *
  * Env vars required:
  *   COMMAND_CENTER_URL          — e.g. https://cc.purple8.ai
- *   COMMAND_CENTER_BOOTSTRAP_TOKEN — internal service token
+ *   COMMAND_CENTER_SERVICE_KEY  — shared secret for machine-to-machine auth
  */
 import { NextRequest, NextResponse } from "next/server";
 
 const CC_URL = process.env.COMMAND_CENTER_URL ?? "https://cc.purple8.ai";
-const CC_TOKEN = process.env.COMMAND_CENTER_BOOTSTRAP_TOKEN ?? "";
+const CC_TOKEN = process.env.COMMAND_CENTER_SERVICE_KEY ?? "";
 
 // Map marketing plan name → Command Center plan name
 const PLAN_MAP: Record<string, string> = {
