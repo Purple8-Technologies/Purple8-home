@@ -1,0 +1,107 @@
+name: Beta Intake Triage
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Identify beta application issue
+        id: detect
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+            const title = context.payload.issue.title || "";
+            const getField = (label) => {
+              const re = new RegExp(`### ${label}\\n([\\s\\S]*?)(?:\\n### |$)`, "m");
+              const match = body.match(re);
+              return match ? match[1].trim() : "";
+            };
+            const looksLikeBeta = title.includes("[Beta Application]") || body.includes("beta licenses are full-access but time-bound to 30 days");
+            core.setOutput("is_beta", looksLikeBeta ? "true" : "false");
+
+            if (looksLikeBeta) {
+              const event = {
+                source_repo: `${context.repo.owner}/${context.repo.repo}`,
+                issue_number: context.payload.issue.number,
+                issue_title: context.payload.issue.title || "",
+                issue_url: context.payload.issue.html_url || "",
+                applicant_email: getField("Work email"),
+                applicant_name: getField("Full name"),
+                company: getField("Company"),
+                intent: "beta",
+                stage: "intake_captured",
+                actor: context.actor || "",
+                metadata: {
+                  workflow: "beta-intake-triage",
+                  intent: "beta",
+                  use_type: getField("Usage type"),
+                },
+              };
+              core.setOutput("event_json", JSON.stringify(event));
+            }
+
+      - name: Apply beta labels and acknowledgement
+        if: steps.detect.outputs.is_beta == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.payload.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number,
+              labels: ["beta-intake", "pending-review"]
+            });
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: [
+                "✅ Thanks — your beta application has been captured.",
+                "",
+                "Next steps:",
+                "1. Internal review (fit + priority)",
+                "2. If approved, issue will be labeled `beta-approved`",
+                "3. A 30-day full-access beta license will be generated and sent by email"
+              ].join("\n")
+            });
+
+      - name: Send intake event to Command Center
+        if: steps.detect.outputs.is_beta == 'true'
+        env:
+          CC_BASE_URL: ${{ vars.CC_BASE_URL }}
+          CC_BETA_MONITOR_TOKEN: ${{ secrets.CC_BETA_MONITOR_TOKEN }}
+          EVENT_JSON: ${{ steps.detect.outputs.event_json }}
+        run: |
+          if [ -z "${CC_BASE_URL:-}" ] || [ -z "${CC_BETA_MONITOR_TOKEN:-}" ]; then
+            echo "Command Center monitor is not configured; skipping beta event forward."
+            exit 0
+          fi
+          printf '%s' "$EVENT_JSON" > /tmp/beta-event.json
+          success=0
+          for attempt in 1 2 3; do
+            if curl --fail --silent --show-error --max-time 10 \
+              -X POST "${CC_BASE_URL}/public/beta-event" \
+              -H "Content-Type: application/json" \
+              -H "X-Beta-Monitor-Token: ${CC_BETA_MONITOR_TOKEN}" \
+              --data @/tmp/beta-event.json; then
+              success=1
+              break
+            fi
+            sleep $((attempt * 2))
+          done
+
+          if [ "$success" -ne 1 ]; then
+            echo "::warning::Command Center event forwarding failed after retries (non-blocking)."
+          fi

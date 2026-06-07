@@ -1,0 +1,110 @@
+name: Waitlist Intake Triage
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Identify general waitlist issue
+        id: detect
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+            const title = context.payload.issue.title || "";
+            const getField = (label) => {
+              const re = new RegExp(`### ${label}\\n([\\s\\S]*?)(?:\\n### |$)`, "m");
+              const match = body.match(re);
+              return match ? match[1].trim() : "";
+            };
+
+            const looksLikeWaitlist =
+              title.includes("[Waitlist]") ||
+              body.includes("general waitlist") ||
+              body.includes("not the reviewed beta application flow");
+
+            core.setOutput("is_waitlist", looksLikeWaitlist ? "true" : "false");
+
+            if (looksLikeWaitlist) {
+              const event = {
+                source_repo: `${context.repo.owner}/${context.repo.repo}`,
+                issue_number: context.payload.issue.number,
+                issue_title: context.payload.issue.title || "",
+                issue_url: context.payload.issue.html_url || "",
+                applicant_email: getField("Email") || getField("Work email"),
+                applicant_name: getField("Full name"),
+                company: getField("Company"),
+                intent: "waitlist",
+                stage: "intake_captured",
+                actor: context.actor || "",
+                metadata: {
+                  workflow: "waitlist-intake-triage",
+                  intent: "waitlist",
+                  use_type: getField("Usage type"),
+                },
+              };
+              core.setOutput("event_json", JSON.stringify(event));
+            }
+
+      - name: Apply waitlist labels and acknowledgement
+        if: steps.detect.outputs.is_waitlist == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.payload.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number,
+              labels: ["waitlist-intake"]
+            });
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: [
+                "✅ Thanks — you’ve been added to the Purple8 general waitlist.",
+                "",
+                "We’ll notify you on launch milestones and access updates.",
+                "If you want reviewed 30-day full-access beta evaluation, submit the Beta Application form."
+              ].join("\n")
+            });
+
+      - name: Send waitlist event to Command Center
+        if: steps.detect.outputs.is_waitlist == 'true'
+        env:
+          CC_BASE_URL: ${{ vars.CC_BASE_URL }}
+          CC_BETA_MONITOR_TOKEN: ${{ secrets.CC_BETA_MONITOR_TOKEN }}
+          EVENT_JSON: ${{ steps.detect.outputs.event_json }}
+        run: |
+          if [ -z "${CC_BASE_URL:-}" ] || [ -z "${CC_BETA_MONITOR_TOKEN:-}" ]; then
+            echo "Command Center monitor is not configured; skipping waitlist event forward."
+            exit 0
+          fi
+          printf '%s' "$EVENT_JSON" > /tmp/waitlist-event.json
+          success=0
+          for attempt in 1 2 3; do
+            if curl --fail --silent --show-error --max-time 10 \
+              -X POST "${CC_BASE_URL}/public/beta-event" \
+              -H "Content-Type: application/json" \
+              -H "X-Beta-Monitor-Token: ${CC_BETA_MONITOR_TOKEN}" \
+              --data @/tmp/waitlist-event.json; then
+              success=1
+              break
+            fi
+            sleep $((attempt * 2))
+          done
+
+          if [ "$success" -ne 1 ]; then
+            echo "::warning::Command Center event forwarding failed after retries (non-blocking)."
+          fi

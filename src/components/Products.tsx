@@ -1,27 +1,27 @@
 const hyperGraphFeatures = [
-  "Graph + vector + document store + full-text — one embedded engine, one process, one port",
-  "openCypher with native hybrid graph-vector search and a cost-based query planner (6 strategies)",
-  "3 built-in RAG modes: Flat Vector (MRR 0.64), GraphRAG (MRR 0.76), Hybrid RAG (MRR 0.85)",
-  "Autonomous RAG tuning — agents profile, grid-search, and persist optimal retrieval params via MCP",
-  "Journey Engine v0.16.2: stateful workflows, SLA monitoring, HITL gates, AI step persistence",
-  "22-tool MCP server across graph.*, rag.*, journey.*, data.* — RBAC-enforced, works with Claude/Cursor/Copilot",
-  "SuperGraph Federation: cross-instance Cypher with human approval gates",
-  "AES-256-GCM envelope encryption via Local, Vault, AWS KMS, GCP KMS, or Azure Key Vault",
-  "Per-tenant DEK isolation enforced at the storage layer — SOC vertical included",
-  "LCNC Admin Console — browser-based admin UI, zero npm, zero config",
+  "Storage, vector search, document store, and full-text — one embedded engine, one process, one port",
+  "Native hybrid search with a cost-based query planner — no separate search service",
+  "Three built-in RAG modes: flat vector, graph-augmented, and hybrid — MRR 0.85 on the hybrid path",
+  "Autonomous RAG tuning — the system profiles your corpus and persists optimal retrieval configuration",
+  "Stateful workflow engine: multi-stage pipelines, SLA monitoring, human-approval gates, AI step persistence",
+  "22-tool agent interface — RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent",
+  "Cross-instance federated queries with human approval gates",
+  "AES-256-GCM envelope encryption via Local, Vault, AWS, GCP, or Azure key management",
+  "Per-tenant key isolation enforced at the storage layer — autonomous threat detection included",
+  "Browser-based admin console — zero npm, zero config",
 ];
 
 const docIntelFeatures = [
   "PDF, DOCX, XLSX, PPTX, HTML, EML, EPUB, TXT/CSV — all standard enterprise formats",
-  "IFC/IFCZIP (IFC2x3/4/4x3), DXF, DWG, STEP, STL, OBJ, GLTF/GLB, G-code — full CAD & BIM native",
+  "IFC/IFCZIP, DXF, DWG, STEP, STL, OBJ, GLTF/GLB, G-code — full CAD & BIM native",
   "SAP IDocs, financial XML, structured config formats",
-  "Proprietary GLiNER-Purple8 NER model (v3) — two-pass hybrid: GLiNER entities + LLM relationships",
-  "5 OCR engines: Tesseract · Azure Document Intelligence · Google Vision · AWS Textract · Purple8 OCR",
-  "Purple8 OCR — self-hosted, zero data egress: proprietary preprocessing with layout detection and table reconstruction",
-  "75+ language detection (lingua) — entity names extracted in native script",
-  "5 domain extraction profiles: AEC · Contract · Financial · Scientific · General",
-  "Connectors: SharePoint (MS Graph), Confluence, AWS S3, generic webhook — batch + push",
-  "Emits entity graphs directly into Hyper Graph; sends agentic chunking hints for optimised embedding strategy",
+  "Proprietary NER model — two-pass hybrid: named entity extraction + LLM relationship mapping",
+  "Five OCR engines including a self-hosted option — documents never leave your infrastructure",
+  "Self-hosted OCR with proprietary preprocessing, layout detection, and table reconstruction",
+  "75+ language detection — entity names extracted in their native script",
+  "Five domain extraction profiles: AEC · Contract · Financial · Scientific · General",
+  "Connectors: SharePoint, Confluence, AWS S3, and generic webhook — batch and push modes",
+  "Emits structured knowledge directly into Purple8; sends optimised embedding hints automatically",
 ];
 
 function FeatureList({ items }: { items: string[] }) {
@@ -92,28 +92,27 @@ export default function Products() {
               </div>
 
               <div className="flex items-center gap-3">
-                <h3 className="text-xl font-bold text-white">Purple8 Hyper Graph</h3>
-                <span className="rounded-full border border-purple-700/40 bg-purple-900/30 px-2.5 py-0.5 text-xs text-purple-400">v0.51</span>
+                <h3 className="text-xl font-bold text-white">Purple8</h3>
               </div>
-              <p className="mt-1 text-sm text-zinc-500">Hyper Graph — a category of one</p>
+              <p className="mt-1 text-sm text-zinc-500">A category of one</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                A unified embedded engine combining graph storage, vector search, document
-                store, and full-text search. Ships with a Journey Engine for stateful AI
-                workflows, a native MCP server, three production RAG architectures, and AES-256-GCM
-                envelope encryption. No JVM. Docker image and native installers available.
+                A unified AI-native backend — storage, vector search, document store,
+                full-text, workflow orchestration, RAG, auth, and encryption in a single
+                process. No JVM. No external services. Docker image and native installers
+                available.
               </p>
 
-              {/* Live benchmark pills */}
+              {/* Capability badges */}
               <div className="mt-5 flex flex-wrap gap-2">
-                <ProductBadge label="openCypher" />
-                <ProductBadge label="Journey Engine" />
-                <ProductBadge label="MCP Native" />
-                <ProductBadge label="Claude Code" />
+                <ProductBadge label="Agent Native" />
+                <ProductBadge label="Stateful Workflows" />
+                <ProductBadge label="Hybrid RAG" />
+                <ProductBadge label="Claude" />
                 <ProductBadge label="Cursor" />
                 <ProductBadge label="GitHub Copilot" />
-                <ProductBadge label="SuperGraph" />
-                <ProductBadge label="Rust Core" />
+                <ProductBadge label="Federated Queries" />
+                <ProductBadge label="Air-Gap Ready" />
               </div>
 
               <FeatureList items={hyperGraphFeatures} />
@@ -142,28 +141,23 @@ export default function Products() {
 
               <div className="flex items-center gap-3">
                 <h3 className="text-xl font-bold text-white">Purple8 DocIntel</h3>
-                <span className="rounded-full border border-violet-700/40 bg-violet-900/30 px-2.5 py-0.5 text-xs text-violet-400">v0.8</span>
               </div>
               <p className="mt-1 text-sm text-zinc-500">Document intelligence microservice</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                A stateless document intelligence microservice that parses 70+ enterprise document formats —
-                including CAD/DXF, BIM/IFC, sketches, and audio — through a proprietary NER model
-                (GLiNER-Purple8) and LLM-assisted extraction. Emits structured entity graphs
-                directly into Purple8 Hyper Graph.
+                A stateless document intelligence microservice that parses 70+ enterprise
+                document formats — including CAD, BIM, sketches, and audio — through a
+                proprietary extraction model and LLM-assisted relationship mapping. Emits
+                structured knowledge directly into Purple8.
               </p>
 
               {/* Stat pills */}
               <div className="mt-5 flex flex-wrap gap-2">
                 <ProductBadge label="70+ File Formats" />
-                <ProductBadge label="CAD & BIM/IFC Native" />
+                <ProductBadge label="CAD & BIM Native" />
                 <ProductBadge label="Zero Data Egress" />
                 <ProductBadge label="Self-Hosted OCR" />
                 <ProductBadge label="Parallel Extraction" />
-              </div>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                <ProductBadge label="GLiNER-Purple8" />
                 <ProductBadge label="SharePoint" />
                 <ProductBadge label="Confluence" />
               </div>

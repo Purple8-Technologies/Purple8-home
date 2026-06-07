@@ -27,7 +27,7 @@ export default function BuiltOnPurple8() {
                 Purple8&apos;s backend operations and customer portal — the entire
                 commercial backend — runs on a single{" "}
                 <code className="rounded bg-zinc-900 px-1.5 py-0.5 text-xs text-purple-300">
-                  Purple8 Hyper Graph
+                  Purple8
                 </code>{" "}
                 instance. No Postgres. No Redis. No message queue. One process,
                 one port.
