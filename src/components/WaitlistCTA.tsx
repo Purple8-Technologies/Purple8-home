@@ -3,21 +3,30 @@
 import { useState } from "react";
 
 type UseType = "personal" | "professional";
+type AccessIntent = "beta" | "waitlist";
 type Status = "idle" | "loading" | "success" | "error";
 
 interface FormData {
   name: string;
   email: string;
+  intent: AccessIntent;
   useType: UseType;
   company: string;
 }
 
 const CC_BASE_URL = process.env.NEXT_PUBLIC_CC_BASE_URL ?? "";
+const BETA_FORM_URL =
+  process.env.NEXT_PUBLIC_BETA_FORM_URL ??
+  "https://github.com/Purple8-Technologies/Purple8-home/issues/new?template=beta-interest.yml";
+const WAITLIST_FORM_URL =
+  process.env.NEXT_PUBLIC_WAITLIST_FORM_URL ??
+  "https://github.com/Purple8-Technologies/Purple8-home/issues/new?template=waitlist-interest.yml";
 
 export default function WaitlistCTA() {
   const [form, setForm] = useState<FormData>({
     name: "",
     email: "",
+    intent: "waitlist",
     useType: "professional",
     company: "",
   });
@@ -36,16 +45,22 @@ export default function WaitlistCTA() {
     const payload = {
       name: form.name.trim(),
       email: form.email.trim(),
+      intent: form.intent,
       use_type: form.useType,
       company: form.useType === "professional" ? form.company.trim() : null,
       source: "purple8.ai/waitlist",
       submitted_at: new Date().toISOString(),
     };
 
-    // If no endpoint is configured yet, simulate success (pre-launch placeholder)
+    // Beta applications are handled in GitHub issue forms + workflows.
+    if (form.intent === "beta") {
+      window.location.href = BETA_FORM_URL;
+      return;
+    }
+
+    // If no endpoint is configured, use the GitHub issue-form waitlist intake.
     if (!CC_BASE_URL) {
-      await new Promise((r) => setTimeout(r, 800));
-      setStatus("success");
+      window.location.href = WAITLIST_FORM_URL;
       return;
     }
 
@@ -131,6 +146,40 @@ export default function WaitlistCTA() {
                 {/* Personal / Professional toggle */}
                 <div>
                   <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+                    Access path
+                  </label>
+                  <div className="inline-flex rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
+                    <button
+                      type="button"
+                      onClick={() => update("intent", "waitlist")}
+                      className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
+                        form.intent === "waitlist"
+                          ? "bg-purple-600 text-white shadow"
+                          : "text-zinc-500 hover:text-zinc-300"
+                      }`}
+                    >
+                      General waitlist
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update("intent", "beta")}
+                      className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
+                        form.intent === "beta"
+                          ? "bg-purple-600 text-white shadow"
+                          : "text-zinc-500 hover:text-zinc-300"
+                      }`}
+                    >
+                      Apply for beta
+                    </button>
+                  </div>
+                  <p className="mt-2 text-xs text-zinc-500">
+                    Beta is a reviewed 30-day full-access evaluation; waitlist is for launch updates.
+                  </p>
+                </div>
+
+                {/* Personal / Professional toggle */}
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-zinc-400">
                     How will you use Purple8?
                   </label>
                   <div className="inline-flex rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
@@ -187,7 +236,11 @@ export default function WaitlistCTA() {
                   disabled={status === "loading"}
                   className="w-full rounded-full bg-purple-600 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#11111b] disabled:opacity-60"
                 >
-                  {status === "loading" ? "Submitting…" : "Request Early Access"}
+                  {status === "loading"
+                    ? "Submitting…"
+                    : form.intent === "beta"
+                      ? "Continue to Beta Application"
+                      : "Join General Waitlist"}
                 </button>
               </form>
             )}
@@ -195,6 +248,19 @@ export default function WaitlistCTA() {
             <p className="mt-6 text-xs text-zinc-600">
               No spam. No auto-subscribe. We only reach out when it&apos;s relevant.
             </p>
+
+            {!CC_BASE_URL && (
+              <p className="mt-2 text-xs text-zinc-500">
+                No API endpoint configured — apply directly via{" "}
+                <a
+                  href={form.intent === "beta" ? BETA_FORM_URL : WAITLIST_FORM_URL}
+                  className="text-purple-400 underline decoration-purple-700/60 underline-offset-2 hover:text-purple-300"
+                >
+                  {form.intent === "beta" ? "GitHub Beta Application Form" : "GitHub Waitlist Form"}
+                </a>
+                .
+              </p>
+            )}
 
             {/* Trust badges */}
             <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
