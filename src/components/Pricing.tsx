@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { CC_BASE_URL } from "@/lib/cc";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -185,7 +186,8 @@ export default function Pricing() {
     if (loadingPlan) return;
     setLoadingPlan(planId);
     try {
-      const res = await fetch("/checkout/create-session", {
+      // Call CC directly — no Next.js server route needed (static GitHub Pages export)
+      const res = await fetch(`${CC_BASE_URL}/billing/checkout/create-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plan: planId, billing }),

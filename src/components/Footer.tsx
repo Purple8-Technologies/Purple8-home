@@ -8,7 +8,7 @@ const productLinks = [
 
 const companyLinks = [
   { label: "About", href: "#" },
-  { label: "Early Access", href: "#waitlist" },
+  { label: "Early Access", href: "/beta" },
   { label: "Support", href: "/support" },
   { label: "Contact", href: "mailto:hello@purple8.ai" },
 ];

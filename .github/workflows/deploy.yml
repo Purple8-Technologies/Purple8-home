@@ -33,6 +33,8 @@ jobs:
 
       - name: Build (static export)
         run: npm run build
+        env:
+          NEXT_PUBLIC_CC_BASE_URL: ${{ secrets.NEXT_PUBLIC_CC_BASE_URL || 'https://cc.purple8.ai' }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
