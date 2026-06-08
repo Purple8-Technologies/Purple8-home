@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -31,7 +32,7 @@ const PLANS: Plan[] = [
     tagline:
       "Full engine locally. All RAG pipelines, all MCP tools, all graph algorithms. No credit card, no expiry.",
     cta: "Download free",
-    ctaHref: "https://github.com/Purple8-Technologies/purple8-graph#readme",
+    ctaHref: "/download",
     highlight: false,
   },
   {
@@ -280,15 +281,13 @@ export default function Pricing() {
               </p>
 
               {plan.id === "developer" ? (
-                /* Developer — direct GitHub download link */
-                <a
+                /* Developer — internal /beta route */
+                <Link
                   href={plan.ctaHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
                 >
                   {plan.cta}
-                </a>
+                </Link>
               ) : plan.id === "enterprise" ? (
                 /* Enterprise — direct mailto */
                 <a
