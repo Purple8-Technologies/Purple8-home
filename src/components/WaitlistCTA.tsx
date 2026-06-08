@@ -15,13 +15,6 @@ interface FormData {
   company: string;
 }
 
-const BETA_FORM_URL =
-  process.env.NEXT_PUBLIC_BETA_FORM_URL ??
-  "https://github.com/Purple8-Technologies/Purple8-home/issues/new?template=beta-interest.yml";
-const WAITLIST_FORM_URL =
-  process.env.NEXT_PUBLIC_WAITLIST_FORM_URL ??
-  "https://github.com/Purple8-Technologies/Purple8-home/issues/new?template=waitlist-interest.yml";
-
 export default function WaitlistCTA() {
   const [form, setForm] = useState<FormData>({
     name: "",
@@ -51,12 +44,6 @@ export default function WaitlistCTA() {
       source: "purple8.ai/waitlist",
       submitted_at: new Date().toISOString(),
     };
-
-    // If no endpoint is configured, fall back to GitHub issue forms.
-    if (!CC_BASE_URL) {
-      window.location.href = form.intent === "beta" ? BETA_FORM_URL : WAITLIST_FORM_URL;
-      return;
-    }
 
     try {
       const res = await fetch(`${CC_BASE_URL}/public/register`, {
@@ -253,19 +240,6 @@ export default function WaitlistCTA() {
               </a>
               .
             </p>
-
-            {!CC_BASE_URL && (
-              <p className="mt-2 text-xs text-zinc-500">
-                No API endpoint configured — apply directly via{" "}
-                <a
-                  href={form.intent === "beta" ? BETA_FORM_URL : WAITLIST_FORM_URL}
-                  className="text-purple-400 underline decoration-purple-700/60 underline-offset-2 hover:text-purple-300"
-                >
-                  {form.intent === "beta" ? "GitHub Beta Application Form" : "GitHub Waitlist Form"}
-                </a>
-                .
-              </p>
-            )}
 
             {/* Trust badges */}
             <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
