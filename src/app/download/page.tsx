@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-const CC_BASE =
-  process.env.NEXT_PUBLIC_CC_BASE_URL ?? "https://cc.purple8.ai";
+import { CC_BASE_URL as CC_BASE } from "@/lib/cc";
 
 type FormState = "idle" | "submitting" | "done" | "error";
 

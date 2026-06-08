@@ -2,9 +2,9 @@
 
 import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { CC_BASE_URL } from "@/lib/cc";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
+// ─── Types ───────────────────────────────────────────────────────────────────
 type BetaState = "unknown" | "pending" | "invited" | "approved";
 
 interface BetaStatusResponse {
@@ -21,13 +21,6 @@ interface BetaStatusResponse {
   beta_agreement_url: string;
   email: string;
 }
-
-const DEFAULT_CC_URL = "https://cc.purple8.ai";
-const CC_BASE_URL = (
-  process.env.NEXT_PUBLIC_CC_BASE_URL ||
-  process.env.NEXT_PUBLIC_COMMAND_CENTER_URL ||
-  DEFAULT_CC_URL
-).replace(/\/$/, "");
 
 const SOFTWARE_USAGE_URL =
   "https://github.com/Purple8-Technologies/purple8-graph/blob/main/legal/EULA.md";

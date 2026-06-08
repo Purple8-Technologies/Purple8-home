@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CC_BASE_URL } from "@/lib/cc";
 
 type UseType = "personal" | "professional";
 type AccessIntent = "beta" | "waitlist";
@@ -14,7 +15,6 @@ interface FormData {
   company: string;
 }
 
-const CC_BASE_URL = process.env.NEXT_PUBLIC_CC_BASE_URL ?? "";
 const BETA_FORM_URL =
   process.env.NEXT_PUBLIC_BETA_FORM_URL ??
   "https://github.com/Purple8-Technologies/Purple8-home/issues/new?template=beta-interest.yml";
@@ -247,6 +247,17 @@ export default function WaitlistCTA() {
 
             <p className="mt-6 text-xs text-zinc-600">
               No spam. No auto-subscribe. We only reach out when it&apos;s relevant.
+            </p>
+
+            <p className="mt-2 text-xs text-zinc-500">
+              Already approved or invited?{" "}
+              <a
+                href="/beta"
+                className="text-purple-400 underline decoration-purple-700/60 underline-offset-2 hover:text-purple-300"
+              >
+                Activate beta access & download
+              </a>
+              .
             </p>
 
             {!CC_BASE_URL && (
