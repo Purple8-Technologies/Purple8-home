@@ -106,7 +106,7 @@ export default function DownloadPage() {
             Get Purple8 Hyper Graph
           </h1>
           <p className="mt-3 text-zinc-400">
-            Full engine · 50K nodes · All 22 MCP tools · No credit card · No expiry
+            Full engine · 50K nodes · All 29 MCP tools · No credit card · No expiry
           </p>
         </div>
 

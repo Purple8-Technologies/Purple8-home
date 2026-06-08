@@ -96,7 +96,7 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "Full-text + vector / semantic search", developer: true, starter: true, pro: true, enterprise: true },
   { label: "ACID transactions", developer: true, starter: true, pro: true, enterprise: true },
   { label: "REST API + Python & TypeScript SDKs", developer: true, starter: true, pro: true, enterprise: true },
-  { label: "ALL 22 MCP tools (graph, rag, data, journey)", developer: true, starter: true, pro: true, enterprise: true },
+  { label: "ALL 29 MCP tools (graph, rag, data, journey)", developer: true, starter: true, pro: true, enterprise: true },
   { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, starter: true, pro: true, enterprise: true },
   // Starter & above
   { category: "Starter & above", label: "Journey Engine + SLA monitoring", developer: false, starter: true, pro: true, enterprise: true },
