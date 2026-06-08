@@ -52,15 +52,9 @@ export default function WaitlistCTA() {
       submitted_at: new Date().toISOString(),
     };
 
-    // Beta applications are handled in GitHub issue forms + workflows.
-    if (form.intent === "beta") {
-      window.location.href = BETA_FORM_URL;
-      return;
-    }
-
-    // If no endpoint is configured, use the GitHub issue-form waitlist intake.
+    // If no endpoint is configured, fall back to GitHub issue forms.
     if (!CC_BASE_URL) {
-      window.location.href = WAITLIST_FORM_URL;
+      window.location.href = form.intent === "beta" ? BETA_FORM_URL : WAITLIST_FORM_URL;
       return;
     }
 
