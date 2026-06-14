@@ -24,7 +24,7 @@ const FEATURES = [
     claim: "AI agents operate it natively.",
     replaces: ["Wrapper APIs", "Custom glue code", "Manual orchestration"],
     outcome:
-      "A first-class agent interface with 22 tools, RBAC-enforced. Claude, Cursor, and Copilot connect directly. An agent can build, query, and monitor your entire backend without a human writing backend code.",
+      "A first-class agent interface with 31 tools, RBAC-enforced. Claude, Cursor, and Copilot connect directly. An agent can build, query, and monitor your entire backend without a human writing backend code.",
   },
   {
     claim: "Three RAG modes.\nSelf-tuning.",

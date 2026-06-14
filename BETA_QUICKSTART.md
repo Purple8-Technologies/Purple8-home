@@ -136,7 +136,7 @@ Point Claude Desktop, Cursor, or any MCP-compatible agent at:
 }
 ```
 
-The MCP server exposes 22 tools across `graph.*`, `rag.*`, `journey.*`, and `data.*` namespaces. Your AI agent can now build and query the entire backend in natural language.
+The MCP server exposes 31 tools across `graph.*`, `rag.*`, `journey.*`, `data.*`, and `memory.*` namespaces. Your AI agent can now build and query the entire backend in natural language.
 
 ---
 

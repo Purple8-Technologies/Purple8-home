@@ -141,7 +141,7 @@ export default function Features() {
             </p>
             <ul className="mt-8 space-y-3">
               {[
-                "22 tools across graph.*, rag.*, journey.*, data.* — all RBAC-enforced",
+                "31 tools across graph.*, rag.*, journey.*, data.* — all RBAC-enforced",
                 "Works with Claude Code, Cursor, GitHub Copilot, Windsurf, and any MCP-compatible agent",
                 "Model-agnostic: OpenAI, Anthropic, Gemini, Ollama, or any open-weight model",
                 "Agents autonomously tune RAG and track SLAs; HITL gates enforce human approval before critical actions",
