@@ -1,10 +1,11 @@
 const hyperGraphFeatures = [
+  "Write only the frontend — storage, search, RAG, workflows, auth, and encryption are all Purple8",
   "Storage, vector search, document store, and full-text — one embedded engine, one process, one port",
   "Native hybrid search with a cost-based query planner — no separate search service",
   "Three built-in RAG modes: flat vector, graph-augmented, and hybrid — MRR 0.85 on the hybrid path",
   "Autonomous RAG tuning — the system profiles your corpus and persists optimal retrieval configuration",
   "Stateful workflow engine: multi-stage pipelines, SLA monitoring, human-approval gates, AI step persistence",
-  "22-tool agent interface — RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent",
+  "30-tool MCP agent interface — RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent",
   "Cross-instance federated queries with human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS, GCP, or Azure key management",
   "Per-tenant key isolation enforced at the storage layer — autonomous threat detection included",
