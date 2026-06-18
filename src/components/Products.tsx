@@ -5,10 +5,10 @@ const hyperGraphFeatures = [
   "Three built-in RAG modes: flat vector, graph-augmented, and hybrid — MRR 0.85 on the hybrid path",
   "Autonomous RAG tuning — the system profiles your corpus and persists optimal retrieval configuration",
   "Stateful workflow engine: multi-stage pipelines, SLA monitoring, human-approval gates, AI step persistence",
-  "30-tool MCP agent interface — RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent",
+  "31-tool MCP agent interface — RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent",
   "Cross-instance federated queries with human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS, GCP, or Azure key management",
-  "Per-tenant key isolation enforced at the storage layer — autonomous threat detection included",
+  "Per-tenant storage isolation enforced at the brick layer — not row filtering. Each tenant gets cryptographically separate data partitions with autonomous threat detection.",
   "Browser-based admin console — zero npm, zero config",
 ];
 
