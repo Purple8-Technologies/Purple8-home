@@ -14,7 +14,7 @@ const STATS: Stat[] = [
   { numeric: 8.84, decimals: 2, suffix: "M", label: "Nodes validated" },
   { numeric: 3.5, suffix: "ms", label: "p50 at 100K passages" },
   { numeric: 182, suffix: "×", label: "Faster than BM25" },
-  { numeric: 4500, suffix: "+", label: "Automated tests" },
+  { numeric: 12, label: "Services replaced" },
   { numeric: 70, suffix: "+", label: "File formats (DocIntel)" },
   { numeric: 67, label: "Graph & AEC algorithms" },
   { numeric: 0.85, decimals: 2, label: "Hybrid RAG MRR@10" },
@@ -66,7 +66,7 @@ export default function Stats() {
   return (
     <section ref={ref} className="border-y border-purple-900/30 bg-[#0d0d17] py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:grid-cols-7">
           {STATS.map((s) => (
             <StatItem key={s.label} stat={s} active={inView} />
           ))}
