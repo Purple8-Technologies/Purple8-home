@@ -24,9 +24,14 @@ export default function Hero() {
           </h1>
 
           <p className="mt-7 max-w-lg text-lg leading-relaxed text-zinc-400">
-            From idea to production in days, not months. Graph, vector, document
-            intelligence, and workflow orchestration — one embedded process, no
-            external services, no wasted compute.
+            AI teams shouldn&apos;t have to stitch together 8–12 backend services just to ship one production workflow.
+            Purple8 replaces fragmented AI infrastructure with one embedded backend for data, retrieval, workflow orchestration,
+            and agent execution.
+          </p>
+
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-zinc-500">
+            Purple8 gives AI agents high-leverage execution over enterprise data and workflows,
+            with built-in governance, isolation, and observability.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
