@@ -80,6 +80,64 @@ const PLANS: Plan[] = [
   },
 ];
 
+// ─── DocIntel plans ───────────────────────────────────────────────────────────
+
+type ProductTab = "graph" | "docintel";
+type DocIntelPlanId = "beta" | "self-hosted" | "enterprise";
+
+interface DocIntelPlan {
+  id: DocIntelPlanId;
+  name: string;
+  price: string;
+  quota: string;
+  seats: string;
+  tagline: string;
+  cta: string;
+  ctaHref: string;
+  highlight: boolean;
+  badge?: string;
+}
+
+const DOCINTEL_PLANS: DocIntelPlan[] = [
+  {
+    id: "beta",
+    name: "Beta",
+    price: "$0",
+    quota: "500 docs/mo",
+    seats: "1 worker",
+    tagline:
+      "Full extraction pipeline. GLiNER NER, LLM relationship extraction, webhook connector, Tesseract + P8OCR. No credit card.",
+    cta: "Start for free",
+    ctaHref: "/beta",
+    highlight: false,
+  },
+  {
+    id: "self-hosted",
+    name: "Self-Hosted",
+    price: "$299",
+    quota: "Unlimited docs",
+    seats: "Unlimited workers",
+    tagline:
+      "Unlimited document processing. All connectors (SharePoint, Confluence, S3), all OCR engines, all LLM providers.",
+    cta: "Get license",
+    ctaHref: "https://purple8.ai/checkout/create-session?plan=docintel",
+    highlight: true,
+    badge: "Most popular",
+  },
+  {
+    id: "enterprise",
+    name: "Enterprise",
+    price: "Custom",
+    quota: "Unlimited",
+    seats: "Unlimited",
+    tagline:
+      "Self-Hosted plus SSO/SAML, air-gapped deployment, custom connectors, and dedicated support SLA.",
+    cta: "Contact sales",
+    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Enterprise%20inquiry",
+    highlight: false,
+  },
+];
+
 // ─── Feature comparison table ─────────────────────────────────────────────────
 
 interface FeatureRow {
@@ -122,6 +180,40 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "Email support", developer: false, starter: true, pro: true, enterprise: true },
   { label: "SLA-backed support", developer: false, starter: false, pro: true, enterprise: true },
   { label: "Dedicated success engineer", developer: false, starter: false, pro: false, enterprise: true },
+];
+
+// ─── DocIntel feature rows ────────────────────────────────────────────────────
+
+interface DocIntelFeatureRow {
+  category?: string;
+  label: string;
+  beta: boolean | string;
+  self_hosted: boolean | string;
+  enterprise: boolean | string;
+}
+
+const DOCINTEL_FEATURE_ROWS: DocIntelFeatureRow[] = [
+  { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, self_hosted: true, enterprise: true },
+  { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, self_hosted: true, enterprise: true },
+  { label: "SAP IDocs", beta: true, self_hosted: true, enterprise: true },
+  { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", self_hosted: true, enterprise: true },
+  { category: "Extraction", label: "GLiNER NER — Pass 1 (all tiers)", beta: true, self_hosted: true, enterprise: true },
+  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", self_hosted: true, enterprise: true },
+  { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, self_hosted: true, enterprise: true },
+  { label: "Custom extraction ontology", beta: true, self_hosted: true, enterprise: true },
+  { category: "OCR Engines", label: "Tesseract + P8OCR (native)", beta: true, self_hosted: true, enterprise: true },
+  { label: "Azure Document Intelligence", beta: false, self_hosted: true, enterprise: true },
+  { label: "Google Vision / AWS Textract", beta: false, self_hosted: true, enterprise: true },
+  { category: "Connectors", label: "Webhook (inbound push)", beta: true, self_hosted: true, enterprise: true },
+  { label: "SharePoint + Confluence sync", beta: false, self_hosted: true, enterprise: true },
+  { label: "AWS S3 sync", beta: false, self_hosted: true, enterprise: true },
+  { label: "Custom connectors", beta: false, self_hosted: false, enterprise: true },
+  { category: "Enterprise", label: "SSO / SAML", beta: false, self_hosted: false, enterprise: true },
+  { label: "Air-gapped deployment", beta: false, self_hosted: false, enterprise: true },
+  { label: "Dedicated support SLA", beta: false, self_hosted: false, enterprise: true },
+  { category: "Support", label: "Community (GitHub + Discord)", beta: true, self_hosted: true, enterprise: true },
+  { label: "Email support", beta: false, self_hosted: true, enterprise: true },
+  { label: "Dedicated success engineer", beta: false, self_hosted: false, enterprise: true },
 ];
 
 function CheckIcon({ className }: { className?: string }) {
@@ -179,6 +271,7 @@ function Cell({
 
 export default function Pricing() {
   const [billing, setBilling] = useState<BillingCycle>("monthly");
+  const [product, setProduct] = useState<ProductTab>("graph");
   const [tableOpen, setTableOpen] = useState(false);
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
 
@@ -220,110 +313,194 @@ export default function Pricing() {
             everything else is yours.
           </p>
 
-          {/* Billing toggle */}
-          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
-            {(["monthly", "annual"] as BillingCycle[]).map((c) => (
+          {/* Product tabs */}
+          <div className="mt-8 inline-flex items-center gap-1 rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
+            {([
+              { id: "graph", label: "Hyper Graph" },
+              { id: "docintel", label: "DocIntel" },
+            ] as { id: ProductTab; label: string }[]).map((tab) => (
               <button
-                key={c}
-                onClick={() => setBilling(c)}
+                key={tab.id}
+                onClick={() => setProduct(tab.id)}
                 className={`rounded-full px-5 py-1.5 text-sm font-medium transition-colors ${
-                  billing === c
+                  product === tab.id
                     ? "bg-purple-600 text-white"
                     : "text-zinc-400 hover:text-white"
                 }`}
               >
-                {c === "monthly" ? "Monthly" : "Annual"}
-                {c === "annual" && (
-                  <span className="ml-1.5 rounded-full bg-purple-900/60 px-2 py-0.5 text-xs text-purple-300">
-                    10 months for 12
-                  </span>
-                )}
+                {tab.label}
               </button>
             ))}
           </div>
+
+          {/* Billing toggle — Hyper Graph only */}
+          {product === "graph" && (
+            <div className="mt-4 inline-flex items-center gap-3 rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
+              {(["monthly", "annual"] as BillingCycle[]).map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setBilling(c)}
+                  className={`rounded-full px-5 py-1.5 text-sm font-medium transition-colors ${
+                    billing === c
+                      ? "bg-purple-600 text-white"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                >
+                  {c === "monthly" ? "Monthly" : "Annual"}
+                  {c === "annual" && (
+                    <span className="ml-1.5 rounded-full bg-purple-900/60 px-2 py-0.5 text-xs text-purple-300">
+                      10 months for 12
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── Plan cards ── */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.id}
-              className={`relative flex flex-col rounded-2xl border p-7 ${
-                plan.highlight
-                  ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
-                  : "border-zinc-800 bg-[#11111b]"
-              }`}
-            >
-              {plan.badge && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
-                  {plan.badge}
-                </span>
-              )}
+        {product === "graph" ? (
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {PLANS.map((plan) => (
+              <div
+                key={plan.id}
+                className={`relative flex flex-col rounded-2xl border p-7 ${
+                  plan.highlight
+                    ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
+                    : "border-zinc-800 bg-[#11111b]"
+                }`}
+              >
+                {plan.badge && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
+                    {plan.badge}
+                  </span>
+                )}
 
-              <h3 className="text-base font-semibold text-white">{plan.name}</h3>
+                <h3 className="text-base font-semibold text-white">{plan.name}</h3>
 
-              <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-3xl font-extrabold text-white">
-                  {billing === "annual" ? plan.price.annual : plan.price.monthly}
-                </span>
-                {plan.price.monthly !== "Custom" && plan.price.monthly !== "$0" && (
-                  <span className="text-sm text-zinc-500">/mo</span>
+                <div className="mt-4 flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold text-white">
+                    {billing === "annual" ? plan.price.annual : plan.price.monthly}
+                  </span>
+                  {plan.price.monthly !== "Custom" && plan.price.monthly !== "$0" && (
+                    <span className="text-sm text-zinc-500">/mo</span>
+                  )}
+                </div>
+                {billing === "annual" && plan.annualNote && (
+                  <p className="mt-0.5 text-xs text-zinc-600">{plan.annualNote}</p>
+                )}
+
+                <p className="mt-2 text-xs font-medium text-purple-400">
+                  {plan.quota} · {plan.seats}
+                </p>
+
+                <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
+                  {plan.tagline}
+                </p>
+
+                {plan.id === "developer" ? (
+                  <Link
+                    href={plan.ctaHref}
+                    className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
+                  >
+                    {plan.cta}
+                  </Link>
+                ) : plan.id === "enterprise" ? (
+                  <a
+                    href={plan.ctaHref}
+                    className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
+                  >
+                    {plan.cta}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => handleCheckout(plan.id)}
+                    disabled={loadingPlan !== null}
+                    className={`mt-6 w-full rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
+                      plan.highlight
+                        ? "bg-purple-600 text-white hover:bg-purple-500"
+                        : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
+                    }`}
+                  >
+                    {loadingPlan === plan.id ? "Redirecting…" : plan.cta}
+                  </button>
                 )}
               </div>
-              {billing === "annual" && plan.annualNote && (
-                <p className="mt-0.5 text-xs text-zinc-600">{plan.annualNote}</p>
-              )}
+            ))}
+          </div>
+        ) : (
+          <div className="mt-12 grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
+            {DOCINTEL_PLANS.map((plan) => (
+              <div
+                key={plan.id}
+                className={`relative flex flex-col rounded-2xl border p-7 ${
+                  plan.highlight
+                    ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
+                    : "border-zinc-800 bg-[#11111b]"
+                }`}
+              >
+                {plan.badge && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
+                    {plan.badge}
+                  </span>
+                )}
 
-              <p className="mt-2 text-xs font-medium text-purple-400">
-                {plan.quota} · {plan.seats}
-              </p>
+                <h3 className="text-base font-semibold text-white">{plan.name}</h3>
 
-              <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
-                {plan.tagline}
-              </p>
+                <div className="mt-4 flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold text-white">{plan.price}</span>
+                  {plan.price !== "Custom" && plan.price !== "$0" && (
+                    <span className="text-sm text-zinc-500">/mo</span>
+                  )}
+                </div>
 
-              {plan.id === "developer" ? (
-                /* Developer — internal /beta route */
-                <Link
-                  href={plan.ctaHref}
-                  className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
-                >
-                  {plan.cta}
-                </Link>
-              ) : plan.id === "enterprise" ? (
-                /* Enterprise — direct mailto */
-                <a
-                  href={plan.ctaHref}
-                  className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
-                >
-                  {plan.cta}
-                </a>
-              ) : (
-                /* Starter / Pro — Stripe checkout via POST */
-                <button
-                  onClick={() => handleCheckout(plan.id)}
-                  disabled={loadingPlan !== null}
-                  className={`mt-6 w-full rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
-                    plan.highlight
-                      ? "bg-purple-600 text-white hover:bg-purple-500"
-                      : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
-                  }`}
-                >
-                  {loadingPlan === plan.id ? "Redirecting…" : plan.cta}
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
+                <p className="mt-2 text-xs font-medium text-purple-400">
+                  {plan.quota} · {plan.seats}
+                </p>
+
+                <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
+                  {plan.tagline}
+                </p>
+
+                {plan.id === "enterprise" ? (
+                  <a
+                    href={plan.ctaHref}
+                    className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
+                  >
+                    {plan.cta}
+                  </a>
+                ) : (
+                  <a
+                    href={plan.ctaHref}
+                    className={`mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors ${
+                      plan.highlight
+                        ? "bg-purple-600 text-white hover:bg-purple-500"
+                        : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
+                    }`}
+                  >
+                    {plan.cta}
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* ── Marketplace note ── */}
-        <p className="mt-6 text-center text-xs text-zinc-600">
-          All paid tiers available on{" "}
-          <span className="text-zinc-500">AWS Marketplace</span>,{" "}
-          <span className="text-zinc-500">GCP Marketplace</span>, and{" "}
-          <span className="text-zinc-500">Azure Marketplace</span>.
-          Annual billing: pay for 10 months, get 12.
-        </p>
+        {product === "graph" ? (
+          <p className="mt-6 text-center text-xs text-zinc-600">
+            All paid tiers available on{" "}
+            <span className="text-zinc-500">AWS Marketplace</span>,{" "}
+            <span className="text-zinc-500">GCP Marketplace</span>, and{" "}
+            <span className="text-zinc-500">Azure Marketplace</span>.
+            Annual billing: pay for 10 months, get 12.
+          </p>
+        ) : (
+          <p className="mt-6 text-center text-xs text-zinc-600">
+            Self-hosted. One license key. No usage metering, no per-document charges.{" "}
+            <span className="text-zinc-500">The 12 services it replaces cost more than $299/month to run.</span>
+          </p>
+        )}
 
         {/* ── Feature table (collapsible) ── */}
         <div className="mt-14">
@@ -343,47 +520,86 @@ export default function Pricing() {
                     <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500 w-2/5">
                       Feature
                     </th>
-                    {PLANS.map((p) => (
-                      <th
-                        key={p.id}
-                        className={`px-3 py-3 text-center text-xs font-semibold w-[15%] ${
-                          p.highlight ? "text-purple-300" : "text-zinc-400"
-                        }`}
-                      >
-                        {p.name}
-                      </th>
-                    ))}
+                    {product === "graph"
+                      ? PLANS.map((p) => (
+                          <th
+                            key={p.id}
+                            className={`px-3 py-3 text-center text-xs font-semibold w-[15%] ${
+                              p.highlight ? "text-purple-300" : "text-zinc-400"
+                            }`}
+                          >
+                            {p.name}
+                          </th>
+                        ))
+                      : DOCINTEL_PLANS.map((p) => (
+                          <th
+                            key={p.id}
+                            className={`px-3 py-3 text-center text-xs font-semibold w-[20%] ${
+                              p.highlight ? "text-purple-300" : "text-zinc-400"
+                            }`}
+                          >
+                            {p.name}
+                          </th>
+                        ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {FEATURE_ROWS.map((row, idx) => {
-                    if (row.category) {
-                      return (
-                        <tr key={`cat-${row.category}`} className="bg-purple-950/20 border-t border-zinc-800">
-                          <td
-                            colSpan={5}
-                            className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500"
+                  {product === "graph"
+                    ? FEATURE_ROWS.map((row, idx) => {
+                        if (row.category) {
+                          return (
+                            <tr key={`cat-${row.category}`} className="bg-purple-950/20 border-t border-zinc-800">
+                              <td
+                                colSpan={5}
+                                className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500"
+                              >
+                                {row.category}
+                              </td>
+                            </tr>
+                          );
+                        }
+                        return (
+                          <tr
+                            key={row.label}
+                            className={`border-t border-zinc-800/60 ${
+                              idx % 2 === 0 ? "bg-zinc-900/20" : "bg-transparent"
+                            }`}
                           >
-                            {row.category}
-                          </td>
-                        </tr>
-                      );
-                    }
-                    return (
-                      <tr
-                        key={row.label}
-                        className={`border-t border-zinc-800/60 ${
-                          idx % 2 === 0 ? "bg-zinc-900/20" : "bg-transparent"
-                        }`}
-                      >
-                        <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
-                        <Cell value={row.developer} highlight={false} />
-                        <Cell value={row.starter} highlight={true} />
-                        <Cell value={row.pro} highlight={false} />
-                        <Cell value={row.enterprise} highlight={false} />
-                      </tr>
-                    );
-                  })}
+                            <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
+                            <Cell value={row.developer} highlight={false} />
+                            <Cell value={row.starter} highlight={true} />
+                            <Cell value={row.pro} highlight={false} />
+                            <Cell value={row.enterprise} highlight={false} />
+                          </tr>
+                        );
+                      })
+                    : DOCINTEL_FEATURE_ROWS.map((row, idx) => {
+                        if (row.category) {
+                          return (
+                            <tr key={`cat-${row.category}`} className="bg-purple-950/20 border-t border-zinc-800">
+                              <td
+                                colSpan={4}
+                                className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500"
+                              >
+                                {row.category}
+                              </td>
+                            </tr>
+                          );
+                        }
+                        return (
+                          <tr
+                            key={row.label}
+                            className={`border-t border-zinc-800/60 ${
+                              idx % 2 === 0 ? "bg-zinc-900/20" : "bg-transparent"
+                            }`}
+                          >
+                            <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
+                            <Cell value={row.beta} highlight={false} />
+                            <Cell value={row.self_hosted} highlight={true} />
+                            <Cell value={row.enterprise} highlight={false} />
+                          </tr>
+                        );
+                      })}
                 </tbody>
               </table>
             </div>
