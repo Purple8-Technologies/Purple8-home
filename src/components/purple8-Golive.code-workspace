@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../../purple8-graph"
+		},
+		{
+			"path": "../../../Purple8-DocIntel"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../purple8-command-center"
+		}
+	],
+	"settings": {}
+}
