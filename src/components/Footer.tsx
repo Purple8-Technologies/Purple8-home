@@ -3,7 +3,7 @@ import Purple8Logo from "@/components/Purple8Logo";
 const productLinks = [
   { label: "Hyper Graph", href: "#products" },
   { label: "DocIntel", href: "#products" },
-  { label: "More coming soon", href: "#waitlist" },
+  { label: "More coming soon", href: "#products" },
 ];
 
 const companyLinks = [

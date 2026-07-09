@@ -32,12 +32,12 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5">
+          <Link href="/" className="flex items-center gap-2.5">
             <Purple8Logo className="h-8 w-16" />
             <span className="text-sm font-semibold tracking-tight text-white">
               Purple<span className="text-purple-400">8</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <div className="hidden items-center gap-8 md:flex">
@@ -55,10 +55,10 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="#waitlist"
+              href="#pricing"
               className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500 shadow-lg shadow-purple-900/30"
             >
-              Request Access
+              Get Started
             </a>
           </div>
 
@@ -107,11 +107,11 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="#waitlist"
+              href="#pricing"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white text-center"
             >
-              Request Access
+              Get Started
             </a>
           </div>
         )}

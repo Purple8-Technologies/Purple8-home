@@ -70,12 +70,14 @@ export default function Products() {
             Products
           </p>
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            Purpose-built AI infrastructure
+            Two products. Your whole backend.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-zinc-500">
-            Two production-ready products that give AI applications the
-            infrastructure they actually need — not retrofitted databases, not
-            plugins. Built AI-native from the ground up.
+          <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-500">
+            <span className="text-zinc-300">Purple8</span> is the backend your app
+            runs on — storage, search, RAG, workflows, auth, and encryption in one
+            process. <span className="text-zinc-300">DocIntel</span> turns any
+            document into queryable knowledge inside it. Together they replace 20+
+            services — you build only the frontend.
           </p>
         </div>
 
@@ -119,8 +121,8 @@ export default function Products() {
               <FeatureList items={hyperGraphFeatures} />
 
               <div className="mt-8 flex items-center gap-4">
-                <a href="#waitlist" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
-                  Request Access
+                <a href="#pricing" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
+                  Get Started
                 </a>
                 <a href="#features" className="text-sm text-purple-400 hover:text-purple-300">
                   Explore features →
@@ -166,8 +168,8 @@ export default function Products() {
               <FeatureList items={docIntelFeatures} />
 
               <div className="mt-8 flex items-center gap-4">
-                <a href="#waitlist" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
-                  Request Access
+                <a href="#pricing" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
+                  Get Started
                 </a>
                 <a href="#features" className="text-sm text-purple-400 hover:text-purple-300">
                   Explore features →
@@ -180,11 +182,7 @@ export default function Products() {
         {/* Coming soon teaser */}
         <div className="mt-8 rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/30 px-8 py-6 text-center">
           <p className="text-sm text-zinc-600">
-            More products coming soon —{" "}
-            <a href="#waitlist" className="text-purple-400 hover:text-purple-300">
-              join the waitlist
-            </a>{" "}
-            to get notified.
+            More products coming soon.
           </p>
         </div>
       </div>

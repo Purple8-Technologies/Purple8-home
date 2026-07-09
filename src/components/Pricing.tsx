@@ -3,183 +3,70 @@
 import { useState } from "react";
 import Link from "next/link";
 import { CC_BASE_URL } from "@/lib/cc";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type PlanId = "developer" | "starter" | "pro" | "enterprise";
-type BillingCycle = "monthly" | "annual";
-
-interface Plan {
-  id: PlanId;
-  name: string;
-  price: { monthly: string; annual: string };
-  annualNote?: string;
-  quota: string;
-  seats: string;
-  tagline: string;
-  cta: string;
-  ctaHref: string;
-  highlight: boolean;
-  badge?: string;
-}
-
-const PLANS: Plan[] = [
-  {
-    id: "developer",
-    name: "Developer",
-    price: { monthly: "$0", annual: "$0" },
-    quota: "50K nodes",
-    seats: "1 MCP agent",
-    tagline:
-      "Full engine locally. All RAG pipelines, all MCP tools, all graph algorithms. No credit card, no expiry.",
-    cta: "Download free",
-    ctaHref: "/download",
-    highlight: false,
-  },
-  {
-    id: "starter",
-    name: "Starter",
-    price: { monthly: "$1,199", annual: "$999" },
-    annualNote: "10 months for 12",
-    quota: "5M nodes",
-    seats: "3 MCP agents",
-    tagline:
-      "Production-grade single-app deployment. Journey Engine, HITL gates, SLA monitor, advanced RAG chunking, local KMS.",
-    cta: "Start Starter trial",
-    ctaHref:
-      "https://purple8.ai/checkout/create-session?plan=starter",
-    highlight: true,
-    badge: "Most popular",
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    price: { monthly: "$6,999", annual: "$5,832" },
-    annualNote: "10 months for 12",
-    quota: "50M nodes",
-    seats: "10 MCP agents",
-    tagline:
-      "Multi-project, compliance-ready. CDC, WAL, SSO, RBAC, immutable audit log, AEC Core, Applied Graphs, cloud backup.",
-    cta: "Start Pro trial",
-    ctaHref:
-      "https://purple8.ai/checkout/create-session?plan=pro",
-    highlight: false,
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    price: { monthly: "Custom", annual: "Custom" },
-    quota: "Unlimited",
-    seats: "Unlimited",
-    tagline:
-      "Raft HA, sharding, federation, managed KMS (Vault/AWS/GCP/Azure), SOC vertical, Node2Vec, dedicated support SLA.",
-    cta: "Contact sales",
-    ctaHref:
-      "mailto:sales@purple8.ai?subject=Enterprise%20license%20inquiry",
-    highlight: false,
-  },
-];
-
-// ─── DocIntel plans ───────────────────────────────────────────────────────────
+import {
+  GRAPH_TIERS,
+  DOCINTEL_TIERS,
+  priceLabel,
+  type GraphTierId,
+  type BillingCycle,
+} from "@/lib/pricing";
 
 type ProductTab = "graph" | "docintel";
-type DocIntelPlanId = "beta" | "self-hosted" | "enterprise";
 
-interface DocIntelPlan {
-  id: DocIntelPlanId;
-  name: string;
-  price: string;
-  quota: string;
-  seats: string;
-  tagline: string;
-  cta: string;
-  ctaHref: string;
-  highlight: boolean;
-  badge?: string;
-}
-
-const DOCINTEL_PLANS: DocIntelPlan[] = [
-  {
-    id: "beta",
-    name: "Beta",
-    price: "$0",
-    quota: "500 docs/mo",
-    seats: "1 worker",
-    tagline:
-      "Full extraction pipeline. GLiNER NER, LLM relationship extraction, webhook connector, Tesseract + P8OCR. No credit card.",
-    cta: "Start for free",
-    ctaHref: "/beta",
-    highlight: false,
-  },
-  {
-    id: "self-hosted",
-    name: "Self-Hosted",
-    price: "$299",
-    quota: "Unlimited docs",
-    seats: "Unlimited workers",
-    tagline:
-      "Unlimited document processing. All connectors (SharePoint, Confluence, S3), all OCR engines, all LLM providers.",
-    cta: "Get license",
-    ctaHref: "https://purple8.ai/checkout/create-session?plan=docintel",
-    highlight: true,
-    badge: "Most popular",
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    price: "Custom",
-    quota: "Unlimited",
-    seats: "Unlimited",
-    tagline:
-      "Self-Hosted plus SSO/SAML, air-gapped deployment, custom connectors, and dedicated support SLA.",
-    cta: "Contact sales",
-    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Enterprise%20inquiry",
-    highlight: false,
-  },
-];
-
-// ─── Feature comparison table ─────────────────────────────────────────────────
+// ─── Feature comparison — 4 CAPABILITY columns ────────────────────────────────
+// Micro → Starter share ONE column ("Production") because their feature set is
+// identical; only capacity (nodes) differs. That is the whole pricing story.
 
 interface FeatureRow {
   category?: string;
   label: string;
   developer: boolean | string;
-  starter: boolean | string;
+  production: boolean | string;
   pro: boolean | string;
   enterprise: boolean | string;
 }
 
 const FEATURE_ROWS: FeatureRow[] = [
-  // Core graph
-  { category: "Core graph", label: "Nodes, edges & graph traversal", developer: true, starter: true, pro: true, enterprise: true },
-  { label: "Full-text + vector / semantic search", developer: true, starter: true, pro: true, enterprise: true },
-  { label: "ACID transactions", developer: true, starter: true, pro: true, enterprise: true },
-  { label: "REST API + Python & TypeScript SDKs", developer: true, starter: true, pro: true, enterprise: true },
-  { label: "ALL 29 MCP tools (graph, rag, data, journey)", developer: true, starter: true, pro: true, enterprise: true },
-  { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, starter: true, pro: true, enterprise: true },
-  // Starter & above
-  { category: "Starter & above", label: "Journey Engine + SLA monitoring", developer: false, starter: true, pro: true, enterprise: true },
-  { label: "Human-in-the-Loop (HITL) gates", developer: false, starter: true, pro: true, enterprise: true },
-  { label: "Advanced RAG (late & agentic chunking)", developer: false, starter: true, pro: true, enterprise: true },
-  { label: "Local KMS (encryption at rest)", developer: false, starter: true, pro: true, enterprise: true },
-  { label: "Data lineage + local backup", developer: false, starter: true, pro: true, enterprise: true },
+  // Core — every tier, including free Developer
+  { category: "Core engine — every tier", label: "Nodes, edges & graph traversal", developer: true, production: true, pro: true, enterprise: true },
+  { label: "Full-text + vector / semantic search", developer: true, production: true, pro: true, enterprise: true },
+  { label: "ACID transactions", developer: true, production: true, pro: true, enterprise: true },
+  { label: "REST API + Python & TypeScript SDKs", developer: true, production: true, pro: true, enterprise: true },
+  { label: "All 31 MCP tools (graph · rag · data · journey)", developer: true, production: true, pro: true, enterprise: true },
+  { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, production: true, pro: true, enterprise: true },
+  { label: "All 67 graph & AEC algorithms", developer: true, production: true, pro: true, enterprise: true },
+  // Production family — Micro, Mini, Growth, Starter (identical features)
+  { category: "Production — Micro → Starter", label: "Journey Engine + SLA monitoring", developer: false, production: true, pro: true, enterprise: true },
+  { label: "Human-in-the-Loop (HITL) gates", developer: false, production: true, pro: true, enterprise: true },
+  { label: "Advanced RAG (late & agentic chunking)", developer: false, production: true, pro: true, enterprise: true },
+  { label: "Local KMS (encryption at rest)", developer: false, production: true, pro: true, enterprise: true },
+  { label: "Data lineage + local backup", developer: false, production: true, pro: true, enterprise: true },
   // Pro & above
-  { category: "Pro & above", label: "Change Data Capture (CDC)", developer: false, starter: false, pro: true, enterprise: true },
-  { label: "WAL durability (fdatasync)", developer: false, starter: false, pro: true, enterprise: true },
-  { label: "SSO / OIDC · RBAC · immutable audit log", developer: false, starter: false, pro: true, enterprise: true },
-  { label: "AEC Core (BIM/IFC, MEP, structural, VGA)", developer: false, starter: false, pro: true, enterprise: true },
-  { label: "Applied Graphs (fraud, supply-chain)", developer: false, starter: false, pro: true, enterprise: true },
-  { label: "Cloud backup (S3 / GCS / Azure Blob)", developer: false, starter: false, pro: true, enterprise: true },
+  { category: "Pro & above", label: "Change Data Capture (CDC)", developer: false, production: false, pro: true, enterprise: true },
+  { label: "WAL durability (fdatasync)", developer: false, production: false, pro: true, enterprise: true },
+  { label: "SSO / OIDC · RBAC · immutable audit log", developer: false, production: false, pro: true, enterprise: true },
+  { label: "Field / row-level security + PII tagging", developer: false, production: false, pro: true, enterprise: true },
+  { label: "AEC Core (BIM/IFC, MEP, structural, VGA)", developer: false, production: false, pro: true, enterprise: true },
+  { label: "Applied Graphs (fraud, supply-chain, attack-paths)", developer: false, production: false, pro: true, enterprise: true },
+  { label: "Cloud backup (S3 / GCS / Azure Blob)", developer: false, production: false, pro: true, enterprise: true },
   // Enterprise only
-  { category: "Enterprise only", label: "Raft HA + automatic failover", developer: false, starter: false, pro: false, enterprise: true },
-  { label: "Sharding + federated multi-graph queries", developer: false, starter: false, pro: false, enterprise: true },
-  { label: "Managed KMS (Vault · AWS · GCP · Azure)", developer: false, starter: false, pro: false, enterprise: true },
-  { label: "SOC vertical (threat detection + containment)", developer: false, starter: false, pro: false, enterprise: true },
+  { category: "Enterprise only", label: "Raft HA + automatic failover", developer: false, production: false, pro: false, enterprise: true },
+  { label: "Sharding + federated multi-graph queries", developer: false, production: false, pro: false, enterprise: true },
+  { label: "Managed KMS (Vault · AWS · GCP · Azure)", developer: false, production: false, pro: false, enterprise: true },
+  { label: "SOC vertical (threat detection + containment)", developer: false, production: false, pro: false, enterprise: true },
+  { label: "Supergraph + Node2Vec + AEC Advanced", developer: false, production: false, pro: false, enterprise: true },
   // Support
-  { category: "Support", label: "Community (GitHub + Discord)", developer: true, starter: true, pro: true, enterprise: true },
-  { label: "Email support", developer: false, starter: true, pro: true, enterprise: true },
-  { label: "SLA-backed support", developer: false, starter: false, pro: true, enterprise: true },
-  { label: "Dedicated success engineer", developer: false, starter: false, pro: false, enterprise: true },
+  { category: "Support", label: "Community (GitHub + Discord)", developer: true, production: true, pro: true, enterprise: true },
+  { label: "Email support", developer: false, production: true, pro: true, enterprise: true },
+  { label: "SLA-backed support", developer: false, production: false, pro: true, enterprise: true },
+  { label: "Dedicated success engineer", developer: false, production: false, pro: false, enterprise: true },
+];
+
+const CAP_COLUMNS: { key: keyof Omit<FeatureRow, "category" | "label">; label: string; sub: string; highlight: boolean }[] = [
+  { key: "developer", label: "Developer", sub: "Free", highlight: false },
+  { key: "production", label: "Production", sub: "Micro → Starter", highlight: true },
+  { key: "pro", label: "Pro", sub: "$6,999", highlight: false },
+  { key: "enterprise", label: "Enterprise", sub: "Custom", highlight: false },
 ];
 
 // ─── DocIntel feature rows ────────────────────────────────────────────────────
@@ -188,33 +75,42 @@ interface DocIntelFeatureRow {
   category?: string;
   label: string;
   beta: boolean | string;
+  solo: boolean | string;
   self_hosted: boolean | string;
   enterprise: boolean | string;
 }
 
 const DOCINTEL_FEATURE_ROWS: DocIntelFeatureRow[] = [
-  { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, self_hosted: true, enterprise: true },
-  { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, self_hosted: true, enterprise: true },
-  { label: "SAP IDocs", beta: true, self_hosted: true, enterprise: true },
-  { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", self_hosted: true, enterprise: true },
-  { category: "Extraction", label: "GLiNER NER — Pass 1 (all tiers)", beta: true, self_hosted: true, enterprise: true },
-  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", self_hosted: true, enterprise: true },
-  { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, self_hosted: true, enterprise: true },
-  { label: "Custom extraction ontology", beta: true, self_hosted: true, enterprise: true },
-  { category: "OCR Engines", label: "Tesseract + P8OCR (native)", beta: true, self_hosted: true, enterprise: true },
-  { label: "Azure Document Intelligence", beta: false, self_hosted: true, enterprise: true },
-  { label: "Google Vision / AWS Textract", beta: false, self_hosted: true, enterprise: true },
-  { category: "Connectors", label: "Webhook (inbound push)", beta: true, self_hosted: true, enterprise: true },
-  { label: "SharePoint + Confluence sync", beta: false, self_hosted: true, enterprise: true },
-  { label: "AWS S3 sync", beta: false, self_hosted: true, enterprise: true },
-  { label: "Custom connectors", beta: false, self_hosted: false, enterprise: true },
-  { category: "Enterprise", label: "SSO / SAML", beta: false, self_hosted: false, enterprise: true },
-  { label: "Air-gapped deployment", beta: false, self_hosted: false, enterprise: true },
-  { label: "Dedicated support SLA", beta: false, self_hosted: false, enterprise: true },
-  { category: "Support", label: "Community (GitHub + Discord)", beta: true, self_hosted: true, enterprise: true },
-  { label: "Email support", beta: false, self_hosted: true, enterprise: true },
-  { label: "Dedicated success engineer", beta: false, self_hosted: false, enterprise: true },
+  { category: "Capacity", label: "Documents / month", beta: "500", solo: "10,000", self_hosted: "Unlimited", enterprise: "Unlimited" },
+  { label: "Concurrent workers", beta: "1", solo: "2", self_hosted: "Unlimited", enterprise: "Unlimited" },
+  { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "SAP IDocs", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", solo: true, self_hosted: true, enterprise: true },
+  { category: "Extraction", label: "GLiNER NER — Pass 1 (all tiers)", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", solo: true, self_hosted: true, enterprise: true },
+  { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "Custom extraction ontology", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { category: "OCR Engines", label: "Tesseract + P8OCR (native)", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "Azure Document Intelligence", beta: false, solo: true, self_hosted: true, enterprise: true },
+  { label: "Google Vision / AWS Textract", beta: false, solo: true, self_hosted: true, enterprise: true },
+  { category: "Connectors", label: "Webhook (inbound push)", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "SharePoint + Confluence sync", beta: false, solo: true, self_hosted: true, enterprise: true },
+  { label: "AWS S3 sync", beta: false, solo: true, self_hosted: true, enterprise: true },
+  { label: "Custom connectors", beta: false, solo: false, self_hosted: false, enterprise: "1 included" },
+  { category: "Enterprise", label: "SSO / SAML", beta: false, solo: false, self_hosted: false, enterprise: true },
+  { label: "Air-gapped deployment", beta: false, solo: false, self_hosted: false, enterprise: true },
+  { label: "Custom fine-tuned domain adapter", beta: false, solo: false, self_hosted: false, enterprise: "1 included" },
+  { category: "Updates & support", label: "Every new version — included while active", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "LTS security-patch backports (stay on your pinned version)", beta: false, solo: false, self_hosted: false, enterprise: true },
+  { label: "Guided upgrades / migration help", beta: false, solo: false, self_hosted: false, enterprise: true },
+  { label: "Community (GitHub + Discord)", beta: true, solo: true, self_hosted: true, enterprise: true },
+  { label: "Email support", beta: false, solo: true, self_hosted: true, enterprise: true },
+  { label: "Dedicated response SLA (1 business-hr first response)", beta: false, solo: false, self_hosted: false, enterprise: true },
+  { label: "Dedicated success engineer", beta: false, solo: false, self_hosted: false, enterprise: true },
 ];
+
+// ─── Cell helpers ─────────────────────────────────────────────────────────────
 
 function CheckIcon({ className }: { className?: string }) {
   return (
@@ -232,22 +128,10 @@ function MinusIcon({ className }: { className?: string }) {
   );
 }
 
-// ─── Cell helpers ─────────────────────────────────────────────────────────────
-
-function Cell({
-  value,
-  highlight,
-}: {
-  value: boolean | string;
-  highlight: boolean;
-}) {
+function Cell({ value, highlight }: { value: boolean | string; highlight: boolean }) {
   if (typeof value === "string") {
     return (
-      <td
-        className={`px-3 py-3 text-center text-xs ${
-          highlight ? "text-white font-medium" : "text-zinc-400"
-        }`}
-      >
+      <td className={`px-3 py-3 text-center text-xs ${highlight ? "text-white font-medium" : "text-zinc-400"}`}>
         {value}
       </td>
     );
@@ -255,11 +139,7 @@ function Cell({
   return (
     <td className="px-3 py-3 text-center">
       {value ? (
-        <CheckIcon
-          className={`mx-auto h-4 w-4 ${
-            highlight ? "text-purple-400" : "text-purple-600"
-          }`}
-        />
+        <CheckIcon className={`mx-auto h-4 w-4 ${highlight ? "text-purple-400" : "text-purple-600"}`} />
       ) : (
         <MinusIcon className="mx-auto h-4 w-4 text-zinc-800" />
       )}
@@ -273,13 +153,12 @@ export default function Pricing() {
   const [billing, setBilling] = useState<BillingCycle>("monthly");
   const [product, setProduct] = useState<ProductTab>("graph");
   const [tableOpen, setTableOpen] = useState(false);
-  const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
+  const [loadingPlan, setLoadingPlan] = useState<GraphTierId | null>(null);
 
-  async function handleCheckout(planId: PlanId) {
+  async function handleCheckout(planId: GraphTierId) {
     if (loadingPlan) return;
     setLoadingPlan(planId);
     try {
-      // Call CC directly — no Next.js server route needed (static GitHub Pages export)
       const res = await fetch(`${CC_BASE_URL}/billing/checkout/create-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -289,7 +168,7 @@ export default function Pricing() {
       const data = await res.json();
       window.location.href = data.checkout_url ?? data.redirect_url;
     } catch {
-      window.location.href = "mailto:sales@purple8.ai?subject=Checkout%20issue";
+      window.location.href = `mailto:sales@purple8.ai?subject=Checkout%20issue%20(${planId})`;
     } finally {
       setLoadingPlan(null);
     }
@@ -298,34 +177,32 @@ export default function Pricing() {
   return (
     <section id="pricing" className="bg-[#0a0a0f] py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
         {/* ── Header ── */}
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
             Pricing
           </p>
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            Start free. Scale when you need to.
+            Start free. Pay for capacity, never for features.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-zinc-500">
-            Self-hosted — runs in your own infrastructure. No usage metering,
-            no data leaving your environment. License key activates the tier;
-            everything else is yours.
+          <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-500">
+            Self-hosted — runs in your own infrastructure, nothing leaves your
+            environment. Every production tier from Micro to Starter ships the{" "}
+            <span className="text-zinc-300">exact same feature set</span>. Moving
+            up the ladder buys more capacity, not more capability.
           </p>
 
           {/* Product tabs */}
           <div className="mt-8 inline-flex items-center gap-1 rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
             {([
-              { id: "graph", label: "Hyper Graph" },
+              { id: "graph", label: "Purple8" },
               { id: "docintel", label: "DocIntel" },
             ] as { id: ProductTab; label: string }[]).map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setProduct(tab.id)}
                 className={`rounded-full px-5 py-1.5 text-sm font-medium transition-colors ${
-                  product === tab.id
-                    ? "bg-purple-600 text-white"
-                    : "text-zinc-400 hover:text-white"
+                  product === tab.id ? "bg-purple-600 text-white" : "text-zinc-400 hover:text-white"
                 }`}
               >
                 {tab.label}
@@ -333,7 +210,7 @@ export default function Pricing() {
             ))}
           </div>
 
-          {/* Billing toggle — Hyper Graph only */}
+          {/* Billing toggle — Purple8 only */}
           {product === "graph" && (
             <div className="mt-4 inline-flex items-center gap-3 rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
               {(["monthly", "annual"] as BillingCycle[]).map((c) => (
@@ -341,9 +218,7 @@ export default function Pricing() {
                   key={c}
                   onClick={() => setBilling(c)}
                   className={`rounded-full px-5 py-1.5 text-sm font-medium transition-colors ${
-                    billing === c
-                      ? "bg-purple-600 text-white"
-                      : "text-zinc-400 hover:text-white"
+                    billing === c ? "bg-purple-600 text-white" : "text-zinc-400 hover:text-white"
                   }`}
                 >
                   {c === "monthly" ? "Monthly" : "Annual"}
@@ -358,148 +233,174 @@ export default function Pricing() {
           )}
         </div>
 
-        {/* ── Plan cards ── */}
+        {/* ── Purple8 plan cards ── */}
         {product === "graph" ? (
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {PLANS.map((plan) => (
-              <div
-                key={plan.id}
-                className={`relative flex flex-col rounded-2xl border p-7 ${
-                  plan.highlight
-                    ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
-                    : "border-zinc-800 bg-[#11111b]"
-                }`}
-              >
-                {plan.badge && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
-                    {plan.badge}
-                  </span>
-                )}
-
-                <h3 className="text-base font-semibold text-white">{plan.name}</h3>
-
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold text-white">
-                    {billing === "annual" ? plan.price.annual : plan.price.monthly}
-                  </span>
-                  {plan.price.monthly !== "Custom" && plan.price.monthly !== "$0" && (
-                    <span className="text-sm text-zinc-500">/mo</span>
-                  )}
-                </div>
-                {billing === "annual" && plan.annualNote && (
-                  <p className="mt-0.5 text-xs text-zinc-600">{plan.annualNote}</p>
-                )}
-
-                <p className="mt-2 text-xs font-medium text-purple-400">
-                  {plan.quota} · {plan.seats}
-                </p>
-
-                <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
-                  {plan.tagline}
-                </p>
-
-                {plan.id === "developer" ? (
-                  <Link
-                    href={plan.ctaHref}
-                    className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
-                  >
-                    {plan.cta}
-                  </Link>
-                ) : plan.id === "enterprise" ? (
-                  <a
-                    href={plan.ctaHref}
-                    className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
-                  >
-                    {plan.cta}
-                  </a>
-                ) : (
-                  <button
-                    onClick={() => handleCheckout(plan.id)}
-                    disabled={loadingPlan !== null}
-                    className={`mt-6 w-full rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
-                      plan.highlight
-                        ? "bg-purple-600 text-white hover:bg-purple-500"
-                        : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
+          <>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {GRAPH_TIERS.map((tier) => {
+                const p = priceLabel(tier, billing);
+                return (
+                  <div
+                    key={tier.id}
+                    className={`relative flex flex-col rounded-2xl border p-6 ${
+                      tier.highlight
+                        ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
+                        : "border-zinc-800 bg-[#11111b]"
                     }`}
                   >
-                    {loadingPlan === plan.id ? "Redirecting…" : plan.cta}
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
+                    {tier.badge && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
+                        {tier.badge}
+                      </span>
+                    )}
+
+                    <h3 className="text-base font-semibold text-white">{tier.name}</h3>
+
+                    <div className="mt-3 flex items-baseline gap-1">
+                      <span className="text-3xl font-extrabold text-white">{p.amount}</span>
+                      {p.suffix && <span className="text-sm text-zinc-500">{p.suffix}</span>}
+                    </div>
+                    {p.note && <p className="mt-0.5 text-xs text-zinc-600">{p.note}</p>}
+
+                    <p className="mt-2 text-xs font-medium text-purple-400">
+                      {tier.nodesLabel} nodes ·{" "}
+                      {tier.agents === null ? "Unlimited agents" : `${tier.agents} MCP agent${tier.agents > 1 ? "s" : ""}`}
+                    </p>
+
+                    <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
+                      {tier.tagline}
+                    </p>
+
+                    {tier.id === "developer" ? (
+                      <Link
+                        href="/beta?plan=developer"
+                        className="mt-6 block rounded-full border border-purple-800/60 px-4 py-2 text-center text-sm font-semibold text-purple-300 transition-colors hover:border-purple-600 hover:text-white"
+                      >
+                        {tier.cta}
+                      </Link>
+                    ) : tier.id === "enterprise" ? (
+                      <a
+                        href="mailto:sales@purple8.ai?subject=Enterprise%20license%20inquiry"
+                        className="mt-6 block rounded-full border border-zinc-700 px-4 py-2 text-center text-sm font-semibold text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+                      >
+                        {tier.cta}
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => handleCheckout(tier.id)}
+                        disabled={loadingPlan !== null}
+                        className={`mt-6 w-full rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+                          tier.highlight
+                            ? "bg-purple-600 text-white hover:bg-purple-500"
+                            : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
+                        }`}
+                      >
+                        {loadingPlan === tier.id ? "Redirecting…" : tier.cta}
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Reinforce the core message */}
+            <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-4 text-center">
+              <p className="text-sm text-zinc-300">
+                <span className="font-semibold text-purple-300">The full production engine is $119/mo.</span>{" "}
+                Micro, Mini, Growth, and Starter are the same product — you pick
+                the capacity you need and upgrade only when you outgrow it.
+              </p>
+            </div>
+
+            <p className="mt-6 text-center text-xs text-zinc-600">
+              Not sure which one?{" "}
+              <a href="#calculator" className="text-purple-400 hover:text-purple-300">
+                Use the tier finder ↑
+              </a>{" "}
+              · All paid tiers available on AWS, GCP &amp; Azure Marketplace.
+            </p>
+          </>
         ) : (
-          <div className="mt-12 grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
-            {DOCINTEL_PLANS.map((plan) => (
-              <div
-                key={plan.id}
-                className={`relative flex flex-col rounded-2xl border p-7 ${
-                  plan.highlight
-                    ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
-                    : "border-zinc-800 bg-[#11111b]"
-                }`}
-              >
-                {plan.badge && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
-                    {plan.badge}
-                  </span>
-                )}
+          <>
+            <div className="mx-auto mt-12 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {DOCINTEL_TIERS.map((tier) => (
+                <div
+                  key={tier.id}
+                  className={`relative flex flex-col rounded-2xl border p-7 ${
+                    tier.highlight
+                      ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
+                      : "border-zinc-800 bg-[#11111b]"
+                  }`}
+                >
+                  {tier.badge && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
+                      {tier.badge}
+                    </span>
+                  )}
 
-                <h3 className="text-base font-semibold text-white">{plan.name}</h3>
+                  <h3 className="text-base font-semibold text-white">{tier.name}</h3>
 
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold text-white">{plan.price}</span>
-                  {plan.price !== "Custom" && plan.price !== "$0" && (
-                    <span className="text-sm text-zinc-500">/mo</span>
+                  <div className="mt-4 flex items-baseline gap-1">
+                    <span className="text-3xl font-extrabold text-white">{tier.price}</span>
+                    {tier.price !== "Custom" && tier.price !== "$0" && (
+                      <span className="text-sm text-zinc-500">/mo</span>
+                    )}
+                  </div>
+
+                  <p className="mt-2 text-xs font-medium text-purple-400">
+                    {tier.quota} · {tier.seats}
+                  </p>
+
+                  <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
+                    {tier.tagline}
+                  </p>
+
+                  {tier.id === "beta" ? (
+                    <Link
+                      href={tier.ctaHref}
+                      className="mt-6 block rounded-full border border-purple-800/60 px-4 py-2 text-center text-sm font-semibold text-purple-300 transition-colors hover:border-purple-600 hover:text-white"
+                    >
+                      {tier.cta}
+                    </Link>
+                  ) : (
+                    <a
+                      href={tier.ctaHref}
+                      className={`mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors ${
+                        tier.highlight
+                          ? "bg-purple-600 text-white hover:bg-purple-500"
+                          : "border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
+                      }`}
+                    >
+                      {tier.cta}
+                    </a>
                   )}
                 </div>
+              ))}
+            </div>
 
-                <p className="mt-2 text-xs font-medium text-purple-400">
-                  {plan.quota} · {plan.seats}
-                </p>
+            {/* TCO narrative — flat fee vs per-page cloud APIs */}
+            <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-5">
+              <p className="text-center text-sm text-zinc-300">
+                <span className="font-semibold text-purple-300">Flat fee, not per-page.</span>{" "}
+                Azure Document Intelligence and AWS Textract bill roughly $1.50 per 1,000
+                pages — <span className="text-zinc-200">100,000 pages/month is ~$150, and it climbs with every page.</span>{" "}
+                DocIntel Self-Hosted is <span className="text-zinc-200">$299/mo flat and unlimited</span>;
+                Solo covers 10,000 docs for <span className="text-zinc-200">$79</span>. Your bill stops growing.
+              </p>
+              <p className="mt-3 text-center text-xs text-zinc-500">
+                Replaces Azure Document Intelligence, AWS Textract, Google Document AI,
+                Unstructured.io &amp; ABBYY. One license key, nothing leaves your infra.
+              </p>
+            </div>
 
-                <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
-                  {plan.tagline}
-                </p>
-
-                {plan.id === "enterprise" ? (
-                  <a
-                    href={plan.ctaHref}
-                    className="mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white"
-                  >
-                    {plan.cta}
-                  </a>
-                ) : (
-                  <a
-                    href={plan.ctaHref}
-                    className={`mt-6 block rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors ${
-                      plan.highlight
-                        ? "bg-purple-600 text-white hover:bg-purple-500"
-                        : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
-                    }`}
-                  >
-                    {plan.cta}
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* ── Marketplace note ── */}
-        {product === "graph" ? (
-          <p className="mt-6 text-center text-xs text-zinc-600">
-            All paid tiers available on{" "}
-            <span className="text-zinc-500">AWS Marketplace</span>,{" "}
-            <span className="text-zinc-500">GCP Marketplace</span>, and{" "}
-            <span className="text-zinc-500">Azure Marketplace</span>.
-            Annual billing: pay for 10 months, get 12.
-          </p>
-        ) : (
-          <p className="mt-6 text-center text-xs text-zinc-600">
-            Self-hosted. One license key. No usage metering, no per-document charges.{" "}
-            <span className="text-zinc-500">The 12 services it replaces cost more than $299/month to run.</span>
-          </p>
+            {/* Bundle note */}
+            <p className="mt-6 text-center text-xs text-zinc-600">
+              Already on Purple8{" "}
+              <span className="text-purple-400">Growth or above</span>? DocIntel Self-Hosted
+              is <span className="text-zinc-400">included at no extra cost</span> — your engine
+              license unlocks it automatically.
+            </p>
+          </>
         )}
 
         {/* ── Feature table (collapsible) ── */}
@@ -517,28 +418,31 @@ export default function Pricing() {
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-zinc-800 bg-zinc-900/60">
-                    <th className="px-4 py-3 text-left text-xs font-medium text-zinc-500 w-2/5">
+                    <th className="w-2/5 px-4 py-3 text-left text-xs font-medium text-zinc-500">
                       Feature
                     </th>
                     {product === "graph"
-                      ? PLANS.map((p) => (
+                      ? CAP_COLUMNS.map((col) => (
                           <th
-                            key={p.id}
-                            className={`px-3 py-3 text-center text-xs font-semibold w-[15%] ${
-                              p.highlight ? "text-purple-300" : "text-zinc-400"
+                            key={col.key}
+                            className={`px-3 py-3 text-center text-xs font-semibold ${
+                              col.highlight ? "text-purple-300" : "text-zinc-400"
                             }`}
                           >
-                            {p.name}
+                            {col.label}
+                            <span className="mt-0.5 block text-[10px] font-normal text-zinc-600">
+                              {col.sub}
+                            </span>
                           </th>
                         ))
-                      : DOCINTEL_PLANS.map((p) => (
+                      : ["Community", "Solo", "Self-Hosted", "Enterprise"].map((name, i) => (
                           <th
-                            key={p.id}
-                            className={`px-3 py-3 text-center text-xs font-semibold w-[20%] ${
-                              p.highlight ? "text-purple-300" : "text-zinc-400"
+                            key={name}
+                            className={`px-3 py-3 text-center text-xs font-semibold ${
+                              i === 2 ? "text-purple-300" : "text-zinc-400"
                             }`}
                           >
-                            {p.name}
+                            {name}
                           </th>
                         ))}
                   </tr>
@@ -548,26 +452,18 @@ export default function Pricing() {
                     ? FEATURE_ROWS.map((row, idx) => {
                         if (row.category) {
                           return (
-                            <tr key={`cat-${row.category}`} className="bg-purple-950/20 border-t border-zinc-800">
-                              <td
-                                colSpan={5}
-                                className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500"
-                              >
+                            <tr key={`cat-${row.category}`} className="border-t border-zinc-800 bg-purple-950/20">
+                              <td colSpan={5} className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500">
                                 {row.category}
                               </td>
                             </tr>
                           );
                         }
                         return (
-                          <tr
-                            key={row.label}
-                            className={`border-t border-zinc-800/60 ${
-                              idx % 2 === 0 ? "bg-zinc-900/20" : "bg-transparent"
-                            }`}
-                          >
+                          <tr key={row.label} className={`border-t border-zinc-800/60 ${idx % 2 === 0 ? "bg-zinc-900/20" : ""}`}>
                             <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
                             <Cell value={row.developer} highlight={false} />
-                            <Cell value={row.starter} highlight={true} />
+                            <Cell value={row.production} highlight={true} />
                             <Cell value={row.pro} highlight={false} />
                             <Cell value={row.enterprise} highlight={false} />
                           </tr>
@@ -576,25 +472,18 @@ export default function Pricing() {
                     : DOCINTEL_FEATURE_ROWS.map((row, idx) => {
                         if (row.category) {
                           return (
-                            <tr key={`cat-${row.category}`} className="bg-purple-950/20 border-t border-zinc-800">
-                              <td
-                                colSpan={4}
-                                className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500"
-                              >
+                            <tr key={`cat-${row.category}`} className="border-t border-zinc-800 bg-purple-950/20">
+                              <td colSpan={5} className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500">
                                 {row.category}
                               </td>
                             </tr>
                           );
                         }
                         return (
-                          <tr
-                            key={row.label}
-                            className={`border-t border-zinc-800/60 ${
-                              idx % 2 === 0 ? "bg-zinc-900/20" : "bg-transparent"
-                            }`}
-                          >
+                          <tr key={row.label} className={`border-t border-zinc-800/60 ${idx % 2 === 0 ? "bg-zinc-900/20" : ""}`}>
                             <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
                             <Cell value={row.beta} highlight={false} />
+                            <Cell value={row.solo} highlight={false} />
                             <Cell value={row.self_hosted} highlight={true} />
                             <Cell value={row.enterprise} highlight={false} />
                           </tr>
@@ -608,9 +497,7 @@ export default function Pricing() {
 
         {/* ── CTA ── */}
         <div className="mt-14 text-center">
-          <p className="text-sm text-zinc-600">
-            Questions about which plan fits your team?
-          </p>
+          <p className="text-sm text-zinc-600">Questions about which plan fits your team?</p>
           <a
             href="mailto:sales@purple8.ai"
             className="mt-2 inline-block text-sm font-medium text-purple-400 transition-colors hover:text-purple-300"

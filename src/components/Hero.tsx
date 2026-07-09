@@ -16,38 +16,39 @@ export default function Hero() {
         <div className="flex flex-1 flex-col items-start text-left">
 
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[4.5rem] xl:leading-[1.08]">
-            The infrastructure layer
+            Your entire backend.
             <br />
             <span className="bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">
-              AI apps are built on
+              One process. Zero to wire.
             </span>
           </h1>
 
-          <p className="mt-7 max-w-lg text-lg leading-relaxed text-zinc-400">
-            AI teams shouldn&apos;t have to stitch together 8–12 backend services just to ship one production workflow.
-            Purple8 replaces fragmented AI infrastructure with one embedded backend for data, retrieval, workflow orchestration,
-            and agent execution.
+          <p className="mt-7 max-w-xl text-lg leading-relaxed text-zinc-400">
+            Purple8 is the AI-native backend that replaces 20+ services — database,
+            vector search, graph, RAG, document intelligence, workflow orchestration,
+            auth, and encryption — with one embedded engine. You build the frontend;
+            Purple8 is everything behind it.
           </p>
 
-          <p className="mt-4 max-w-lg text-base leading-relaxed text-zinc-500">
-            Purple8 gives AI agents high-leverage execution over enterprise data and workflows,
-            with built-in governance, isolation, and observability.
-          </p>
-
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <a
-              href="#products"
+              href="/beta?plan=developer"
               className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500"
             >
-              Explore Products
+              Start free — Developer edition
             </a>
             <a
-              href="#waitlist"
-              className="rounded-full border border-zinc-700 px-8 py-3.5 text-base font-semibold text-zinc-300 transition-colors hover:border-purple-500/60 hover:text-white"
+              href="#calculator"
+              className="group inline-flex items-center gap-1.5 text-base font-semibold text-zinc-300 transition-colors hover:text-white"
             >
-              Request Early Access
+              Find your tier
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </a>
           </div>
+
+          <p className="mt-4 text-sm text-zinc-600">
+            Free forever · No credit card · Runs on your own machine
+          </p>
 
           {/* 4 tags max */}
           <div className="mt-12 flex flex-wrap gap-2.5">

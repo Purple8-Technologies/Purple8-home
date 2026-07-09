@@ -1,18 +1,34 @@
 "use client";
 
 const replacements = [
-  { old: "PostgreSQL", new: "BrickCore storage" },
-  { old: "Neo4j", new: "Graph engine" },
-  { old: "Pinecone", new: "HNSW indexing" },
-  { old: "LangChain", new: "Built-in RAG" },
-  { old: "Auth0", new: "RBAC + per-tenant isolation" },
+  // Data & storage
+  { old: "PostgreSQL / MongoDB", new: "BrickCore storage" },
+  { old: "Neo4j", new: "Native graph engine" },
+  { old: "Pinecone / Weaviate", new: "HNSW vector index" },
   { old: "Elasticsearch", new: "Full-text search" },
-  { old: "Redis", new: "Memory layer" },
-  { old: "Temporal", new: "Journey Engine" },
-  { old: "Airflow", new: "Workflow orchestration" },
-  { old: "S3 + Lambda", new: "DocIntel connectors" },
-  { old: "Splunk", new: "SOC vertical" },
-  { old: "Datadog", new: "SLA monitoring" },
+  { old: "Redis", new: "In-process memory layer" },
+  // Retrieval & AI
+  { old: "LangChain", new: "Built-in RAG pipelines" },
+  { old: "LangGraph", new: "Journey Engine (stateful)" },
+  { old: "LangSmith", new: "Immutable graph audit trail" },
+  { old: "RAGAS", new: "Built-in RAG evaluation" },
+  { old: "spaCy NER", new: "GLiNER extraction" },
+  // Document intelligence (IDP)
+  { old: "Unstructured.io", new: "DocIntel — 70+ formats" },
+  { old: "Azure Document Intelligence", new: "DocIntel IDP" },
+  { old: "AWS Textract / ABBYY", new: "Self-hosted OCR" },
+  // Workflow & data movement
+  { old: "Airflow / Temporal", new: "Workflow orchestration + SLA" },
+  { old: "Debezium / Kafka Connect", new: "Change Data Capture" },
+  // Security & identity
+  { old: "Auth0 / Okta", new: "JWT + SSO + RBAC" },
+  { old: "HashiCorp Vault", new: "AES-256 envelope KMS" },
+  { old: "Splunk / SIEM", new: "SOC vertical" },
+  // Ops & tooling
+  { old: "Datadog", new: "SLA monitoring + /metrics" },
+  { old: "Apollo Federation", new: "Supergraph federation" },
+  { old: "Retool", new: "LCNC admin console" },
+  { old: "S3 + Lambda glue", new: "DocIntel connectors" },
 ];
 
 export default function ReplacementStack() {
@@ -25,8 +41,9 @@ export default function ReplacementStack() {
             What You Cancel
           </h2>
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-            One embedded engine replaces twelve services. Deploy anywhere — no
-            external dependencies, no egress, no integration sprawl.
+            Two products — Purple8 and DocIntel — replace 20+ services across your
+            whole stack. Deploy anywhere: no external dependencies, no egress, no
+            integration sprawl.
           </p>
         </div>
 

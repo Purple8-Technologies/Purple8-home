@@ -6,8 +6,8 @@ import Products from "@/components/Products";
 import FeaturesManifesto from "@/components/FeaturesManifesto";
 import Industries from "@/components/Industries";
 import Pricing from "@/components/Pricing";
+import TierCalculator from "@/components/TierCalculator";
 import BuiltOnPurple8 from "@/components/BuiltOnPurple8";
-import WaitlistCTA from "@/components/WaitlistCTA";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 
@@ -31,13 +31,13 @@ export default function Home() {
           <Industries />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
-          <Pricing />
-        </FadeIn>
-        <FadeIn direction="up" delay={0}>
           <BuiltOnPurple8 />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
-          <WaitlistCTA />
+          <TierCalculator />
+        </FadeIn>
+        <FadeIn direction="up" delay={0}>
+          <Pricing />
         </FadeIn>
       </main>
       <Footer />
