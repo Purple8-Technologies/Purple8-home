@@ -1,3 +1,9 @@
+# DEPRECATED — legacy admin escape-hatch.
+# The primary onboarding path is now self-serve: purple8.ai/register issues a
+# free Developer license instantly via magic-link email verification (no human
+# approval needed). This label-driven workflow still functions (it calls the
+# refactored /public/beta-approve endpoint, which shares the single license
+# issuance helper) and is retained only for manual, admin-initiated grants.
 name: Beta Approval
 
 on:

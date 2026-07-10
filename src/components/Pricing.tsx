@@ -273,7 +273,7 @@ export default function Pricing() {
 
                     {tier.id === "developer" ? (
                       <Link
-                        href="/beta?plan=developer"
+                        href="/register"
                         className="mt-6 block rounded-full border border-purple-800/60 px-4 py-2 text-center text-sm font-semibold text-purple-300 transition-colors hover:border-purple-600 hover:text-white"
                       >
                         {tier.cta}
