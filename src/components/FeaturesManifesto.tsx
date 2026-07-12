@@ -50,7 +50,7 @@ const EIGHT = [
   {
     claim: "You own it. Completely.",
     proof:
-      "Self-hosted. Native installers for macOS, Linux, and Windows. No telemetry, no data egress, no vendor access. Air-gap capable.",
+      "Self-hosted. Ships as a Docker image or pip wheel — runs anywhere Python or containers run. No telemetry, no data egress, no vendor access. Air-gap capable.",
   },
 ];
 

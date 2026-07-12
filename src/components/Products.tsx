@@ -102,7 +102,7 @@ export default function Products() {
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                 A unified AI-native backend — storage, vector search, document store,
                 full-text, workflow orchestration, RAG, auth, and encryption in a single
-                process. No JVM. No external services. Docker image and native installers
+                process. No JVM. No external services. Docker image and pip wheel
                 available.
               </p>
 
