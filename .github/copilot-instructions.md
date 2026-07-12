@@ -26,4 +26,6 @@ Stack: Next.js 14 (App Router) · TypeScript · Tailwind CSS · shadcn/ui.
 - Mobile-first, responsive
 
 ## Deployment
-Vercel (zero-config). `npm run build` must pass before every commit.
+GitHub Pages via `.github/workflows/deploy.yml` (static Next.js export to `./out`,
+served at `www.purple8.ai` per `public/CNAME`). `npm run build` must pass before
+every commit — the build produces the static export that Pages publishes.
