@@ -4,10 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { CC_BASE_URL } from "@/lib/cc";
 
-const EULA_URL =
-  "https://github.com/Purple8-Technologies/purple8-graph/blob/main/legal/EULA.md";
-const DEVELOPER_AGREEMENT_URL =
-  "https://github.com/Purple8-Technologies/purple8-graph/blob/main/legal/DEVELOPER_AGREEMENT.md";
+const EULA_URL = "/legal/eula";
+const DEVELOPER_AGREEMENT_URL = "/legal/developer-agreement";
 
 /**
  * Free Developer edition — self-serve registration (step 1 of 2).
