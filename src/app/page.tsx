@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import ReplacementStack from "@/components/ReplacementStack";
+import StackCollapse from "@/components/StackCollapse";
 import SystemFlow from "@/components/SystemFlow";
 import Products from "@/components/Products";
 import FeaturesManifesto from "@/components/FeaturesManifesto";
@@ -21,6 +22,9 @@ export default function Home() {
         <Stats />
         <FadeIn direction="up" delay={0}>
           <ReplacementStack />
+        </FadeIn>
+        <FadeIn direction="up" delay={0}>
+          <StackCollapse />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <SystemFlow />
