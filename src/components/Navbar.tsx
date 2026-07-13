@@ -5,9 +5,10 @@ import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
 
 const links = [
-  { href: "#products", label: "Products" },
-  { href: "#features", label: "Features" },
-  { href: "#industries", label: "Industries" },
+  { href: "/#products", label: "Products" },
+  { href: "/#features", label: "Features" },
+  { href: "/#industries", label: "Industries" },
+  { href: "/about", label: "About" },
   { href: "/support", label: "Support" },
 ];
 
@@ -55,7 +56,7 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="#pricing"
+              href="/#pricing"
               className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500 shadow-lg shadow-purple-900/30"
             >
               Get Started
@@ -107,7 +108,7 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="#pricing"
+              href="/#pricing"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white text-center"
             >
