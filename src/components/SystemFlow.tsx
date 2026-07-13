@@ -39,20 +39,23 @@ const NW = 190;
 const NH = 58;
 
 const NODES: Node[] = [
-  // Entry points
-  { id: "apps", label: "Your Frontend", sub: "REST · /ingest", x: 40, y: 118, w: NW, h: NH, tone: "entry" },
-  { id: "agents", label: "AI Agents", sub: "MCP · 49 tools", x: 40, y: 384, w: NW, h: NH, tone: "entry" },
-  // Core subsystems (inside the process box)
-  { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 92, w: 240, h: 50, tone: "core", health: "ok" },
-  { id: "storage", label: "BrickCore Storage", sub: "documents · WAL · bounded RSS", x: 410, y: 168, w: 240, h: 50, tone: "core", health: "ok" },
-  { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 244, w: 240, h: 50, tone: "core", health: "ok" },
-  { id: "journey", label: "Journey Engine", sub: "workflows · SLA · HITL", x: 410, y: 320, w: 240, h: 50, tone: "core", health: "warn" },
-  { id: "security", label: "Security & SOC", sub: "AES-256 · RBAC · tenancy", x: 410, y: 396, w: 240, h: 50, tone: "core", health: "ok" },
-  // Outputs — workload families, each replacing a whole product category
-  { id: "search", label: "Search & RAG", sub: "vector + graph + text", x: 810, y: 84, w: NW, h: NH, tone: "out" },
-  { id: "workflow", label: "Workflows & SLA", sub: "orchestration · HITL", x: 810, y: 183, w: NW, h: NH, tone: "out" },
-  { id: "audit", label: "Security & Audit", sub: "encryption · immutable trail", x: 810, y: 282, w: NW, h: NH, tone: "out" },
-  { id: "metrics", label: "Analytics & Ops", sub: "/metrics · dashboards", x: 810, y: 381, w: NW, h: NH, tone: "out" },
+  // Entry points — external clients only. Both are things YOU point at Purple8.
+  { id: "apps", label: "Your Frontend", sub: "REST API", x: 40, y: 118, w: NW, h: NH, tone: "entry" },
+  { id: "agents", label: "AI Agents", sub: "Claude · Copilot · GPT", x: 40, y: 384, w: NW, h: NH, tone: "entry" },
+  // Core subsystems (inside the process box). MCP Server is Purple8's OWN
+  // agent-facing gateway — not an external actor.
+  { id: "mcp", label: "MCP Server", sub: "49 native + federated tools", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 150, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "storage", label: "BrickCore Storage", sub: "documents · WAL · bounded RSS", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 278, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "journey", label: "Journey Engine", sub: "workflows · SLA · HITL", x: 410, y: 342, w: 240, h: 44, tone: "core", health: "warn" },
+  { id: "security", label: "Security & SOC", sub: "AES-256 · RBAC · tenancy", x: 410, y: 406, w: 240, h: 44, tone: "core", health: "ok" },
+  // Outputs — workload families, each replacing a whole product category.
+  { id: "data", label: "Data & Graph API", sub: "CRUD · traversal · CDC", x: 810, y: 70, w: NW, h: NH, tone: "out" },
+  { id: "search", label: "Search & RAG", sub: "vector + graph + text", x: 810, y: 148, w: NW, h: NH, tone: "out" },
+  { id: "workflow", label: "Workflows & SLA", sub: "orchestration · HITL", x: 810, y: 226, w: NW, h: NH, tone: "out" },
+  { id: "audit", label: "Security & Audit", sub: "encryption · immutable trail", x: 810, y: 304, w: NW, h: NH, tone: "out" },
+  { id: "metrics", label: "Analytics & Ops", sub: "metrics · dashboards", x: 810, y: 382, w: NW, h: NH, tone: "out" },
 ];
 
 const byId = (id: string) => NODES.find((n) => n.id === id)!;
@@ -66,21 +69,26 @@ interface Edge {
 }
 
 const EDGES: Edge[] = [
-  // Entry points fan into the engine — apps and agents both hit everything.
+  // Frontend hits the engine, storage, and workflows directly over REST.
   { from: "apps", to: "engine", dur: 2.6, delay: 0 },
   { from: "apps", to: "storage", dur: 3.0, delay: 0.6 },
   { from: "apps", to: "journey", dur: 3.3, delay: 1.4 },
-  { from: "agents", to: "index", dur: 2.4, delay: 0.3 },
-  { from: "agents", to: "journey", dur: 2.8, delay: 0.9 },
-  { from: "agents", to: "security", dur: 3.2, delay: 1.2 },
+  // AI agents go through Purple8's OWN MCP server — the agent gateway.
+  { from: "agents", to: "mcp", dur: 2.2, delay: 0.2 },
+  // MCP then drives the same subsystems the frontend does.
+  { from: "mcp", to: "engine", dur: 2.5, delay: 0.5 },
+  { from: "mcp", to: "index", dur: 2.4, delay: 1.0 },
+  { from: "mcp", to: "journey", dur: 2.8, delay: 1.5 },
   // Each subsystem powers a workload family (the "whole backend" story).
-  { from: "engine", to: "search", dur: 2.5, delay: 0.2 },
-  { from: "index", to: "search", dur: 2.7, delay: 1.0 },
+  { from: "storage", to: "data", dur: 2.7, delay: 0.3 },
+  { from: "engine", to: "data", dur: 2.5, delay: 1.1 },
+  { from: "engine", to: "search", dur: 2.6, delay: 0.7 },
+  { from: "index", to: "search", dur: 2.9, delay: 0.2 },
   { from: "journey", to: "workflow", dur: 2.4, delay: 0.5 },
   { from: "security", to: "audit", dur: 2.6, delay: 0.4 },
   { from: "storage", to: "audit", dur: 3.1, delay: 1.3 },
-  { from: "storage", to: "metrics", dur: 2.9, delay: 0.7 },
-  { from: "journey", to: "metrics", dur: 3.0, delay: 1.1 },
+  { from: "storage", to: "metrics", dur: 2.9, delay: 0.9 },
+  { from: "journey", to: "metrics", dur: 3.0, delay: 1.6 },
 ];
 
 /** Cubic-bezier path between the right edge of `from` and left edge of `to`. */
@@ -175,7 +183,7 @@ export default function SystemFlow() {
           <svg
             viewBox="0 0 1000 560"
             role="img"
-            aria-label="Purple8 architecture flow map: your frontend and AI agents feed one in-process backend (graph, storage, search, workflows, security) that powers search & RAG, workflows, audit, and analytics."
+            aria-label="Purple8 architecture flow map: your frontend (REST) and AI agents (via Purple8's MCP server) feed one in-process backend — graph engine, storage, vector and full-text, Journey Engine, security — that powers a data and graph API, search and RAG, workflows and SLA, security and audit, and analytics."
             className="mx-auto h-auto w-full min-w-[720px] max-w-5xl"
           >
             <defs>
@@ -199,7 +207,7 @@ export default function SystemFlow() {
             <text x="530" y="60" textAnchor="middle" className="fill-purple-400" fontSize="12" fontWeight="700" letterSpacing="1.5">
               ONE PROCESS
             </text>
-            <text x="905" y="90" textAnchor="middle" className="fill-zinc-600" fontSize="12" fontWeight="600" letterSpacing="1.5">
+            <text x="905" y="54" textAnchor="middle" className="fill-zinc-600" fontSize="12" fontWeight="600" letterSpacing="1.5">
               WORKLOADS
             </text>
 
@@ -285,10 +293,86 @@ export default function SystemFlow() {
           </svg>
         </div>
 
+        {/* Composite MCP — one endpoint, native + federated */}
+        <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-purple-900/40 bg-[#11111b] p-6 sm:p-7">
+          <div className="flex flex-col gap-1 text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-purple-400">
+              Composite MCP
+            </p>
+            <p className="text-sm text-zinc-400">
+              Agents connect <span className="text-white">once</span>. Purple8&apos;s
+              MCP server exposes its 49 native tools{" "}
+              <span className="text-white">and</span> re-exposes any external MCP
+              servers you register — one endpoint, one auth, one RBAC boundary.
+            </p>
+          </div>
+
+          <div className="mt-6 grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
+            {/* Native namespaces */}
+            <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+                Native · 9 namespaces
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  "graph (13)",
+                  "journey (9)",
+                  "rag (6)",
+                  "registry (5)",
+                  "egress (4)",
+                  "feedback (4)",
+                  "scheduler (4)",
+                  "data (2)",
+                  "memory (2)",
+                ].map((ns) => (
+                  <span
+                    key={ns}
+                    className="rounded-full border border-purple-800/50 bg-purple-600/10 px-2.5 py-0.5 text-xs text-purple-200"
+                  >
+                    {ns}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Plus */}
+            <div className="flex items-center justify-center">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-purple-700/60 bg-purple-600/15 text-lg font-bold text-purple-300">
+                +
+              </span>
+            </div>
+
+            {/* Federated external servers */}
+            <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+                Federated · registry.register_mcp_server
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["your internal MCP", "vendor tools", "SaaS connectors", "custom servers"].map(
+                  (ext) => (
+                    <span
+                      key={ext}
+                      className="rounded-full border border-zinc-700 bg-[#11111b] px-2.5 py-0.5 text-xs text-zinc-400"
+                    >
+                      {ext}
+                    </span>
+                  ),
+                )}
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-5 text-center text-xs text-zinc-600">
+            → presented to the agent as a single, unified tool surface. Register,
+            remove, or test federated tools at runtime via{" "}
+            <code className="text-zinc-400">registry.*</code>.
+          </p>
+        </div>
+
         {/* Footnote */}
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-zinc-600">
-          Structural comparison: a minimal production AI stack runs 8–12
-          separate services with 4–8 network hops per query. Purple8 runs one.
+        <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-zinc-400">
+          Structural comparison: a typical production AI stack stitches together
+          ~26 separate services with 4–8 network hops per query. Purple8 runs one.
           Live figures illustrate steady-state behaviour on commodity hardware.
         </p>
       </div>
