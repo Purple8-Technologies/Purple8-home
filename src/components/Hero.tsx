@@ -15,6 +15,15 @@ export default function Hero() {
         {/* Left column */}
         <div className="flex flex-1 flex-col items-start text-left">
 
+          {/* Go-live badge */}
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-700/40 bg-purple-950/40 px-4 py-1.5 text-sm font-medium text-purple-200">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
+            </span>
+            Launching August 2026 — Developer edition available now
+          </div>
+
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[4.5rem] xl:leading-[1.08]">
             Your entire backend.
             <br />
@@ -47,7 +56,7 @@ export default function Hero() {
           </div>
 
           <p className="mt-4 text-sm text-zinc-600">
-            Free forever · No credit card · Runs on your own machine
+            Free forever · No credit card · Runs on your own machine · Upgrade in one click at launch
           </p>
 
           {/* 4 tags max */}

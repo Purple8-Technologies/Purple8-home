@@ -174,6 +174,13 @@ export default function RegisterPage() {
           The full multi-model engine on your machine. No credit card, no waitlist —
           confirm your email and your license is issued instantly.
         </p>
+        <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-800/40 bg-purple-950/30 px-4 py-1.5 text-sm text-purple-200">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
+          </span>
+          Launching August 2026 — start building today and upgrade in one click at launch.
+        </p>
 
         <form
           onSubmit={handleSubmit}
