@@ -60,7 +60,7 @@ export default function FeaturesManifesto() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
 
         {/* Section label */}
-        <p className="text-xs font-semibold uppercase tracking-widest text-purple-400">
+        <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
           Why Purple8
         </p>
         <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
