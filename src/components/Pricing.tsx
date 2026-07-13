@@ -496,11 +496,13 @@ export default function Pricing() {
         </div>
 
         {/* ── CTA ── */}
-        <div className="mt-14 text-center">
-          <p className="text-sm text-zinc-600">Questions about which plan fits your team?</p>
+        <div className="mt-16 text-center">
+          <p className="text-2xl font-bold text-white sm:text-3xl">
+            Questions about which plan fits your team?
+          </p>
           <a
             href="mailto:sales@purple8.ai"
-            className="mt-2 inline-block text-sm font-medium text-purple-400 transition-colors hover:text-purple-300"
+            className="mt-5 inline-block rounded-full bg-purple-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-purple-500"
           >
             Talk to us →
           </a>
