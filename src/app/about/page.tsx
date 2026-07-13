@@ -269,10 +269,12 @@ export default function AboutPage() {
               </h2>
 
               <div className="mt-12 grid gap-8 sm:grid-cols-[auto_1fr] sm:items-start">
-                {/* Avatar — replace the initials block with an <img src="/founders/nikhil.jpg"> once the photo is added to /public/founders/ */}
-                <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-b from-purple-600/40 to-[#11111b] ring-2 ring-purple-600/50">
-                  <span className="text-4xl font-extrabold text-white">N</span>
-                </div>
+                {/* Founder photo. Drop the image at public/founders/nikhil.jpg */}
+                <img
+                  src="/founders/nikhil.jpg"
+                  alt="Nikhil, Founder & CEO of Purple8"
+                  className="h-32 w-32 shrink-0 rounded-full object-cover ring-2 ring-purple-600/50"
+                />
 
                 <div>
                   <h3 className="text-2xl font-bold text-white">Nikhil</h3>
