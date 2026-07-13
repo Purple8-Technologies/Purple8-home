@@ -71,7 +71,7 @@ export default function AboutPage() {
                 data, retrieval, workflow orchestration, and agent execution.
               </p>
               <p className="mt-6 text-xl font-bold text-purple-300">
-                Less Complexity. Infinite Possibility.
+                Less Complexity. Infinite Possibility. Real Impact.
               </p>
               <p className="mt-1 text-base text-zinc-500">
                 Stop managing infrastructure. Start owning it.
@@ -145,7 +145,7 @@ export default function AboutPage() {
                   human ideas and real-world impact.
                 </p>
                 <p className="mt-2 text-sm italic text-purple-400/70">
-                  Less Complexity. Infinite Possibility.
+                  Less Complexity. Infinite Possibility. Real Impact.
                 </p>
               </div>
 
