@@ -1,9 +1,22 @@
 const industries = [
   {
-    name: "Engineering",
+    name: "AEC & Construction",
     description:
-      "Accelerate design review, RFI resolution, and specification management. Hyper Graph links components, materials, and compliance requirements across complex engineering BOM hierarchies. DocIntel parses CAD metadata, IFC/BIM models, and technical spec sheets automatically.",
-    useCases: ["CAD/BIM data extraction", "Compliance graph traversal", "RFI management", "Design review automation"],
+      "Connect project data across BIM models, subcontractors, specifications, and schedules. Purple8's Journey Engine orchestrates multi-party approval workflows with SLA tracking; DocIntel parses IFC, RFI packets, and change orders across the full project lifecycle. 12 AEC-specific modules cover estimating, safety, commissioning, and handover.",
+    useCases: ["BIM/IFC graph extraction", "Approval workflow orchestration", "Change-order intelligence", "Subcontractor risk mapping", "Estimating & cost graphs", "Safety & commissioning"],
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"
+      />
+    ),
+  },
+  {
+    name: "Engineering & Manufacturing",
+    description:
+      "Reason over complex BOM hierarchies, part revisions, and supplier dependencies as a traversable graph. DocIntel extracts CAD metadata and technical specifications; Purple8 links components, materials, and compliance requirements so change impact and traceability are one query away.",
+    useCases: ["BOM & part-revision graphs", "Change-impact analysis", "Supplier dependency mapping", "Spec & datasheet extraction", "Compliance traceability"],
     icon: (
       <path
         strokeLinecap="round"
@@ -15,8 +28,8 @@ const industries = [
   {
     name: "Financial Services",
     description:
-      "Power entity resolution, counterparty risk graphs, and regulatory document analysis at scale. Per-tenant envelope encryption and strict data isolation satisfy SOC 2, ISO 27001, and financial data residency requirements without custom infrastructure.",
-    useCases: ["Entity resolution", "Counterparty risk graphs", "Regulatory document parsing", "AML/KYC enrichment"],
+      "Power entity resolution, counterparty-risk graphs, and regulatory document analysis at scale. Per-tenant envelope encryption and strict data isolation help meet SOC 2, ISO 27001, and data-residency requirements without bolting on separate infrastructure.",
+    useCases: ["Entity resolution", "Counterparty-risk graphs", "Regulatory document parsing", "AML / KYC enrichment"],
     icon: (
       <path
         strokeLinecap="round"
@@ -28,8 +41,8 @@ const industries = [
   {
     name: "Legal",
     description:
-      "Extract parties, obligations, dates, and clauses from contracts and filings. Map legal entity hierarchies and precedent relationships as a traversable graph. DocIntel handles deposition transcripts, discovery documents, and structured court filings end-to-end.",
-    useCases: ["Contract intelligence", "Legal entity graphs", "Discovery document parsing", "Clause extraction"],
+      "Extract parties, obligations, dates, and clauses from contracts and filings. Map legal-entity hierarchies and precedent relationships as a traversable graph. DocIntel handles deposition transcripts, discovery sets, and structured court filings end-to-end.",
+    useCases: ["Contract intelligence", "Legal-entity graphs", "Discovery document parsing", "Clause extraction"],
     icon: (
       <path
         strokeLinecap="round"
@@ -39,23 +52,36 @@ const industries = [
     ),
   },
   {
-    name: "AEC",
+    name: "Healthcare & Life Sciences",
     description:
-      "Connect project data across BIM models, subcontractors, specifications, and schedules. Hyper Graph's Journey Engine orchestrates multi-party approval workflows with SLA tracking. DocIntel parses IFC, RFI packets, and change-order documents across the full project lifecycle. 12 AEC-specific sub-modules cover estimating, safety, commissioning, and handover.",
-    useCases: ["BIM graph extraction", "Approval workflow orchestration", "Change order intelligence", "Subcontractor risk mapping", "Estimating & cost graphs", "Safety & commissioning"],
+      "Build patient, protocol, and research knowledge graphs that reason over clinical documents, trial data, and literature. Self-hosted, air-gap-ready deployment with envelope encryption and per-tenant isolation keeps PHI on your infrastructure — DocIntel extracts entities from records, labs, and papers without data ever leaving your network.",
+    useCases: ["Clinical knowledge graphs", "Trial & protocol mapping", "Literature & evidence synthesis", "PHI-safe on-prem extraction", "Pharmacovigilance signals"],
     icon: (
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"
+        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+      />
+    ),
+  },
+  {
+    name: "Public Sector & Government",
+    description:
+      "Consolidate case files, policy documents, and citizen services into a single auditable backend. Immutable graph-native audit trails, HITL approval gates, and fully self-hosted deployment satisfy sovereignty and records-retention mandates — no cloud dependency, no data egress.",
+    useCases: ["Case & records management", "Policy & regulation graphs", "Citizen-service workflows", "Immutable audit trail", "Data-sovereign deployment"],
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
       />
     ),
   },
   {
     name: "Security Operations",
     description:
-      "Purple8's built-in SOC vertical runs autonomous threat detection, containment, and audit trails entirely on-prem — no SIEM data egress. 10 threat classes, 4 containment levels, immutable graph-native audit trail.",
-    useCases: ["Insider threat detection", "Tenant boundary enforcement", "Graph-native audit log", "Automated containment"],
+      "Purple8's built-in SOC vertical runs autonomous threat detection, containment, and audit trails entirely on-prem — no SIEM data egress. Threat classes, containment levels, and an immutable graph-native audit trail come built in, not bolted on.",
+    useCases: ["Insider-threat detection", "Tenant boundary enforcement", "Graph-native audit log", "Automated containment"],
     icon: (
       <path
         strokeLinecap="round"
@@ -79,9 +105,9 @@ export default function Industries() {
             Built for knowledge-intensive sectors
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-zinc-500">
-            Purple8 is deployed globally in sectors where AI applications need
-            to reason over complex, real-world data — not just retrieve
-            text chunks.
+            Purple8 is purpose-built for domains where AI applications must reason
+            over complex, real-world data — connected entities, documents, and
+            workflows — not just retrieve text chunks.
           </p>
         </div>
 
