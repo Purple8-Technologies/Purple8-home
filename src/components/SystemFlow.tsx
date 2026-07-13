@@ -372,7 +372,7 @@ export default function SystemFlow() {
         {/* Footnote */}
         <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-zinc-400">
           Structural comparison: a typical production AI stack stitches together
-          ~26 separate services with 4–8 network hops per query. Purple8 runs one.
+          ~29 separate services with 4–8 network hops per query. Purple8 runs one.
           Live figures illustrate steady-state behaviour on commodity hardware.
         </p>
       </div>

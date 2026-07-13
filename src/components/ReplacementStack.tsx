@@ -16,9 +16,11 @@ import { useEffect, useRef, useState } from "react";
 
 const replacements = [
   // Data & storage
-  { old: "PostgreSQL / MongoDB", new: "BrickCore storage", icon: "database" },
+  { old: "PostgreSQL", new: "BrickCore storage", icon: "database" },
+  { old: "MongoDB", new: "Document store", icon: "doc" },
   { old: "Neo4j", new: "Native graph engine", icon: "graph" },
-  { old: "Pinecone / Weaviate", new: "HNSW vector index", icon: "vector" },
+  { old: "Pinecone", new: "HNSW vector index", icon: "vector" },
+  { old: "Weaviate", new: "Hybrid vector search", icon: "vector" },
   { old: "Elasticsearch", new: "Full-text search", icon: "search" },
   { old: "Redis", new: "In-process memory layer", icon: "memory" },
   // Retrieval & AI
@@ -26,20 +28,25 @@ const replacements = [
   { old: "LangGraph", new: "Journey Engine (stateful)", icon: "workflow" },
   { old: "LangSmith", new: "Immutable graph audit trail", icon: "audit" },
   { old: "RAGAS", new: "Built-in RAG evaluation", icon: "eval" },
+  { old: "Cohere Rerank", new: "Built-in reranker", icon: "eval" },
   { old: "spaCy NER", new: "GLiNER extraction", icon: "ner" },
   // Document intelligence (IDP)
-  { old: "Unstructured.io", new: "DocIntel — 70+ formats", icon: "doc" },
+  { old: "Unstructured.io", new: "DocIntel parsing", icon: "doc" },
   { old: "Azure Document Intelligence", new: "DocIntel IDP", icon: "doc" },
-  { old: "AWS Textract / ABBYY", new: "Self-hosted OCR", icon: "ocr" },
+  { old: "AWS Textract", new: "Self-hosted OCR", icon: "ocr" },
+  { old: "ABBYY", new: "OCR engine", icon: "ocr" },
   // Workflow & data movement
-  { old: "Airflow / Temporal", new: "Workflow orchestration + SLA", icon: "workflow" },
-  { old: "Debezium / Kafka Connect", new: "Change Data Capture", icon: "cdc" },
+  { old: "Airflow", new: "Workflow orchestration", icon: "workflow" },
+  { old: "Temporal", new: "Stateful workflows + SLA", icon: "workflow" },
+  { old: "Debezium", new: "Change Data Capture", icon: "cdc" },
+  { old: "Kafka Connect", new: "Event egress bus", icon: "cdc" },
   // Security & identity
-  { old: "Auth0 / Okta", new: "JWT + SSO + RBAC", icon: "auth" },
+  { old: "Auth0", new: "JWT authentication", icon: "auth" },
+  { old: "Okta", new: "SSO + RBAC", icon: "auth" },
   { old: "HashiCorp Vault", new: "AES-256 envelope KMS", icon: "kms" },
   { old: "Splunk / SIEM", new: "SOC vertical", icon: "soc" },
   // Ops & tooling
-  { old: "Datadog", new: "SLA monitoring + /metrics", icon: "metrics" },
+  { old: "Datadog", new: "SLA monitoring + metrics", icon: "metrics" },
   { old: "Apollo Federation", new: "Supergraph federation", icon: "federation" },
   { old: "Retool", new: "LCNC admin console", icon: "admin" },
   { old: "S3 + Lambda glue", new: "DocIntel connectors", icon: "connectors" },
@@ -233,28 +240,22 @@ export default function ReplacementStack() {
     setCollapsed((c) => !c);
   };
 
-  // Count individual products (slashed pairs count as separate services).
-  const serviceCount = replacements.reduce(
-    (n, r) => n + r.old.split("/").length,
-    0,
-  );
+  // One box per service — the tally is simply how many we list.
+  const serviceCount = replacements.length;
 
   return (
     <section className="relative py-24 px-4 md:px-8">
       <div className="container mx-auto max-w-6xl">
         {/* Heading */}
         <div className="text-center mb-14">
-          <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
-            The collapse
-          </p>
-          <h2 className="mt-3 text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
             {serviceCount} services become one.
           </h2>
           <p className="mt-4 text-lg text-zinc-400 max-w-2xl mx-auto">
             The modern AI stack is a sprawl of databases, vector stores,
             orchestration, auth, and observability — each its own service, its
             own bill, its own failure mode. Two products, Purple8 and DocIntel,
-            replace all of it. Watch it collapse.
+            replace all of it.
           </p>
         </div>
 
