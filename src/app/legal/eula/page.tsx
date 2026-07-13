@@ -12,8 +12,8 @@ export default function EulaPage() {
     <LegalDoc
       title="End User License Agreement"
       subtitle="Enterprise Platform & Commercial Redistribution License — applies to all Purple8 software, including Purple8 Hyper Graph and Purple8 DocIntel."
-      effective="May 16, 2026"
-      version="1.0"
+      effective="July 13, 2026"
+      version="1.1"
     >
       <blockquote>
         <strong>
@@ -83,8 +83,22 @@ export default function EulaPage() {
         server, or embedded deployment.
       </p>
       <p>
-        <strong>1.8 &ldquo;License Tier&rdquo;</strong> means one of: Developer,
-        Builder, Business, or Enterprise, as defined in Section 3.
+        <strong>1.8 &ldquo;License Tier&rdquo;</strong> means one of the tiers
+        offered by Purple8 from time to time, grouped into the families defined
+        in Section 3: <strong>Free</strong> (Developer / Community),{" "}
+        <strong>Production</strong>, <strong>Pro</strong>, and{" "}
+        <strong>Enterprise</strong>. The specific tiers, their capacities, and
+        their prices are published at{" "}
+        <a href="/#pricing">purple8.ai pricing</a> and enforced by your License
+        Key.
+      </p>
+      <p>
+        <strong>1.9 &ldquo;Entitlements&rdquo;</strong> means the capacity and
+        feature limits associated with your License Tier — including permitted
+        Node counts, data capacity (e.g. maximum nodes/edges or documents
+        processed), seats, agents, and feature availability — as published at{" "}
+        <a href="/#pricing">purple8.ai pricing</a> and encoded in your License
+        Key.
       </p>
 
       <h2>2. Grant of License</h2>
@@ -117,43 +131,67 @@ export default function EulaPage() {
 
       <h2>3. License Tiers</h2>
       <p>
-        <strong>3.1 Developer Tier (Free).</strong> Permitted for
-        non-commercial development, testing, evaluation, open-source projects,
-        and academic research. Commercial use is prohibited under this tier. A
-        deployment is commercial when it generates revenue, serves external
-        users in production, or is offered as a service to third parties. Upon
-        commercial launch, Licensee must immediately upgrade to a paid tier. Use
-        of the free Developer Tier is also subject to the{" "}
-        <a href="/legal/developer-agreement">Developer Agreement</a>.
+        The Software is licensed in tiers grouped into four families. Purple8 may
+        add, rename, or adjust the specific tiers and their capacities within
+        each family; the current tiers, capacities, and prices are published at{" "}
+        <a href="/#pricing">purple8.ai pricing</a> and enforced by your License
+        Key. The families below govern the <em>permitted use</em> of each tier.
       </p>
       <p>
-        <strong>3.2 Builder Tier (Paid).</strong> Permitted for commercial
-        Applications serving external End Users, internal enterprise tools, SaaS
-        products, and on-premises deployments at Licensee&rsquo;s own facilities.
-        White-label rights are included. On-premises deployment at a{" "}
-        <strong>client&rsquo;s</strong> facilities requires the Enterprise Tier.
+        <strong>3.1 Free Family — Developer &amp; Community (Free).</strong>{" "}
+        The free tiers of Purple8 (the &ldquo;Developer&rdquo; edition) and
+        DocIntel (the &ldquo;Community&rdquo; edition). Permitted for
+        development, testing, evaluation, internal prototyping, open-source
+        projects, and academic research, including internal commercial
+        development, subject to the capacity limits of the free tier. Free tiers
+        may not be resold or offered as a hosted service to third parties. Use of
+        a free tier is also subject to the{" "}
+        <a href="/legal/developer-agreement">Developer Agreement</a> (Purple8) or
+        the applicable free-tier terms (DocIntel). When your usage exceeds the
+        free-tier capacity, or you deploy in production at scale, you must upgrade
+        to a paid tier.
       </p>
       <p>
-        <strong>3.3 Business Tier (Paid).</strong> Includes all Builder Tier
-        rights. Permitted for multi-project commercial deployments and
-        Applications requiring advanced security, compliance, and AI
+        <strong>3.2 Production Family (Paid).</strong> The entry paid tiers —
+        for Purple8, the production capacity tiers (e.g.{" "}
+        <em>Micro, Mini, Growth, Starter</em>); for DocIntel, the metered paid
+        tier (e.g. <em>Solo</em>). Permitted for commercial Applications serving
+        external End Users, internal enterprise tools, SaaS products, and
+        on-premises deployments at Licensee&rsquo;s own facilities, up to the
+        Entitlements of the purchased tier. White-label rights are included.
+        On-premises deployment at a <strong>client&rsquo;s</strong> facilities
+        requires the Enterprise family.
+      </p>
+      <p>
+        <strong>3.3 Pro Family (Paid).</strong> The advanced paid tier — for
+        Purple8, the <em>Pro</em> tier; for DocIntel, the <em>Self-Hosted</em>{" "}
+        tier. Includes all Production family rights, plus the advanced security,
+        compliance, and capability entitlements published for that tier (which
+        may include, for Purple8, features such as SSO/OIDC, RBAC, immutable
+        audit logging, field/row-level security, change data capture, and
+        additional graph and domain modules). Permitted for multi-project
+        commercial deployments and Applications requiring these advanced
         capabilities.
       </p>
       <p>
-        <strong>3.4 Enterprise Tier (Negotiated — Signed Contract).</strong>{" "}
-        Includes all Business Tier rights, plus: on-premises deployment at client
-        facilities; white-label distribution to clients; custom allotments and
-        volume pricing; Service Level Agreements; dedicated support; audit
-        indemnification; and custom data processing agreements (DPA/BAA as
-        applicable). Requires a separately negotiated, signed Enterprise
-        Agreement.
+        <strong>3.4 Enterprise Family (Negotiated — Signed Contract).</strong>{" "}
+        Includes all Pro family rights, plus: on-premises deployment at client
+        facilities; white-label distribution to clients; custom capacity
+        allotments and volume pricing; Service Level Agreements; dedicated
+        support; audit indemnification; and custom data processing agreements
+        (DPA/BAA as applicable). The Purple8 Enterprise tier requires a
+        separately negotiated, signed Enterprise Agreement; the DocIntel
+        Enterprise tier is available self-serve with the entitlements published
+        for it. Where a signed Enterprise Agreement conflicts with this
+        Agreement, the signed Enterprise Agreement governs.
       </p>
       <p>
-        <strong>3.5 Automatic Tier Upgrade.</strong> If usage exceeds the limits
-        of the current tier, the license automatically requires upgrade. Purple8
-        will not disable production systems without prior written notice, but
-        continued use beyond tier limits without upgrade constitutes a material
-        breach. See <a href="/#pricing">purple8.ai pricing</a> for paid tiers.
+        <strong>3.5 Automatic Tier Upgrade.</strong> If usage exceeds the
+        Entitlements of your current tier, the license requires upgrade to a tier
+        with sufficient capacity. Purple8 will not disable production systems
+        without prior written notice, but continued use beyond your Entitlements
+        without upgrade constitutes a material breach. See{" "}
+        <a href="/#pricing">purple8.ai pricing</a> for current paid tiers.
       </p>
 
       <h2>4. Permitted Commercial Use</h2>
@@ -166,12 +204,12 @@ export default function EulaPage() {
         Application.
       </p>
       <p>
-        <strong>4.2 White-Labeling.</strong> Under the Builder, Business, and
-        Enterprise Tiers you may brand your Application entirely as your own.
-        However, you may not represent the Software itself as your own
-        proprietary technology, may not remove Purple8&rsquo;s copyright notices
-        from Distributable Components, and your End User agreement must include
-        the flow-down clause in Section 5.2.
+        <strong>4.2 White-Labeling.</strong> Under any paid tier (the
+        Production, Pro, and Enterprise families) you may brand your Application
+        entirely as your own. However, you may not represent the Software itself
+        as your own proprietary technology, may not remove Purple8&rsquo;s
+        copyright notices from Distributable Components, and your End User
+        agreement must include the flow-down clause in Section 5.2.
       </p>
       <p>
         <strong>4.3 Commercial Scaling Obligation.</strong> As your Application
@@ -277,7 +315,10 @@ export default function EulaPage() {
         <strong>8.3 Automated Telemetry.</strong> The Software may collect and
         transmit non-personally-identifiable telemetry — Node counts, feature
         usage, and version information — for license compliance and product
-        improvement. Enterprise Tier deployments may disable telemetry; contact{" "}
+        improvement. You may disable telemetry by setting{" "}
+        <code>PURPLE8_TELEMETRY_DISABLE=1</code>; disabling telemetry does not
+        relieve you of your obligations under Section 8.1. For questions,
+        contact{" "}
         <a href="mailto:legal@purple8.ai">legal@purple8.ai</a>.
       </p>
 
