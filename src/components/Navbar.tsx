@@ -5,9 +5,9 @@ import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
 
 const links = [
-  { href: "/#products", label: "Products" },
-  { href: "/#features", label: "Features" },
-  { href: "/#industries", label: "Industries" },
+  { href: "/products", label: "Products" },
+  { href: "/features", label: "Features" },
+  { href: "/industries", label: "Industries" },
   { href: "/about", label: "About" },
   { href: "/support", label: "Support" },
 ];

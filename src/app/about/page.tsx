@@ -291,8 +291,8 @@ export default function AboutPage() {
                     3am.
                   </p>
                   <p className="mt-4 leading-relaxed text-zinc-400">
-                    That direct experience is why he built Purple8 differently —
-                    not as another service to add to the stack, but as the
+                    That direct experience is why he built Purple8 differently.
+                    Not as another service to add to the stack, but as the
                     infrastructure layer that replaces it. His work now spans
                     AI-native platforms for architecture firms to GeoHarvestAI, a
                     sovereign intelligence layer helping state governments

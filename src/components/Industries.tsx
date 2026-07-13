@@ -28,7 +28,7 @@ const industries = [
   {
     name: "Financial Services",
     description:
-      "Power entity resolution, counterparty-risk graphs, and regulatory document analysis at scale. Per-tenant envelope encryption and strict data isolation help meet SOC 2, ISO 27001, and data-residency requirements without bolting on separate infrastructure.",
+      "Power entity resolution, counterparty risk graphs, and regulatory document analysis at scale. Per-tenant envelope encryption, strict data isolation, and security practices commonly associated with SOC 2 and ISO 27001, designed to support financial data residency without custom infrastructure.",
     useCases: ["Entity resolution", "Counterparty-risk graphs", "Regulatory document parsing", "AML / KYC enrichment"],
     icon: (
       <path

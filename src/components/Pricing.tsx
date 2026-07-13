@@ -317,7 +317,7 @@ export default function Pricing() {
               <a href="#calculator" className="text-purple-400 hover:text-purple-300">
                 Use the tier finder ↑
               </a>{" "}
-              · All paid tiers available on AWS, GCP &amp; Azure Marketplace.
+              · All paid tiers will be available on AWS, GCP &amp; Azure Marketplace soon.
             </p>
           </>
         ) : (
