@@ -32,7 +32,7 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "Full-text + vector / semantic search", developer: true, production: true, pro: true, enterprise: true },
   { label: "ACID transactions", developer: true, production: true, pro: true, enterprise: true },
   { label: "REST API + Python & TypeScript SDKs", developer: true, production: true, pro: true, enterprise: true },
-  { label: "All 31 MCP tools (graph · rag · data · journey)", developer: true, production: true, pro: true, enterprise: true },
+  { label: "All 49 MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback)", developer: true, production: true, pro: true, enterprise: true },
   { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, production: true, pro: true, enterprise: true },
   { label: "All 67 graph & AEC algorithms", developer: true, production: true, pro: true, enterprise: true },
   // Production family — Micro, Mini, Growth, Starter (identical features)

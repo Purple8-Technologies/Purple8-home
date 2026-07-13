@@ -119,7 +119,7 @@ function RegistrationForm() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-purple-400">Purple8 Developer — Free</p>
         <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">Get the beta Docker image</h1>
         <p className="mt-3 text-sm text-zinc-400">
-          Full engine, all 29 MCP tools, all RAG pipelines. No credit card, no expiry.
+          Full engine, all 49 MCP tools, all RAG pipelines. No credit card, no expiry.
           Tell us a bit about yourself and we'll send you your invite link and license.
         </p>
 
