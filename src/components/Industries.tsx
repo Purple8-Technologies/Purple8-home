@@ -112,18 +112,18 @@ export default function Industries() {
         </div>
 
         {/* Industry cards */}
-        <div className="mt-16 grid gap-6 sm:grid-cols-2">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((ind) => (
             <div
               key={ind.name}
-              className="group relative overflow-hidden rounded-2xl border border-zinc-800/60 bg-[#11111b] p-7 transition-all hover:border-purple-900/50"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-800/60 bg-[#11111b] p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-700/50 hover:bg-[#13131f]"
             >
               {/* Glow */}
-              <div className="pointer-events-none absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-purple-900/10 blur-3xl transition-all group-hover:bg-purple-800/20" />
+              <div className="pointer-events-none absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-purple-900/10 blur-3xl transition-all group-hover:bg-purple-700/20" />
 
-              <div className="relative">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-600/20 text-purple-400">
+              <div className="relative flex flex-1 flex-col">
+                <div className="flex items-center gap-3.5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-600/20 text-purple-400 transition-colors group-hover:bg-purple-600/30">
                     <svg
                       className="h-5 w-5"
                       fill="none"
@@ -134,18 +134,20 @@ export default function Industries() {
                       {ind.icon}
                     </svg>
                   </div>
-                  <h3 className="text-lg font-bold text-white">{ind.name}</h3>
+                  <h3 className="text-base font-bold leading-tight text-white">
+                    {ind.name}
+                  </h3>
                 </div>
 
-                <p className="mt-4 text-sm leading-relaxed text-zinc-500">
+                <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                   {ind.description}
                 </p>
 
-                <div className="mt-5 flex flex-wrap gap-2">
+                <div className="mt-5 flex flex-wrap gap-2 pt-1">
                   {ind.useCases.map((uc) => (
                     <span
                       key={uc}
-                      className="rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-0.5 text-xs text-zinc-500"
+                      className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2.5 py-0.5 text-xs text-zinc-400 transition-colors group-hover:border-purple-900/50"
                     >
                       {uc}
                     </span>
@@ -154,6 +156,26 @@ export default function Industries() {
               </div>
             </div>
           ))}
+
+          {/* Teaser — fills the grid + invites other verticals */}
+          <a
+            href="#products"
+            className="group relative flex flex-col justify-center overflow-hidden rounded-2xl border border-dashed border-zinc-800 bg-transparent p-7 transition-all duration-300 hover:border-purple-700/50 hover:bg-[#11111b]"
+          >
+            <h3 className="text-base font-bold text-white">
+              Don&rsquo;t see your sector?
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-500">
+              Purple8 is domain-agnostic infrastructure. If your work means
+              reasoning over connected data and documents, it fits.
+            </p>
+            <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-purple-400 transition-colors group-hover:text-purple-300">
+              Explore the platform
+              <span className="transition-transform group-hover:translate-x-0.5">
+                →
+              </span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
