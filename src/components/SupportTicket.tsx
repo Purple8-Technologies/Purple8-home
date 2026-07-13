@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CC_BASE_URL } from "@/lib/cc";
 
 type Category = "bug" | "installation" | "question" | "feature_request" | "documentation" | "security" | "billing" | "other";
 type Product   = "hyper_graph" | "docintel" | "general";
@@ -16,7 +17,7 @@ interface FormData {
   version:  string;
 }
 
-const CC_BASE_URL = process.env.NEXT_PUBLIC_CC_BASE_URL ?? "";
+const CC_BASE = CC_BASE_URL;
 
 const CATEGORIES: { value: Category; label: string; emoji: string }[] = [
   { value: "bug",             label: "Bug report",         emoji: "🐛" },
@@ -68,16 +69,16 @@ export default function SupportTicket() {
       version:  form.version.trim(),
     };
 
-    if (!CC_BASE_URL) {
-      // Dev placeholder — simulate success
-      await new Promise((r) => setTimeout(r, 800));
-      setTicketId("TKT-DEV001");
-      setStatus("success");
+    if (!CC_BASE) {
+      // Should never happen — CC_BASE_URL always resolves to a live CC URL.
+      // Surface a real error rather than silently faking a submission.
+      setStatus("error");
+      setErrorMsg("Support is temporarily unavailable. Please email support@purple8.ai.");
       return;
     }
 
     try {
-      const res = await fetch(`${CC_BASE_URL}/public/ticket`, {
+      const res = await fetch(`${CC_BASE}/public/ticket`, {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify(payload),
