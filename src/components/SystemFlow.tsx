@@ -1,12 +1,15 @@
 "use client";
 
 /**
- * SystemFlow — "How Purple8 Works" animated flow map.
+ * SystemFlow — "Your entire backend. One process." animated flow map.
  *
- * A live diagram of the AI-native architecture: two entry points (Applications
- * via REST, and AI agents via MCP) flow into ONE in-process engine, whose
- * subsystems (GraphEngine, BrickCore storage, HNSW vectors, RAG, Journey) emit
- * answers, an immutable audit trail, and metrics.
+ * A live diagram of the AI-native architecture: your frontend and AI agents are
+ * the only things you write; everything behind them is Purple8. Two entry
+ * points (frontend via REST, agents via MCP) feed ONE in-process engine whose
+ * subsystems (graph/query, BrickCore storage, vector+full-text, Journey,
+ * security/SOC) power four workload families — Search & RAG, Workflows & SLA,
+ * Security & Audit, Analytics & Ops. RAG is deliberately just ONE workload, not
+ * the hero: the story is "complete backend," not "RAG chatbot."
  *
  * The whole point mirrors Purple8's identity: the traditional stack is 8–12
  * separate services with network hops between them; here every hop is
@@ -37,18 +40,19 @@ const NH = 58;
 
 const NODES: Node[] = [
   // Entry points
-  { id: "apps", label: "Applications", sub: "REST · /ingest", x: 40, y: 118, w: NW, h: NH, tone: "entry" },
+  { id: "apps", label: "Your Frontend", sub: "REST · /ingest", x: 40, y: 118, w: NW, h: NH, tone: "entry" },
   { id: "agents", label: "AI Agents", sub: "MCP · 49 tools", x: 40, y: 384, w: NW, h: NH, tone: "entry" },
   // Core subsystems (inside the process box)
-  { id: "engine", label: "GraphEngine", sub: "query planner · 6 strategies", x: 410, y: 92, w: 240, h: 50, tone: "core", health: "ok" },
-  { id: "storage", label: "BrickCore Storage", sub: "bounded RSS · WAL", x: 410, y: 168, w: 240, h: 50, tone: "core", health: "ok" },
-  { id: "vector", label: "HNSW Vectors", sub: "graph-guided ANN", x: 410, y: 244, w: 240, h: 50, tone: "core", health: "ok" },
-  { id: "rag", label: "RAG Pipeline", sub: "hybrid · rerank", x: 410, y: 320, w: 240, h: 50, tone: "core", health: "ok" },
-  { id: "journey", label: "Journey Engine", sub: "SLA · HITL · audit", x: 410, y: 396, w: 240, h: 50, tone: "core", health: "warn" },
-  // Outputs
-  { id: "answers", label: "Grounded Answers", sub: "cited · low-latency", x: 810, y: 118, w: NW, h: NH, tone: "out" },
-  { id: "audit", label: "Immutable Audit", sub: "every edge, forever", x: 810, y: 251, w: NW, h: NH, tone: "out" },
-  { id: "metrics", label: "Observability", sub: "/metrics · Prometheus", x: 810, y: 384, w: NW, h: NH, tone: "out" },
+  { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 92, w: 240, h: 50, tone: "core", health: "ok" },
+  { id: "storage", label: "BrickCore Storage", sub: "documents · WAL · bounded RSS", x: 410, y: 168, w: 240, h: 50, tone: "core", health: "ok" },
+  { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 244, w: 240, h: 50, tone: "core", health: "ok" },
+  { id: "journey", label: "Journey Engine", sub: "workflows · SLA · HITL", x: 410, y: 320, w: 240, h: 50, tone: "core", health: "warn" },
+  { id: "security", label: "Security & SOC", sub: "AES-256 · RBAC · tenancy", x: 410, y: 396, w: 240, h: 50, tone: "core", health: "ok" },
+  // Outputs — workload families, each replacing a whole product category
+  { id: "search", label: "Search & RAG", sub: "vector + graph + text", x: 810, y: 84, w: NW, h: NH, tone: "out" },
+  { id: "workflow", label: "Workflows & SLA", sub: "orchestration · HITL", x: 810, y: 183, w: NW, h: NH, tone: "out" },
+  { id: "audit", label: "Security & Audit", sub: "encryption · immutable trail", x: 810, y: 282, w: NW, h: NH, tone: "out" },
+  { id: "metrics", label: "Analytics & Ops", sub: "/metrics · dashboards", x: 810, y: 381, w: NW, h: NH, tone: "out" },
 ];
 
 const byId = (id: string) => NODES.find((n) => n.id === id)!;
@@ -62,17 +66,21 @@ interface Edge {
 }
 
 const EDGES: Edge[] = [
+  // Entry points fan into the engine — apps and agents both hit everything.
   { from: "apps", to: "engine", dur: 2.6, delay: 0 },
   { from: "apps", to: "storage", dur: 3.0, delay: 0.6 },
-  { from: "agents", to: "rag", dur: 2.4, delay: 0.3 },
+  { from: "apps", to: "journey", dur: 3.3, delay: 1.4 },
+  { from: "agents", to: "index", dur: 2.4, delay: 0.3 },
   { from: "agents", to: "journey", dur: 2.8, delay: 0.9 },
-  { from: "agents", to: "engine", dur: 3.2, delay: 1.2 },
-  { from: "engine", to: "answers", dur: 2.5, delay: 0.2 },
-  { from: "vector", to: "answers", dur: 2.7, delay: 1.0 },
-  { from: "rag", to: "answers", dur: 2.3, delay: 0.5 },
-  { from: "journey", to: "audit", dur: 2.6, delay: 0.4 },
-  { from: "storage", to: "metrics", dur: 3.1, delay: 1.1 },
-  { from: "journey", to: "metrics", dur: 2.9, delay: 0.7 },
+  { from: "agents", to: "security", dur: 3.2, delay: 1.2 },
+  // Each subsystem powers a workload family (the "whole backend" story).
+  { from: "engine", to: "search", dur: 2.5, delay: 0.2 },
+  { from: "index", to: "search", dur: 2.7, delay: 1.0 },
+  { from: "journey", to: "workflow", dur: 2.4, delay: 0.5 },
+  { from: "security", to: "audit", dur: 2.6, delay: 0.4 },
+  { from: "storage", to: "audit", dur: 3.1, delay: 1.3 },
+  { from: "storage", to: "metrics", dur: 2.9, delay: 0.7 },
+  { from: "journey", to: "metrics", dur: 3.0, delay: 1.1 },
 ];
 
 /** Cubic-bezier path between the right edge of `from` and left edge of `to`. */
@@ -137,12 +145,12 @@ export default function SystemFlow() {
             How Purple8 works
           </p>
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            One process. Zero network hops.
+            Your entire backend. One process.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
-            Applications and AI agents both talk to the same engine. Storage,
-            vectors, RAG, and workflow orchestration all run{" "}
-            <span className="text-purple-300">in-process</span> — every hop the
+            You write the frontend — Purple8 is everything behind it. Database,
+            graph, search, RAG, workflows, security, and audit all run{" "}
+            <span className="text-purple-300">in one process</span>. Every hop the
             traditional stack makes over the network, Purple8 makes in memory.
           </p>
         </div>
@@ -167,7 +175,7 @@ export default function SystemFlow() {
           <svg
             viewBox="0 0 1000 560"
             role="img"
-            aria-label="Purple8 architecture flow map: applications and AI agents feed a single in-process engine that emits answers, audit, and metrics."
+            aria-label="Purple8 architecture flow map: your frontend and AI agents feed one in-process backend (graph, storage, search, workflows, security) that powers search & RAG, workflows, audit, and analytics."
             className="mx-auto h-auto w-full min-w-[720px] max-w-5xl"
           >
             <defs>
@@ -192,7 +200,7 @@ export default function SystemFlow() {
               ONE PROCESS
             </text>
             <text x="905" y="90" textAnchor="middle" className="fill-zinc-600" fontSize="12" fontWeight="600" letterSpacing="1.5">
-              OUTPUTS
+              WORKLOADS
             </text>
 
             {/* Core process container */}
