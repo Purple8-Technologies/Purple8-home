@@ -22,10 +22,8 @@ interface BetaStatusResponse {
   email: string;
 }
 
-const SOFTWARE_USAGE_URL =
-  "https://github.com/Purple8-Technologies/purple8-graph/blob/main/legal/EULA.md";
-const BETA_AGREEMENT_URL =
-  "https://github.com/Purple8-Technologies/Purple8-home/blob/main/BETA_AGREEMENT.md";
+const SOFTWARE_USAGE_URL = "/legal/eula";
+const BETA_AGREEMENT_URL = "/legal/beta-agreement";
 const BETA_IMAGE = "ghcr.io/purple8-technologies/purple8-graph:beta";
 const QUICKSTART_URL =
   "https://github.com/Purple8-Technologies/Purple8-home/blob/main/BETA_QUICKSTART.md";
