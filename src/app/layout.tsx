@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Purple8",
   },
   description:
-    "Purple8 Technologies builds AI-native infrastructure: Hyper Graph (unified graph, vector, document & full-text engine) and DocIntel (70-format document intelligence). One process. Zero external dependencies.",
+    "Purple8 Technologies builds AI-native infrastructure: Purple8 (unified graph, vector, document & full-text engine — an entire backend in one process) and DocIntel (70-format document intelligence). One process. Zero external dependencies.",
   keywords: [
     "AI infrastructure",
     "graph database",
