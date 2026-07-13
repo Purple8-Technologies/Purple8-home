@@ -3,16 +3,14 @@
 /**
  * ReplacementStack — "What You Cancel", now with a live collapse.
  *
- * The real grid of replacement boxes IS the animation: on scroll-into-view
- * (after a beat so you can read them) they implode toward the centre and a
- * single Purple8 "one process" core takes their place. A toggle expands the
- * grid back so the list stays readable proof.
+ * The real grid of replacement boxes IS the animation: click "Watch it
+ * collapse" and they implode toward the centre, replaced by a single Purple8
+ * "one process" core. Click again to bring the stack back.
  *
- * Pure React + CSS transforms, no deps (static-export safe). Respects
- * prefers-reduced-motion (stays expanded, no animation).
+ * Pure React + CSS transforms, no deps (static-export safe).
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const replacements = [
   // Data & storage
@@ -207,38 +205,9 @@ function StackIcon({ name }: { name: string }) {
 }
 
 export default function ReplacementStack() {
-  const ref = useRef<HTMLDivElement>(null);
   const [collapsed, setCollapsed] = useState(false);
-  const [reduced, setReduced] = useState(false);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches) {
-      setReduced(true);
-      return;
-    }
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            // let the reader glance at the stack first, then collapse it
-            setTimeout(() => setCollapsed(true), 1600);
-            io.disconnect();
-          }
-        });
-      },
-      { threshold: 0.25 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const toggle = () => {
-    if (reduced) return;
-    setCollapsed((c) => !c);
-  };
+  const toggle = () => setCollapsed((c) => !c);
 
   // One box per service — the tally is simply how many we list.
   const serviceCount = replacements.length;
@@ -257,10 +226,17 @@ export default function ReplacementStack() {
             own bill, its own failure mode. Two products, Purple8 and DocIntel,
             replace all of it.
           </p>
+          <button
+            type="button"
+            onClick={toggle}
+            className="mt-7 inline-flex items-center gap-2 rounded-full bg-purple-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-purple-500"
+          >
+            {collapsed ? "↺ Show the stack" : "Watch it collapse →"}
+          </button>
         </div>
 
         {/* Collapse stage */}
-        <div ref={ref} className="relative">
+        <div className="relative">
           {/* Real replacement grid — this IS the animation */}
           <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-[1100ms] ease-in-out"
@@ -322,16 +298,8 @@ export default function ReplacementStack() {
           </div>
         </div>
 
-        {/* Toggle + tally */}
-        <div className="mt-12 flex flex-col items-center gap-3">
-          <button
-            type="button"
-            onClick={toggle}
-            disabled={reduced}
-            className="rounded-full border border-zinc-700 px-4 py-1.5 text-xs font-medium text-zinc-400 transition-colors hover:border-purple-600 hover:text-purple-300 disabled:opacity-40"
-          >
-            {collapsed ? "↺ Show the stack" : "↻ Collapse it"}
-          </button>
+        {/* Tally */}
+        <div className="mt-12 text-center">
           <p className="text-sm text-zinc-500">
             No API gateway. No sidecar. No Kubernetes operators.{" "}
             <span className="text-purple-400 font-medium">

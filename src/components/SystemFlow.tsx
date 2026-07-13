@@ -345,7 +345,7 @@ export default function SystemFlow() {
             {/* Federated external servers */}
             <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
-                Federated · registry.register_mcp_server
+                Federated · Register MCP Server
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {["your internal MCP", "vendor tools", "SaaS connectors", "custom servers"].map(
