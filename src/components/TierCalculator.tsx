@@ -89,11 +89,14 @@ export default function TierCalculator() {
   const useCase = USE_CASES.find((u) => u.id === useCaseId) ?? USE_CASES[0];
   const totalUsers = niceRound(posToUsers(pos));
 
-  // Selecting a regulated domain (e.g. lending) pre-checks governance.
+  // Selecting a use case sets governance to its domain default, so the
+  // recommendation always reflects the *current* selection. (Regulated domains
+  // like lending pre-check governance; switching to a non-regulated domain
+  // clears it — otherwise the toggle would stay stuck ON and keep forcing Pro.)
   function chooseUseCase(id: string) {
     setUseCaseId(id);
     const uc = USE_CASES.find((u) => u.id === id);
-    if (uc?.typicallyRegulated) setNeedsGovernance(true);
+    setNeedsGovernance(!!uc?.typicallyRegulated);
   }
 
   const result = useMemo(
