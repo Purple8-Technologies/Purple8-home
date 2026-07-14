@@ -97,6 +97,17 @@ export default function RegisterPage() {
   if (sent) {
     return (
       <main className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl">
+          <a
+            href="/"
+            className="mb-6 inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to purple8.ai
+          </a>
+        </div>
         <div className="mx-auto max-w-2xl rounded-3xl border border-purple-900/40 bg-[#11111b] p-8 sm:p-10">
           <h1 className="text-2xl font-bold text-white sm:text-3xl">
             {alreadyLicensed ? "You already have a license" : "Check your email 📧"}
@@ -167,6 +178,15 @@ export default function RegisterPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl">
+        <a
+          href="/"
+          className="mb-6 inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300"
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to purple8.ai
+        </a>
         <h1 className="text-3xl font-bold text-white sm:text-4xl">
           Get Purple8 — free for developers
         </h1>

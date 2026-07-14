@@ -83,6 +83,15 @@ function CheckoutSuccessContent() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
+      <a
+        href="/"
+        className="absolute left-4 top-4 inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300 sm:left-6 sm:top-6"
+      >
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to purple8.ai
+      </a>
       <div className="max-w-xl w-full rounded-2xl border border-zinc-800 bg-[#11111b] p-10 text-center">
 
         {result.status === "pending" && (

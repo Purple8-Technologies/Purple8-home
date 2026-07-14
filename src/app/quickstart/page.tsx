@@ -46,6 +46,15 @@ export default function QuickstartPage() {
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="mb-10">
+          <a
+            href="/"
+            className="mb-6 inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to purple8.ai
+          </a>
           <p className="text-sm font-medium uppercase tracking-wide text-purple-400">
             Developer Edition — Free
           </p>
