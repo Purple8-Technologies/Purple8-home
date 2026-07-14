@@ -151,11 +151,27 @@ wait_for_daemon() {
 read_key_raw() {
   # Reads a single line of arbitrary length from /dev/tty without the
   # MAX_CANON limit. Echoes nothing (keys are secret-ish). Sets REPLY_KEY.
+  #
+  # An overall inactivity timeout (P8_KEY_TIMEOUT, default 120s) guards against
+  # environments where /dev/tty is readable but no one is actually typing
+  # (piped runs, CI, some editor terminals) — without it the script would block
+  # forever at the prompt. On timeout REPLY_KEY is left empty → run unlicensed.
   REPLY_KEY=""
-  local old_stty c
+  local old_stty c first_timeout
+  first_timeout="${P8_KEY_TIMEOUT:-120}"
   old_stty="$(stty -g </dev/tty 2>/dev/null || true)"
   # Raw-ish: disable canonical mode + echo so long pastes aren't buffered/echoed.
   stty -icanon -echo min 1 time 0 </dev/tty 2>/dev/null || true
+  # Wait (with timeout) for the FIRST keystroke. If nothing arrives, give up
+  # and proceed unlicensed rather than hanging.
+  if ! IFS= read -r -n1 -t "$first_timeout" c </dev/tty 2>/dev/null; then
+    [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
+    printf "\n"
+    return
+  fi
+  # Got the first char — accumulate it, then read the rest of the line blocking
+  # until Enter (a human paste/type streams in with no long idle gaps).
+  [ -n "$c" ] && REPLY_KEY="${REPLY_KEY}${c}"
   while IFS= read -r -n1 c </dev/tty 2>/dev/null; do
     # Empty c means newline/return was pressed → end of input.
     [ -z "$c" ] && break
