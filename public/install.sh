@@ -140,6 +140,32 @@ wait_for_daemon() {
 }
 
 # ─── 3. License key ───────────────────────────────────────────────────────────
+# Reading the license is deceptively tricky: a Developer JWT is ~800+ chars,
+# which EXCEEDS the terminal's canonical-mode line buffer (MAX_CANON, ~1024
+# bytes including control characters). A normal `read` from a cooked tty
+# silently truncates or hangs on a paste that long — which is exactly the
+# "it works if I delete some of it" symptom. We therefore:
+#   1. Prefer the env var (PURPLE8_LICENSE_JWT) — the robust, copy-paste-safe path.
+#   2. For interactive paste, switch the tty to raw (-icanon) so there is no
+#      line-length limit, and read char-by-char until newline.
+read_key_raw() {
+  # Reads a single line of arbitrary length from /dev/tty without the
+  # MAX_CANON limit. Echoes nothing (keys are secret-ish). Sets REPLY_KEY.
+  REPLY_KEY=""
+  local old_stty c
+  old_stty="$(stty -g </dev/tty 2>/dev/null || true)"
+  # Raw-ish: disable canonical mode + echo so long pastes aren't buffered/echoed.
+  stty -icanon -echo min 1 time 0 </dev/tty 2>/dev/null || true
+  while IFS= read -r -n1 c </dev/tty 2>/dev/null; do
+    # Empty c means newline/return was pressed → end of input.
+    [ -z "$c" ] && break
+    REPLY_KEY="${REPLY_KEY}${c}"
+  done
+  # Restore the tty exactly as it was.
+  [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
+  printf "\n"
+}
+
 get_license() {
   step "License key"
   if [ -n "${PURPLE8_LICENSE_JWT:-}" ]; then
@@ -149,18 +175,33 @@ get_license() {
   info "Your free Developer license (PURPLE8_LICENSE_JWT) is on your activation"
   info "screen and in your email. Don't have one yet? Get it in one click:"
   info "  ${BOLD}https://www.purple8.ai/register${RESET}${DIM}"
+  info ""
+  info "Tip: the most reliable way is to pass the key up-front, no pasting:"
+  info "  ${BOLD}curl -fsSL https://www.purple8.ai/install.sh | PURPLE8_LICENSE_JWT=\"eyJ...\" bash${RESET}${DIM}"
   printf "\n  Paste your license key (or press Enter to run unlicensed for now): "
-  # Read from the terminal even when the script is piped from curl.
+  # Read from the terminal even when the script is piped from curl. Use the
+  # raw reader so pastes longer than the terminal line limit are not truncated.
   if [ -r /dev/tty ]; then
-    read -r PURPLE8_LICENSE_JWT </dev/tty || true
+    read_key_raw
+    PURPLE8_LICENSE_JWT="${REPLY_KEY}"
   else
-    read -r PURPLE8_LICENSE_JWT || true
+    # No tty (fully non-interactive) — nothing to read; run unlicensed.
+    PURPLE8_LICENSE_JWT=""
   fi
+  # Strip any stray whitespace/newlines a paste may have introduced.
+  PURPLE8_LICENSE_JWT="$(printf '%s' "${PURPLE8_LICENSE_JWT:-}" | tr -d '[:space:]')"
   if [ -z "${PURPLE8_LICENSE_JWT:-}" ]; then
     warn "No key entered — starting without a license. Add one later by re-running this script."
     PURPLE8_LICENSE_JWT=""
   else
-    ok "License key captured."
+    # Sanity check: a JWT has exactly two dots. Warn (don't block) if it looks off.
+    local dots
+    dots="$(printf '%s' "$PURPLE8_LICENSE_JWT" | tr -cd '.' | wc -c | tr -d ' ')"
+    if [ "$dots" != "2" ]; then
+      warn "That doesn't look like a complete JWT (expected 2 dots, got ${dots})."
+      warn "Continuing anyway — if licensing fails, re-run with PURPLE8_LICENSE_JWT set."
+    fi
+    ok "License key captured (${#PURPLE8_LICENSE_JWT} chars)."
   fi
 }
 
@@ -187,12 +228,23 @@ deploy() {
 
 wait_for_health() {
   step "Waiting for Purple8 to become healthy"
-  local tries=0 max=60
+  local tries=0 max=120
   until curl -fsS "$HEALTH_URL" >/dev/null 2>&1; do
     tries=$((tries + 1))
+    # If the container has already exited, stop waiting and show why.
+    if ! docker ps --format '{{.Names}}' | grep -qx "$CONTAINER"; then
+      warn "The '$CONTAINER' container stopped unexpectedly. Last log lines:"
+      printf "%s" "$DIM"
+      docker logs --tail 20 "$CONTAINER" 2>&1 | sed 's/^/    /'
+      printf "%s" "$RESET"
+      die "Purple8 exited during startup. See the logs above, then re-run this script."
+    fi
     if [ "$tries" -ge "$max" ]; then
-      warn "Health check timed out — the engine may still be warming up."
-      warn "Check logs with: docker logs -f $CONTAINER"
+      warn "Health check timed out after ${max}s. Last log lines:"
+      printf "%s" "$DIM"
+      docker logs --tail 20 "$CONTAINER" 2>&1 | sed 's/^/    /'
+      printf "%s" "$RESET"
+      warn "Follow live logs with: docker logs -f $CONTAINER"
       return
     fi
     printf "  %s… warming up (%ss)%s\r" "$DIM" "$tries" "$RESET"

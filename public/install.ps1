@@ -89,9 +89,20 @@ function Get-License {
     if ($env:PURPLE8_LICENSE_JWT) { Ok 'Using PURPLE8_LICENSE_JWT from your environment.'; return $env:PURPLE8_LICENSE_JWT }
     Info 'Your free Developer license (PURPLE8_LICENSE_JWT) is on your activation'
     Info 'screen and in your email. Get one in one click: https://www.purple8.ai/register'
+    Info ''
+    Info 'Tip: the most reliable way is to set it first, no pasting:'
+    Info '  $env:PURPLE8_LICENSE_JWT="eyJ..."; irm https://www.purple8.ai/install.ps1 | iex'
     $key = Read-Host "`n  Paste your license key (or press Enter to run unlicensed for now)"
+    # Strip any stray whitespace/newlines a paste may introduce.
+    if ($key) { $key = ($key -replace '\s', '') }
     if ([string]::IsNullOrWhiteSpace($key)) { Warn 'No key entered - starting without a license. Re-run later to add one.'; return '' }
-    Ok 'License key captured.'
+    # Sanity check: a JWT has exactly two dots. Warn (don't block) if it looks off.
+    $dots = ([regex]::Matches($key, '\.')).Count
+    if ($dots -ne 2) {
+        Warn "That doesn't look like a complete JWT (expected 2 dots, got $dots)."
+        Warn 'Continuing anyway - if licensing fails, re-run with $env:PURPLE8_LICENSE_JWT set.'
+    }
+    Ok "License key captured ($($key.Length) chars)."
     return $key
 }
 
@@ -112,13 +123,23 @@ function Deploy($license) {
 
 function Wait-Health {
     Step 'Waiting for Purple8 to become healthy'
-    for ($i = 1; $i -le 60; $i++) {
+    for ($i = 1; $i -le 120; $i++) {
         try { $r = Invoke-WebRequest -Uri $HealthUrl -UseBasicParsing -TimeoutSec 2; if ($r.StatusCode -eq 200) { Write-Host ''; Ok 'Purple8 is healthy.'; return } } catch {}
+        # If the container already exited, stop waiting and show why.
+        $running = docker ps --format '{{.Names}}' | Select-String -SimpleMatch $Container
+        if (-not $running) {
+            Write-Host ''
+            Warn "The '$Container' container stopped unexpectedly. Last log lines:"
+            docker logs --tail 20 $Container 2>&1 | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
+            Die "Purple8 exited during startup. See the logs above, then re-run this script."
+        }
         Write-Host "  ... warming up ($i s)`r" -NoNewline -ForegroundColor DarkGray
         Start-Sleep -Seconds 1
     }
     Write-Host ''
-    Warn "Health check timed out - the engine may still be warming up. Check: docker logs -f $Container"
+    Warn "Health check timed out after 120s. Last log lines:"
+    docker logs --tail 20 $Container 2>&1 | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
+    Warn "Follow live logs with: docker logs -f $Container"
 }
 
 # --- Run ----------------------------------------------------------------------
