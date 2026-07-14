@@ -121,10 +121,10 @@ export default function Products() {
               <FeatureList items={hyperGraphFeatures} />
 
               <div className="mt-8 flex items-center gap-4">
-                <a href="#pricing" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
+                <a href="/#pricing" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
                   Get Started
                 </a>
-                <a href="#features" className="text-sm text-purple-400 hover:text-purple-300">
+                <a href="/features" className="text-sm text-purple-400 hover:text-purple-300">
                   Explore features →
                 </a>
               </div>
@@ -168,10 +168,10 @@ export default function Products() {
               <FeatureList items={docIntelFeatures} />
 
               <div className="mt-8 flex items-center gap-4">
-                <a href="#pricing" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
+                <a href="/#pricing" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
                   Get Started
                 </a>
-                <a href="#features" className="text-sm text-purple-400 hover:text-purple-300">
+                <a href="/features" className="text-sm text-purple-400 hover:text-purple-300">
                   Explore features →
                 </a>
               </div>
