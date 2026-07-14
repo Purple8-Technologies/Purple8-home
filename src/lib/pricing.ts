@@ -193,7 +193,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     tagline:
       "Free forever. Full extraction pipeline — GLiNER NER, LLM relationship extraction, webhook connector, Tesseract + P8OCR. No credit card, no expiry.",
     cta: "Start for free",
-    ctaHref: "/beta",
+    ctaHref: "/register",
   },
   {
     id: "solo",

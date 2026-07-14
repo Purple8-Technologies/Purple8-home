@@ -256,7 +256,7 @@ export default function TierCalculator() {
             {/* CTAs — everyone starts free */}
             <div className="mt-auto space-y-3 pt-6">
               <a
-                href="/beta?plan=developer"
+                href="/register"
                 className="block rounded-full bg-purple-600 px-5 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-purple-500"
               >
                 Start free with Developer →
