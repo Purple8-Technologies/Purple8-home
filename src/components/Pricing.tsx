@@ -35,10 +35,10 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "All 49 MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback)", developer: true, production: true, pro: true, enterprise: true },
   { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, production: true, pro: true, enterprise: true },
   { label: "All 67 graph & AEC algorithms", developer: true, production: true, pro: true, enterprise: true },
-  // Production family — Micro, Mini, Growth, Starter (identical features)
-  { category: "Production — Micro → Starter", label: "Journey Engine + SLA monitoring", developer: false, production: true, pro: true, enterprise: true },
-  { label: "Human-in-the-Loop (HITL) gates", developer: false, production: true, pro: true, enterprise: true },
-  { label: "Advanced RAG (late & agentic chunking)", developer: false, production: true, pro: true, enterprise: true },
+  { label: "Journey Engine + SLA monitoring", developer: true, production: true, pro: true, enterprise: true },
+  { label: "Human-in-the-Loop (HITL) gates", developer: true, production: true, pro: true, enterprise: true },
+  // Production family — Micro, Mini, Growth, Starter (lifts the node/edge cap for production scale)
+  { category: "Production — Micro → Starter", label: "Advanced RAG (late & agentic chunking)", developer: false, production: true, pro: true, enterprise: true },
   { label: "Local KMS (encryption at rest)", developer: false, production: true, pro: true, enterprise: true },
   { label: "Data lineage + local backup", developer: false, production: true, pro: true, enterprise: true },
   // Pro & above
