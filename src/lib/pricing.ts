@@ -65,7 +65,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: 1,
     family: "free",
     tagline:
-      "The full engine on your machine — every RAG pipeline, every MCP tool, every algorithm. No credit card, no expiry.",
+      "The full engine on your machine — every RAG pipeline, every MCP tool, every algorithm, and the full Journey Engine (workflows, HITL, SLA). No credit card, no expiry.",
     cta: "Download free",
   },
   {
@@ -78,7 +78,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: 3,
     family: "production",
     tagline:
-      "The complete production engine at its smallest capacity. Journey Engine, HITL, SLA, agentic RAG, local KMS — all included.",
+      "Production scale starts here — 10× the capacity, 3 agents & seats, plus agentic/late-chunking RAG, local KMS encryption, data lineage and local backup.",
     cta: "Start Micro",
     badge: "Production starts here",
   },

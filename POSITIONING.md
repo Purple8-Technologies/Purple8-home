@@ -261,8 +261,8 @@ Each product is available independently or together. No forced bundling.
 
 | Tier | Price | Limits |
 |---|---|---|
-| **Developer** | Free | 50K nodes · 1 MCP agent · local only |
-| **Starter** | $1,199/mo · $999/mo annual | 5M nodes · 3 MCP agents · Journey Engine · HITL · SLA |
+| **Developer** | Free | 50K nodes · 1 MCP agent · local only · full Journey Engine (HITL · SLA) for evaluation |
+| **Starter** | $1,199/mo · $999/mo annual | 5M nodes · 3 MCP agents · production scale · agentic/late-chunking RAG · local KMS · lineage · backup |
 | **Pro** | $6,999/mo · $5,832/mo annual | 50M nodes · 10 MCP agents · SSO · AEC · SOC · CDC · cloud backup |
 | **Enterprise** | Custom | Unlimited · Raft HA · sharding · federation · managed KMS · dedicated support |
 
