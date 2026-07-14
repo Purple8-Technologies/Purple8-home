@@ -40,6 +40,36 @@ export default function SupportPage() {
           <aside className="lg:col-span-1 order-2 lg:order-1">
             <div className="space-y-6 text-sm">
               <div>
+                <h3 className="font-semibold text-slate-300 mb-2">Install &amp; get started</h3>
+                <ul className="space-y-2 text-slate-500">
+                  <li>
+                    <a href="/quickstart"
+                       className="hover:text-purple-400 transition-colors">
+                      → Docker install &amp; quickstart
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/register"
+                       className="hover:text-purple-400 transition-colors">
+                      → Get a free Developer license
+                    </a>
+                  </li>
+                </ul>
+                <div className="mt-3 rounded-lg border border-slate-800 bg-[#0c0c14] p-3">
+                  <p className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
+                    One-click install
+                  </p>
+                  <p className="mt-1.5 text-[11px] text-slate-600">macOS &amp; Linux</p>
+                  <code className="mt-1 block break-all font-mono text-[11px] text-purple-300">
+                    curl -fsSL https://www.purple8.ai/install.sh | bash
+                  </code>
+                  <p className="mt-2 text-[11px] text-slate-600">Windows (PowerShell)</p>
+                  <code className="mt-1 block break-all font-mono text-[11px] text-purple-300">
+                    irm https://www.purple8.ai/install.ps1 | iex
+                  </code>
+                </div>
+              </div>
+              <div>
                 <h3 className="font-semibold text-slate-300 mb-2">Before you submit</h3>
                 <ul className="space-y-2 text-slate-500">
                   <li>
