@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import ParticleNetwork from "@/components/ParticleNetwork";
 
@@ -79,6 +80,22 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/*
+          Plausible Analytics — privacy-first, cookieless, GDPR-compliant.
+          No consent banner required (no cookies, no personal data, no
+          cross-site tracking). Chosen over Google Analytics to stay
+          consistent with Purple8's privacy + sustainability identity.
+          Data domain is the production apex; self-host later by swapping
+          the src to your Plausible instance.
+        */}
+        <Script
+          defer
+          data-domain="purple8.ai"
+          src="https://plausible.io/js/script.js"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <ParticleNetwork />
         <div className="relative z-10 flex min-h-full flex-col">{children}</div>
