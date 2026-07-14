@@ -1,8 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
+import FeaturesManifesto from "@/components/FeaturesManifesto";
 import ReplacementStack from "@/components/ReplacementStack";
 import SystemFlow from "@/components/SystemFlow";
+import Products from "@/components/Products";
 import Pricing from "@/components/Pricing";
 import TierCalculator from "@/components/TierCalculator";
 import BuiltOnPurple8 from "@/components/BuiltOnPurple8";
@@ -17,10 +19,16 @@ export default function Home() {
         <Hero />
         <Stats />
         <FadeIn direction="up" delay={0}>
+          <FeaturesManifesto />
+        </FadeIn>
+        <FadeIn direction="up" delay={0}>
           <ReplacementStack />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <SystemFlow />
+        </FadeIn>
+        <FadeIn direction="up" delay={0}>
+          <Products />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <BuiltOnPurple8 />
