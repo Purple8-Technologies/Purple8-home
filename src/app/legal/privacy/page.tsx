@@ -71,7 +71,7 @@ export default function PrivacyPage() {
         </li>
         <li>
           <strong>Support &amp; communications</strong> — messages you send us
-          (support tickets, email, waitlist or beta sign-ups) and our replies.
+          (support tickets, email, or waitlist sign-ups) and our replies.
         </li>
         <li>
           <strong>Site usage data</strong> — basic, aggregated analytics and

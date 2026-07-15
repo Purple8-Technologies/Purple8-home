@@ -116,7 +116,7 @@ function Deploy($license) {
     Step 'Starting Purple8'
     $exists = docker ps -a --format '{{.Names}}' | Select-String -SimpleMatch $Container
     if ($exists) { Info "Removing the previous '$Container' container (data volume kept)..."; docker rm -f $Container *> $null }
-    docker run -d --name $Container -p "$($Port):$($Port)" -e "PURPLE8_LICENSE_JWT=$license" -v "$($Volume):/data" $Image *> $null
+    docker run -d --name $Container -p "$($Port):$($Port)" -e "PURPLE8_LICENSE_JWT=$license" -e "P8G_ADMIN_EMAIL=$($env:P8G_ADMIN_EMAIL)" -e "P8G_ADMIN_PASSWORD=$($env:P8G_ADMIN_PASSWORD)" -v "$($Volume):/data" $Image *> $null
     if ($LASTEXITCODE -ne 0) { Die "Container failed to start. Run 'docker logs $Container' to see why." }
     Ok "Container '$Container' is up."
 }
@@ -142,10 +142,41 @@ function Wait-Health {
     Warn "Follow live logs with: docker logs -f $Container"
 }
 
+# --- 3b. First admin account (optional) ---------------------------------------
+function Get-Admin {
+    Step 'First administrator account'
+    if ($env:P8G_ADMIN_EMAIL -and $env:P8G_ADMIN_PASSWORD) {
+        Ok 'Using P8G_ADMIN_EMAIL / P8G_ADMIN_PASSWORD from your environment.'
+        return
+    }
+    Info "Create your admin login now, or press Enter to skip and set it up in the"
+    Info "browser at $ConsoleUrl on first launch."
+    $email = Read-Host "`n  Admin email (or press Enter to skip)"
+    if ([string]::IsNullOrWhiteSpace($email)) {
+        Info "Skipped - create your admin at $ConsoleUrl on first launch."
+        return
+    }
+    while ($true) {
+        $sec1 = Read-Host '  Admin password (min 12 chars)' -AsSecureString
+        $pw1 = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+            [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec1))
+        if ($pw1.Length -lt 12) { Warn 'Too short - please use at least 12 characters.'; continue }
+        $sec2 = Read-Host '  Confirm password' -AsSecureString
+        $pw2 = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+            [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec2))
+        if ($pw1 -ne $pw2) { Warn 'Passwords did not match - try again.'; continue }
+        $env:P8G_ADMIN_EMAIL = ($email -replace '\s', '')
+        $env:P8G_ADMIN_PASSWORD = $pw1
+        break
+    }
+    Ok "Admin account will be created on first boot: $($env:P8G_ADMIN_EMAIL)"
+}
+
 # --- Run ----------------------------------------------------------------------
 Ensure-Docker
 Wait-Daemon
 $license = Get-License
+Get-Admin
 Deploy $license
 Wait-Health
 Step 'Opening the admin console'

@@ -221,6 +221,58 @@ get_license() {
   fi
 }
 
+# ─── 3b. First admin account (optional) ───────────────────────────────────────
+# A fresh install has no accounts. The operator can either create the first
+# admin here (passed to the container as P8G_ADMIN_EMAIL/P8G_ADMIN_PASSWORD and
+# created on first boot), or skip and use the in-console /lcnc/setup wizard.
+# Honours pre-set env vars for fully non-interactive installs.
+get_admin() {
+  step "First administrator account"
+  if [ -n "${P8G_ADMIN_EMAIL:-}" ] && [ -n "${P8G_ADMIN_PASSWORD:-}" ]; then
+    ok "Using P8G_ADMIN_EMAIL / P8G_ADMIN_PASSWORD from your environment."
+    return
+  fi
+  info "Create your admin login now, or press Enter to skip and set it up in the"
+  info "browser at ${CONSOLE_URL} on first launch."
+  if [ ! -r /dev/tty ]; then
+    # No tty — skip; the LCNC setup wizard will handle it.
+    P8G_ADMIN_EMAIL=""; P8G_ADMIN_PASSWORD=""
+    warn "Non-interactive run — skipping. Create your admin at ${CONSOLE_URL}."
+    return
+  fi
+  printf "\n  Admin email (or press Enter to skip): "
+  IFS= read -r P8G_ADMIN_EMAIL </dev/tty || P8G_ADMIN_EMAIL=""
+  P8G_ADMIN_EMAIL="$(printf '%s' "${P8G_ADMIN_EMAIL:-}" | tr -d '[:space:]')"
+  if [ -z "${P8G_ADMIN_EMAIL:-}" ]; then
+    P8G_ADMIN_PASSWORD=""
+    info "Skipped — create your admin at ${CONSOLE_URL} on first launch."
+    return
+  fi
+  # Read the password without echoing. Must be at least 12 characters.
+  while :; do
+    printf "  Admin password (min 12 chars): "
+    stty -echo </dev/tty 2>/dev/null || true
+    IFS= read -r P8G_ADMIN_PASSWORD </dev/tty || P8G_ADMIN_PASSWORD=""
+    stty echo </dev/tty 2>/dev/null || true
+    printf "\n"
+    if [ "${#P8G_ADMIN_PASSWORD}" -lt 12 ]; then
+      warn "Too short — please use at least 12 characters."
+      continue
+    fi
+    printf "  Confirm password: "
+    stty -echo </dev/tty 2>/dev/null || true
+    IFS= read -r _pw_confirm </dev/tty || _pw_confirm=""
+    stty echo </dev/tty 2>/dev/null || true
+    printf "\n"
+    if [ "$P8G_ADMIN_PASSWORD" != "$_pw_confirm" ]; then
+      warn "Passwords did not match — try again."
+      continue
+    fi
+    break
+  done
+  ok "Admin account will be created on first boot: ${P8G_ADMIN_EMAIL}"
+}
+
 # ─── 4. Pull + run ────────────────────────────────────────────────────────────
 deploy() {
   step "Pulling the Purple8 Developer image"
@@ -237,6 +289,8 @@ deploy() {
     --name "$CONTAINER" \
     -p "${PORT}:${PORT}" \
     -e PURPLE8_LICENSE_JWT="${PURPLE8_LICENSE_JWT:-}" \
+    -e P8G_ADMIN_EMAIL="${P8G_ADMIN_EMAIL:-}" \
+    -e P8G_ADMIN_PASSWORD="${P8G_ADMIN_PASSWORD:-}" \
     -v "${VOLUME}:/data" \
     "$IMAGE" >/dev/null || die "Container failed to start. Run 'docker logs $CONTAINER' to see why."
   ok "Container '$CONTAINER' is up."
@@ -305,6 +359,7 @@ main() {
   ensure_docker
   wait_for_daemon
   get_license
+  get_admin
   deploy
   wait_for_health
   open_console
