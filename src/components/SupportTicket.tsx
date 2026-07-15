@@ -19,6 +19,28 @@ interface FormData {
 
 const CC_BASE = CC_BASE_URL;
 
+// Screenshot limits — must mirror the server (public.py) validation.
+const MAX_ATTACHMENTS = 3;
+const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024; // 4 MB
+const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"];
+
+interface Attachment {
+  filename: string;
+  content_type: string;
+  data_b64: string; // full data: URL — server strips the prefix
+  previewUrl: string;
+  sizeBytes: number;
+}
+
+function readFileAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
 const CATEGORIES: { value: Category; label: string; emoji: string }[] = [
   { value: "bug",             label: "Bug report",         emoji: "🐛" },
   { value: "installation",    label: "Installation / setup",emoji: "⚙️" },
@@ -49,9 +71,47 @@ export default function SupportTicket() {
   const [status,   setStatus]   = useState<Status>("idle");
   const [ticketId, setTicketId] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   function update<K extends keyof FormData>(key: K, value: FormData[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setErrorMsg("");
+    const next: Attachment[] = [...attachments];
+    for (const file of Array.from(files)) {
+      if (next.length >= MAX_ATTACHMENTS) {
+        setErrorMsg(`You can attach up to ${MAX_ATTACHMENTS} screenshots.`);
+        break;
+      }
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+        setErrorMsg("Only PNG, JPEG, GIF or WEBP images are allowed.");
+        continue;
+      }
+      if (file.size > MAX_ATTACHMENT_BYTES) {
+        setErrorMsg(`"${file.name}" is too large (max 4 MB).`);
+        continue;
+      }
+      try {
+        const dataUrl = await readFileAsDataUrl(file);
+        next.push({
+          filename: file.name,
+          content_type: file.type,
+          data_b64: dataUrl,
+          previewUrl: dataUrl,
+          sizeBytes: file.size,
+        });
+      } catch {
+        setErrorMsg(`Could not read "${file.name}".`);
+      }
+    }
+    setAttachments(next);
+  }
+
+  function removeAttachment(idx: number) {
+    setAttachments((prev) => prev.filter((_, i) => i !== idx));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -67,6 +127,11 @@ export default function SupportTicket() {
       category: form.category,
       product:  form.product,
       version:  form.version.trim(),
+      attachments: attachments.map((a) => ({
+        filename:     a.filename,
+        content_type: a.content_type,
+        data_b64:     a.data_b64,
+      })),
     };
 
     if (!CC_BASE) {
@@ -110,7 +175,7 @@ export default function SupportTicket() {
           {" "}Our agent is already looking into it — you&apos;ll hear back soon.
         </p>
         <button
-          onClick={() => { setStatus("idle"); setTicketId(""); }}
+          onClick={() => { setStatus("idle"); setTicketId(""); setAttachments([]); }}
           className="mt-6 text-xs text-purple-400 hover:text-purple-300 underline underline-offset-2"
         >
           Submit another report
@@ -211,6 +276,57 @@ export default function SupportTicket() {
                      text-sm text-slate-200 placeholder-slate-600 resize-y
                      focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
         />
+      </div>
+
+      {/* Screenshots */}
+      <div>
+        <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-widest">
+          Screenshots <span className="normal-case text-slate-600">(optional — up to {MAX_ATTACHMENTS}, PNG/JPEG/GIF/WEBP, 4 MB each)</span>
+        </label>
+        {attachments.length > 0 && (
+          <div className="mb-3 flex flex-wrap gap-3">
+            {attachments.map((a, i) => (
+              <div key={i} className="relative group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={a.previewUrl}
+                  alt={a.filename}
+                  className="h-20 w-20 rounded-lg border border-slate-700 object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeAttachment(i)}
+                  aria-label={`Remove ${a.filename}`}
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center
+                             rounded-full bg-red-600 text-xs text-white opacity-90
+                             hover:bg-red-500"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        {attachments.length < MAX_ATTACHMENTS && (
+          <label
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border
+                       border-dashed border-slate-700 bg-slate-900 px-3 py-4 text-sm text-slate-400
+                       hover:border-purple-500 hover:text-slate-300 transition-colors"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Attach a screenshot
+            <input
+              type="file"
+              accept="image/png,image/jpeg,image/gif,image/webp"
+              multiple
+              className="hidden"
+              onChange={(e) => { handleFiles(e.target.files); e.target.value = ""; }}
+            />
+          </label>
+        )}
       </div>
 
       {/* Name + Email row */}
