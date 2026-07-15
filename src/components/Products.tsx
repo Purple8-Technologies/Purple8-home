@@ -2,13 +2,13 @@ const hyperGraphFeatures = [
   "Write only the frontend — storage, search, RAG, workflows, auth, and encryption are all Purple8",
   "Storage, vector search, document store, and full-text — one embedded engine, one process, one port",
   "Native hybrid search with a cost-based query planner — no separate search service",
-  "Three built-in RAG modes: flat vector, graph-augmented, and hybrid — MRR 0.85 on the hybrid path",
+  "Three built-in RAG modes: flat vector, graph-augmented, and hybrid retrieval",
   "Autonomous RAG tuning — the system profiles your corpus and persists optimal retrieval configuration",
   "Stateful workflow engine: multi-stage pipelines, SLA monitoring, human-approval gates, AI step persistence",
   "49-tool MCP agent interface — RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent",
   "Cross-instance federated queries with human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS, GCP, or Azure key management",
-  "Per-tenant storage isolation enforced at the brick layer — not row filtering. Each tenant gets cryptographically separate data partitions with autonomous threat detection.",
+  "Per-tenant storage isolation enforced at the storage layer — not row filtering. Each tenant gets cryptographically separate data partitions with autonomous threat detection.",
   "Browser-based admin console — zero npm, zero config",
 ];
 
@@ -60,7 +60,17 @@ function ProductBadge({ label }: { label: string }) {
   );
 }
 
-export default function Products() {
+export default function Products({
+  variant = "full",
+}: {
+  variant?: "full" | "highlight";
+}) {
+  const isHighlight = variant === "highlight";
+  const hyperItems = isHighlight
+    ? hyperGraphFeatures.slice(0, 4)
+    : hyperGraphFeatures;
+  const docItems = isHighlight ? docIntelFeatures.slice(0, 4) : docIntelFeatures;
+
   return (
     <section id="products" className="bg-[#0a0a0f] py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -118,7 +128,7 @@ export default function Products() {
                 <ProductBadge label="Air-Gap Ready" />
               </div>
 
-              <FeatureList items={hyperGraphFeatures} />
+              <FeatureList items={hyperItems} />
 
               <div className="mt-8 flex items-center gap-4">
                 <a href="/register" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
@@ -165,7 +175,7 @@ export default function Products() {
                 <ProductBadge label="Confluence" />
               </div>
 
-              <FeatureList items={docIntelFeatures} />
+              <FeatureList items={docItems} />
 
               <div className="mt-8 flex items-center gap-4">
                 <a href="/#pricing" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
@@ -185,6 +195,17 @@ export default function Products() {
             More products coming soon.
           </p>
         </div>
+
+        {isHighlight && (
+          <div className="mt-12 text-center">
+            <a
+              href="/products"
+              className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-6 py-2.5 text-sm font-semibold text-purple-300 transition-colors hover:bg-purple-500/20"
+            >
+              See full product breakdown &rarr;
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -43,7 +43,7 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "Data lineage + local backup", developer: false, production: true, pro: true, enterprise: true },
   // Pro & above
   { category: "Pro & above", label: "Change Data Capture (CDC)", developer: false, production: false, pro: true, enterprise: true },
-  { label: "WAL durability (fdatasync)", developer: false, production: false, pro: true, enterprise: true },
+  { label: "WAL durability", developer: false, production: false, pro: true, enterprise: true },
   { label: "SSO / OIDC · RBAC · immutable audit log", developer: false, production: false, pro: true, enterprise: true },
   { label: "Field / row-level security + PII tagging", developer: false, production: false, pro: true, enterprise: true },
   { label: "AEC Core (BIM/IFC, MEP, structural, VGA)", developer: false, production: false, pro: true, enterprise: true },

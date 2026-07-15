@@ -19,7 +19,7 @@ export default function Home() {
         <Hero />
         <Stats />
         <FadeIn direction="up" delay={0}>
-          <FeaturesManifesto />
+          <FeaturesManifesto variant="highlight" />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <ReplacementStack />
@@ -28,7 +28,7 @@ export default function Home() {
           <SystemFlow />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
-          <Products />
+          <Products variant="highlight" />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <BuiltOnPurple8 />

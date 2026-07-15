@@ -8,6 +8,7 @@ const productLinks = [
 
 const companyLinks = [
   { label: "About", href: "/about" },
+  { label: "Careers", href: "/careers" },
   { label: "Support", href: "/support" },
   { label: "Contact", href: "mailto:hello@purple8.ai" },
 ];

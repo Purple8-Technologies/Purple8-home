@@ -12,12 +12,13 @@ interface Stat {
 
 const STATS: Stat[] = [
   { numeric: 8.84, decimals: 2, suffix: "M", label: "Nodes validated" },
-  { numeric: 3.5, suffix: "ms", label: "p50 at 100K passages" },
-  { numeric: 182, suffix: "×", label: "Faster than BM25" },
+  { numeric: 23, suffix: "ms", label: "P95 vector search*" },
+  { numeric: 40, suffix: "K/s", label: "Batch ingest throughput*" },
+  { numeric: 752, label: "Req/s · 500 users*" },
+  { numeric: 1.28, decimals: 2, suffix: "M", label: "Requests · 0 engine errors*" },
   { numeric: 20, suffix: "+", label: "Services replaced" },
   { numeric: 70, suffix: "+", label: "File formats (DocIntel)" },
   { numeric: 67, label: "Graph & AEC algorithms" },
-  { numeric: 0.85, decimals: 2, label: "Hybrid RAG MRR@10" },
 ];
 
 function useCountUp(target: number, decimals = 0, active: boolean) {
@@ -66,11 +67,21 @@ export default function Stats() {
   return (
     <section ref={ref} className="border-y border-purple-900/30 bg-[#0d0d17] py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {STATS.map((s) => (
             <StatItem key={s.label} stat={s} active={inView} />
           ))}
         </div>
+        <p className="mt-8 text-center text-xs text-zinc-600">
+          <span className="text-zinc-500">*</span> Measured on real, reproducible
+          benchmark runs.{" "}
+          <a
+            href="/benchmarks"
+            className="text-purple-400 transition-colors hover:text-purple-300"
+          >
+            See methodology & conditions &rarr;
+          </a>
+        </p>
       </div>
     </section>
   );

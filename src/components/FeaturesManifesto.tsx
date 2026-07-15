@@ -35,7 +35,7 @@ const EIGHT = [
   {
     claim: "Memory bounded by hardware, not data.",
     proof:
-      "Ingest 2 million records or 20 million — peak memory stays the same. A proprietary property of our storage engine with no known equivalent.",
+      "Purple8 fits its ingest footprint to the RAM you give it — peak memory tracks your hardware, not your corpus size. Validated: 8.84 million passages ingested on a 24 GB machine with peak memory holding around 9 GB. The same corpus runs on a small machine or a large one; you trade time for memory, never correctness.",
   },
   {
     claim: "Documents become knowledge, automatically.",
@@ -54,7 +54,14 @@ const EIGHT = [
   },
 ];
 
-export default function FeaturesManifesto() {
+export default function FeaturesManifesto({
+  variant = "full",
+}: {
+  variant?: "full" | "highlight";
+}) {
+  const isHighlight = variant === "highlight";
+  const rows = isHighlight ? EIGHT.slice(0, 4) : EIGHT;
+
   return (
     <section id="features" className="bg-[#0a0a0f] py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -64,12 +71,14 @@ export default function FeaturesManifesto() {
           Why Purple8
         </p>
         <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-          Eight reasons it&apos;s a category of one.
+          {isHighlight
+            ? "A category of one."
+            : "Eight reasons it\u2019s a category of one."}
         </h2>
 
         {/* Rows */}
         <div className="mt-16 space-y-0 divide-y divide-zinc-900">
-          {EIGHT.map(({ claim, proof }, i) => (
+          {rows.map(({ claim, proof }, i) => (
             <div
               key={i}
               className="group relative flex items-start gap-6 py-10 transition-colors hover:bg-white/[0.02]"
@@ -99,6 +108,17 @@ export default function FeaturesManifesto() {
             </div>
           ))}
         </div>
+
+        {isHighlight && (
+          <div className="mt-12 text-center">
+            <a
+              href="/features"
+              className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-6 py-2.5 text-sm font-semibold text-purple-300 transition-colors hover:bg-purple-500/20"
+            >
+              See all eight reasons &rarr;
+            </a>
+          </div>
+        )}
 
       </div>
     </section>
