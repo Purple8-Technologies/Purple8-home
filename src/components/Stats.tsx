@@ -1,6 +1,12 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
+
+// useLayoutEffect on the client (runs before paint), useEffect on the server
+// (never runs during SSR) — lets us reset to 0 for the animation without a
+// visible flash and without a hydration warning.
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 interface Stat {
   numeric: number;       // the number to count up to
@@ -22,9 +28,17 @@ const STATS: Stat[] = [
 ];
 
 function useCountUp(target: number, decimals = 0, active: boolean) {
-  const [val, setVal] = useState(0);
+  // Initialise to the final value so the server-rendered HTML (and no-JS
+  // users / crawlers) always see the factual number, not 0.
+  const [val, setVal] = useState(target);
   const raf = useRef<number | null>(null);
   const fired = useRef(false); // only animate once
+
+  // On the client only, before the first paint, drop to 0 so the count-up
+  // animation has somewhere to travel from. SSR keeps the final value.
+  useIsomorphicLayoutEffect(() => {
+    setVal(0);
+  }, []);
 
   useEffect(() => {
     if (!active || fired.current) return;
@@ -38,6 +52,7 @@ function useCountUp(target: number, decimals = 0, active: boolean) {
       const ease = 1 - Math.pow(1 - t, 3);
       setVal(parseFloat((ease * target).toFixed(decimals)));
       if (t < 1) raf.current = requestAnimationFrame(step);
+      else setVal(target); // land exactly on the final value
     }
 
     raf.current = requestAnimationFrame(step);

@@ -67,7 +67,7 @@ export default function BuiltOnPurple8() {
                   {[
                     ["Licensing",  "RS256 JWT issuance & validation"],
                     ["Billing",    "Stripe → license delivery"],
-                    ["Telemetry",  "Anonymised install heartbeats"],
+                    ["Telemetry",  "Anonymised, opt-out install heartbeats"],
                     ["Portal",     "Internal ops dashboard"],
                   ].map(([label, desc]) => (
                     <div key={label} className="flex items-baseline gap-2">

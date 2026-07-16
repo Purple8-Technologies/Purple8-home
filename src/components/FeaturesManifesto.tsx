@@ -50,7 +50,7 @@ const EIGHT = [
   {
     claim: "You own it. Completely.",
     proof:
-      "Self-hosted. Ships as a Docker image or pip wheel — runs anywhere Python or containers run. No telemetry, no data egress, no vendor access. Air-gap capable.",
+      "Self-hosted. Ships as a Docker image or pip wheel — runs anywhere Python or containers run. Your data never leaves your infrastructure: no content egress, no vendor access. Optional anonymized version telemetry (no PII, no customer data) is opt-out with one env var. Air-gap capable.",
   },
 ];
 

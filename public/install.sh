@@ -32,6 +32,14 @@ VOLUME="purple8-data"
 CONSOLE_URL="http://localhost:${PORT}/lcnc"
 HEALTH_URL="http://localhost:${PORT}/health"
 
+# Docker invocation for daemon-access commands (pull/run/ps/info/logs). Normally
+# just "docker", but on a fresh Linux install where we just added the user to
+# the 'docker' group, that membership is NOT active in the current shell (it
+# needs a logout/login or `newgrp docker`). To let a fresh one-click install
+# finish in a single invocation, resolve_docker_cmd() transparently falls back
+# to "sudo docker" for THIS run. Subsequent logins work sudo-free.
+DOCKER="docker"
+
 # ─── Pretty output ────────────────────────────────────────────────────────────
 if [ -t 1 ]; then
   BOLD=$'\033[1m'; DIM=$'\033[2m'; PURPLE=$'\033[35m'; GREEN=$'\033[32m'
@@ -120,10 +128,34 @@ ensure_docker() {
   esac
 }
 
+# Decide whether daemon-access docker commands need `sudo` for THIS run. On a
+# fresh Linux install the new 'docker' group membership isn't active yet, so an
+# unprivileged `docker info` fails even though the daemon is up. Rather than
+# time out, fall back to `sudo docker` for this session only. macOS (Docker
+# Desktop) never needs this — the socket is owned by the user.
+resolve_docker_cmd() {
+  [ "$PLATFORM" = "linux" ] || return 0
+  # Direct access works (existing install, or group already active) — done.
+  if docker info >/dev/null 2>&1; then
+    DOCKER="docker"
+    return 0
+  fi
+  # No direct access. If the daemon is reachable via sudo, use sudo this run.
+  if sudo -n docker info >/dev/null 2>&1 || sudo docker info >/dev/null 2>&1; then
+    DOCKER="sudo docker"
+    warn "Using 'sudo docker' for this install — the new 'docker' group membership"
+    warn "activates after you log out and back in (or run: newgrp docker)."
+    return 0
+  fi
+  # Neither worked (daemon still booting or truly down); leave DOCKER=docker and
+  # let wait_for_daemon report a clear message.
+  DOCKER="docker"
+}
+
 wait_for_daemon() {
   step "Waiting for the Docker engine to start"
   local tries=0 max=90
-  until docker info >/dev/null 2>&1; do
+  until $DOCKER info >/dev/null 2>&1; do
     tries=$((tries + 1))
     if [ "$tries" -ge "$max" ]; then
       die "Docker engine did not start in time. Open Docker Desktop, wait for it to say 'running', then re-run this script."
@@ -277,15 +309,15 @@ get_admin() {
 deploy() {
   step "Pulling the Purple8 Developer image"
   info "$IMAGE"
-  docker pull "$IMAGE" || die "Could not pull the image. Check your internet connection and try again."
+  $DOCKER pull "$IMAGE" || die "Could not pull the image. Check your internet connection and try again."
   ok "Image ready."
 
   step "Starting Purple8"
-  if docker ps -a --format '{{.Names}}' | grep -qx "$CONTAINER"; then
+  if $DOCKER ps -a --format '{{.Names}}' | grep -qx "$CONTAINER"; then
     info "Removing the previous '$CONTAINER' container (your data volume is kept)…"
-    docker rm -f "$CONTAINER" >/dev/null 2>&1 || true
+    $DOCKER rm -f "$CONTAINER" >/dev/null 2>&1 || true
   fi
-  docker run -d \
+  $DOCKER run -d \
     --name "$CONTAINER" \
     -p "${PORT}:${PORT}" \
     -e PURPLE8_LICENSE_JWT="${PURPLE8_LICENSE_JWT:-}" \
@@ -302,17 +334,17 @@ wait_for_health() {
   until curl -fsS "$HEALTH_URL" >/dev/null 2>&1; do
     tries=$((tries + 1))
     # If the container has already exited, stop waiting and show why.
-    if ! docker ps --format '{{.Names}}' | grep -qx "$CONTAINER"; then
+    if ! $DOCKER ps --format '{{.Names}}' | grep -qx "$CONTAINER"; then
       warn "The '$CONTAINER' container stopped unexpectedly. Last log lines:"
       printf "%s" "$DIM"
-      docker logs --tail 20 "$CONTAINER" 2>&1 | sed 's/^/    /'
+      $DOCKER logs --tail 20 "$CONTAINER" 2>&1 | sed 's/^/    /'
       printf "%s" "$RESET"
       die "Purple8 exited during startup. See the logs above, then re-run this script."
     fi
     if [ "$tries" -ge "$max" ]; then
       warn "Health check timed out after ${max}s. Last log lines:"
       printf "%s" "$DIM"
-      docker logs --tail 20 "$CONTAINER" 2>&1 | sed 's/^/    /'
+      $DOCKER logs --tail 20 "$CONTAINER" 2>&1 | sed 's/^/    /'
       printf "%s" "$RESET"
       warn "Follow live logs with: docker logs -f $CONTAINER"
       return
@@ -357,6 +389,7 @@ main() {
   detect_platform
   step "Detected ${PLATFORM} (${ARCH})"
   ensure_docker
+  resolve_docker_cmd
   wait_for_daemon
   get_license
   get_admin

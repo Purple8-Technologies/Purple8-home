@@ -2,4 +2,7 @@ blank_issues_enabled: false
 contact_links:
   - name: Purple8 support
     url: https://purple8.ai/support
-    about: General support and non-beta inquiries.
+    about: General support and product inquiries.
+  - name: Get started (free, self-serve)
+    url: https://purple8.ai/register
+    about: The Purple8 Developer edition is free and self-serve — register here.
