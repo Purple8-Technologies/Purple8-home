@@ -233,6 +233,24 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   },
 ];
 
+/**
+ * Every plan ID that the pricing UI can POST to /checkout/create-session.
+ * Derived from the shared tier definitions so the checkout bootstrap route
+ * can never drift from the offered tiers (see issue #3):
+ *   - Graph tiers with a real positive price (excludes free Developer and
+ *     contact-sales Enterprise).
+ *   - DocIntel tiers whose CTA targets the checkout route (plan= query param).
+ */
+export const PURCHASABLE_PLAN_IDS: ReadonlySet<string> = new Set<string>([
+  ...GRAPH_TIERS.filter(
+    (t) => typeof t.priceMonthly === "number" && t.priceMonthly > 0,
+  ).map((t) => t.id),
+  ...DOCINTEL_TIERS.map((t) => {
+    const match = t.ctaHref.match(/[?&]plan=([^&]+)/);
+    return match ? decodeURIComponent(match[1]) : null;
+  }).filter((id): id is string => id !== null),
+]);
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Tier calculator — "what are you building?" → recommended tier
 //

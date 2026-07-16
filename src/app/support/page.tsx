@@ -75,10 +75,15 @@ export default function SupportPage() {
                 <h3 className="font-semibold text-slate-300 mb-2">Before you submit</h3>
                 <ul className="space-y-2 text-slate-500">
                   <li>
-                    <a href="https://github.com/Purple8-Technologies/purple8-graph/discussions"
-                       target="_blank" rel="noopener noreferrer"
+                    <a href="/quickstart"
                        className="hover:text-purple-400 transition-colors">
-                      → GitHub Discussions
+                      → Quickstart &amp; install guide
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:support@purple8.ai"
+                       className="hover:text-purple-400 transition-colors">
+                      → Email support@purple8.ai
                     </a>
                   </li>
                 </ul>

@@ -13,8 +13,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { CC_BASE_URL } from "@/lib/cc";
 
-const CC_URL = process.env.NEXT_PUBLIC_COMMAND_CENTER_URL ?? "https://cc.purple8.ai";
+const CC_URL = CC_BASE_URL;
 
 interface LicenseResult {
   status: "pending" | "ready" | "error";
@@ -117,7 +118,7 @@ function CheckoutSuccessContent() {
             </h1>
             <p className="mt-2 text-sm text-zinc-500">
               Your license key is below. We&apos;ve also emailed it to you.
-              Set it as <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs text-purple-300">PURPLE8_LICENSE_KEY</code>{" "}
+              Set it as <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs text-purple-300">PURPLE8_LICENSE_JWT</code>{" "}
               in your environment.
             </p>
 
@@ -139,8 +140,8 @@ function CheckoutSuccessContent() {
                 Next steps
               </p>
               <ol className="mt-3 space-y-2 text-sm text-zinc-400">
-                <li><span className="text-purple-400 font-medium">1.</span> Download Purple8: <a href="https://github.com/Purple8-Technologies/purple8-graph#readme" className="text-purple-400 hover:text-purple-300">GitHub →</a></li>
-                <li><span className="text-purple-400 font-medium">2.</span> Set <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">PURPLE8_LICENSE_KEY=&lt;key above&gt;</code></li>
+                <li><span className="text-purple-400 font-medium">1.</span> Install Purple8: <a href="/quickstart" className="text-purple-400 hover:text-purple-300">Quickstart →</a></li>
+                <li><span className="text-purple-400 font-medium">2.</span> Set <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">PURPLE8_LICENSE_JWT=&lt;key above&gt;</code></li>
                 <li><span className="text-purple-400 font-medium">3.</span> <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">docker compose up</code></li>
               </ol>
             </div>

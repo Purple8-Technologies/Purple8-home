@@ -3,11 +3,11 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CC_BASE_URL } from "@/lib/cc";
+import { PURCHASABLE_PLAN_IDS } from "@/lib/pricing";
 
 type BillingCycle = "monthly" | "annual";
-type CheckoutPlan = "starter" | "pro" | "docintel" | "docintel-solo" | "docintel-enterprise";
 
-const SUPPORTED_PLANS: ReadonlySet<string> = new Set(["starter", "pro", "docintel", "docintel-solo", "docintel-enterprise"]);
+const SUPPORTED_PLANS: ReadonlySet<string> = PURCHASABLE_PLAN_IDS;
 
 function CheckoutCreateSessionContent() {
   const params = useSearchParams();
@@ -15,7 +15,7 @@ function CheckoutCreateSessionContent() {
 
   const plan = useMemo(() => {
     const raw = (params.get("plan") || "").trim().toLowerCase();
-    return SUPPORTED_PLANS.has(raw) ? (raw as CheckoutPlan) : null;
+    return SUPPORTED_PLANS.has(raw) ? raw : null;
   }, [params]);
 
   const billing = useMemo<BillingCycle>(() => {

@@ -166,7 +166,11 @@ export default function Pricing() {
       });
       if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
-      window.location.href = data.checkout_url ?? data.redirect_url;
+      const checkoutUrl = data?.checkout_url ?? data?.redirect_url;
+      if (!checkoutUrl || typeof checkoutUrl !== "string") {
+        throw new Error("Checkout URL missing from billing service response.");
+      }
+      window.location.href = checkoutUrl;
     } catch {
       window.location.href = `mailto:sales@purple8.ai?subject=Checkout%20issue%20(${planId})`;
     } finally {
