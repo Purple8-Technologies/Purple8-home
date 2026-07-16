@@ -16,7 +16,7 @@ const companyLinks = [
 const resourceLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Case Studies", href: "/case-studies" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Demo video", href: null, comingSoon: true },
   { label: "Quickstart", href: "/quickstart" },
 ];
 
@@ -88,12 +88,21 @@ export default function Footer() {
             <ul className="mt-4 space-y-2.5">
               {resourceLinks.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-zinc-500 transition-colors hover:text-purple-400"
-                  >
-                    {l.label}
-                  </a>
+                  {l.comingSoon || !l.href ? (
+                    <span className="inline-flex items-center gap-2 text-sm text-zinc-600">
+                      {l.label}
+                      <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+                        Coming soon
+                      </span>
+                    </span>
+                  ) : (
+                    <a
+                      href={l.href}
+                      className="text-sm text-zinc-500 transition-colors hover:text-purple-400"
+                    >
+                      {l.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

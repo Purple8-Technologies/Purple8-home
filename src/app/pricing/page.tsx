@@ -19,10 +19,10 @@ export default function PricingPage() {
       <Navbar />
       <main className="bg-[#0a0a0f] pt-16">
         <FadeIn direction="up" delay={0}>
-          <TierCalculator />
+          <Pricing />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
-          <Pricing />
+          <TierCalculator />
         </FadeIn>
       </main>
       <Footer />

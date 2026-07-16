@@ -99,6 +99,15 @@ export default function TierCalculator() {
     setNeedsGovernance(!!uc?.typicallyRegulated);
   }
 
+  // Mission-critical, always-on workloads are — by definition — the kind that
+  // also need SSO, audit logs and compliance controls. Turning HA on therefore
+  // pre-selects governance too (the user can still turn it back off). Turning
+  // HA off leaves governance untouched, since it can stand on its own.
+  function chooseHA(on: boolean) {
+    setNeedsHA(on);
+    if (on) setNeedsGovernance(true);
+  }
+
   const result = useMemo(
     () =>
       recommendTier({
@@ -208,7 +217,7 @@ export default function TierCalculator() {
               />
               <Toggle
                 checked={needsHA}
-                onChange={setNeedsHA}
+                onChange={chooseHA}
                 label="Mission-critical, always-on"
                 hint="High availability, automatic failover, zero-downtime uptime."
               />
