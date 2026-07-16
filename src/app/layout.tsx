@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -14,9 +14,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#0a0a0f",
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.purple8.ai"),
-  title: {
+  metadataBase: new URL("https://www.purple8.ai"),  title: {
     default: "Purple8 — AI-Native Infrastructure",
     template: "%s | Purple8",
   },
@@ -105,9 +111,9 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         <ParticleNetwork />
-        <div className="relative z-10 flex min-h-full flex-col">{children}</div>
+        <div className="relative z-10 flex min-h-full w-full max-w-full flex-col overflow-x-hidden">{children}</div>
       </body>
     </html>
   );

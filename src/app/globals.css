@@ -28,6 +28,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Prevent accidental horizontal scroll on mobile (decorative glows,
+   translated badges, and wide diagrams must never widen the viewport). */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 * {
   box-sizing: border-box;
 }
