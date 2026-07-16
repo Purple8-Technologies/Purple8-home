@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "About",
   description:
     "Purple8 is the infrastructure layer AI apps are finally built on. One embedded backend for data, retrieval, workflow orchestration, and agent execution — replacing the fragmented stack of 29 separately billed services.",
-};
+  path: "/about",
+});
 
 // ── Slide 1 stats ────────────────────────────────────────────────────────────
 const STATS = [

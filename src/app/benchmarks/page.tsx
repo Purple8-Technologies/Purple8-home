@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { benchmarkGroups, benchmarkMeta } from "@/lib/benchmarks";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Benchmarks — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "Benchmarks",
   description:
     "Real, reproducible performance data for Purple8 — latency, throughput, and hardware-bounded memory. Every number carries its test conditions.",
-};
+  path: "/benchmarks",
+});
 
 export default function BenchmarksPage() {
   return (

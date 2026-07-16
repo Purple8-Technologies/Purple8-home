@@ -50,6 +50,14 @@ export const metadata: Metadata = {
     siteName: "Purple8",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "https://www.purple8.ai/og.png",
+        width: 1200,
+        height: 630,
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -57,6 +65,7 @@ export const metadata: Metadata = {
     description:
       "Unified graph + vector + document engine with Journey Engine, native MCP tools, and 70-format document intelligence.",
     creator: "@purple8ai",
+    images: ["https://www.purple8.ai/og.png"],
   },
   alternates: {
     canonical: "https://www.purple8.ai",

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import LegalDoc from "@/components/LegalDoc";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "End User License Agreement — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "End User License Agreement",
   description:
     "The End User License Agreement (EULA) governing all Purple8 software, including Purple8 Hyper Graph and Purple8 DocIntel.",
-};
+  path: "/legal/eula",
+});
 
 export default function EulaPage() {
   return (

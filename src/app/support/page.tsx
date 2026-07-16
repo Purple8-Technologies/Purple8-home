@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import SupportTicket from "@/components/SupportTicket";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Support — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "Support",
   description: "Report a bug, ask a question, or suggest a feature. Our ops agent responds within minutes.",
-};
+  path: "/support",
+});
 
 export default function SupportPage() {
   return (

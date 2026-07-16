@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import LegalDoc from "@/components/LegalDoc";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Developer Agreement — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "Developer Agreement",
   description:
     "The Developer Agreement for the free Purple8 Developer edition, covering Purple8 Hyper Graph and Purple8 DocIntel.",
-};
+  path: "/legal/developer-agreement",
+});
 
 export default function DeveloperAgreementPage() {
   return (

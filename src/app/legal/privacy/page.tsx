@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import LegalDoc from "@/components/LegalDoc";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy",
   description:
     "How Purple8, Inc. collects, uses, and protects information across purple8.ai and the Purple8 software. Purple8 is embedded software — your operational data stays on your infrastructure.",
-};
+  path: "/legal/privacy",
+});
 
 export default function PrivacyPage() {
   return (

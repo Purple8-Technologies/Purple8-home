@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { activeRoles, getRole } from "@/lib/careers";
+import { pageMetadata } from "@/lib/seo";
 
 type Params = { slug: string };
 
@@ -18,11 +19,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const role = getRole(slug);
-  if (!role) return { title: "Role not found — Purple8" };
-  return {
-    title: `${role.title} — Careers — Purple8`,
+  if (!role) {
+    return { title: "Role not found", robots: { index: false, follow: false } };
+  }
+  return pageMetadata({
+    title: `${role.title} — Careers`,
     description: role.tagline,
-  };
+    path: `/careers/${slug}`,
+  });
 }
 
 function Section({ title, items }: { title: string; items: string[] }) {

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CopyButton from "@/components/CopyButton";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Install Purple8 — Docker Quickstart",
   description:
     "Install Purple8 Hyper Graph in one command. The one-click script installs Docker if needed, pulls the Developer image, starts the container, and opens the admin console. Manual Docker steps included.",
-};
+  path: "/quickstart",
+});
 
 /**
  * Developer / Docker install page — the destination for "Full quickstart →" on

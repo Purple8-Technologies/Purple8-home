@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import LegalDoc from "@/components/LegalDoc";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms of Service — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service",
   description:
     "The Terms of Service governing your use of the purple8.ai website and the purchase of Purple8 licences. Use of the software itself is governed by the EULA.",
-};
+  path: "/legal/terms",
+});
 
 export default function TermsPage() {
   return (
@@ -17,7 +19,7 @@ export default function TermsPage() {
     >
       <blockquote>
         These Terms of Service (&ldquo;Terms&rdquo;) apply to your use of the
-        Purple8 website and the purchase of Purple8 products and licences. Your
+        Purple8 website and the purchase of Purple8 products and licences. Your``
         installation and use of the software is separately governed by the{" "}
         <a href="/legal/eula">End User License Agreement (EULA)</a>. If there is a
         conflict about the software itself, the EULA controls.

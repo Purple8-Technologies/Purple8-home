@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "cp out/opengraph-image out/og.png",
     "start": "next start"
   },
   "dependencies": {

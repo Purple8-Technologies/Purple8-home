@@ -3,12 +3,14 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { activeRoles } from "@/lib/careers";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Careers — Purple8",
+export const metadata: Metadata = pageMetadata({
+  title: "Careers",
   description:
     "Help build the AI-native backend that replaces 20+ services with one process. Open engineering, developer experience, and operations roles at Purple8.",
-};
+  path: "/careers",
+});
 
 export default function CareersPage() {
   return (
