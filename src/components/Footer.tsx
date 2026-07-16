@@ -1,9 +1,9 @@
 import Purple8Logo from "@/components/Purple8Logo";
 
 const productLinks = [
-  { label: "Purple8", href: "#products" },
-  { label: "DocIntel", href: "#products" },
-  { label: "More coming soon", href: "#products" },
+  { label: "Purple8", href: "/#products" },
+  { label: "DocIntel", href: "/#products" },
+  { label: "More coming soon", href: "/#products" },
 ];
 
 const companyLinks = [
@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-2.5">
+            <a href="/" className="flex items-center gap-2.5">
               <Purple8Logo className="h-8 w-16" />
               <span className="text-sm font-semibold tracking-tight text-white">
                 Purple<span className="text-purple-400">8</span>

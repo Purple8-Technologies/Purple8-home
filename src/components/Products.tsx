@@ -79,9 +79,15 @@ export default function Products({
           <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
             Products
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            Two products. Your whole backend.
-          </h2>
+          {isHighlight ? (
+            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Two products. Your whole backend.
+            </h2>
+          ) : (
+            <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Two products. Your whole backend.
+            </h1>
+          )}
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-500">
             <span className="text-zinc-300">Purple8</span> is the backend your app
             runs on — storage, search, RAG, workflows, auth, and encryption in one

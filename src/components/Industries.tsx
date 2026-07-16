@@ -101,9 +101,9 @@ export default function Industries() {
           <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
             Industries
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
             Built for knowledge-intensive sectors
-          </h2>
+          </h1>
           <p className="mx-auto mt-4 max-w-xl text-base text-zinc-500">
             Purple8 is purpose-built for domains where AI applications must reason
             over complex, real-world data — connected entities, documents, and
@@ -159,7 +159,7 @@ export default function Industries() {
 
           {/* Teaser — fills the grid + invites other verticals */}
           <a
-            href="#products"
+            href="/#products"
             className="group relative flex flex-col justify-center overflow-hidden rounded-2xl border border-dashed border-zinc-800 bg-transparent p-7 transition-all duration-300 hover:border-purple-700/50 hover:bg-[#11111b]"
           >
             <h3 className="text-base font-bold text-white">

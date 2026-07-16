@@ -70,11 +70,15 @@ export default function FeaturesManifesto({
         <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
           Why Purple8
         </p>
-        <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-          {isHighlight
-            ? "A category of one."
-            : "Eight reasons it\u2019s a category of one."}
-        </h2>
+        {isHighlight ? (
+          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+            A category of one.
+          </h2>
+        ) : (
+          <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+            Eight reasons it&rsquo;s a category of one.
+          </h1>
+        )}
 
         {/* Rows */}
         <div className="mt-16 space-y-0 divide-y divide-zinc-900">
