@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Purple8Logo from "@/components/Purple8Logo";
 
 const links = [
@@ -9,14 +10,18 @@ const links = [
   { href: "/features", label: "Features" },
   { href: "/industries", label: "Industries" },
   { href: "/benchmarks", label: "Benchmarks" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
-  { href: "/careers", label: "Careers" },
   { href: "/support", label: "Support" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -44,21 +49,32 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden items-center gap-8 md:flex">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
-              >
-                {l.label}
-              </Link>
-            ))}
+            {links.map((l) => {
+              const active = isActive(l.href);
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`group relative text-sm transition-colors ${
+                    active ? "text-purple-400" : "text-zinc-400 hover:text-purple-400"
+                  }`}
+                >
+                  {l.label}
+                  <span
+                    className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-purple-500 transition-all duration-300 ${
+                      active ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="/#pricing"
+              href="/#calculator"
               className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500 shadow-lg shadow-purple-900/30"
             >
               Get Started
@@ -99,18 +115,26 @@ export default function Navbar() {
         {/* Mobile menu */}
         {open && (
           <div className="md:hidden border-t border-purple-900/30 py-4 flex flex-col gap-4 pb-6">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="text-sm text-zinc-400 hover:text-purple-400"
-              >
-                {l.label}
-              </Link>
-            ))}
+            {links.map((l) => {
+              const active = isActive(l.href);
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`text-sm ${
+                    active
+                      ? "font-semibold text-purple-400"
+                      : "text-zinc-400 hover:text-purple-400"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
             <a
-              href="/#pricing"
+              href="/#calculator"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white text-center"
             >

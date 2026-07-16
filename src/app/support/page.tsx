@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import SupportTicket from "@/components/SupportTicket";
 import { pageMetadata } from "@/lib/seo";
 
@@ -10,29 +12,25 @@ export const metadata: Metadata = pageMetadata({
 
 export default function SupportPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-slate-100">
-      {/* Header */}
-      <div className="border-b border-slate-800/60 bg-[#0d0d17]">
-        <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-          <a href="/" className="inline-flex items-center gap-2 mb-6 text-sm text-slate-500 hover:text-slate-300 transition-colors">
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to purple8.ai
-          </a>
-          <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-purple-900/50 ring-1 ring-purple-700/50">
-              <span className="text-lg">🛠</span>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-white">Support</h1>
-              <p className="mt-1 text-slate-400 text-sm">
-                Submit a ticket and we'll get back to you.
-              </p>
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-[#0a0a0f] pt-16 text-slate-100">
+        {/* Header */}
+        <div className="border-b border-slate-800/60 bg-[#0d0d17]">
+          <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+            <div className="flex items-start gap-4">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-purple-900/50 ring-1 ring-purple-700/50">
+                <span className="text-lg">🛠</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Support</h1>
+                <p className="mt-1 text-slate-400 text-sm">
+                  Submit a ticket and we&apos;ll get back to you.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       {/* Form */}
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
@@ -100,6 +98,8 @@ export default function SupportPage() {
 
         </div>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

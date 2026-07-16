@@ -13,11 +13,18 @@ const companyLinks = [
   { label: "Contact", href: "mailto:hello@purple8.ai" },
 ];
 
+const resourceLinks = [
+  { label: "Blog", href: "/blog" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Quickstart", href: "/quickstart" },
+];
+
 export default function Footer() {
   return (
     <footer className="border-t border-purple-900/30 bg-[#0a0a0f]">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2">
             <a href="/" className="flex items-center gap-2.5">
@@ -61,6 +68,25 @@ export default function Footer() {
             </h4>
             <ul className="mt-4 space-y-2.5">
               {companyLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    className="text-sm text-zinc-500 transition-colors hover:text-purple-400"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+              Resources
+            </h4>
+            <ul className="mt-4 space-y-2.5">
+              {resourceLinks.map((l) => (
                 <li key={l.label}>
                   <a
                     href={l.href}

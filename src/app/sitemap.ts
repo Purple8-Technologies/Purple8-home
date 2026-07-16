@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { activeRoles } from "@/lib/careers";
+import { getAllMeta } from "@/lib/content";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 // Force static generation so the sitemap is emitted as a file under
@@ -18,6 +19,9 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: Metadata
   { path: "/features", priority: 0.9, changeFrequency: "weekly" },
   { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
   { path: "/benchmarks", priority: 0.8, changeFrequency: "weekly" },
+  { path: "/pricing", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/blog", priority: 0.7, changeFrequency: "weekly" },
+  { path: "/case-studies", priority: 0.7, changeFrequency: "weekly" },
   { path: "/quickstart", priority: 0.7, changeFrequency: "monthly" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly" },
   { path: "/careers", priority: 0.6, changeFrequency: "weekly" },
@@ -45,5 +49,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticEntries, ...careerEntries];
+  const blogEntries = getAllMeta("blog").map((post) => ({
+    url: `${SITE_ORIGIN}/blog/${post.slug}`,
+    lastModified: post.date ? new Date(post.date) : lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const caseStudyEntries = getAllMeta("case-studies").map((study) => ({
+    url: `${SITE_ORIGIN}/case-studies/${study.slug}`,
+    lastModified: study.date ? new Date(study.date) : lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...careerEntries, ...blogEntries, ...caseStudyEntries];
 }
