@@ -19,13 +19,13 @@ export default function Home() {
         <Hero />
         <Stats />
         <FadeIn direction="up" delay={0}>
+          <SystemFlow />
+        </FadeIn>
+        <FadeIn direction="up" delay={0}>
           <FeaturesManifesto variant="highlight" />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <ReplacementStack />
-        </FadeIn>
-        <FadeIn direction="up" delay={0}>
-          <SystemFlow />
         </FadeIn>
         <FadeIn direction="up" delay={0}>
           <Products variant="highlight" />

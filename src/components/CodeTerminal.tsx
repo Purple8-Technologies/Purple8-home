@@ -1,43 +1,50 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-type LineType = "comment" | "keyword" | "code" | "output" | "blank";
+type LineType =
+  | "prompt"
+  | "agent"
+  | "tool"
+  | "result"
+  | "output"
+  | "comment"
+  | "blank";
 
 interface CodeLine {
   text: string;
   type: LineType;
 }
 
+// An AI agent building an entire supplier-risk backend through Purple8's MCP
+// server — no human writes application code, the agent just calls tools.
 const LINES: CodeLine[] = [
-  { text: "from purple8_graph import GraphEngine", type: "keyword" },
-  { text: "from purple8_graph import HybridRAGPipeline", type: "keyword" },
+  { text: "You  ▸  Stand up a supplier-risk backend from these contracts.", type: "prompt" },
   { text: "", type: "blank" },
-  { text: "# One engine. Graph + vector + full-text.", type: "comment" },
-  { text: 'engine = GraphEngine(path="./enterprise")', type: "code" },
+  { text: "Claude  ▸  connected to Purple8 MCP · 49 tools", type: "agent" },
   { text: "", type: "blank" },
-  { text: "# Ingest — graph, vector & full-text", type: "comment" },
-  { text: 'engine.add_node("contract_42",', type: "code" },
-  { text: '    labels=["Contract"],', type: "code" },
-  { text: '    embedding=embed(text))', type: "code" },
+  { text: '→ data.ingest_file("contracts/*.pdf")', type: "tool" },
+  { text: "✓ 1,204 docs · entities + edges extracted", type: "result" },
+  { text: "→ graph.communities()", type: "tool" },
+  { text: "✓ 37 supplier clusters mapped", type: "result" },
+  { text: '→ journey.define("supplier_approval", stages=6)', type: "tool" },
+  { text: "✓ workflow live · SLA + HITL gates armed", type: "result" },
+  { text: '→ rag.hybrid_query("which suppliers breach SLA?")', type: "tool" },
+  { text: "✓ 9 suppliers flagged · vector+graph+text · 238ms", type: "result" },
   { text: "", type: "blank" },
-  { text: "# Hybrid RAG — MRR@10: 0.85, p50: 240ms", type: "comment" },
-  { text: 'result = await pipeline.query(', type: "code" },
-  { text: '    "What are the compliance risks?")', type: "code" },
-  { text: "", type: "blank" },
-  { text: "▶  Traversing 9M nodes...", type: "output" },
-  { text: "▶  12 graph paths · semantic context fused", type: "output" },
-  { text: "▶  Answer ready in 238ms ✓", type: "output" },
+  { text: "▶  Backend live. 0 lines of glue code. ✓", type: "output" },
 ];
 
-const CHAR_DELAY = 22;
-const LINE_PAUSE = 110;
-const END_PAUSE = 3200;
+const CHAR_DELAY = 20;
+const LINE_PAUSE = 130;
+const END_PAUSE = 3600;
 
 const colorMap: Record<LineType, string> = {
+  prompt: "text-zinc-200 font-medium",
+  agent: "text-purple-300",
+  tool: "text-violet-400",
+  result: "text-green-400",
+  output: "text-green-300 font-semibold",
   comment: "text-zinc-500 italic",
-  keyword: "text-violet-400",
-  code: "text-zinc-200",
-  output: "text-green-400",
   blank: "",
 };
 
@@ -155,21 +162,18 @@ export default function CodeTerminal() {
         <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
         <span className="h-3 w-3 rounded-full bg-green-500/80" />
         <span className="ml-3 flex-1 text-center font-mono text-xs text-zinc-600">
-          hyper_graph_demo.py
+          claude · purple8-mcp
         </span>
       </div>
 
       {/* Code body */}
       <div
         ref={bodyRef}
-        className="h-[340px] overflow-y-auto p-5 font-mono text-[13px] leading-6"
+        className="h-[360px] overflow-y-auto p-5 font-mono text-[13px] leading-7"
         style={{ scrollbarWidth: "none" }}
       >
         {displayed.map((line, i) => (
-          <div key={i} className="flex gap-4">
-            <span className="w-5 shrink-0 select-none text-right text-zinc-700">
-              {line.type !== "blank" ? i + 1 : ""}
-            </span>
+          <div key={i} className="flex">
             <span className={colorMap[line.type]}>
               {line.text}
               {/* Inline cursor while typing this line */}
@@ -184,8 +188,7 @@ export default function CodeTerminal() {
         ))}
         {/* Cursor on empty line after all lines are done */}
         {lastLine?.done && (
-          <div className="flex gap-4">
-            <span className="w-5 text-zinc-700" />
+          <div className="flex">
             <span
               className="inline-block h-[14px] w-[2px] align-middle bg-purple-400"
               style={{ opacity: cursor ? 1 : 0, transition: "opacity 0.1s" }}

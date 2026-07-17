@@ -4,7 +4,9 @@
     irm https://www.purple8.ai/install.ps1 | iex
 
   What this does, in order:
-    1. Checks for Docker; if missing, downloads & installs Docker Desktop.
+    1. Checks that Docker is installed. If it is missing, it prints the official
+       Docker Desktop link and exits - install Docker yourself, then re-run.
+       We do NOT auto-download Docker (large installer, GUI licence + reboot).
     2. Waits for the Docker engine to be ready.
     3. Pulls the Purple8 Developer image from GHCR.
     4. Asks for your license key (or reads $env:PURPLE8_LICENSE_JWT).
@@ -44,31 +46,23 @@ Write-Host @'
 Write-Host "  Developer edition - one-click installer`n" -ForegroundColor DarkGray
 
 # --- 1. Ensure Docker ---------------------------------------------------------
-function Install-Docker {
-    Step 'Installing Docker Desktop for Windows'
-    $arch = $env:PROCESSOR_ARCHITECTURE
-    if ($arch -eq 'ARM64') {
-        $url = 'https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe'
-    } else {
-        $url = 'https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe'
-    }
-    $installer = Join-Path $env:TEMP 'DockerDesktopInstaller.exe'
-    Info "Downloading $url"
-    try { Invoke-WebRequest -Uri $url -OutFile $installer -UseBasicParsing }
-    catch { Die 'Download failed. Install Docker Desktop manually: https://www.docker.com/products/docker-desktop/' }
-    Info 'Running the installer (this may prompt for admin rights)...'
-    Start-Process -FilePath $installer -ArgumentList 'install','--quiet','--accept-license' -Wait
-    Remove-Item $installer -ErrorAction SilentlyContinue
-    Ok 'Docker Desktop installed.'
-    Warn 'Windows may require a sign-out or reboot before Docker can run. If the next step fails, reboot and re-run this installer.'
-    $dockerExe = Join-Path $env:ProgramFiles 'Docker\Docker\Docker Desktop.exe'
-    if (Test-Path $dockerExe) { Start-Process $dockerExe }
+# We deliberately do NOT auto-download/-install Docker Desktop. Silently pulling
+# the ~500 MB installer over the user's connection is slow and opaque, and it
+# needs a GUI licence acceptance + reboot that a script cannot drive cleanly.
+# We detect it and hand the user the one official link instead.
+function Show-DockerHint {
+    Warn 'Docker Desktop is required and was not found.'
+    Info 'Install it (a few minutes), then re-run this installer:'
+    Info '  https://www.docker.com/products/docker-desktop/'
+    Info '  1. Download Docker Desktop for Windows.'
+    Info '  2. Run the installer and accept the license.'
+    Info '  3. Reboot if prompted, then launch Docker Desktop and wait for it to start.'
 }
 
 function Ensure-Docker {
     if (Test-Docker) { Ok "Docker is already installed ($((docker --version)))."; return }
-    Warn 'Docker not found - installing it for you.'
-    Install-Docker
+    Show-DockerHint
+    Die 'Docker is not installed. Install it using the link above, then re-run this installer.'
 }
 
 function Wait-Daemon {

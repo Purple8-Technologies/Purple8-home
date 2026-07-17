@@ -6,10 +6,11 @@
 #
 # What this does, in order:
 #   1. Detects your OS + CPU architecture.
-#   2. Installs Docker if it is missing:
-#        • macOS  → downloads & installs Docker Desktop (Apple Silicon or Intel)
-#        • Linux  → installs Docker Engine via the official get.docker.com script
-#      (If Docker is already present it is left untouched.)
+#   2. Checks that Docker is installed. If it is missing, it prints the official
+#      Docker install link and exits — install Docker Desktop (macOS/Windows) or
+#      Docker Engine (Linux) yourself, then re-run this script. We do NOT
+#      auto-download Docker: the installer is large, needs a GUI licence step,
+#      and silent background downloads were hanging installs.
 #   3. Waits for the Docker daemon to be ready.
 #   4. Pulls the Purple8 Developer image from GHCR.
 #   5. Asks for your license key (or reads $PURPLE8_LICENSE_JWT).
@@ -79,41 +80,33 @@ detect_platform() {
 # ─── 2. Ensure Docker ─────────────────────────────────────────────────────────
 have_docker() { command -v docker >/dev/null 2>&1; }
 
-install_docker_macos() {
-  step "Installing Docker Desktop for macOS"
-  case "$ARCH" in
-    arm64) DMG_URL="https://desktop.docker.com/mac/main/arm64/Docker.dmg" ;;
-    x86_64) DMG_URL="https://desktop.docker.com/mac/main/amd64/Docker.dmg" ;;
-    *) die "Unknown macOS architecture '$ARCH'." ;;
+# We deliberately do NOT auto-download/-install Docker. Silently pulling a
+# multi-hundred-MB Docker Desktop DMG/EXE over the user's connection is slow,
+# opaque, and was hanging installs with no feedback. Docker Desktop also needs
+# a GUI licence acceptance + reboot on macOS/Windows that a shell script cannot
+# drive cleanly. Instead we detect it and hand the user the one official link.
+docker_install_hint() {
+  case "$PLATFORM" in
+    macos)
+      warn "Docker Desktop is required and was not found."
+      info "Install it (2 minutes), then re-run this installer:"
+      info "  ${BOLD}https://www.docker.com/products/docker-desktop/${RESET}${DIM}"
+      info "  1. Download Docker Desktop for Mac (Apple Silicon or Intel)."
+      info "  2. Open the .dmg and drag Docker to Applications."
+      info "  3. Launch Docker Desktop and wait for the whale icon to settle."
+      ;;
+    linux)
+      warn "Docker Engine is required and was not found."
+      info "Install it, then re-run this installer:"
+      info "  ${BOLD}https://docs.docker.com/engine/install/${RESET}${DIM}"
+      info "  Most distros:  ${BOLD}curl -fsSL https://get.docker.com | sudo sh${RESET}${DIM}"
+      info "  Then:          ${BOLD}sudo systemctl enable --now docker${RESET}${DIM}"
+      ;;
+    *)
+      warn "Docker is required and was not found."
+      info "Install Docker Desktop: ${BOLD}https://www.docker.com/products/docker-desktop/${RESET}"
+      ;;
   esac
-  TMP_DMG="$(mktemp -d)/Docker.dmg"
-  info "Downloading $DMG_URL"
-  curl -fsSL "$DMG_URL" -o "$TMP_DMG" || die "Download failed. Install Docker Desktop manually: https://www.docker.com/products/docker-desktop/"
-  info "Mounting installer…"
-  MNT="$(hdiutil attach "$TMP_DMG" -nobrowse | grep -o '/Volumes/.*' | head -n1)"
-  info "Copying Docker.app to /Applications (may prompt for your password)…"
-  sudo cp -R "$MNT/Docker.app" /Applications/ || die "Could not copy Docker.app."
-  hdiutil detach "$MNT" >/dev/null 2>&1 || true
-  rm -f "$TMP_DMG"
-  info "Launching Docker Desktop…"
-  open -a Docker
-  ok "Docker Desktop installed."
-}
-
-install_docker_linux() {
-  step "Installing Docker Engine for Linux"
-  info "Using the official convenience script (get.docker.com)…"
-  curl -fsSL https://get.docker.com -o /tmp/get-docker.sh || die "Could not download the Docker install script."
-  sudo sh /tmp/get-docker.sh || die "Docker install failed. See https://docs.docker.com/engine/install/"
-  rm -f /tmp/get-docker.sh
-  if command -v systemctl >/dev/null 2>&1; then
-    sudo systemctl enable --now docker >/dev/null 2>&1 || true
-  fi
-  if getent group docker >/dev/null 2>&1; then
-    sudo usermod -aG docker "$USER" 2>/dev/null || true
-    warn "Added $USER to the 'docker' group — log out/in later to use Docker without sudo."
-  fi
-  ok "Docker Engine installed."
 }
 
 ensure_docker() {
@@ -121,11 +114,8 @@ ensure_docker() {
     ok "Docker is already installed ($(docker --version 2>/dev/null | head -n1))."
     return
   fi
-  warn "Docker not found — installing it for you."
-  case "$PLATFORM" in
-    macos) install_docker_macos ;;
-    linux) install_docker_linux ;;
-  esac
+  docker_install_hint
+  die "Docker is not installed. Install it using the link above, then re-run this installer."
 }
 
 # Decide whether daemon-access docker commands need `sudo` for THIS run. On a
@@ -209,6 +199,15 @@ read_key_raw() {
     [ -z "$c" ] && break
     REPLY_KEY="${REPLY_KEY}${c}"
   done
+  # Drain any input still buffered on the tty. A paste frequently carries its own
+  # trailing newline AND the human then presses Enter to submit — the first
+  # newline ends the loop above, the second is left sitting in the buffer. If we
+  # don't flush it, the very next interactive `read` (the admin-email prompt)
+  # consumes that stray newline, returns empty, and silently skips admin
+  # creation — exactly the "JWT paste = no admin prompt" bug. min 0 time 1 makes
+  # read non-blocking (0.1s poll) so this loop empties the buffer then stops.
+  stty min 0 time 1 </dev/tty 2>/dev/null || true
+  while IFS= read -r -n1 c </dev/tty 2>/dev/null; do :; done
   # Restore the tty exactly as it was.
   [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
   printf "\n"

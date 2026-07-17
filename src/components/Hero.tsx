@@ -73,7 +73,7 @@ export default function Hero() {
         </div>
 
         {/* Right column — terminal */}
-        <div className="w-full flex-1 lg:max-w-[560px]">
+        <div className="w-full flex-1 lg:max-w-[620px]">
           <CodeTerminal />
         </div>
 
