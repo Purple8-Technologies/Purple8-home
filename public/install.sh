@@ -207,7 +207,15 @@ read_key_raw() {
     printf "\n"
     return
   fi
-  [ -n "$c" ] && REPLY_KEY="${REPLY_KEY}${c}"
+  # First key was Enter (empty c) → user chose to skip; return immediately with
+  # an empty key rather than waiting out the idle timeout.
+  if [ -z "$c" ]; then
+    [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
+    printf '\e[?2004h' >/dev/tty 2>/dev/null || true
+    printf "\n"
+    return
+  fi
+  REPLY_KEY="${REPLY_KEY}${c}"
 
   # Read the rest of the line. Terminate on Enter (empty c) OR when the input
   # stream goes idle for idle_timeout seconds (paste finished, no Enter). The
