@@ -172,7 +172,10 @@ wait_for_daemon() {
 #      line-length limit, and read char-by-char until newline.
 read_key_raw() {
   # Reads a single line of arbitrary length from /dev/tty without the
-  # MAX_CANON limit. Echoes nothing (keys are secret-ish). Sets REPLY_KEY.
+  # MAX_CANON limit. Masks input with '•' so a paste is visibly registering
+  # (with pure -echo off, a paste that "does nothing" on screen is the #1
+  # support complaint — it usually DID work, but looked identical to a no-op).
+  # Sets REPLY_KEY.
   #
   # An overall inactivity timeout (P8_KEY_TIMEOUT, default 120s) guards against
   # environments where /dev/tty is readable but no one is actually typing
@@ -182,22 +185,40 @@ read_key_raw() {
   local old_stty c first_timeout
   first_timeout="${P8_KEY_TIMEOUT:-120}"
   old_stty="$(stty -g </dev/tty 2>/dev/null || true)"
-  # Raw-ish: disable canonical mode + echo so long pastes aren't buffered/echoed.
+
+  # Disable terminal "bracketed paste" mode BEFORE switching to raw read.
+  # Bracketed paste is a TERMINAL-level toggle (set via \e[?2004h), not a
+  # per-program one — an interactive login shell (bash/zsh with readline/zle)
+  # commonly leaves it ON for the life of the terminal session. If left on, the
+  # terminal wraps a pasted JWT in the literal bytes ESC[200~ ... ESC[201~. Our
+  # raw char-by-char reader doesn't interpret escape sequences (only a real
+  # readline/zle does), so those marker bytes get appended straight into
+  # REPLY_KEY — silently corrupting the key with a few stray leading/trailing
+  # characters that `tr -d '[:space:]'` does NOT strip. This was the actual
+  # "I can't paste the license key" bug: the paste WAS captured, just corrupted.
+  printf '\e[?2004l' >/dev/tty 2>/dev/null || true
+
+  # Raw-ish: disable canonical mode so long pastes aren't buffered/truncated.
+  # Echo stays OFF (real terminal echo can't mask), so we hand-roll masked
+  # feedback below by printing '•' for every character we actually receive.
   stty -icanon -echo min 1 time 0 </dev/tty 2>/dev/null || true
   # Wait (with timeout) for the FIRST keystroke. If nothing arrives, give up
   # and proceed unlicensed rather than hanging.
   if ! IFS= read -r -n1 -t "$first_timeout" c </dev/tty 2>/dev/null; then
     [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
+    printf '\e[?2004h' >/dev/tty 2>/dev/null || true
     printf "\n"
     return
   fi
-  # Got the first char — accumulate it, then read the rest of the line blocking
-  # until Enter (a human paste/type streams in with no long idle gaps).
-  [ -n "$c" ] && REPLY_KEY="${REPLY_KEY}${c}"
+  # Got the first char — accumulate it (and echo a mask dot), then read the
+  # rest of the line blocking until Enter (a human paste/type streams in with
+  # no long idle gaps).
+  if [ -n "$c" ]; then REPLY_KEY="${REPLY_KEY}${c}"; printf '•' >/dev/tty 2>/dev/null || true; fi
   while IFS= read -r -n1 c </dev/tty 2>/dev/null; do
     # Empty c means newline/return was pressed → end of input.
     [ -z "$c" ] && break
     REPLY_KEY="${REPLY_KEY}${c}"
+    printf '•' >/dev/tty 2>/dev/null || true
   done
   # Drain any input still buffered on the tty. A paste frequently carries its own
   # trailing newline AND the human then presses Enter to submit — the first
@@ -208,9 +229,16 @@ read_key_raw() {
   # read non-blocking (0.1s poll) so this loop empties the buffer then stops.
   stty min 0 time 1 </dev/tty 2>/dev/null || true
   while IFS= read -r -n1 c </dev/tty 2>/dev/null; do :; done
-  # Restore the tty exactly as it was.
+  # Restore the tty and bracketed-paste mode exactly as they were.
   [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
+  printf '\e[?2004h' >/dev/tty 2>/dev/null || true
   printf "\n"
+
+  # Defensive cleanup: strip bracketed-paste markers if any still leaked
+  # through (e.g. a paste that started a hair before the disable sequence took
+  # effect). Safe no-op when the terminal honoured the disable above.
+  REPLY_KEY="${REPLY_KEY#$'\e'\[200~}"
+  REPLY_KEY="${REPLY_KEY%$'\e'\[201~}"
 }
 
 get_license() {
