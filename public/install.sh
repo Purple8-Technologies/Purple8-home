@@ -229,9 +229,14 @@ get_admin() {
     info "Skipped — create your admin at ${CONSOLE_URL} on first launch."
     return
   fi
-  # Read the password without echoing. Must be at least 12 characters.
+  # Read the password without echoing. The server enforces a strict policy on
+  # first-boot admin creation (auth.py:validate_password_strength): at least 12
+  # chars AND upper AND lower AND digit AND special. If the password we pass
+  # fails ANY rule, the container silently skips admin creation and you can't
+  # log in — so we validate the SAME rules here and refuse to continue until the
+  # password would actually be accepted.
   while :; do
-    printf "  Admin password (min 12 chars): "
+    printf "  Admin password (min 12 chars, incl. upper, lower, digit & symbol): "
     stty -echo </dev/tty 2>/dev/null || true
     IFS= read -r P8G_ADMIN_PASSWORD </dev/tty || P8G_ADMIN_PASSWORD=""
     stty echo </dev/tty 2>/dev/null || true
@@ -240,6 +245,10 @@ get_admin() {
       warn "Too short — please use at least 12 characters."
       continue
     fi
+    case "$P8G_ADMIN_PASSWORD" in *[A-Z]*) : ;; *) warn "Must include an uppercase letter."; continue ;; esac
+    case "$P8G_ADMIN_PASSWORD" in *[a-z]*) : ;; *) warn "Must include a lowercase letter."; continue ;; esac
+    case "$P8G_ADMIN_PASSWORD" in *[0-9]*) : ;; *) warn "Must include a digit."; continue ;; esac
+    case "$P8G_ADMIN_PASSWORD" in *[\!\@\#\$\%\^\&\*\(\)\-_=+\[\]\{\}\|\;:\'\",.\<\>?/\`~]*) : ;; *) warn "Must include a special character (e.g. ! @ # \$ % ^ & *)."; continue ;; esac
     printf "  Confirm password: "
     stty -echo </dev/tty 2>/dev/null || true
     IFS= read -r _pw_confirm </dev/tty || _pw_confirm=""
@@ -272,6 +281,7 @@ deploy() {
     -e PURPLE8_LICENSE_JWT="${PURPLE8_LICENSE_JWT:-}" \
     -e P8G_ADMIN_EMAIL="${P8G_ADMIN_EMAIL:-}" \
     -e P8G_ADMIN_PASSWORD="${P8G_ADMIN_PASSWORD:-}" \
+    -e P8G_DATA_PATH="/data" \
     -v "${VOLUME}:/data" \
     "$IMAGE" >/dev/null || die "Container failed to start. Run 'docker logs $CONTAINER' to see why."
   ok "Container '$CONTAINER' is up."
