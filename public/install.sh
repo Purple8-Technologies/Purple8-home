@@ -171,79 +171,63 @@ wait_for_daemon() {
 #   2. For interactive paste, switch the tty to raw (-icanon) so there is no
 #      line-length limit, and read char-by-char until newline.
 read_key_raw() {
-  # Reads a single line of arbitrary length from /dev/tty without the
-  # MAX_CANON limit. Masks input with '•' so a paste is visibly registering
-  # (with pure -echo off, a paste that "does nothing" on screen is the #1
-  # support complaint — it usually DID work, but looked identical to a no-op).
-  # Sets REPLY_KEY.
+  # Reads a license key of arbitrary length from /dev/tty without the MAX_CANON
+  # canonical-mode line limit (a JWT can exceed the terminal's line buffer and
+  # get truncated by a normal `read`). Sets REPLY_KEY.
   #
-  # An overall inactivity timeout (P8_KEY_TIMEOUT, default 120s) guards against
-  # environments where /dev/tty is readable but no one is actually typing
-  # (piped runs, CI, some editor terminals) — without it the script would block
-  # forever at the prompt. On timeout REPLY_KEY is left empty → run unlicensed.
+  # Design notes:
+  #  * A license key is NOT a secret password — we ECHO it so a paste is plainly
+  #    visible and the user can confirm it landed. (Masking with dots was the
+  #    "I can't see the key" complaint.)
+  #  * The read loop uses an inter-character idle timeout so it terminates the
+  #    moment the paste stream goes quiet, whether or not a trailing newline /
+  #    Enter is present. (No trailing newline was the "hangs after paste" bug.)
+  #  * Bracketed-paste mode is disabled first so the terminal doesn't wrap the
+  #    paste in ESC[200~ … ESC[201~ marker bytes.
   REPLY_KEY=""
-  local old_stty c first_timeout
+  local old_stty c first_timeout idle_timeout
   first_timeout="${P8_KEY_TIMEOUT:-120}"
+  idle_timeout="${P8_KEY_IDLE:-2}"
   old_stty="$(stty -g </dev/tty 2>/dev/null || true)"
 
-  # Disable terminal "bracketed paste" mode BEFORE switching to raw read.
-  # Bracketed paste is a TERMINAL-level toggle (set via \e[?2004h), not a
-  # per-program one — an interactive login shell (bash/zsh with readline/zle)
-  # commonly leaves it ON for the life of the terminal session. If left on, the
-  # terminal wraps a pasted JWT in the literal bytes ESC[200~ ... ESC[201~. Our
-  # raw char-by-char reader doesn't interpret escape sequences (only a real
-  # readline/zle does), so those marker bytes get appended straight into
-  # REPLY_KEY — silently corrupting the key with a few stray leading/trailing
-  # characters that `tr -d '[:space:]'` does NOT strip. This was the actual
-  # "I can't paste the license key" bug: the paste WAS captured, just corrupted.
+  # Disable terminal bracketed-paste so a pasted key isn't wrapped in the
+  # literal marker bytes ESC[200~ … ESC[201~ (our reader doesn't interpret
+  # escape sequences, so those bytes would corrupt the key).
   printf '\e[?2004l' >/dev/tty 2>/dev/null || true
 
-  # Raw-ish: disable canonical mode so long pastes aren't buffered/truncated.
-  # Echo stays OFF (real terminal echo can't mask), so we hand-roll masked
-  # feedback below by printing '•' for every character we actually receive.
-  stty -icanon -echo min 1 time 0 </dev/tty 2>/dev/null || true
-  # Wait (with timeout) for the FIRST keystroke. If nothing arrives, give up
-  # and proceed unlicensed rather than hanging.
+  # Non-canonical so long pastes aren't truncated at MAX_CANON; echo ON so the
+  # key is visible as it streams in.
+  stty -icanon echo min 1 time 0 </dev/tty 2>/dev/null || true
+
+  # Wait (with a generous timeout) for the FIRST keystroke; if nothing arrives
+  # at all, give up and run unlicensed rather than hanging.
   if ! IFS= read -r -n1 -t "$first_timeout" c </dev/tty 2>/dev/null; then
     [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
     printf '\e[?2004h' >/dev/tty 2>/dev/null || true
     printf "\n"
     return
   fi
-  # Got the first char — accumulate it (and echo a mask dot), then read the
-  # rest of the line. A paste streams in with no idle gaps, so we use a short
-  # inter-character timeout (P8_KEY_IDLE, default 3s) as a fallback terminator:
-  # the loop ends on Enter (empty c) OR when the input stream goes idle. Without
-  # this fallback the loop would block forever if the pasted key carries no
-  # trailing newline and the user doesn't press Enter — the "hangs after paste"
-  # regression.
-  local idle_timeout="${P8_KEY_IDLE:-3}"
-  if [ -n "$c" ]; then REPLY_KEY="${REPLY_KEY}${c}"; printf '•' >/dev/tty 2>/dev/null || true; fi
+  [ -n "$c" ] && REPLY_KEY="${REPLY_KEY}${c}"
+
+  # Read the rest of the line. Terminate on Enter (empty c) OR when the input
+  # stream goes idle for idle_timeout seconds (paste finished, no Enter). The
+  # -t timeout is what guarantees this can never hang.
   while IFS= read -r -n1 -t "$idle_timeout" c </dev/tty 2>/dev/null; do
-    # Empty c means newline/return was pressed → end of input.
     [ -z "$c" ] && break
     REPLY_KEY="${REPLY_KEY}${c}"
-    printf '•' >/dev/tty 2>/dev/null || true
   done
-  # Note: a read -t timeout returns non-zero and exits the loop above — that is
-  # the intended "paste finished, no Enter pressed" path, not an error.
-  # Drain any input still buffered on the tty. A paste frequently carries its own
-  # trailing newline AND the human then presses Enter to submit — the first
-  # newline ends the loop above, the second is left sitting in the buffer. If we
-  # don't flush it, the very next interactive `read` (the admin-email prompt)
-  # consumes that stray newline, returns empty, and silently skips admin
-  # creation — exactly the "JWT paste = no admin prompt" bug. min 0 time 1 makes
-  # read non-blocking (0.1s poll) so this loop empties the buffer then stops.
+
+  # Non-blocking drain of any leftover byte (e.g. a paste's own trailing newline
+  # plus a manual Enter) so the next interactive prompt isn't skipped.
   stty min 0 time 1 </dev/tty 2>/dev/null || true
   while IFS= read -r -n1 c </dev/tty 2>/dev/null; do :; done
+
   # Restore the tty and bracketed-paste mode exactly as they were.
   [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
   printf '\e[?2004h' >/dev/tty 2>/dev/null || true
   printf "\n"
 
-  # Defensive cleanup: strip bracketed-paste markers if any still leaked
-  # through (e.g. a paste that started a hair before the disable sequence took
-  # effect). Safe no-op when the terminal honoured the disable above.
+  # Defensive: strip bracketed-paste markers if any leaked through.
   REPLY_KEY="${REPLY_KEY#$'\e'\[200~}"
   REPLY_KEY="${REPLY_KEY%$'\e'\[201~}"
 }
