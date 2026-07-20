@@ -238,10 +238,31 @@ get_license() {
 # admin here (passed to the container as P8G_ADMIN_EMAIL/P8G_ADMIN_PASSWORD and
 # created on first boot), or skip and use the in-console /lcnc/setup wizard.
 # Honours pre-set env vars for fully non-interactive installs.
+#
+# IMPORTANT: this script deliberately KEEPS the data volume across re-installs
+# (see deploy()), and the server's bootstrap is idempotent — it ONLY creates an
+# admin when ZERO users exist yet. So if you have ever run this installer
+# before against the same volume, an admin already exists, and typing a new
+# email/password here would be silently ignored by the server — which looked
+# exactly like "my new login doesn't work". We now detect that case up front
+# and skip the misleading prompt entirely.
 get_admin() {
   step "First administrator account"
   if [ -n "${P8G_ADMIN_EMAIL:-}" ] && [ -n "${P8G_ADMIN_PASSWORD:-}" ]; then
     ok "Using P8G_ADMIN_EMAIL / P8G_ADMIN_PASSWORD from your environment."
+    return
+  fi
+  if $DOCKER volume inspect "$VOLUME" >/dev/null 2>&1; then
+    P8G_ADMIN_EMAIL=""; P8G_ADMIN_PASSWORD=""
+    warn "An existing '${VOLUME}' data volume was found from a previous install."
+    info "If you already created an admin account before, use THOSE credentials"
+    info "to log in at ${CONSOLE_URL} — entering new ones here would be ignored"
+    info "(the server only auto-creates an admin on a completely empty database)."
+    info ""
+    info "Forgot your password? Reset it without needing email:"
+    info "  ${BOLD}docker exec -it ${CONTAINER} python -m purple8_graph.reset_password --email you@example.com${RESET}${DIM}"
+    info "Or wipe all data and start fresh (irreversible):"
+    info "  ${BOLD}docker volume rm ${VOLUME}${RESET}${DIM}"
     return
   fi
   info "Create your admin login now, or press Enter to skip and set it up in the"
@@ -366,6 +387,9 @@ done_message() {
     docker stop ${CONTAINER}         # stop the engine
     docker start ${CONTAINER}        # start it again
     docker rm -f ${CONTAINER}        # remove (keeps the ${VOLUME} volume)
+
+  ${BOLD}Forgot your admin password?${RESET} Reset it without needing email:
+    docker exec -it ${CONTAINER} python -m purple8_graph.reset_password --email you@example.com
 
   Docs & quickstart: https://www.purple8.ai/quickstart
 EOF
