@@ -211,15 +211,22 @@ read_key_raw() {
     return
   fi
   # Got the first char — accumulate it (and echo a mask dot), then read the
-  # rest of the line blocking until Enter (a human paste/type streams in with
-  # no long idle gaps).
+  # rest of the line. A paste streams in with no idle gaps, so we use a short
+  # inter-character timeout (P8_KEY_IDLE, default 3s) as a fallback terminator:
+  # the loop ends on Enter (empty c) OR when the input stream goes idle. Without
+  # this fallback the loop would block forever if the pasted key carries no
+  # trailing newline and the user doesn't press Enter — the "hangs after paste"
+  # regression.
+  local idle_timeout="${P8_KEY_IDLE:-3}"
   if [ -n "$c" ]; then REPLY_KEY="${REPLY_KEY}${c}"; printf '•' >/dev/tty 2>/dev/null || true; fi
-  while IFS= read -r -n1 c </dev/tty 2>/dev/null; do
+  while IFS= read -r -n1 -t "$idle_timeout" c </dev/tty 2>/dev/null; do
     # Empty c means newline/return was pressed → end of input.
     [ -z "$c" ] && break
     REPLY_KEY="${REPLY_KEY}${c}"
     printf '•' >/dev/tty 2>/dev/null || true
   done
+  # Note: a read -t timeout returns non-zero and exits the loop above — that is
+  # the intended "paste finished, no Enter pressed" path, not an error.
   # Drain any input still buffered on the tty. A paste frequently carries its own
   # trailing newline AND the human then presses Enter to submit — the first
   # newline ends the loop above, the second is left sitting in the buffer. If we
