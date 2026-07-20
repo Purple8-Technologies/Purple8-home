@@ -162,9 +162,38 @@ wait_for_daemon() {
 }
 
 # ─── 3. License key ───────────────────────────────────────────────────────────
-# Keep this simple: a plain `read` from /dev/tty. The most robust path for very
-# long keys is always to pass PURPLE8_LICENSE_JWT up-front (shown in the tip
-# below), which skips interactive reading entirely.
+# A Developer JWT (RS256/RSA-4096) can run 800-1000+ chars — long enough to hit
+# the terminal's canonical-mode line limit, which is what made pasting "hang"
+# (the paste half-lands, the shell keeps waiting for a newline that never
+# cleanly arrives). read_key_raw() fixes this the simple way: turn OFF
+# canonical mode (no line-length limit) and read one char at a time until
+# Enter. Echo stays ON — you see exactly what you typed/pasted, which is also
+# just simpler than pretending a license key is a secret that needs masking.
+read_key_raw() {
+  REPLY_KEY=""
+  local old_stty c timeout_s
+  timeout_s="${P8_KEY_TIMEOUT:-120}"
+  old_stty="$(stty -g </dev/tty 2>/dev/null || true)"
+
+  # Disable bracketed paste so a pasted key isn't wrapped in literal
+  # ESC[200~ … ESC[201~ marker bytes by the terminal.
+  printf '\e[?2004l' >/dev/tty 2>/dev/null || true
+  stty -icanon echo min 1 time 0 </dev/tty 2>/dev/null || true
+
+  while IFS= read -r -n1 -t "$timeout_s" c </dev/tty 2>/dev/null; do
+    [ -z "$c" ] && break   # Enter pressed → done (also true if skipped immediately)
+    REPLY_KEY="${REPLY_KEY}${c}"
+  done
+
+  [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
+  printf '\e[?2004h' >/dev/tty 2>/dev/null || true
+  printf "\n"
+
+  # Defensive: strip bracketed-paste markers if any leaked through.
+  REPLY_KEY="${REPLY_KEY#$'\e'\[200~}"
+  REPLY_KEY="${REPLY_KEY%$'\e'\[201~}"
+}
+
 get_license() {
   step "License key"
   if [ -n "${PURPLE8_LICENSE_JWT:-}" ]; then
@@ -178,9 +207,11 @@ get_license() {
   info "Tip: the most reliable way is to pass the key up-front, no pasting:"
   info "  ${BOLD}curl -fsSL https://www.purple8.ai/install.sh | PURPLE8_LICENSE_JWT=\"eyJ...\" bash${RESET}${DIM}"
   printf "\n  Paste your license key (or press Enter to run unlicensed for now): "
-  # Read from the terminal even when the script is piped from curl.
+  # Read from the terminal even when the script is piped from curl. Uses the
+  # raw reader so long pastes aren't truncated by the canonical line limit.
   if [ -r /dev/tty ]; then
-    IFS= read -r PURPLE8_LICENSE_JWT </dev/tty || PURPLE8_LICENSE_JWT=""
+    read_key_raw
+    PURPLE8_LICENSE_JWT="${REPLY_KEY}"
   else
     # No tty (fully non-interactive) — nothing to read; run unlicensed.
     PURPLE8_LICENSE_JWT=""
@@ -229,18 +260,18 @@ get_admin() {
     info "Skipped — create your admin at ${CONSOLE_URL} on first launch."
     return
   fi
-  # Read the password without echoing. The server enforces a strict policy on
-  # first-boot admin creation (auth.py:validate_password_strength): at least 12
-  # chars AND upper AND lower AND digit AND special. If the password we pass
-  # fails ANY rule, the container silently skips admin creation and you can't
-  # log in — so we validate the SAME rules here and refuse to continue until the
-  # password would actually be accepted.
+  # Read the password in plain sight (no stty -echo). This is a local,
+  # single-user install script — hiding the password just hid whether typing
+  # was even registering, which is what made it look "broken". The server
+  # enforces a strict policy on first-boot admin creation
+  # (auth.py:validate_password_strength): 12+ chars AND upper AND lower AND
+  # digit AND special. If the password fails ANY rule, the container silently
+  # skips admin creation and you can't log in — so we validate the SAME rules
+  # here and refuse to continue until it would actually be accepted.
+  info "(Your password will be shown as you type — this is a local install.)"
   while :; do
     printf "  Admin password (min 12 chars, incl. upper, lower, digit & symbol): "
-    stty -echo </dev/tty 2>/dev/null || true
     IFS= read -r P8G_ADMIN_PASSWORD </dev/tty || P8G_ADMIN_PASSWORD=""
-    stty echo </dev/tty 2>/dev/null || true
-    printf "\n"
     if [ "${#P8G_ADMIN_PASSWORD}" -lt 12 ]; then
       warn "Too short — please use at least 12 characters."
       continue
@@ -250,10 +281,7 @@ get_admin() {
     case "$P8G_ADMIN_PASSWORD" in *[0-9]*) : ;; *) warn "Must include a digit."; continue ;; esac
     case "$P8G_ADMIN_PASSWORD" in *[\!\@\#\$\%\^\&\*\(\)\-_=+\[\]\{\}\|\;:\'\",.\<\>?/\`~]*) : ;; *) warn "Must include a special character (e.g. ! @ # \$ % ^ & *)."; continue ;; esac
     printf "  Confirm password: "
-    stty -echo </dev/tty 2>/dev/null || true
     IFS= read -r _pw_confirm </dev/tty || _pw_confirm=""
-    stty echo </dev/tty 2>/dev/null || true
-    printf "\n"
     if [ "$P8G_ADMIN_PASSWORD" != "$_pw_confirm" ]; then
       warn "Passwords did not match — try again."
       continue
