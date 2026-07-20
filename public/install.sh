@@ -260,7 +260,7 @@ get_admin() {
     info "(the server only auto-creates an admin on a completely empty database)."
     info ""
     info "Forgot your password? Reset it without needing email:"
-    info "  ${BOLD}docker exec -it ${CONTAINER} python -m purple8_graph.reset_password --email you@example.com${RESET}${DIM}"
+    info "  ${BOLD}docker exec -it ${CONTAINER} purple8-hyper-graph reset-password --email you@example.com${RESET}${DIM}"
     info "Or wipe all data and start fresh (irreversible):"
     info "  ${BOLD}docker volume rm ${VOLUME}${RESET}${DIM}"
     return
@@ -389,7 +389,7 @@ done_message() {
     docker rm -f ${CONTAINER}        # remove (keeps the ${VOLUME} volume)
 
   ${BOLD}Forgot your admin password?${RESET} Reset it without needing email:
-    docker exec -it ${CONTAINER} python -m purple8_graph.reset_password --email you@example.com
+    docker exec -it ${CONTAINER} purple8-hyper-graph reset-password --email you@example.com
 
   Docs & quickstart: https://www.purple8.ai/quickstart
 EOF
