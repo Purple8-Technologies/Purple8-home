@@ -29,6 +29,15 @@ const RUN_CMD = `docker run -d \\
   -v purple8-data:/data \\
   ghcr.io/purple8-technologies/purple8-graph:developer`;
 
+// DocIntel — free Community edition (no license key). Needs an LLM key for the
+// extraction pipeline, and points its emit callback at your Purple8 graph.
+const DOCINTEL_RUN_CMD = `docker run -d \\
+  --name purple8-docintel \\
+  -p 8200:8200 \\
+  -e LLM__API_KEY="sk-..." \\
+  -e GRAPH__BASE_URL="http://host.docker.internal:8100" \\
+  ghcr.io/purple8-technologies/purple8-docintel:developer`;
+
 function CommandBlock({ code }: { code: string }) {
   return (
     <div className="group relative mt-3">
@@ -310,6 +319,63 @@ export default function QuickstartPage() {
             <div>• AES-256-GCM encryption at rest</div>
             <div>• 50K nodes, 1 MCP agent (free tier)</div>
             <div>• Perpetual license — no expiry</div>
+          </div>
+        </section>
+
+        {/* ── Add DocIntel (optional) ── */}
+        <section id="add-docintel" className="mb-10 rounded-2xl border border-violet-900/40 bg-gradient-to-b from-violet-950/20 to-[#11111b] p-6 sm:p-8 scroll-mt-24">
+          <div className="flex items-center gap-2">
+            <span className="rounded-full bg-violet-600 px-3 py-0.5 text-xs font-semibold text-white">
+              Optional
+            </span>
+            <h2 className="text-lg font-semibold text-white">
+              Add Purple8 DocIntel — turn any document into graph knowledge
+            </h2>
+          </div>
+          <p className="mt-3 text-sm text-gray-400">
+            DocIntel is a separate microservice that parses 70+ formats (PDF,
+            Office, HTML, images, CAD &amp; BIM), extracts entities and
+            relationships, and emits them straight into your Purple8 graph. The{" "}
+            <span className="text-violet-300">Community edition is free</span> —
+            no license key, no expiry. It only needs an LLM API key for the
+            extraction pipeline.
+          </p>
+
+          <div className="mt-5">
+            <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
+              Run DocIntel (Community edition)
+            </p>
+            <CommandBlock code={DOCINTEL_RUN_CMD} />
+            <p className="mt-3 text-sm text-gray-400">
+              Port <code className="text-violet-200">8200</code> serves the
+              document API. <code className="text-violet-200">GRAPH__BASE_URL</code>{" "}
+              points DocIntel&rsquo;s emit callback at the Purple8 container you
+              started above (<code className="text-violet-200">host.docker.internal</code>{" "}
+              reaches your host from inside Docker Desktop; on Linux use{" "}
+              <code className="text-violet-200">--network host</code> or the
+              container IP). Check health at{" "}
+              <code className="text-violet-200">http://localhost:8200/health</code>.
+            </p>
+          </div>
+
+          <div className="mt-6">
+            <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
+              Send it a document
+            </p>
+            <CommandBlock
+              code={
+                "curl -X POST http://localhost:8200/process -F \"file=@contract.pdf\""
+              }
+            />
+            <p className="mt-3 text-sm text-gray-400">
+              Extracted entities land in your graph automatically. Community
+              edition covers 500 documents/mo on a single worker; paid tiers add
+              throughput and managed connectors (SharePoint, Confluence, S3).{" "}
+              <Link href="/#pricing" className="text-violet-400 underline">
+                See DocIntel plans
+              </Link>
+              .
+            </p>
           </div>
         </section>
 
