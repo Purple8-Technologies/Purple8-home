@@ -162,84 +162,9 @@ wait_for_daemon() {
 }
 
 # ─── 3. License key ───────────────────────────────────────────────────────────
-# Reading the license is deceptively tricky: a Developer JWT is ~800+ chars,
-# which EXCEEDS the terminal's canonical-mode line buffer (MAX_CANON, ~1024
-# bytes including control characters). A normal `read` from a cooked tty
-# silently truncates or hangs on a paste that long — which is exactly the
-# "it works if I delete some of it" symptom. We therefore:
-#   1. Prefer the env var (PURPLE8_LICENSE_JWT) — the robust, copy-paste-safe path.
-#   2. For interactive paste, switch the tty to raw (-icanon) so there is no
-#      line-length limit, and read char-by-char until newline.
-read_key_raw() {
-  # Reads a license key of arbitrary length from /dev/tty without the MAX_CANON
-  # canonical-mode line limit (a JWT can exceed the terminal's line buffer and
-  # get truncated by a normal `read`). Sets REPLY_KEY.
-  #
-  # Design notes:
-  #  * A license key is NOT a secret password — we ECHO it so a paste is plainly
-  #    visible and the user can confirm it landed. (Masking with dots was the
-  #    "I can't see the key" complaint.)
-  #  * The read loop uses an inter-character idle timeout so it terminates the
-  #    moment the paste stream goes quiet, whether or not a trailing newline /
-  #    Enter is present. (No trailing newline was the "hangs after paste" bug.)
-  #  * Bracketed-paste mode is disabled first so the terminal doesn't wrap the
-  #    paste in ESC[200~ … ESC[201~ marker bytes.
-  REPLY_KEY=""
-  local old_stty c first_timeout idle_timeout
-  first_timeout="${P8_KEY_TIMEOUT:-120}"
-  idle_timeout="${P8_KEY_IDLE:-2}"
-  old_stty="$(stty -g </dev/tty 2>/dev/null || true)"
-
-  # Disable terminal bracketed-paste so a pasted key isn't wrapped in the
-  # literal marker bytes ESC[200~ … ESC[201~ (our reader doesn't interpret
-  # escape sequences, so those bytes would corrupt the key).
-  printf '\e[?2004l' >/dev/tty 2>/dev/null || true
-
-  # Non-canonical so long pastes aren't truncated at MAX_CANON; echo ON so the
-  # key is visible as it streams in.
-  stty -icanon echo min 1 time 0 </dev/tty 2>/dev/null || true
-
-  # Wait (with a generous timeout) for the FIRST keystroke; if nothing arrives
-  # at all, give up and run unlicensed rather than hanging.
-  if ! IFS= read -r -n1 -t "$first_timeout" c </dev/tty 2>/dev/null; then
-    [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
-    printf '\e[?2004h' >/dev/tty 2>/dev/null || true
-    printf "\n"
-    return
-  fi
-  # First key was Enter (empty c) → user chose to skip; return immediately with
-  # an empty key rather than waiting out the idle timeout.
-  if [ -z "$c" ]; then
-    [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
-    printf '\e[?2004h' >/dev/tty 2>/dev/null || true
-    printf "\n"
-    return
-  fi
-  REPLY_KEY="${REPLY_KEY}${c}"
-
-  # Read the rest of the line. Terminate on Enter (empty c) OR when the input
-  # stream goes idle for idle_timeout seconds (paste finished, no Enter). The
-  # -t timeout is what guarantees this can never hang.
-  while IFS= read -r -n1 -t "$idle_timeout" c </dev/tty 2>/dev/null; do
-    [ -z "$c" ] && break
-    REPLY_KEY="${REPLY_KEY}${c}"
-  done
-
-  # Non-blocking drain of any leftover byte (e.g. a paste's own trailing newline
-  # plus a manual Enter) so the next interactive prompt isn't skipped.
-  stty min 0 time 1 </dev/tty 2>/dev/null || true
-  while IFS= read -r -n1 c </dev/tty 2>/dev/null; do :; done
-
-  # Restore the tty and bracketed-paste mode exactly as they were.
-  [ -n "$old_stty" ] && stty "$old_stty" </dev/tty 2>/dev/null || true
-  printf '\e[?2004h' >/dev/tty 2>/dev/null || true
-  printf "\n"
-
-  # Defensive: strip bracketed-paste markers if any leaked through.
-  REPLY_KEY="${REPLY_KEY#$'\e'\[200~}"
-  REPLY_KEY="${REPLY_KEY%$'\e'\[201~}"
-}
-
+# Keep this simple: a plain `read` from /dev/tty. The most robust path for very
+# long keys is always to pass PURPLE8_LICENSE_JWT up-front (shown in the tip
+# below), which skips interactive reading entirely.
 get_license() {
   step "License key"
   if [ -n "${PURPLE8_LICENSE_JWT:-}" ]; then
@@ -253,11 +178,9 @@ get_license() {
   info "Tip: the most reliable way is to pass the key up-front, no pasting:"
   info "  ${BOLD}curl -fsSL https://www.purple8.ai/install.sh | PURPLE8_LICENSE_JWT=\"eyJ...\" bash${RESET}${DIM}"
   printf "\n  Paste your license key (or press Enter to run unlicensed for now): "
-  # Read from the terminal even when the script is piped from curl. Use the
-  # raw reader so pastes longer than the terminal line limit are not truncated.
+  # Read from the terminal even when the script is piped from curl.
   if [ -r /dev/tty ]; then
-    read_key_raw
-    PURPLE8_LICENSE_JWT="${REPLY_KEY}"
+    IFS= read -r PURPLE8_LICENSE_JWT </dev/tty || PURPLE8_LICENSE_JWT=""
   else
     # No tty (fully non-interactive) — nothing to read; run unlicensed.
     PURPLE8_LICENSE_JWT=""
