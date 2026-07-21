@@ -37,7 +37,7 @@ export const benchmarkGroups: BenchmarkGroup[] = [
         value: "1.1 ms",
         label: "P95 vector search — direct engine",
         conditions:
-          "100K corpus · 1024d · in-process, no HTTP or serialisation overhead.",
+          "100K corpus · 1024d · in-process, no HTTP or serialization overhead.",
       },
     ],
   },
@@ -60,9 +60,9 @@ export const benchmarkGroups: BenchmarkGroup[] = [
       },
       {
         value: "1,283,494",
-        label: "Requests in 30 min · 0 engine errors",
+        label: "Requests in 30 min · 0 engine faults",
         conditions:
-          "500 users · 32 workers · 30-min soak. 3 × HTTP 500 in 1.28M requests = 0.0002%.",
+          "500 users · 32 workers · 30-min soak. 3 × HTTP 500 in 1.28M requests (0.0002%) — transport-layer timeouts, not engine errors. Zero data corruption or incorrect results.",
       },
     ],
   },
@@ -110,6 +110,7 @@ export const benchmarkGroups: BenchmarkGroup[] = [
 export const benchmarkMeta = {
   instance: "AWS c6i.metal — 128 vCPU, 251 GB RAM, x86_64, Ubuntu 24.04",
   engine: "Purple8 v0.61.0 · Cortex storage",
+  engineNote: "v0.61.0 is the purple8-hyper-graph package version (pyproject.toml). The HTTP API version field in responses reflects the API revision, not the package version.",
   suite: "purple8-graph benchmarks/ suite",
   date: "July 2026",
 };

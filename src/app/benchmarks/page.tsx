@@ -102,9 +102,10 @@ export default function BenchmarksPage() {
             <p className="mt-6 text-xs leading-relaxed text-zinc-600">
               Latency figures marked as single-user are not measured under
               concurrent load. Direct-engine figures exclude HTTP, auth, and
-              serialisation overhead. Memory behaviour is bounded by available
+              serialization overhead. Memory behavior is bounded by available
               RAM via hardware-aware auto-config; a fixed-corpus deployment
-              reaches steady state once index pages are warm.
+              reaches steady state once index pages are warm.{" "}
+              {benchmarkMeta.engineNote}
             </p>
           </div>
         </section>

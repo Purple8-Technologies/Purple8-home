@@ -22,7 +22,7 @@ const docIntelFeatures = [
   "75+ language detection — entity names extracted in their native script",
   "Five domain extraction profiles: AEC · Contract · Financial · Scientific · General",
   "Connectors: SharePoint, Confluence, AWS S3, and generic webhook — batch and push modes",
-  "Emits structured knowledge directly into Purple8; sends optimised embedding hints automatically",
+  "Emits structured knowledge directly into Purple8; sends optimized embedding hints automatically",
 ];
 
 function FeatureList({ items }: { items: string[] }) {

@@ -86,6 +86,11 @@ export default function TierCalculator() {
   const [needsGovernance, setNeedsGovernance] = useState(false);
   const [needsHA, setNeedsHA] = useState(false);
 
+  /** Returns "An" or "A" based on the first character of the use-case label. */
+  function articleFor(label: string): string {
+    return /^[aeiouAEIOU]/.test(label.trimStart()) ? "An" : "A";
+  }
+
   const useCase = USE_CASES.find((u) => u.id === useCaseId) ?? USE_CASES[0];
   const totalUsers = niceRound(posToUsers(pos));
 
@@ -227,7 +232,8 @@ export default function TierCalculator() {
           {/* ── Result ── */}
           <div className="flex flex-col rounded-3xl border border-purple-600/40 bg-gradient-to-b from-purple-900/25 to-[#11111b] p-6 sm:p-8">
             <p className="text-xs font-medium leading-relaxed text-zinc-400">
-              A <span className="text-white">{useCase.label.toLowerCase()}</span>{" "}
+              {articleFor(useCase.label)}{" "}
+              <span className="text-white">{useCase.label.toLowerCase().replace(/\bai\b/g, "AI")}</span>{" "}
               for <span className="text-white">{usersDisplay}</span>{" "}
               {useCase.userNoun} — we recommend:
             </p>

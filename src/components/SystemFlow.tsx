@@ -6,7 +6,7 @@
  * A live diagram of the AI-native architecture: your frontend and AI agents are
  * the only things you write; everything behind them is Purple8. Two entry
  * points (frontend via REST, agents via MCP) feed ONE in-process engine whose
- * subsystems (graph/query, BrickCore storage, vector+full-text, Journey,
+ * subsystems (graph/query, Cortex storage, vector+full-text, Journey,
  * security/SOC) power four workload families — Search & RAG, Workflows & SLA,
  * Security & Audit, Analytics & Ops. RAG is deliberately just ONE workload, not
  * the hero: the story is "complete backend," not "RAG chatbot."
@@ -44,9 +44,9 @@ const NODES: Node[] = [
   { id: "agents", label: "AI Agents", sub: "Claude · Copilot · GPT", x: 40, y: 384, w: NW, h: NH, tone: "entry" },
   // Core subsystems (inside the process box). MCP Server is Purple8's OWN
   // agent-facing gateway — not an external actor.
-  { id: "mcp", label: "MCP Server", sub: "49 native + federated tools", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "mcp", label: "MCP Server", sub: "69 native + federated tools", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 150, w: 240, h: 44, tone: "core", health: "ok" },
-  { id: "storage", label: "BrickCore Storage", sub: "documents · WAL · bounded RSS", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "storage", label: "Cortex Storage", sub: "documents · WAL · bounded RSS", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 278, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "journey", label: "Journey Engine", sub: "workflows · SLA · HITL", x: 410, y: 342, w: 240, h: 44, tone: "core", health: "warn" },
   { id: "security", label: "Security & SOC", sub: "AES-256 · RBAC · tenancy", x: 410, y: 406, w: 240, h: 44, tone: "core", health: "ok" },
@@ -373,7 +373,7 @@ export default function SystemFlow() {
         <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-zinc-400">
           Structural comparison: a typical production AI stack stitches together
           ~29 separate services with 4–8 network hops per query. Purple8 runs one.
-          Live figures illustrate steady-state behaviour on commodity hardware.
+          Live figures illustrate steady-state behavior on commodity hardware.
         </p>
       </div>
     </section>

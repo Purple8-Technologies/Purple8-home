@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const replacements = [
   // Data & storage
-  { old: "PostgreSQL", new: "BrickCore storage", icon: "database" },
+  { old: "PostgreSQL", new: "Cortex storage", icon: "database" },
   { old: "MongoDB", new: "Document store", icon: "doc" },
   { old: "Neo4j", new: "Native graph engine", icon: "graph" },
   { old: "Pinecone", new: "HNSW vector index", icon: "vector" },
@@ -423,7 +423,7 @@ export default function ReplacementStack() {
               ROI — so teams keep their focus on{" "}
               <span className="text-white font-semibold">their</span>{" "}
               customers&apos; value, while the whole stack comes out end-to-end
-              cost-optimised as a consequence. And because the footprint is
+              cost-optimized as a consequence. And because the footprint is
               bounded by the machine, not the data, that value{" "}
               <span className="text-purple-300 font-semibold">
                 widens as the corpus grows and compounds as tenants multiply.
@@ -478,7 +478,7 @@ export default function ReplacementStack() {
           <p className="mt-8 text-center text-xs text-zinc-600">
             We stay focused on our customers&apos; value, so they can stay
             focused on theirs — and the whole stack comes out end-to-end
-            cost-optimised as a result.
+            cost-optimized as a result.
           </p>
         </div>
 

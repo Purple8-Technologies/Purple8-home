@@ -43,7 +43,7 @@ export const roles: Role[] = [
     requirements: [
       "Systems programming in Rust, and comfort at the Rust/Python boundary.",
       "Database internals: write-ahead logging, durability, memory management.",
-      "Comfort profiling and reasoning about memory and allocation behaviour.",
+      "Comfort profiling and reasoning about memory and allocation behavior.",
       "A correctness-first mindset — a very high quality bar for shipping.",
     ],
     niceToHave: [
