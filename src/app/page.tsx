@@ -1,21 +1,25 @@
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
-import FeaturesManifesto from "@/components/FeaturesManifesto";
-import ReplacementStack from "@/components/ReplacementStack";
-import SystemFlow from "@/components/SystemFlow";
-import Products from "@/components/Products";
-import Pricing from "@/components/Pricing";
-import TierCalculator from "@/components/TierCalculator";
-import BuiltOnPurple8 from "@/components/BuiltOnPurple8";
-import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
+
+// Heavy below-the-fold components — split into their own chunks so the
+// initial page JS stays under the 150 KB gzipped budget.
+const FeaturesManifesto = dynamic(() => import("@/components/FeaturesManifesto"));
+const ReplacementStack = dynamic(() => import("@/components/ReplacementStack"));
+const SystemFlow = dynamic(() => import("@/components/SystemFlow"));
+const Products = dynamic(() => import("@/components/Products"));
+const Pricing = dynamic(() => import("@/components/Pricing"));
+const TierCalculator = dynamic(() => import("@/components/TierCalculator"));
+const BuiltOnPurple8 = dynamic(() => import("@/components/BuiltOnPurple8"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <Stats />
         <FadeIn direction="up" delay={0}>
