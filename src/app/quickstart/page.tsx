@@ -75,7 +75,7 @@ export default function QuickstartPage() {
           <p className="mt-3 text-gray-400">
             Purple8 Hyper Graph is your entire backend in one container — graph,
             vector, document &amp; full-text storage, a built-in RAG pipeline, a
-            49-tool MCP server, workflows, auth, and encryption. No external
+            69-tool MCP server, workflows, auth, and encryption. No external
             services. The free Developer edition runs it all locally.
           </p>
         </div>
@@ -224,7 +224,7 @@ export default function QuickstartPage() {
               {[
                 "Graph engine", "Vector search", "Document store",
                 "Full-text", "Hybrid RAG", "Journey / workflows",
-                "MCP server (49)", "Auth + RBAC", "AES-256 encryption",
+                "MCP server (69)", "Auth + RBAC", "AES-256 encryption",
                 "LCNC console", "Multi-tenancy", "WAL durability",
               ].map((label, i) => {
                 const col = i % 3;
@@ -313,7 +313,7 @@ export default function QuickstartPage() {
           <div className="mt-4 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
             <div>• Graph + vector + document + full-text engine</div>
             <div>• Built-in RAG pipeline (hybrid retrieval)</div>
-            <div>• MCP server — 49 tools across 9 namespaces</div>
+            <div>• MCP server — 69 tools across 10 namespaces</div>
             <div>• Journey Engine (workflows, SLA, HITL, audit)</div>
             <div>• LCNC admin console</div>
             <div>• AES-256-GCM encryption at rest</div>
