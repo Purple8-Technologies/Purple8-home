@@ -93,7 +93,7 @@ function Activate() {
           {err}
         </p>
         <p className="mt-4 text-gray-400">
-          <Link href="/register" className="text-purple-400 underline">
+          <Link href="/register/" className="text-purple-400 underline">
             Register again
           </Link>{" "}
           to get a fresh link.
@@ -180,7 +180,7 @@ function Activate() {
 
 export default function ActivatePage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
+    <main id="main-content" className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto mb-6 max-w-2xl">
         <a
           href="/"

@@ -18,7 +18,7 @@ export default function CaseStudiesIndexPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="bg-[#0a0a0f] pt-16">
         <section className="mx-auto max-w-5xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
             Case Studies

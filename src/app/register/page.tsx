@@ -96,7 +96,7 @@ export default function RegisterPage() {
 
   if (sent) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
+      <main id="main-content" className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl">
           <a
             href="/"
@@ -148,7 +148,7 @@ export default function RegisterPage() {
               )}
               <p className="mt-3 text-sm text-gray-500">
                 Still stuck?{" "}
-                <Link href="/support" className="text-purple-400 underline">
+                <Link href="/support/" className="text-purple-400 underline">
                   Contact support
                 </Link>
                 .
@@ -176,7 +176,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
+    <main id="main-content" className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl">
         <a
           href="/"

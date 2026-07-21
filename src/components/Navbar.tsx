@@ -6,13 +6,13 @@ import { usePathname } from "next/navigation";
 import Purple8Logo from "@/components/Purple8Logo";
 
 const links = [
-  { href: "/products", label: "Products" },
-  { href: "/features", label: "Features" },
-  { href: "/industries", label: "Industries" },
-  { href: "/benchmarks", label: "Benchmarks" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/about", label: "About" },
-  { href: "/support", label: "Support" },
+  { href: "/products/", label: "Products" },
+  { href: "/features/", label: "Features" },
+  { href: "/industries/", label: "Industries" },
+  { href: "/benchmarks/", label: "Benchmarks" },
+  { href: "/pricing/", label: "Pricing" },
+  { href: "/about/", label: "About" },
+  { href: "/support/", label: "Support" },
 ];
 
 export default function Navbar() {
@@ -30,7 +30,15 @@ export default function Navbar() {
   }, []);
 
   return (
+    <header>
+    <a
+      href="#main-content"
+      className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-purple-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+    >
+      Skip to main content
+    </a>
     <nav
+      aria-label="Main navigation"
       className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled
           ? "border-purple-900/50 bg-[#0a0a0f]/95 shadow-lg shadow-purple-950/30 backdrop-blur-lg"
@@ -84,7 +92,9 @@ export default function Navbar() {
           {/* Mobile burger */}
           <button
             onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
             className="md:hidden text-zinc-400 hover:text-white"
           >
             <svg
@@ -114,7 +124,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden border-t border-purple-900/30 py-4 flex flex-col gap-4 pb-6">
+          <div id="mobile-menu" className="md:hidden border-t border-purple-900/30 py-4 flex flex-col gap-4 pb-6">
             {links.map((l) => {
               const active = isActive(l.href);
               return (
@@ -144,5 +154,6 @@ export default function Navbar() {
         )}
       </div>
     </nav>
+    </header>
   );
 }

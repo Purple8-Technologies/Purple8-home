@@ -17,7 +17,8 @@ export default function PricingPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="bg-[#0a0a0f] pt-16">
+        <h1 className="sr-only">Pricing — Purple8</h1>
         <FadeIn direction="up" delay={0}>
           <Pricing />
         </FadeIn>

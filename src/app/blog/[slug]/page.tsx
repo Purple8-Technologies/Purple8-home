@@ -41,10 +41,10 @@ export default async function BlogPostPage({
   return (
     <>
       <Navbar />
-      <main className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="bg-[#0a0a0f] pt-16">
         <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
           <Link
-            href="/blog"
+            href="/blog/"
             className="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-purple-400"
           >
             ← Back to blog

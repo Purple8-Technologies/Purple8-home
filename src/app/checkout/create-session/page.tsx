@@ -63,7 +63,7 @@ function CheckoutCreateSessionContent() {
 
   if (!error) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] px-4 flex items-center justify-center">
+      <main id="main-content" className="min-h-screen bg-[#0a0a0f] px-4 flex items-center justify-center">
         <div className="max-w-lg w-full rounded-2xl border border-zinc-800 bg-[#11111b] p-8 text-center">
           <div className="mx-auto mb-6 h-12 w-12 animate-spin rounded-full border-4 border-zinc-700 border-t-purple-500" />
           <h1 className="text-xl font-bold text-white">Redirecting to secure checkout…</h1>
@@ -76,7 +76,7 @@ function CheckoutCreateSessionContent() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] px-4 flex items-center justify-center">
+    <main id="main-content" className="min-h-screen bg-[#0a0a0f] px-4 flex items-center justify-center">
       <div className="max-w-lg w-full rounded-2xl border border-red-900/40 bg-[#11111b] p-8 text-center">
         <h1 className="text-xl font-bold text-white">Couldn&apos;t start checkout</h1>
         <p className="mt-3 text-sm text-red-300">{error}</p>

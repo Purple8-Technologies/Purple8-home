@@ -71,10 +71,10 @@ export default async function RolePage({
   return (
     <>
       <Navbar />
-      <main className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="bg-[#0a0a0f] pt-16">
         <article className="mx-auto max-w-3xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
           <Link
-            href="/careers"
+            href="/careers/"
             className="text-sm text-purple-400 transition-colors hover:text-purple-300"
           >
             &larr; All roles

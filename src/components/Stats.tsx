@@ -91,7 +91,7 @@ export default function Stats() {
           <span className="text-zinc-500">*</span> Measured on real, reproducible
           benchmark runs.{" "}
           <a
-            href="/benchmarks"
+            href="/benchmarks/"
             className="text-purple-400 transition-colors hover:text-purple-300"
           >
             See methodology & conditions &rarr;

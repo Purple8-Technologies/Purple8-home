@@ -53,7 +53,7 @@ function CommandBlock({ code }: { code: string }) {
 
 export default function QuickstartPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
+    <main id="main-content" className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="mb-10">
@@ -383,7 +383,7 @@ export default function QuickstartPage() {
         <div className="flex flex-col items-center gap-4 border-t border-gray-800 pt-8 text-center">
           <p className="text-sm text-gray-400">
             Don&rsquo;t have a license yet?{" "}
-            <Link href="/register" className="text-purple-400 underline">
+            <Link href="/register/" className="text-purple-400 underline">
               Get one free in one click
             </Link>
           </p>
@@ -395,7 +395,7 @@ export default function QuickstartPage() {
           </p>
           <p className="text-xs text-gray-600">
             Lost your key?{" "}
-            <Link href="/register" className="text-purple-400 underline">
+            <Link href="/register/" className="text-purple-400 underline">
               Recover it here
             </Link>{" "}
             · Need help?{" "}

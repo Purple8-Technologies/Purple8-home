@@ -58,10 +58,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://www.purple8.ai/og.png",
+        url: "https://www.purple8.ai/opengraph-image.png",
         width: 1200,
         height: 630,
         type: "image/png",
+        alt: "Purple8 — Your entire backend. One process.",
       },
     ],
   },
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
     description:
       "Unified graph + vector + document engine with Journey Engine, native MCP tools, and 70-format document intelligence.",
     creator: "@purple8ai",
-    images: ["https://www.purple8.ai/og.png"],
+    images: ["https://www.purple8.ai/opengraph-image.png"],
   },
   alternates: {
     canonical: "https://www.purple8.ai",
@@ -96,6 +97,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        {/* Security meta headers (GitHub Pages static export — HTTP headers not available) */}
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="X-Frame-Options" content="SAMEORIGIN" />
+        <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+        <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://purple8-command-center.fly.dev; frame-ancestors 'none';"
+        />
         {/*
           Plausible Analytics — privacy-first, cookieless, GDPR-compliant.
           No consent banner required (no cookies, no personal data, no

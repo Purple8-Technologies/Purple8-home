@@ -44,10 +44,10 @@ export default async function CaseStudyPage({
   return (
     <>
       <Navbar />
-      <main className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="bg-[#0a0a0f] pt-16">
         <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
           <Link
-            href="/case-studies"
+            href="/case-studies/"
             className="inline-flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-purple-400"
           >
             ← Back to case studies

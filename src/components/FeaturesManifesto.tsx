@@ -116,7 +116,7 @@ export default function FeaturesManifesto({
         {isHighlight && (
           <div className="mt-12 text-center">
             <a
-              href="/features"
+              href="/features/"
               className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-6 py-2.5 text-sm font-semibold text-purple-300 transition-colors hover:bg-purple-500/20"
             >
               See all eight reasons &rarr;

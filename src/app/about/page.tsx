@@ -52,7 +52,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#0a0a0f] text-zinc-100">
+      <main id="main-content" className="bg-[#0a0a0f] text-zinc-100">
         {/* ── Hero ── */}
         <section className="relative overflow-hidden px-4 pt-32 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -275,6 +275,8 @@ export default function AboutPage() {
                 <img
                   src="/founders/nikhil.jpg"
                   alt="Nikhil, Founder & CEO of Purple8"
+                  loading="lazy"
+                  decoding="async"
                   className="h-32 w-32 shrink-0 rounded-full object-cover ring-2 ring-purple-600/50"
                 />
 

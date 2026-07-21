@@ -14,7 +14,7 @@ export default function SupportPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#0a0a0f] pt-16 text-slate-100">
+      <main id="main-content" className="min-h-screen bg-[#0a0a0f] pt-16 text-slate-100">
         {/* Header */}
         <div className="border-b border-slate-800/60 bg-[#0d0d17]">
           <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
@@ -43,13 +43,13 @@ export default function SupportPage() {
                 <h3 className="font-semibold text-slate-300 mb-2">Install &amp; get started</h3>
                 <ul className="space-y-2 text-slate-500">
                   <li>
-                    <a href="/quickstart"
+                    <a href="/quickstart/"
                        className="hover:text-purple-400 transition-colors">
                       → Docker install &amp; quickstart
                     </a>
                   </li>
                   <li>
-                    <a href="/register"
+                    <a href="/register/"
                        className="hover:text-purple-400 transition-colors">
                       → Get a free Developer license
                     </a>
@@ -73,7 +73,7 @@ export default function SupportPage() {
                 <h3 className="font-semibold text-slate-300 mb-2">Before you submit</h3>
                 <ul className="space-y-2 text-slate-500">
                   <li>
-                    <a href="/quickstart"
+                    <a href="/quickstart/"
                        className="hover:text-purple-400 transition-colors">
                       → Quickstart &amp; install guide
                     </a>

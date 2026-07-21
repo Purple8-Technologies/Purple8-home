@@ -15,7 +15,7 @@ export default function IndustriesPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="bg-[#0a0a0f] pt-16">
         <Industries />
       </main>
       <Footer />

@@ -140,7 +140,7 @@ function CheckoutSuccessContent() {
                 Next steps
               </p>
               <ol className="mt-3 space-y-2 text-sm text-zinc-400">
-                <li><span className="text-purple-400 font-medium">1.</span> Install Purple8: <a href="/quickstart" className="text-purple-400 hover:text-purple-300">Quickstart →</a></li>
+                <li><span className="text-purple-400 font-medium">1.</span> Install Purple8: <a href="/quickstart/" className="text-purple-400 underline hover:text-purple-300">Quickstart →</a></li>
                 <li><span className="text-purple-400 font-medium">2.</span> Set <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">PURPLE8_LICENSE_JWT=&lt;key above&gt;</code></li>
                 <li><span className="text-purple-400 font-medium">3.</span> <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">docker compose up</code></li>
               </ol>
@@ -158,7 +158,7 @@ function CheckoutSuccessContent() {
             <h1 className="text-xl font-bold text-white">Something went wrong</h1>
             <p className="mt-3 text-sm text-zinc-500">{result.error}</p>
             <p className="mt-4 text-sm text-zinc-600">
-              Email <a href="mailto:support@purple8.ai" className="text-purple-400 hover:text-purple-300">support@purple8.ai</a> with your Stripe receipt and we&apos;ll sort it out.
+              Email <a href="mailto:support@purple8.ai" className="text-purple-400 underline hover:text-purple-300">support@purple8.ai</a> with your Stripe receipt and we&apos;ll sort it out.
             </p>
           </>
         )}
