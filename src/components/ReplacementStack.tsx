@@ -298,6 +298,190 @@ export default function ReplacementStack() {
           </div>
         </div>
 
+        {/* Footprint — the fact, stated plainly */}
+        <div className="mt-20">
+          <h3 className="text-center text-2xl md:text-3xl font-bold text-white">
+            You start 9–15 GB ahead.
+          </h3>
+          <p className="mt-3 text-center text-sm text-zinc-400 max-w-2xl mx-auto">
+            Before a single record is stored, a 29-service stack has already
+            reserved most of a machine — just to stand up. Purple8&apos;s entire
+            runtime comes up in about 350&nbsp;MiB. The rest of the box goes to
+            your work, not to the plumbing between services.
+          </p>
+
+          {/* Idle head-start strip */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+            {/* Traditional idle overhead */}
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-7">
+              <div className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+                29-service stack · idle
+              </div>
+              <div className="mt-4 flex items-baseline gap-2">
+                <span className="text-4xl md:text-5xl font-extrabold text-zinc-300">
+                  9–15 GB
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-zinc-500">
+                reserved before any data is stored
+              </p>
+              <p className="mt-5 text-xs leading-relaxed text-zinc-600">
+                Even at a charitable 50&nbsp;MB floor per service, the runtimes
+                alone are ~1.45&nbsp;GB. The rest is the connective tissue:
+                network hops between services, the same rows cached three to
+                five times over, and the thread and connection pools every
+                service holds to talk to every other.
+              </p>
+            </div>
+
+            {/* Purple8 idle */}
+            <div className="rounded-2xl border border-purple-500/50 bg-gradient-to-b from-purple-600/15 to-[#11111b] p-7">
+              <div className="text-xs font-semibold uppercase tracking-widest text-purple-300">
+                Purple8 · idle
+              </div>
+              <div className="mt-4 flex items-baseline gap-2">
+                <span className="text-4xl md:text-5xl font-extrabold text-white">
+                  ~350 MiB
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-purple-300/70">
+                one runtime, up and ready
+              </p>
+              <p className="mt-5 text-xs leading-relaxed text-purple-200/60">
+                One process, one thread pool, one cache. No wire between
+                services, no duplicated caches, no cross-service pools. Data is
+                streamed from disk on demand behind a bounded working window —
+                so the footprint is set by the machine, not the corpus.
+              </p>
+            </div>
+          </div>
+
+          {/* The four-layer tax — what the 9–15 GB is made of */}
+          <div className="mt-10 max-w-4xl mx-auto">
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-zinc-500">
+              What that overhead is made of
+            </p>
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+                <div className="text-sm font-semibold text-zinc-300">
+                  Runtime tax
+                </div>
+                <div className="mt-1 text-xs text-zinc-600">~1.45 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                  29 separate runtimes — interpreter, heap, idle worker threads
+                  — each loaded before storing a single row.
+                </p>
+              </div>
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+                <div className="text-sm font-semibold text-zinc-300">
+                  IPC / network
+                </div>
+                <div className="mt-1 text-xs text-zinc-600">~1–2 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                  One query crosses 4–8 service hops. Every hop carries socket
+                  buffers, a TLS session, and serialize-then-deserialize on both
+                  ends.
+                </p>
+              </div>
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+                <div className="text-sm font-semibold text-zinc-300">
+                  Duplicated caches
+                </div>
+                <div className="mt-1 text-xs text-zinc-600">~4–8 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                  The same document sits in three to five caches at once — rows,
+                  nodes, index segments, vectors — plus the CDC fabric that
+                  keeps them in sync.
+                </p>
+              </div>
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+                <div className="text-sm font-semibold text-zinc-300">
+                  Thread &amp; connection pools
+                </div>
+                <div className="mt-1 text-xs text-zinc-600">~2–4 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                  Every service runs its own pool, and every caller holds a pool
+                  to it — pre-opened connections that scale with the square of
+                  the service count.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Principle statement — the hero */}
+          <div className="mt-12 max-w-3xl mx-auto rounded-2xl border border-purple-500/30 bg-gradient-to-b from-purple-600/10 to-transparent p-8 md:p-10">
+            <p className="text-base md:text-lg leading-relaxed text-zinc-200">
+              This isn&apos;t about being slightly better at each service. The
+              9–15&nbsp;GB and 28 services sitting between them are overhead
+              engineering teams carry forever — on every node, at idle. We
+              removed them{" "}
+              <span className="text-purple-300 font-semibold">
+                by construction, not by optimisation
+              </span>
+              . What&apos;s left is technology that&apos;s cleaner for the
+              environment, simpler to use, faster to build with, and better on
+              ROI — so teams keep their focus on{" "}
+              <span className="text-white font-semibold">their</span>{" "}
+              customers&apos; value, while the whole stack comes out end-to-end
+              cost-optimised as a consequence. And because the footprint is
+              bounded by the machine, not the data, that value{" "}
+              <span className="text-purple-300 font-semibold">
+                widens as the corpus grows and compounds as tenants multiply.
+              </span>
+            </p>
+          </div>
+
+          {/* Four value outcomes */}
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+              <div className="text-sm font-semibold text-purple-300">
+                Cleaner for the environment
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                28 fewer idle runtimes, no cross-service chatter, no duplicated
+                caches — less energy and water per unit of work, because the
+                overhead is architecturally absent, not tuned away.
+              </p>
+            </div>
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+              <div className="text-sm font-semibold text-purple-300">
+                Simpler to use
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                One process, one runbook, one thing to secure, one metrics
+                endpoint — instead of a 29-service mesh to orchestrate and
+                babysit.
+              </p>
+            </div>
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+              <div className="text-sm font-semibold text-purple-300">
+                Faster to build with
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                The backend is already one thing — no stitching 29 services
+                together before you ship. Teams build the frontend and deliver
+                customer value sooner.
+              </p>
+            </div>
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+              <div className="text-sm font-semibold text-purple-300">
+                Better on ROI
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                One bounded node instead of twenty. Spend goes to outcomes, not
+                idle infrastructure — and the saving compounds with every
+                tenant you add.
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-8 text-center text-xs text-zinc-600">
+            We stay focused on our customers&apos; value, so they can stay
+            focused on theirs — and the whole stack comes out end-to-end
+            cost-optimised as a result.
+          </p>
+        </div>
+
         {/* Tally */}
         <div className="mt-12 text-center">
           <p className="text-sm text-zinc-500">

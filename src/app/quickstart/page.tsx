@@ -199,7 +199,7 @@ export default function QuickstartPage() {
             <svg
               viewBox="0 0 720 300"
               role="img"
-              aria-label="Purple8 architecture: your frontend talks to one Purple8 container that replaces 20+ services"
+              aria-label="Purple8 architecture: your frontend talks to one Purple8 container that replaces 29 services"
               className="h-auto w-full min-w-[660px]"
             >
               <defs>
@@ -302,7 +302,7 @@ export default function QuickstartPage() {
             Purple8 is MCP-native — point Claude Desktop, Cursor, or any MCP client
             at the server to build and query your backend in natural language:
           </p>
-          <CommandBlock code={"http://localhost:8100/mcp"} />
+          <CommandBlock code={"http://localhost:8100/mcp/sse"} />
         </section>
 
         {/* What you get */}

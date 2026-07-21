@@ -15,7 +15,7 @@ const EIGHT = [
   {
     claim: "One process. No orchestration tax.",
     proof:
-      "Storage, search, workflow, RAG, auth, and encryption — single binary, single port. Replaces 20+ services before you write a line of code.",
+      "Storage, search, workflow, RAG, auth, and encryption — single binary, single port. Replaces 29 services before you write a line of code.",
   },
   {
     claim: "AI agents operate it natively.",
@@ -45,7 +45,7 @@ const EIGHT = [
   {
     claim: "AI-native. Without burning the planet.",
     proof:
-      "One process instead of 20+ services means fewer servers, less idle compute, and no cross-service network waste. The architecture is the efficiency argument — not a benchmark number.",
+      "One process instead of 29 services means fewer servers, less idle compute, and no cross-service network waste. The architecture is the efficiency argument — not a benchmark number.",
   },
   {
     claim: "You own it. Completely.",

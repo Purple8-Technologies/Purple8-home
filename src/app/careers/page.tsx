@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Careers",
   description:
-    "Help build the AI-native backend that replaces 20+ services with one process. Open engineering, developer experience, and operations roles at Purple8.",
+    "Help build the AI-native backend that replaces 29 services with one process. Open engineering, developer experience, and operations roles at Purple8.",
   path: "/careers",
 });
 

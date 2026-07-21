@@ -47,7 +47,7 @@ export const benchmarkGroups: BenchmarkGroup[] = [
       "Sustained write and query throughput, from batch ingestion to hundreds of concurrent users.",
     items: [
       {
-        value: "40,551 docs/s",
+        value: "57,000 docs/s",
         label: "Batch ingest throughput",
         conditions:
           "batch-1000 · 128d · direct engine. Single-node ingest P95 is 4 ms.",
@@ -82,6 +82,25 @@ export const benchmarkGroups: BenchmarkGroup[] = [
         label: "2M or 20M records",
         conditions:
           "Peak memory is set by available RAM, not corpus size. A smaller machine ingests the same corpus in more time — the memory envelope stays hardware-bounded.",
+      },
+    ],
+  },
+  {
+    title: "Footprint — you start ahead",
+    blurb:
+      "The consolidated stack removes the overhead a 29-service architecture pays just to stand up — before a single record is stored. Idle draw is runtime tax, inter-service network buffers, duplicated caches, and connection pools; Purple8 has one runtime, one cache, one pool.",
+    items: [
+      {
+        value: "~350 MiB",
+        label: "Purple8 runtime, idle",
+        conditions:
+          "One process up and ready before any data is ingested — one runtime, one thread pool, one cache. Data is streamed from disk behind a bounded window, so the footprint is set by the machine, not the corpus.",
+      },
+      {
+        value: "9–15 GB",
+        label: "29-service stack, idle",
+        conditions:
+          "Overhead reserved before any data is stored, even at a charitable 50 MB runtime floor per service: ~1.45 GB runtimes + inter-service network buffers + the same rows cached 3–5× + per-service connection pools. Structural estimate of a minimal production stack, not a single measured deployment.",
       },
     ],
   },
