@@ -15,12 +15,12 @@ const EIGHT = [
   {
     claim: "One process. No orchestration tax.",
     proof:
-      "Storage, search, workflow, RAG, auth, and encryption — single binary, single port. Replaces 29 services before you write a line of code.",
+      "Storage, search, workflow, RAG, auth, and encryption — single binary, single port. Replaces 20+ services before you write a line of code.",
   },
   {
     claim: "AI agents operate it natively.",
     proof:
-      "A first-class agent interface with 69 tools across 10 namespaces, RBAC-enforced. Claude, Cursor, and Copilot connect directly — no wrapper, no glue code.",
+      "A first-class agent interface with 49 tools across 9 namespaces, RBAC-enforced. Claude, Cursor, and Copilot connect directly — no wrapper, no glue code.",
   },
   {
     claim: "Three RAG modes. Self-tuning.",
@@ -45,7 +45,7 @@ const EIGHT = [
   {
     claim: "AI-native. Without burning the planet.",
     proof:
-      "One process instead of 29 services means fewer servers, less idle compute, and no cross-service network waste. The architecture is the efficiency argument — not a benchmark number.",
+      "One process instead of 20+ services means fewer servers, less idle compute, and no cross-service network waste. The architecture is the efficiency argument — not a benchmark number.",
   },
   {
     claim: "You own it. Completely.",

@@ -199,7 +199,7 @@ export default function QuickstartPage() {
             <svg
               viewBox="0 0 720 300"
               role="img"
-              aria-label="Purple8 architecture: your frontend talks to one Purple8 container that replaces 29 services"
+              aria-label="Purple8 architecture: your frontend talks to one Purple8 container that replaces 20+ services"
               className="h-auto w-full min-w-[660px]"
             >
               <defs>
@@ -313,7 +313,7 @@ export default function QuickstartPage() {
           <div className="mt-4 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
             <div>• Graph + vector + document + full-text engine</div>
             <div>• Built-in RAG pipeline (hybrid retrieval)</div>
-            <div>• MCP server — 69 tools across 10 namespaces</div>
+            <div>• MCP server — 49 tools across 9 namespaces</div>
             <div>• Journey Engine (workflows, SLA, HITL, audit)</div>
             <div>• LCNC admin console</div>
             <div>• AES-256-GCM encryption at rest</div>

@@ -14,6 +14,7 @@ interface ActivateResponse {
   expires_at: string;
   docker_image: string;
   docker_pull: string;
+  docker_run: string;
   quickstart_url: string;
 }
 
@@ -150,12 +151,22 @@ function Activate() {
 
         <div>
           <p className="text-xs uppercase tracking-wide text-gray-500">
-            3. Start &amp; open the console
+            3. Run the container
           </p>
+          <div className="mt-2 flex items-start gap-2">
+            <code className="flex-1 overflow-x-auto rounded-lg border border-gray-700 bg-[#0a0a0f] px-3 py-2 text-sm text-purple-200 whitespace-pre">
+              {data?.docker_run.replace("<your-license-key>", data?.jwt_token || "<your-license-key>")}
+            </code>
+            <button
+              onClick={() => copy("run", (data?.docker_run || "").replace("<your-license-key>", data?.jwt_token || "<your-license-key>"))}
+              className="shrink-0 rounded-lg border border-gray-700 px-3 py-2 text-sm text-gray-300 hover:border-purple-500"
+            >
+              {copied === "run" ? "Copied" : "Copy"}
+            </button>
+          </div>
           <p className="mt-2 text-sm text-gray-400">
-            Run the container with{" "}
-            <code className="text-purple-200">PURPLE8_LICENSE_JWT</code> set, then open{" "}
-            <code className="text-purple-200">http://localhost:8100/lcnc</code>.{" "}
+            Then open{" "}
+            <code className="text-purple-200">http://localhost:8100/lcnc</code> — the admin console is live.{" "}
             <a
               href={data?.quickstart_url}
               target="_blank"

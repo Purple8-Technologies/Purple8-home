@@ -458,7 +458,7 @@ export default function ReplacementStack() {
                 Faster to build with
               </div>
               <p className="mt-2 text-xs leading-relaxed text-zinc-500">
-                The backend is already one thing — no stitching 29 services
+                The backend is already one thing — no stitching 20+ services
                 together before you ship. Teams build the frontend and deliver
                 customer value sooner.
               </p>
