@@ -97,14 +97,32 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        {/* Security meta headers (GitHub Pages static export — HTTP headers not available) */}
-        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-        <meta httpEquiv="X-Frame-Options" content="SAMEORIGIN" />
+        {/*
+          Security meta headers for GitHub Pages static export.
+          Note: X-Frame-Options and frame-ancestors ONLY work as HTTP response
+          headers — browsers ignore them in <meta> tags. X-Content-Type-Options,
+          Referrer-Policy, and Permissions-Policy are also HTTP-header-only.
+          The only directive that has any effect via <meta> is Content-Security-Policy
+          (excluding frame-ancestors, which is ignored in meta). These are kept
+          here as documentation of intent; enforce them via GitHub Pages custom
+          headers (_headers file) or a CDN (Cloudflare) when available.
+        */}
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-        <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
         <meta
           httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://purple8-command-center.fly.dev; frame-ancestors 'none';"
+          content={[
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' https://plausible.io https://cdn.tailwindcss.com https://unpkg.com",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+            "font-src 'self' https://fonts.gstatic.com",
+            "img-src 'self' data: https:",
+            // Both the custom domain (cc.purple8.ai) and the fly.io origin are
+            // listed so the register page works regardless of which CC_BASE_URL
+            // was baked at build time, and during any DNS / cert transition period.
+            "connect-src 'self' https://plausible.io https://cc.purple8.ai https://purple8-command-center.fly.dev",
+            // frame-ancestors is intentionally omitted — it is silently ignored
+            // in <meta> CSP (browsers warn about this). Enforce via HTTP header.
+          ].join("; ")}
         />
         {/*
           Plausible Analytics — privacy-first, cookieless, GDPR-compliant.
