@@ -19,7 +19,7 @@ interface Stat {
 const STATS: Stat[] = [
   { numeric: 8.84, decimals: 2, suffix: "M", label: "Nodes validated" },
   { numeric: 23, suffix: "ms", label: "P95 vector search*" },
-  { numeric: 40, suffix: "K/s", label: "Batch ingest throughput*" },
+  { numeric: 57, suffix: "K/s", label: "Batch ingest throughput*" },
   { numeric: 752, label: "Req/s · 500 users*" },
   { numeric: 1.28, decimals: 2, suffix: "M", label: "Requests · 0 engine faults*" },
   { numeric: 29, label: "Services replaced" },
