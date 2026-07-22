@@ -10,6 +10,7 @@ const links = [
   { href: "/features/", label: "Features" },
   { href: "/industries/", label: "Industries" },
   { href: "/benchmarks/", label: "Benchmarks" },
+  { href: "/changelog/", label: "Changelog" },
   { href: "/pricing/", label: "Pricing" },
   { href: "/about/", label: "About" },
   { href: "/support/", label: "Support" },

@@ -15,6 +15,7 @@ const companyLinks = [
 
 const resourceLinks = [
   { label: "Blog", href: "/blog" },
+  { label: "Changelog", href: "/changelog" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Demo video", href: null, comingSoon: true },
   { label: "Quickstart", href: "/quickstart" },

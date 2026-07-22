@@ -108,6 +108,24 @@ export async function getDoc(
   return { ...meta, html: processed.toString() };
 }
 
+/** Load a single standalone markdown page from content/<name>.md */
+export async function getPage(
+  name: string,
+): Promise<{ title: string; description: string; date: string; html: string } | null> {
+  const file = path.join(CONTENT_ROOT, `${name}.md`);
+  if (!fs.existsSync(file)) return null;
+  const raw = fs.readFileSync(file, "utf8");
+  const parsed = matter(raw);
+  const d = parsed.data as Record<string, unknown>;
+  const processed = await remark().use(html).process(parsed.content);
+  return {
+    title:       (d.title as string) ?? name,
+    description: (d.description as string) ?? "",
+    date:        (d.date as string) ?? "",
+    html:        processed.toString(),
+  };
+}
+
 export function formatDate(iso: string): string {
   if (!iso) return "";
   const d = new Date(iso);
