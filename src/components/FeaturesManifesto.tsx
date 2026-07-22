@@ -20,7 +20,7 @@ const EIGHT = [
   {
     claim: "AI agents operate it natively.",
     proof:
-      "A first-class agent interface with 71 tools across 11 namespaces, RBAC-enforced. Claude, Cursor, and Copilot connect directly — no wrapper, no glue code.",
+      "A first-class agent interface with 74 tools across 11 namespaces, RBAC-enforced. Claude, Cursor, and Copilot connect directly — no wrapper, no glue code.",
   },
   {
     claim: "Three RAG modes. Self-tuning.",

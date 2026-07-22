@@ -20,7 +20,7 @@ interface CodeLine {
 const LINES: CodeLine[] = [
   { text: "You  ▸  Stand up a supplier-risk backend from these contracts.", type: "prompt" },
   { text: "", type: "blank" },
-  { text: "Claude  ▸  connected to Purple8 MCP · 71 tools", type: "agent" },
+  { text: "Claude  ▸  connected to Purple8 MCP · 74 tools", type: "agent" },
   { text: "", type: "blank" },
   { text: '→ data.ingest_file("contracts/*.pdf")', type: "tool" },
   { text: "✓ 1,204 docs · entities + edges extracted", type: "result" },
