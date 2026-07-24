@@ -1,7 +1,7 @@
 ---
 title: "Changelog"
 description: "What's new in Purple8 Hyper Graph — bug fixes, new features, and improvements shipped to the developer tier."
-date: "2026-07-22"
+date: "2026-07-25"
 ---
 
 Every release shipped to the free developer tier is listed here. We follow [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
@@ -10,9 +10,19 @@ Every release shipped to the free developer tier is listed here. We follow [Sema
 
 ## Unreleased
 
+---
+
+## v0.66.6 — 25 July 2026
+
 ### Fixed
 
-- **Register page showed raw JSON in error messages** — the registration and recovery forms now extract the human-readable `detail` string from API error responses instead of displaying the raw JSON body.
+- **Deadlock protection now active** — concurrent write deadlocks are now automatically detected and resolved. The deadlock detector runs in the background from the moment the engine starts; no configuration required.
+
+- **AWS Bedrock RAG** — embedding model was not being passed through to the Bedrock provider in the RAG pipeline. Fixed — Bedrock-backed RAG queries now use the correct embedding model from your tenant config.
+
+### Security
+
+- **`axios` upgraded to 1.18.1** in the frontend — resolves a batch of prototype pollution and proxy bypass CVEs.
 
 ---
 
