@@ -8,6 +8,14 @@ Every release shipped to the free developer tier is listed here. We follow [Sema
 
 ---
 
+## Unreleased
+
+### Fixed
+
+- **Register page showed raw JSON in error messages** — the registration and recovery forms now extract the human-readable `detail` string from API error responses instead of displaying the raw JSON body.
+
+---
+
 ## v0.66.6 — 22 July 2026
 
 ### New features

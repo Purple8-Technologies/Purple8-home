@@ -54,7 +54,9 @@ export default function RegisterPage() {
       });
       if (!res.ok) {
         const text = await res.text();
-        throw new Error(text || `Registration failed (${res.status})`);
+        let detail = text;
+        try { detail = JSON.parse(text).detail || text; } catch { /* keep raw */ }
+        throw new Error(detail || `Registration failed (${res.status})`);
       }
       const data = await res.json();
       if (data.already_licensed) {
@@ -82,7 +84,9 @@ export default function RegisterPage() {
       });
       if (!res.ok) {
         const text = await res.text();
-        throw new Error(text || `Recovery failed (${res.status})`);
+        let detail = text;
+        try { detail = JSON.parse(text).detail || text; } catch { /* keep raw */ }
+        throw new Error(detail || `Recovery failed (${res.status})`);
       }
       setRecoverSent(true);
     } catch (e) {
