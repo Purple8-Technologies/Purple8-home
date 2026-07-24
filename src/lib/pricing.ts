@@ -198,7 +198,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "solo",
     name: "Solo",
-    price: "$79",
+    price: "$99",
     quota: "10,000 docs/mo",
     seats: "2 workers",
     tagline:
@@ -210,11 +210,11 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "self-hosted",
     name: "Self-Hosted",
-    price: "$299",
+    price: "$799",
     quota: "Unlimited docs",
     seats: "Unlimited workers",
     tagline:
-      "Unlimited processing at a flat $299/mo — no per-page fees. All connectors (SharePoint, Confluence, S3), all 5 OCR engines, all LLM providers. Nothing leaves your infra. Every new version included.",
+      "Unlimited processing at a flat $799/mo — no per-page fees. All connectors (SharePoint, Confluence, S3), all 5 OCR engines, all LLM providers. Nothing leaves your infra. Every new version included.",
     cta: "Get license",
     ctaHref: "https://purple8.ai/checkout/create-session?plan=docintel",
     highlight: true,
