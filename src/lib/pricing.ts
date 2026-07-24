@@ -223,11 +223,11 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "enterprise",
     name: "Enterprise",
-    price: "$799",
+    price: "$1,499",
     quota: "Unlimited",
     seats: "Unlimited",
     tagline:
-      "Everything in Self-Hosted plus SSO/SAML, air-gapped deployment, one custom fine-tuned domain adapter, one custom connector, LTS security-patch backports, guided upgrades, and a dedicated response SLA.",
+      "Everything in Self-Hosted plus SSO/SAML, air-gapped deployment, one custom fine-tuned domain adapter, one custom connector, LTS security-patch backports, guided upgrades, and a dedicated response SLA. Half the price of Unstructured.io enterprise.",
     cta: "Start Enterprise",
     ctaHref: "https://purple8.ai/checkout/create-session?plan=docintel-enterprise",
   },
