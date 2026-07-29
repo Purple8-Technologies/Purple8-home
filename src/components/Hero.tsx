@@ -15,13 +15,13 @@ export default function Hero() {
         {/* Left column */}
         <div className="flex flex-1 flex-col items-start text-left">
 
-          {/* Go-live badge */}
+          {/* Live badge */}
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-700/40 bg-purple-950/40 px-4 py-1.5 text-sm font-medium text-purple-200">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
             </span>
-            Launching August 2026 — Developer edition available now
+            Now live — Developer edition free, no credit card
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[4.5rem] xl:leading-[1.08]">

@@ -203,7 +203,7 @@ export default function RegisterPage() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
           </span>
-          Launching August 2026 — start building today and upgrade in one click at launch.
+          Now live — confirm your email and your license is issued instantly.
         </p>
 
         <form
