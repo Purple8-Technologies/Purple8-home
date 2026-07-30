@@ -33,7 +33,7 @@
   .nav button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; padding: 2px 6px; border-radius: 6px; transition: color .15s, background .15s; }
   .nav button:hover { color: var(--text); background: var(--border); }
   .nav .counter { font-size: 12px; color: var(--dim); min-width: 48px; text-align: center; letter-spacing: .05em; }
-  .progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--green), var(--purple2)); transition: width .3s; z-index: 200; }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--purple), var(--purple2)); transition: width .3s; z-index: 200; }
   .hint { position: fixed; bottom: 28px; right: 36px; font-size: 11px; color: var(--dim); }
   .slide-num { position: absolute; top: 32px; right: 40px; font-size: 11px; color: var(--dim); font-weight: 600; letter-spacing: .1em; }
 
@@ -87,8 +87,7 @@
   .price-card .price { font-size: 36px; font-weight: 800; color: var(--text); letter-spacing: -.03em; }
   .price-card .price-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
 
-  .slide-cover { background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(16,185,129,.12) 0%, var(--bg) 70%); }
-  .slide-cover .logo { font-size: 22px; font-weight: 800; color: var(--purple2); letter-spacing: -.02em; margin-bottom: 48px; }
+  .slide-cover { background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(124,58,237,.18) 0%, var(--bg) 70%); }
 
   .code-block { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; font-family: "SF Mono", "Fira Code", monospace; font-size: 13px; color: #e2e8f0; line-height: 1.7; }
   .code-block .c1 { color: #6ee7b7; }
@@ -109,7 +108,28 @@
 
   <!-- ── 01 COVER ─────────────────────────────────────────────────────── -->
   <div class="slide slide-cover active" id="s1">
-    <div class="logo">purple8</div>
+    <!-- Official logo -->
+    <div style="margin-bottom:40px">
+      <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:44px;width:auto;display:inline-block">
+        <defs>
+          <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#e879f9"/>
+            <stop offset="25%"  stop-color="#c084fc"/>
+            <stop offset="50%"  stop-color="#a855f7"/>
+            <stop offset="75%"  stop-color="#9333ea"/>
+            <stop offset="100%" stop-color="#7c3aed"/>
+          </linearGradient>
+          <filter id="gw" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#gw)">
+          <path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span style="font-size:22px;font-weight:800;color:#a855f7;letter-spacing:-.02em;vertical-align:middle;margin-left:10px">purple8</span>
+    </div>
     <div class="eyebrow">Product Overview · 2026</div>
     <h2 style="font-size:66px; letter-spacing:-.03em">Your AI application.<br/><span class="accent">Your entire backend.</span><br/>One product.</h2>
     <p class="sub">Stop assembling databases, vector stores, workflow engines, and auth services. Purple8 is a single install that replaces all of it — and lets AI agents operate it directly.</p>
