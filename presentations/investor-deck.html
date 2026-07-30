@@ -157,6 +157,30 @@
   /* Animated pulse dot */
   @keyframes ping { 0%,100%{transform:scale(1);opacity:.8} 50%{transform:scale(1.6);opacity:0} }
   .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: ping 2s ease-in-out infinite; }
+
+  /* ── Print / PDF export ──────────────────────────────────────────────
+     Each slide becomes a full A4-landscape / 16:9 page.
+     Print via: File → Print → Save as PDF  (or Cmd+P → Save as PDF)
+     For best results: paper size Tabloid/A3 landscape, margins None.
+  ── */
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { overflow: visible !important; background: #0a0a0f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .nav, .hint, .progress { display: none !important; }
+    .deck { display: block !important; width: 100% !important; height: auto !important; }
+    .slides { position: static !important; width: 1280px !important; height: auto !important; }
+    .slide {
+      display: flex !important;
+      position: relative !important;
+      width: 1280px !important;
+      height: 720px !important;
+      page-break-after: always;
+      break-after: page;
+      overflow: hidden !important;
+    }
+    .slide:last-child { page-break-after: avoid; break-after: avoid; }
+    .slide-num { display: block !important; }
+  }
 </style>
 </head>
 <body>
