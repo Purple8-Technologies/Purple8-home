@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Purple8 — Business Overview · 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:      #0a0a0f;
+    --bg2:     #11111b;
+    --bg3:     #18181f;
+    --border:  rgba(255,255,255,0.07);
+    --purple:  #7c3aed;
+    --purple2: #a855f7;
+    --purple3: #c084fc;
+    --text:    #f4f4f5;
+    --muted:   #a1a1aa;
+    --dim:     #52525b;
+    --green:   #10b981;
+    --amber:   #f59e0b;
+    --red:     #ef4444;
+    --blue:    #3b82f6;
+  }
+  html, body { height: 100%; background: #000; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--text); overflow: hidden; }
+
+  .deck  { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+  .slides { width: 1280px; height: 720px; position: relative; }
+  .slide { position: absolute; inset: 0; background: var(--bg); display: none; flex-direction: column; justify-content: center; padding: 60px 72px; overflow: hidden; }
+  .slide.active { display: flex; }
+
+  /* ── Logo watermark on every slide ── */
+  .slide::after {
+    content: "";
+    position: absolute;
+    bottom: 22px;
+    right: 36px;
+    width: 72px;
+    height: 36px;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30' fill='none' stroke='%23a855f7' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .nav { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: rgba(17,17,27,0.92); border: 1px solid var(--border); border-radius: 999px; padding: 8px 20px; backdrop-filter: blur(12px); }
+  .nav button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; padding: 2px 6px; border-radius: 6px; transition: color .15s, background .15s; }
+  .nav button:hover { color: var(--text); background: var(--border); }
+  .nav .counter { font-size: 12px; color: var(--dim); min-width: 48px; text-align: center; letter-spacing: .05em; }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--purple), var(--purple2)); transition: width .3s; z-index: 200; }
+  .hint { position: fixed; bottom: 28px; right: 36px; font-size: 11px; color: var(--dim); }
+  .slide-num { position: absolute; top: 32px; right: 40px; font-size: 11px; color: var(--dim); font-weight: 600; letter-spacing: .1em; }
+
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--purple3); margin-bottom: 14px; }
+  h2 { font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -.025em; }
+  h3 { font-size: 22px; font-weight: 700; line-height: 1.25; }
+  .sub { font-size: 18px; color: var(--muted); line-height: 1.6; margin-top: 16px; max-width: 680px; }
+  .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--purple), var(--purple2)); border-radius: 2px; margin: 20px 0; }
+  .accent { color: var(--purple2); }
+  .green  { color: var(--green); }
+
+  .row { display: flex; gap: 24px; }
+  .col { flex: 1; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px 32px; }
+  .card-sm { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 999px; letter-spacing: .04em; }
+  .pill-purple { background: rgba(124,58,237,.18); border: 1px solid rgba(168,85,247,.4); color: var(--purple3); }
+  .pill-green  { background: rgba(16,185,129,.14); border: 1px solid rgba(16,185,129,.35); color: #6ee7b7; }
+  .pill-amber  { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.35); color: #fcd34d; }
+  ul { list-style: none; }
+  ul li { padding: 7px 0; font-size: 16px; color: var(--muted); display: flex; align-items: flex-start; gap: 10px; }
+  ul li::before { content: "→"; color: var(--purple2); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check li::before { content: "✓"; color: var(--green); }
+  .cross li::before { content: "✕"; color: var(--red); }
+
+  .stat { text-align: center; background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px 16px; }
+  .stat .val { font-size: 44px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+  .outcome-card { background: var(--bg2); border: 1px solid rgba(168,85,247,.25); border-radius: 14px; padding: 22px 24px; }
+  .outcome-card .before { font-size: 13px; color: var(--red); font-weight: 600; margin-bottom: 10px; }
+  .outcome-card .arrow { font-size: 20px; color: var(--dim); margin: 8px 0; }
+  .outcome-card .after  { font-size: 13px; color: var(--green); font-weight: 600; }
+  .outcome-card p { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.55; }
+
+  .industry-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+  .industry-card .icon { font-size: 24px; margin-bottom: 10px; }
+  .industry-card h4 { font-size: 15px; font-weight: 700; color: var(--text); }
+  .industry-card p  { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+  .industry-card .outcome { margin-top: 10px; font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .08em; }
+
+  .product-row { display: flex; gap: 12px; }
+  .product-pill { flex: 1; background: var(--bg2); border: 1px solid rgba(168,85,247,.3); border-radius: 12px; padding: 16px 14px; text-align: center; }
+  .product-pill .icon { font-size: 22px; margin-bottom: 8px; }
+  .product-pill .name { font-size: 13px; font-weight: 800; color: var(--text); }
+  .product-pill .role { font-size: 11px; color: var(--purple3); margin-top: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .product-pill .desc { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+  .slide-cover { background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(124,58,237,.18) 0%, var(--bg) 70%); }
+
+  @keyframes ping { 0%,100%{transform:scale(1);opacity:.8} 50%{transform:scale(1.6);opacity:0} }
+  .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: ping 2s ease-in-out infinite; }
+
+  /* ── Print / PDF export ── */
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html, body { overflow: visible !important; background: #0a0a0f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .nav, .hint, .progress { display: none !important; }
+    .deck { display: block !important; width: 100% !important; height: auto !important; }
+    .slides { position: static !important; width: 1280px !important; height: auto !important; }
+    .slide { display: flex !important; position: relative !important; width: 1280px !important; height: 720px !important; page-break-after: always; break-after: page; overflow: hidden !important; }
+    .slide:last-child { page-break-after: avoid; break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="deck">
+<div class="slides" id="slides">
+
+  <!-- ── 01 COVER ─────────────────────────────────────────────────────── -->
+  <div class="slide slide-cover active" id="s1">
+    <div style="margin-bottom:40px; display:flex; align-items:center; gap:12px">
+      <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:44px;width:auto">
+        <defs>
+          <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#e879f9"/>
+            <stop offset="50%"  stop-color="#a855f7"/>
+            <stop offset="100%" stop-color="#7c3aed"/>
+          </linearGradient>
+          <filter id="gw" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#gw)">
+          <path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span style="font-size:24px;font-weight:800;color:#a855f7;letter-spacing:-.02em">purple8</span>
+    </div>
+    <div class="eyebrow">Business Overview · 2026</div>
+    <h2 style="font-size:62px; letter-spacing:-.03em">The fastest way to<br/>build an <span class="accent">AI-powered</span><br/>business application.</h2>
+    <p class="sub">Stop waiting 3–6 months and spending $5K–$15K/month on infrastructure. Purple8 is everything your AI application needs — delivered as a single product.</p>
+    <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap">
+      <span class="pill pill-green"><span class="live-dot"></span>&nbsp; Generally Available · August 2026</span>
+      <span class="pill pill-purple">Founded 2026 · Delaware C-Corp</span>
+    </div>
+  </div>
+
+  <!-- ── 02 THE BUSINESS PROBLEM ──────────────────────────────────────── -->
+  <div class="slide" id="s2">
+    <div class="slide-num">02 / 10</div>
+    <div class="eyebrow">The Problem</div>
+    <h2>AI projects fail before they start —<br/><span class="accent">buried in infrastructure.</span></h2>
+    <div class="divider"></div>
+    <div class="row" style="margin-top:12px; gap:20px">
+      <div class="col">
+        <ul class="cross" style="font-size:15px">
+          <li>8–12 separate services to procure, configure, and maintain</li>
+          <li>3–6 months before a single line of business logic is written</li>
+          <li>$3,000–$15,000/month in infrastructure before you serve one user</li>
+          <li>Multiple vendor relationships, separate bills, separate support contracts</li>
+          <li>Every new AI feature requires re-integrating multiple services</li>
+          <li>Security, compliance, and encryption are bolted on — not built in</li>
+        </ul>
+        <div style="margin-top:18px; padding:14px 18px; background:rgba(239,68,68,.07); border:1px solid rgba(239,68,68,.2); border-radius:10px; font-size:14px; color:var(--muted); line-height:1.6">
+          <strong style="color:#fca5a5">The result:</strong> your team spends most of its time managing infrastructure instead of building competitive advantage. Budgets inflate. Timelines slip. AI projects are cancelled.
+        </div>
+      </div>
+      <div class="col" style="display:flex; flex-direction:column; gap:14px; max-width:380px">
+        <div class="stat"><div class="val" style="color:var(--red)">3–6 mo</div><div class="lbl">Average time to production for an AI backend</div></div>
+        <div class="stat"><div class="val" style="color:var(--amber)">8–12</div><div class="lbl">Separate services in a minimal production AI stack</div></div>
+        <div class="stat"><div class="val" style="color:var(--amber)">$5–15K</div><div class="lbl">Typical monthly infrastructure cost before engineering</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 03 THE ANSWER ────────────────────────────────────────────────── -->
+  <div class="slide" id="s3">
+    <div class="slide-num">03 / 10</div>
+    <div class="eyebrow">The Answer</div>
+    <h2>One product.<br/><span class="accent">Everything included.</span></h2>
+    <div class="divider"></div>
+    <div class="row" style="margin-top:12px; gap:32px; align-items:flex-start">
+      <div class="col" style="max-width:440px">
+        <p style="font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:20px">Purple8 replaces your entire AI infrastructure stack with a single install. It ships with everything your application needs — out of the box, on day one, at a fraction of the cost.</p>
+        <div style="display:flex; flex-direction:column; gap:12px">
+          <div style="display:flex; align-items:center; gap:16px; padding:12px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px">
+            <span style="font-size:24px">🗄️</span><div><div style="font-size:14px; font-weight:700; color:var(--text)">Data storage &amp; relationships</div><div style="font-size:12px; color:var(--muted)">Replaces your database and graph database</div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:12px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px">
+            <span style="font-size:24px">🔍</span><div><div style="font-size:14px; font-weight:700; color:var(--text)">AI-powered search &amp; retrieval</div><div style="font-size:12px; color:var(--muted)">Replaces your vector database and search index</div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:12px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px">
+            <span style="font-size:24px">🔄</span><div><div style="font-size:14px; font-weight:700; color:var(--text)">Workflow automation &amp; approvals</div><div style="font-size:12px; color:var(--muted)">Replaces your workflow engine and SLA tooling</div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:12px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px">
+            <span style="font-size:24px">🔐</span><div><div style="font-size:14px; font-weight:700; color:var(--text)">Security, identity &amp; compliance</div><div style="font-size:12px; color:var(--muted)">Replaces your auth service, KMS, and audit tooling</div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:12px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px">
+            <span style="font-size:24px">📄</span><div><div style="font-size:14px; font-weight:700; color:var(--text)">Document intelligence</div><div style="font-size:12px; color:var(--muted)">Replaces your document parser and data extraction service</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div style="background:rgba(124,58,237,.07); border:1px solid rgba(168,85,247,.3); border-radius:20px; padding:28px 32px; height:100%">
+          <div style="font-size:13px; font-weight:700; color:var(--dim); letter-spacing:.1em; text-transform:uppercase; margin-bottom:20px">What changes for your organisation</div>
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div class="outcome-card">
+              <div class="before">✕ &nbsp;3–6 month procurement &amp; integration cycle</div>
+              <div class="arrow">↓</div>
+              <div class="after">✓ &nbsp;Running in a day. Deployed in a week.</div>
+            </div>
+            <div class="outcome-card">
+              <div class="before">✕ &nbsp;$5,000–$15,000/month infrastructure stack</div>
+              <div class="arrow">↓</div>
+              <div class="after">✓ &nbsp;One Purple8 licence. One monthly invoice.</div>
+            </div>
+            <div class="outcome-card">
+              <div class="before">✕ &nbsp;8–12 vendor relationships &amp; support contracts</div>
+              <div class="arrow">↓</div>
+              <div class="after">✓ &nbsp;One vendor. One support line. Zero glue code.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 04 YOUR AI AGENT RUNS IT ─────────────────────────────────────── -->
+  <div class="slide" id="s4">
+    <div class="slide-num">04 / 10</div>
+    <div class="eyebrow">A New Way to Build</div>
+    <h2>Your AI assistant doesn't just<br/>answer questions —<br/><span class="accent">it builds your application.</span></h2>
+    <div class="divider"></div>
+    <div class="row" style="margin-top:8px; gap:40px; align-items:flex-start">
+      <div class="col" style="max-width:440px">
+        <p style="font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:20px">Purple8 is the first business backend designed for AI agents to operate directly. Point any AI assistant at your Purple8 instance and it can build, operate, and evolve your application entirely in natural language — no developers required for routine tasks.</p>
+        <div style="padding:18px 22px; background:rgba(124,58,237,.08); border:1px solid rgba(168,85,247,.25); border-radius:12px">
+          <div style="font-size:13px; font-weight:700; color:var(--purple3); margin-bottom:12px">A non-technical team member can:</div>
+          <ul class="check" style="font-size:14px">
+            <li>Upload documents and have them instantly searchable by AI</li>
+            <li>Define multi-stage approval workflows in plain English</li>
+            <li>Query the entire knowledge base — "show me all overdue contracts"</li>
+            <li>Monitor SLA breaches and escalate — automatically</li>
+            <li>Add a new team member, assign roles, set permissions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px">
+          <div class="card-sm" style="border-left:3px solid var(--purple2)">
+            <div style="font-size:20px; margin-bottom:8px">💬</div>
+            <div style="font-size:14px; font-weight:700; color:var(--text)">Natural language interface</div>
+            <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.6">Staff operate the system through conversation. No training on complex software — they already know how to talk to an AI.</p>
+          </div>
+          <div class="card-sm" style="border-left:3px solid var(--purple2)">
+            <div style="font-size:20px; margin-bottom:8px">🚀</div>
+            <div style="font-size:14px; font-weight:700; color:var(--text)">Faster delivery</div>
+            <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.6">Features that once took a developer sprint to build can be configured in an afternoon — by the business team, not IT.</p>
+          </div>
+          <div class="card-sm" style="border-left:3px solid var(--green)">
+            <div style="font-size:20px; margin-bottom:8px">🔒</div>
+            <div style="font-size:14px; font-weight:700; color:var(--text)">Governed &amp; auditable</div>
+            <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.6">Every AI action is logged in an immutable audit trail. Full compliance visibility — who did what, when, and why.</p>
+          </div>
+          <div class="card-sm" style="border-left:3px solid var(--green)">
+            <div style="font-size:20px; margin-bottom:8px">🧩</div>
+            <div style="font-size:14px; font-weight:700; color:var(--text)">Works with your AI tools</div>
+            <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.6">Compatible with any MCP-capable AI assistant. One connection, 74 capabilities — immediately available to your existing AI tools.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 05 USE CASES BY INDUSTRY ─────────────────────────────────────── -->
+  <div class="slide" id="s5">
+    <div class="slide-num">05 / 10</div>
+    <div class="eyebrow">Where Organisations Use Purple8</div>
+    <h2>Purpose-built use cases<br/><span class="accent">across every industry.</span></h2>
+    <div class="divider"></div>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:10px">
+      <div class="industry-card">
+        <div class="icon">🏦</div>
+        <h4>Financial Services</h4>
+        <p>Loan origination, KYC/AML workflows, contract intelligence, regulatory audit trails, fraud relationship graphs.</p>
+        <div class="outcome">Weeks → Days for approvals</div>
+      </div>
+      <div class="industry-card">
+        <div class="icon">⚖️</div>
+        <h4>Legal &amp; Compliance</h4>
+        <p>Contract review and extraction, obligation tracking, multi-party approval gates, matter lifecycle management, regulatory change monitoring.</p>
+        <div class="outcome">90% less manual review time</div>
+      </div>
+      <div class="industry-card">
+        <div class="icon">🏗️</div>
+        <h4>Architecture &amp; Construction</h4>
+        <p>BIM/IFC document intelligence, project lifecycle tracking, clash detection, structural analysis, supplier approval workflows.</p>
+        <div class="outcome">From drawings to insights in hours</div>
+      </div>
+      <div class="industry-card">
+        <div class="icon">🏥</div>
+        <h4>Healthcare &amp; Life Sciences</h4>
+        <p>Patient journey orchestration, clinical trial document processing, regulatory submission tracking, provider relationship mapping.</p>
+        <div class="outcome">Full HITL + audit compliance</div>
+      </div>
+      <div class="industry-card">
+        <div class="icon">🏢</div>
+        <h4>Enterprise Operations</h4>
+        <p>Internal knowledge management, HR onboarding workflows, procurement approvals, policy Q&amp;A, supplier due diligence — all AI-searchable.</p>
+        <div class="outcome">Replace 5+ SaaS tools with one</div>
+      </div>
+    </div>
+    <div style="margin-top:14px; padding:12px 20px; background:rgba(124,58,237,.07); border:1px solid rgba(168,85,247,.2); border-radius:8px; font-size:13px; color:var(--muted); text-align:center">Purple8 is industry-agnostic. If your organisation handles documents, decisions, relationships, or workflows — Purple8 accelerates it.</div>
+  </div>
+
+  <!-- ── 06 WORKFLOW IN PRACTICE ───────────────────────────────────────── -->
+  <div class="slide" id="s6">
+    <div class="slide-num">06 / 10</div>
+    <div class="eyebrow">Workflow Automation · A Real Example</div>
+    <h2>From document received<br/>to decision made — <span class="accent">fully automated.</span></h2>
+    <div class="divider"></div>
+    <div class="row" style="margin-top:8px; gap:32px; align-items:flex-start">
+      <div class="col">
+        <div style="font-size:13px; font-weight:700; color:var(--dim); letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px">Example: Loan Application</div>
+        <div style="display:flex; flex-direction:column; gap:10px">
+          <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:var(--bg2); border-radius:10px; border-left:3px solid var(--purple2)">
+            <div style="font-size:12px; font-weight:800; color:var(--purple3); min-width:56px; padding-top:2px">Stage 1</div>
+            <div><div style="font-size:14px; font-weight:700; color:var(--text)">Application &amp; documents received</div><div style="font-size:12px; color:var(--muted); margin-top:3px">Purple8 DocIntel reads the application — payslips, bank statements, ID documents — and extracts all key data automatically. No manual data entry.</div></div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:var(--bg2); border-radius:10px; border-left:3px solid var(--purple2)">
+            <div style="font-size:12px; font-weight:800; color:var(--purple3); min-width:56px; padding-top:2px">Stage 2</div>
+            <div><div style="font-size:14px; font-weight:700; color:var(--text)">AI risk &amp; policy check</div><div style="font-size:12px; color:var(--muted); margin-top:3px">The AI queries your policy knowledge graph and scores the application against lending criteria. Risk flags are surfaced instantly — no analyst needed for routine cases.</div></div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:var(--bg2); border-radius:10px; border-left:3px solid var(--amber)">
+            <div style="font-size:12px; font-weight:800; color:#fcd34d; min-width:56px; padding-top:2px">Stage 3</div>
+            <div><div style="font-size:14px; font-weight:700; color:var(--text)">Human approval (where required)</div><div style="font-size:12px; color:var(--muted); margin-top:3px">Complex cases are escalated to a credit officer with full context. SLA countdown begins. Automatic escalation if the deadline is missed.</div></div>
+          </div>
+          <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:var(--bg2); border-radius:10px; border-left:3px solid var(--green)">
+            <div style="font-size:12px; font-weight:800; color:#6ee7b7; min-width:56px; padding-top:2px">Stage 4</div>
+            <div><div style="font-size:14px; font-weight:700; color:var(--text)">Decision recorded &amp; auditable</div><div style="font-size:12px; color:var(--muted); margin-top:3px">Every step — document received, AI assessment, human decision — is stored in an immutable audit trail. Regulator-ready from day one.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="max-width:340px; display:flex; flex-direction:column; gap:14px">
+        <div class="card" style="border-color:rgba(16,185,129,.3)">
+          <div style="font-size:13px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:.1em; margin-bottom:14px">What this replaces</div>
+          <ul style="font-size:13px">
+            <li>Document scanning service</li>
+            <li>OCR &amp; data extraction tool</li>
+            <li>Workflow / BPM platform</li>
+            <li>Decision engine</li>
+            <li>Compliance audit log</li>
+            <li>Human task management system</li>
+          </ul>
+        </div>
+        <div style="padding:16px 20px; background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.2); border-radius:12px; text-align:center">
+          <div style="font-size:32px; font-weight:800; color:var(--green)">~80%</div>
+          <div style="font-size:13px; color:var(--muted); margin-top:4px">reduction in manual processing for routine applications</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 07 THE 5 PRODUCTS ─────────────────────────────────────────────── -->
+  <div class="slide" id="s7">
+    <div class="slide-num">07 / 10</div>
+    <div class="eyebrow">The Product Portfolio · 5 Products</div>
+    <h2>One platform.<br/><span class="accent">A solution for every need.</span></h2>
+    <div class="divider"></div>
+    <div class="product-row" style="margin-top:14px">
+      <div class="product-pill">
+        <div class="icon">🔷</div>
+        <div class="name">Purple8 Hyper</div>
+        <div class="role">AI Backend Platform</div>
+        <div class="desc">The foundation. Graph, vector search, workflows, security, and AI agent interface — all in one. The backend for any AI application.</div>
+      </div>
+      <div class="product-pill">
+        <div class="icon">📄</div>
+        <div class="name">Purple8 DocIntel</div>
+        <div class="role">Document Intelligence</div>
+        <div class="desc">Turn any document — PDF, Word, email, BIM file — into structured, searchable knowledge. 70 formats. Connects to SharePoint, Confluence, and S3.</div>
+      </div>
+      <div class="product-pill">
+        <div class="icon">🧠</div>
+        <div class="name">Purple8 Nexus</div>
+        <div class="role">Enterprise Knowledge Hub</div>
+        <div class="desc">Your organisation's entire knowledge base — policies, contracts, data — made instantly queryable by AI. Built for knowledge-intensive enterprises.</div>
+      </div>
+      <div class="product-pill">
+        <div class="icon">🎯</div>
+        <div class="name">Purple8 Focus</div>
+        <div class="role">AI Productivity Coach</div>
+        <div class="desc">Per-seat AI coaching for teams. Tracks deep work, surfaces performance patterns, and helps individuals and teams protect their most productive time.</div>
+      </div>
+      <div class="product-pill">
+        <div class="icon">🏗️</div>
+        <div class="name">AI Architect</div>
+        <div class="role">AEC &amp; BIM Vertical</div>
+        <div class="desc">Purpose-built for architecture, engineering, and construction. Reads BIM files, analyses structural models, and automates project workflows end to end.</div>
+      </div>
+    </div>
+    <div style="margin-top:14px; padding:10px 20px; background:rgba(124,58,237,.07); border:1px solid rgba(168,85,247,.2); border-radius:8px; font-size:12px; color:var(--dim); text-align:center">All 5 products run on the same Purple8 backend. Deploy once — use all five. No additional infrastructure per product.</div>
+  </div>
+
+  <!-- ── 08 WE USE IT OURSELVES ────────────────────────────────────────── -->
+  <div class="slide" id="s8">
+    <div class="slide-num">08 / 10</div>
+    <div class="eyebrow">Proof · We Run Our Business on Purple8</div>
+    <h2>We replaced our own back-office<br/><span class="accent">with a single Purple8 instance.</span></h2>
+    <div class="divider"></div>
+    <p style="font-size:15px; color:var(--muted); max-width:720px; margin-bottom:20px">Purple8 Inc. runs its own intranet, customer operations, and productivity tools entirely on Purple8. No external SaaS subscriptions for data management, search, workflows, or auth.</p>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:18px">
+      <div class="card" style="border-color:rgba(168,85,247,.3)">
+        <div style="font-size:20px; margin-bottom:10px">🏠</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text)">Company Intranet</h4>
+        <p style="font-size:12px; color:var(--muted); margin-top:8px; line-height:1.6">File library, AI-powered document search, team directory, HR workflows — everything a modern intranet needs. Replaced 4–5 separate SaaS tools.</p>
+        <div style="margin-top:10px; font-size:11px; color:var(--green); font-weight:700; text-transform:uppercase; letter-spacing:.08em">Replaced: SharePoint + Confluence + HR system</div>
+      </div>
+      <div class="card" style="border-color:rgba(168,85,247,.3)">
+        <div style="font-size:20px; margin-bottom:10px">📊</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text)">Customer Operations</h4>
+        <p style="font-size:12px; color:var(--muted); margin-top:8px; line-height:1.6">Customer lifecycle, billing, feature entitlements, and SLA monitoring — all stored as relationship graphs, surfaced via automated workflow alerts.</p>
+        <div style="margin-top:10px; font-size:11px; color:var(--green); font-weight:700; text-transform:uppercase; letter-spacing:.08em">Replaced: CRM + billing DB + feature flag service</div>
+      </div>
+      <div class="card" style="border-color:rgba(168,85,247,.3)">
+        <div style="font-size:20px; margin-bottom:10px">🎯</div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text)">Team Productivity</h4>
+        <p style="font-size:12px; color:var(--muted); margin-top:8px; line-height:1.6">AI-powered focus coaching for the team — backed by the same Purple8 instance. Performance patterns, focus blocks, and work analytics — all in one system.</p>
+        <div style="margin-top:10px; font-size:11px; color:var(--green); font-weight:700; text-transform:uppercase; letter-spacing:.08em">Replaced: Time-tracking + coaching SaaS</div>
+      </div>
+    </div>
+    <div style="padding:12px 20px; background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.2); border-radius:10px; font-size:14px; color:var(--muted)">
+      <strong style="color:#6ee7b7">The result:</strong> our infrastructure bill for all three applications is near zero. The same would have cost $3,000–$8,000/month with conventional SaaS. We ship this product with this proof — because we live it.
+    </div>
+  </div>
+
+  <!-- ── 09 GETTING STARTED ────────────────────────────────────────────── -->
+  <div class="slide" id="s9">
+    <div class="slide-num">09 / 10</div>
+    <div class="eyebrow">Getting Started</div>
+    <h2>Up and running<br/><span class="accent">in days, not months.</span></h2>
+    <div class="divider"></div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:16px">
+      <div style="background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:24px 20px; position:relative">
+        <div style="font-size:11px; font-weight:800; color:var(--purple3); letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px">Day 1</div>
+        <h4 style="font-size:17px; font-weight:700; color:var(--text)">Install &amp; connect</h4>
+        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6">Single install. Connect your AI assistant. Zero infrastructure to provision — Purple8 handles everything internally.</p>
+        <div style="position:absolute; right:-14px; top:50%; transform:translateY(-50%); color:var(--dim); font-size:18px; z-index:10">→</div>
+      </div>
+      <div style="background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:24px 20px; position:relative">
+        <div style="font-size:11px; font-weight:800; color:var(--purple3); letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px">Day 2–3</div>
+        <h4 style="font-size:17px; font-weight:700; color:var(--text)">Load your data</h4>
+        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6">Connect SharePoint, upload documents, or sync your S3 bucket. DocIntel extracts and indexes everything automatically.</p>
+        <div style="position:absolute; right:-14px; top:50%; transform:translateY(-50%); color:var(--dim); font-size:18px; z-index:10">→</div>
+      </div>
+      <div style="background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:24px 20px; position:relative">
+        <div style="font-size:11px; font-weight:800; color:var(--purple3); letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px">Week 1</div>
+        <h4 style="font-size:17px; font-weight:700; color:var(--text)">Build your first workflow</h4>
+        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6">Define a business workflow in plain English with your AI assistant — SLA, approvals, and escalations included. No developer required.</p>
+        <div style="position:absolute; right:-14px; top:50%; transform:translateY(-50%); color:var(--dim); font-size:18px; z-index:10">→</div>
+      </div>
+      <div style="background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:24px 20px">
+        <div style="font-size:11px; font-weight:800; color:var(--green); letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px">Week 2+</div>
+        <h4 style="font-size:17px; font-weight:700; color:var(--text)">Ship to your users</h4>
+        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6">Your team is productive. Your AI is working. Your data is secure. Build only your user interface — Purple8 is everything behind it.</p>
+      </div>
+    </div>
+    <div class="row" style="margin-top:16px; gap:14px">
+      <div class="card-sm col" style="font-size:13px; color:var(--muted)"><strong style="color:var(--text)">Requirements:</strong> 4 GB RAM minimum — Purple8 auto-configures to your hardware</div>
+      <div class="card-sm col" style="font-size:13px; color:var(--muted)"><strong style="color:var(--text)">Migration:</strong> free assessment session — we map your current stack and estimate savings</div>
+      <div class="card-sm col" style="font-size:13px; color:var(--muted)"><strong style="color:var(--text)">Pilot programme:</strong> 60-day co-build for enterprise teams — we build with you</div>
+    </div>
+  </div>
+
+  <!-- ── 10 CONTACT ────────────────────────────────────────────────────── -->
+  <div class="slide" id="s10">
+    <div class="slide-num">10 / 10</div>
+    <div class="eyebrow">Next Steps</div>
+    <h2>Ready to simplify your<br/><span class="accent">AI infrastructure?</span></h2>
+    <div class="divider"></div>
+    <div class="row" style="margin-top:20px; gap:32px; align-items:flex-start">
+      <div class="col">
+        <div style="display:flex; flex-direction:column; gap:14px">
+          <div class="card-sm" style="border-left:3px solid var(--green)">
+            <div style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px">Book a 30-minute demo</div>
+            <div style="font-size:13px; color:var(--muted)">We'll walk through your specific use case — document processing, workflow automation, or AI search — and show you exactly how Purple8 handles it.</div>
+          </div>
+          <div class="card-sm" style="border-left:3px solid var(--purple2)">
+            <div style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px">Request a cost comparison</div>
+            <div style="font-size:13px; color:var(--muted)">Share your current stack. We'll produce a side-by-side cost and complexity comparison — licence cost, infra cost, and engineering time — in 48 hours.</div>
+          </div>
+          <div class="card-sm" style="border-left:3px solid var(--purple2)">
+            <div style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px">Start a 60-day pilot</div>
+            <div style="font-size:13px; color:var(--muted)">For enterprise teams: we co-build your first Purple8 application alongside your team. You ship something real. You own the outcome.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="max-width:380px">
+        <div class="card" style="text-align:center; border-color:rgba(168,85,247,.3)">
+          <div style="margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:10px">
+            <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:44px;width:auto">
+              <defs>
+                <linearGradient id="lgc" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#e879f9"/><stop offset="50%" stop-color="#a855f7"/><stop offset="100%" stop-color="#7c3aed"/>
+                </linearGradient>
+                <filter id="gwc" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <g filter="url(#gwc)"><path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lgc)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+            </svg>
+            <span style="font-size:22px;font-weight:800;color:#a855f7;letter-spacing:-.02em">purple8</span>
+          </div>
+          <h3 style="font-size:20px">Talk to us</h3>
+          <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px">
+            <div style="padding:12px 16px; background:var(--bg3); border-radius:10px">
+              <div style="font-size:12px; color:var(--dim)">Email</div>
+              <a href="mailto:hello@purple8.ai" style="display:block; font-size:16px; font-weight:700; color:var(--text); margin-top:2px; text-decoration:none">hello@purple8.ai</a>
+            </div>
+            <div style="padding:12px 16px; background:var(--bg3); border-radius:10px">
+              <div style="font-size:12px; color:var(--dim)">Website</div>
+              <a href="https://www.purple8.ai" target="_blank" style="display:block; font-size:16px; font-weight:700; color:var(--purple3); margin-top:2px; text-decoration:none">www.purple8.ai</a>
+            </div>
+            <div style="padding:12px 16px; background:var(--bg3); border-radius:10px">
+              <div style="font-size:12px; color:var(--dim)">Get started</div>
+              <a href="https://www.purple8.ai/quickstart" target="_blank" style="display:block; font-size:16px; font-weight:700; color:var(--purple3); margin-top:2px; text-decoration:none">www.purple8.ai/quickstart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /slides -->
+</div><!-- /deck -->
+
+<div class="nav">
+  <button onclick="go(-1)" title="Previous (←)">‹</button>
+  <span class="counter" id="counter">1 / 10</span>
+  <button onclick="go(1)" title="Next (→)">›</button>
+</div>
+
+<div class="hint">← → to navigate · F for fullscreen</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  let cur = 0;
+
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(n, slides.length - 1));
+    slides[cur].classList.add('active');
+    counter.textContent = `${cur + 1} / ${slides.length}`;
+    progress.style.width = `${((cur + 1) / slides.length) * 100}%`;
+  }
+
+  function go(d) { show(cur + d); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')  go(-1);
+    if (e.key === 'f' || e.key === 'F') document.documentElement.requestFullscreen?.();
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End')  show(slides.length - 1);
+  });
+
+  show(0);
+</script>
+</body>
+</html>
