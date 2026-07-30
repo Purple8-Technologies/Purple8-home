@@ -170,13 +170,34 @@
 
   <!-- ── 01 COVER ─────────────────────────────────────────────────────── -->
   <div class="slide slide-cover active" id="s1">
-    <div class="logo">purple8</div>
+    <!-- Official logo -->
+    <div style="margin-bottom:40px">
+      <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:44px;width:auto;display:inline-block">
+        <defs>
+          <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#e879f9"/>
+            <stop offset="25%"  stop-color="#c084fc"/>
+            <stop offset="50%"  stop-color="#a855f7"/>
+            <stop offset="75%"  stop-color="#9333ea"/>
+            <stop offset="100%" stop-color="#7c3aed"/>
+          </linearGradient>
+          <filter id="gw" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#gw)">
+          <path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span style="font-size:22px;font-weight:800;color:#a855f7;letter-spacing:-.02em;vertical-align:middle;margin-left:10px">purple8</span>
+    </div>
     <div class="eyebrow">Series Seed · Investor Brief · July 2026</div>
     <h1>The Complete<br/><span class="accent">AI-Native</span> Backend.</h1>
     <p class="tagline">One process. Zero external dependencies. The entire backend your AI application needs — graph, vector, search, workflows, security, and audit — shipped as a single Python install.</p>
     <div class="meta">
       <span class="pill pill-purple"><span class="live-dot"></span> &nbsp;Live · August 2026 GA</span>
-      <span class="pill pill-green">Founded 2025 · Delaware C-Corp</span>
+      <span class="pill pill-green">Founded 2026 · Delaware C-Corp</span>
     </div>
   </div>
 
@@ -197,13 +218,14 @@
           <div class="stack-item"><span class="service-name">Auth0 / Keycloak</span><span class="cost">$240–2400/mo</span></div>
           <div class="stack-item"><span class="service-name">Elasticsearch</span><span class="cost">$200–3000/mo</span></div>
           <div class="stack-item"><span class="service-name">Unstructured.io / Azure DI</span><span class="cost">$0.01–0.10/page</span></div>
+          <div class="stack-item"><span class="service-name">+ monitoring, secrets, queues, CDN, logging…</span><span class="cost">+21 more</span></div>
         </div>
-        <p class="caption" style="margin-top:14px">Minimum viable production AI stack, 2026. Typical cost: $3,000–$15,000/mo before engineering.</p>
+        <p class="caption" style="margin-top:14px">A complete production AI stack in 2026. Typical cost: $3,000–$15,000/mo before engineering labour.</p>
       </div>
       <div class="col">
         <div class="card" style="margin-bottom:16px">
-          <div style="font-size:36px; font-weight:800; color:var(--red)">8–12</div>
-          <div style="font-size:14px; color:var(--muted); margin-top:4px">separate services to run, secure, and pay for per application</div>
+          <div style="font-size:36px; font-weight:800; color:var(--red)">8–29</div>
+          <div style="font-size:14px; color:var(--muted); margin-top:4px">separate services to run, secure, monitor, and pay for — per application</div>
         </div>
         <div class="card" style="margin-bottom:16px">
           <div style="font-size:36px; font-weight:800; color:var(--amber)">4–8</div>
@@ -295,14 +317,17 @@
     <div class="divider"></div>
     <div class="row" style="margin-top:8px; gap:32px; align-items:flex-start">
       <div class="col" style="max-width:480px">
-        <p style="font-size:17px; color:var(--muted); line-height:1.7; margin-bottom:24px">Because Purple8's backend is MCP-native from day one, any capable AI agent — Claude, Copilot, GPT-4o — can build, operate, and evolve a complete application in natural language. No code. No drag-and-drop. No visual builder.</p>
+        <p style="font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:20px">Because Purple8's backend is MCP-native from day one, any capable AI agent can build, operate, and evolve a complete application in natural language. No code. No drag-and-drop. No visual builder. Works with every major AI assistant — today and tomorrow, regardless of model generation.</p>
         <div class="card-sm" style="margin-bottom:14px">
-          <div style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px">What a non-technical user with Claude can do:</div>
+          <div style="font-size:13px; font-weight:700; color:var(--text); margin-bottom:8px">What an AI agent — or a non-technical user guided by one — can do:</div>
           <ul style="font-size:13px">
             <li>Define multi-stage workflows with SLA + human approval gates</li>
             <li>Ingest documents and start workflow instances</li>
-            <li>Query across the entire knowledge graph</li>
-            <li>Monitor SLA breaches and approve decisions</li>
+            <li>Build and query an entire knowledge graph</li>
+            <li>Monitor SLA breaches and approve human decisions</li>
+            <li>Design and deploy multi-agent systems</li>
+            <li>Build compliance pipelines, fraud graphs, supply-chain networks…</li>
+            <li>And far beyond the obvious RAG chatbot</li>
           </ul>
         </div>
         <p style="font-size:13px; color:var(--dim)">Natural language is the interface. MCP tools are the API. No UI builder required.</p>
@@ -314,12 +339,15 @@
             <thead><tr><th>What you need</th><th>No-code platforms</th><th>Purple8</th></tr></thead>
             <tbody>
               <tr><td class="col-label">Backend</td><td class="col-them">You build it</td><td class="col-us">Purple8 IS it</td></tr>
-              <tr class="highlight"><td class="col-label">Developer</td><td class="col-them">Human engineer</td><td class="col-us">AI agent via MCP</td></tr>
+              <tr class="highlight"><td class="col-label">Developer</td><td class="col-them">Human engineer</td><td class="col-us">Any AI agent via MCP</td></tr>
               <tr><td class="col-label">App builder</td><td class="col-them">Bubble / Retool UI</td><td class="col-us">Not needed</td></tr>
               <tr class="highlight"><td class="col-label">Vector store</td><td class="col-them">Separate service</td><td class="col-us">Built in</td></tr>
               <tr><td class="col-label">Workflows</td><td class="col-them">Separate (Airflow)</td><td class="col-us">Journey Engine</td></tr>
             </tbody>
           </table>
+          <div style="margin-top:16px; padding:10px 14px; background:var(--bg3); border-radius:8px; font-size:12px; color:var(--dim)">
+            Model-agnostic by design — works with any MCP-compatible agent today and every future generation automatically.
+          </div>
         </div>
       </div>
     </div>
@@ -329,41 +357,52 @@
   <div class="slide" id="s6">
     <div class="slide-num">06 / 13</div>
     <div class="eyebrow">Products</div>
-    <h2>Two products. <span class="accent">One complete platform.</span></h2>
+    <h2><span class="accent">5 products.</span> Two layers.</h2>
     <div class="divider"></div>
-    <div class="row" style="margin-top:12px; gap:24px">
-      <div class="product-card">
-        <div style="margin-bottom:14px"><span class="pill pill-purple">Infrastructure</span>&nbsp;<span class="tag">Developer-facing</span></div>
-        <h3>Purple8 Hyper Graph</h3>
-        <p class="product-sub">The entire AI backend in one Python package. Graph + vector + document + full-text in a single in-process engine. Ships with WAL, encryption, multi-tenancy, MCP server, and Journey Engine out of the box.</p>
-        <div class="features">
-          <span class="tag">Graph DB</span>
-          <span class="tag">Vector search (HNSW)</span>
-          <span class="tag">Full-text</span>
-          <span class="tag">Journey Engine</span>
-          <span class="tag">74 MCP tools</span>
-          <span class="tag">AEC vertical</span>
-          <span class="tag">SOC vertical</span>
-          <span class="tag">AES-256-GCM</span>
-          <span class="tag">RBAC + multi-tenancy</span>
+    <div style="margin-bottom:12px; font-size:14px; color:var(--muted); max-width:760px">The developer platform (Hyper + DocIntel) is the engine — it enables developers to build their own IP and products on top. The three end-user products are built on that same platform, proving the model and expanding addressable market.</div>
+    <div class="row" style="gap:16px">
+      <!-- Developer platform -->
+      <div style="flex:2; display:flex; flex-direction:column; gap:12px">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--purple3); margin-bottom:2px">Developer Platform — build anything on top</div>
+        <div class="row" style="gap:12px">
+          <div class="product-card" style="flex:1; padding:22px 24px">
+            <div style="margin-bottom:10px"><span class="pill pill-purple">Infrastructure</span></div>
+            <h3 style="font-size:17px">Purple8 Hyper</h3>
+            <p class="product-sub" style="font-size:12px; margin-top:6px">Complete AI backend in one package. Graph + vector + full-text + Journey Engine + MCP server + AES-256 + RBAC + multi-tenancy. Developers build their own IP on top of this.</p>
+            <div class="features" style="margin-top:12px">
+              <span class="tag">74 MCP tools</span><span class="tag">Journey Engine</span><span class="tag">AEC vertical</span><span class="tag">SOC vertical</span>
+            </div>
+            <div style="margin-top:12px; font-size:11px; color:var(--dim)">Free → $119 → $6,999/mo → Custom</div>
+          </div>
+          <div class="product-card" style="flex:1; padding:22px 24px">
+            <div style="margin-bottom:10px"><span class="pill pill-green">Intelligence</span></div>
+            <h3 style="font-size:17px">Purple8 DocIntel</h3>
+            <p class="product-sub" style="font-size:12px; margin-top:6px">70-format document intelligence. Parse → extract entities/relationships → auto-commit to knowledge graph. Replaces Unstructured.io, Azure DI, and a custom extraction layer.</p>
+            <div class="features" style="margin-top:12px">
+              <span class="tag">70 formats</span><span class="tag">GLiNER + LLM</span><span class="tag">SharePoint</span><span class="tag">S3</span>
+            </div>
+            <div style="margin-top:12px; font-size:11px; color:var(--dim)">Free → $99 → $799 → $1,499/mo</div>
+          </div>
         </div>
-        <div style="margin-top:20px; font-size:13px; color:var(--dim)">Distribution: pip wheel + Docker · Go-live August 2026</div>
       </div>
-      <div class="product-card">
-        <div style="margin-bottom:14px"><span class="pill pill-green">Intelligence</span>&nbsp;<span class="tag">Developer + Enterprise</span></div>
-        <h3>Purple8 DocIntel</h3>
-        <p class="product-sub">70-format document intelligence microservice. Parse, chunk, extract entities and relationships, emit to knowledge graph — all in one stateless pipeline. Replaces Unstructured.io, Azure DI, and a custom extraction layer.</p>
-        <div class="features">
-          <span class="tag">70 document formats</span>
-          <span class="tag">GLiNER NER</span>
-          <span class="tag">LLM extraction</span>
-          <span class="tag">Auto-commit to P8G</span>
-          <span class="tag">SharePoint connector</span>
-          <span class="tag">S3 connector</span>
-          <span class="tag">Confluence connector</span>
-          <span class="tag">SSE streaming</span>
+      <!-- End-user products -->
+      <div style="flex:1.5; display:flex; flex-direction:column; gap:12px">
+        <div style="font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:2px">End-User Products — built on Purple8</div>
+        <div class="app-card" style="padding:14px 18px">
+          <div class="app-name" style="font-size:14px">🎯 Purple8 Focus</div>
+          <div class="app-desc" style="font-size:12px; margin-top:4px">AI-powered deep-work coach. Monitors work sessions, tracks peak productivity, enforces focus blocks. Used internally + sold as SaaS to teams.</div>
+          <div class="app-tags" style="margin-top:8px"><span class="tag">End-user SaaS</span><span class="tag">Internal + commercial</span></div>
         </div>
-        <div style="margin-top:20px; font-size:13px; color:var(--dim)">Distribution: pip + Docker · REST API (port 8200)</div>
+        <div class="app-card" style="padding:14px 18px">
+          <div class="app-name" style="font-size:14px">🧠 Purple8 Nexus</div>
+          <div class="app-desc" style="font-size:12px; margin-top:4px">Agentic Knowledge Hub (KMS). Capture, connect, and query organisational knowledge through AI agents. Custom $9K–$20K.</div>
+          <div class="app-tags" style="margin-top:8px"><span class="tag">Enterprise KMS</span><span class="tag">Custom $9K–$20K</span></div>
+        </div>
+        <div class="app-card" style="padding:14px 18px">
+          <div class="app-name" style="font-size:14px">🏗️ Purple8 AI Architect</div>
+          <div class="app-desc" style="font-size:12px; margin-top:4px">AEC industry platform — BIM ingestion, structural topology, VGA, MEP flow, generative design. Custom $4K–$25K.</div>
+          <div class="app-tags" style="margin-top:8px"><span class="tag">AEC vertical</span><span class="tag">Custom $4K–$25K</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -374,26 +413,37 @@
     <div class="eyebrow">Proof · We Run on Purple8</div>
     <h2>Our entire operations<br/><span class="accent">run on our own product.</span></h2>
     <div class="divider"></div>
-    <p style="font-size:16px; color:var(--muted); margin-bottom:24px; max-width:700px">We don't just sell Purple8 — we use it as our complete internal backend. Every internal application is a live proof-of-concept that Purple8 replaces a traditional multi-service stack.</p>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px">
+    <p style="font-size:15px; color:var(--muted); margin-bottom:18px; max-width:700px">We don't just sell Purple8 — our entire internal operation runs on a single Purple8 instance. No PostgreSQL, no Pinecone, no Auth0, no LangChain. Every internal app is a live proof-of-concept — and two of our end-user products started as internal tools.</p>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px">
       <div class="app-card">
         <div class="app-name">🏠 Purple8 Intranet</div>
-        <div class="app-desc">Full company portal — file library with AI indexing, Ask AI (RAG), journeys, team directory. Built on P8G Graph + DocIntel. Zero external services.</div>
-        <div class="app-tags"><span class="tag">RAG</span><span class="tag">File management</span><span class="tag">Journey Engine</span></div>
+        <div class="app-desc">Company portal — file library with AI indexing, Ask AI (RAG), journey tracking. Replaced Confluence + SharePoint + a separate RAG service.</div>
+        <div class="app-tags"><span class="tag">Internal</span><span class="tag">RAG + Journeys</span></div>
       </div>
       <div class="app-card">
         <div class="app-name">🎯 Command Center</div>
-        <div class="app-desc">Billing, licensing, customer lifecycle, and flag management — all tracked as graph nodes and edges. SLA alerts surface via Journey Engine. No separate CRM or billing DB.</div>
-        <div class="app-tags"><span class="tag">Customer lifecycle</span><span class="tag">Billing</span><span class="tag">SLA monitoring</span></div>
+        <div class="app-desc">Billing, licensing, customer lifecycle, SLA alerts via Journey Engine. Replaced a CRM + billing DB + feature flag service.</div>
+        <div class="app-tags"><span class="tag">Internal</span><span class="tag">Lifecycle + SLA</span></div>
       </div>
-      <div class="app-card">
-        <div class="app-name">🧠 Focus Agent</div>
-        <div class="app-desc">AI-powered deep-work coach for the team. Monitors work sessions, tracks peak productivity windows, enforces focus blocks — backed by P8G graph storage.</div>
-        <div class="app-tags"><span class="tag">AI agent</span><span class="tag">MCP tools</span><span class="tag">Graph storage</span></div>
+      <div class="app-card" style="border-color:rgba(168,85,247,.3)">
+        <div class="app-name">🧘 Purple8 Focus <span style="font-size:10px; color:var(--purple3); font-weight:600; margin-left:6px">COMMERCIAL PRODUCT</span></div>
+        <div class="app-desc">AI deep-work coach. Started as an internal tool; now a standalone SaaS product. $5/seat Solo · $8/seat Tribe · $10/seat Enterprise.</div>
+        <div class="app-tags"><span class="tag">Internal + SaaS</span><span class="tag">MCP agent-driven</span></div>
       </div>
-    </div>
-    <div style="margin-top:20px; padding:14px 20px; background:rgba(124,58,237,.07); border:1px solid rgba(168,85,247,.25); border-radius:12px; font-size:14px; color:var(--muted)">
-      <span style="color:var(--purple3); font-weight:700">Key signal: </span>we replaced PostgreSQL, Neo4j, Pinecone, LangChain, and Auth0 across our own operations with a single Purple8 instance. Our infra bill for internal tools is near zero.
+      <div class="app-card" style="border-color:rgba(168,85,247,.3)">
+        <div class="app-name">🧠 Purple8 Nexus <span style="font-size:10px; color:var(--purple3); font-weight:600; margin-left:6px">COMMERCIAL PRODUCT</span></div>
+        <div class="app-desc">Agentic Knowledge Hub. Enterprise KMS where AI agents ingest, connect, and surface organisational knowledge. Custom $9K–$20K.</div>
+        <div class="app-tags"><span class="tag">Enterprise KMS</span><span class="tag">Agentic</span></div>
+      </div>
+      <div class="app-card" style="border-color:rgba(168,85,247,.3)">
+        <div class="app-name">🏗️ AI Architect <span style="font-size:10px; color:var(--purple3); font-weight:600; margin-left:6px">COMMERCIAL PRODUCT</span></div>
+        <div class="app-desc">AEC/BIM industry platform. IFC ingestion, structural topology analysis, MEP flow, VGA, generative design — all powered by Purple8's AEC vertical. Custom $4K–$25K.</div>
+        <div class="app-tags"><span class="tag">AEC vertical</span><span class="tag">BIM + Graph</span></div>
+      </div>
+      <div style="padding:14px 18px; background:rgba(124,58,237,.07); border:1px solid rgba(168,85,247,.25); border-radius:14px; display:flex; flex-direction:column; justify-content:center">
+        <div style="font-size:28px; font-weight:800; color:var(--purple2)">$0</div>
+        <div style="font-size:13px; color:var(--muted); margin-top:4px">infra bill for all five internal apps combined. The same would cost $3K–$8K/mo on a conventional stack.</div>
+      </div>
     </div>
   </div>
 
@@ -449,30 +499,54 @@
     <div class="eyebrow">Business Model</div>
     <h2>Usage-led. <span class="accent">Enterprise-locked.</span></h2>
     <div class="divider"></div>
-    <div class="row" style="margin-top:12px; gap:20px">
-      <div class="card col" style="text-align:center">
-        <div style="font-size:32px; margin-bottom:12px">🐍</div>
-        <h3 style="font-size:18px">Open Core</h3>
-        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6"><code style="font-size:12px; color:var(--purple3)">pip install</code> free tier for builders and hobbyists. Community creates organic demand, pulls enterprise buyers.</p>
-        <div style="margin-top:16px"><span class="pill pill-purple">Free · OSS core</span></div>
+    <div class="row" style="margin-top:12px; gap:16px">
+      <div class="card col" style="text-align:center; padding:22px 18px">
+        <div style="font-size:26px; margin-bottom:10px">�</div>
+        <h3 style="font-size:16px">Purple8 Hyper</h3>
+        <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.55">Developer platform. Open core free tier drives adoption; capacity tiers convert to revenue.</p>
+        <div style="margin-top:12px; display:flex; flex-direction:column; gap:4px">
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">Free → Developer</span>
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">$119–$1,199/mo → Production</span>
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">$6,999/mo → Pro</span>
+          <span class="pill pill-green" style="font-size:11px; justify-content:center">Custom → Enterprise</span>
+        </div>
       </div>
-      <div class="card col" style="text-align:center; border-color:rgba(168,85,247,.4); background:rgba(124,58,237,.06)">
-        <div style="font-size:32px; margin-bottom:12px">🐳</div>
-        <h3 style="font-size:18px">Commercial Docker</h3>
-        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6">Full platform with LCNC admin console, license enforcement, and enterprise connectors. Node-count + tenant tiered pricing.</p>
-        <div style="margin-top:16px"><span class="pill pill-purple">$499–$4,999/mo</span></div>
+      <div class="card col" style="text-align:center; padding:22px 18px">
+        <div style="font-size:26px; margin-bottom:10px">�</div>
+        <h3 style="font-size:16px">Purple8 DocIntel</h3>
+        <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.55">Document intelligence. Community free → flat-fee self-hosted. Replaces per-page pricing at a fraction of the cost.</p>
+        <div style="margin-top:12px; display:flex; flex-direction:column; gap:4px">
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">Free → Community</span>
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">$99/mo → Solo</span>
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">$799/mo → Self-Hosted</span>
+          <span class="pill pill-green" style="font-size:11px; justify-content:center">$1,499/mo → Enterprise</span>
+        </div>
       </div>
-      <div class="card col" style="text-align:center">
-        <div style="font-size:32px; margin-bottom:12px">🏢</div>
-        <h3 style="font-size:18px">Enterprise</h3>
-        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6">On-prem or private cloud deployment. Custom SLAs, dedicated support, custom verticals (AEC, SOC, financial). Annual contracts.</p>
-        <div style="margin-top:16px"><span class="pill pill-green">$50K–$500K ARR</span></div>
+      <div class="card col" style="text-align:center; padding:22px 18px">
+        <div style="font-size:26px; margin-bottom:10px">🎯</div>
+        <h3 style="font-size:16px">Purple8 Focus</h3>
+        <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.55">AI deep-work coach. Per-seat SaaS sold to individuals, teams, and enterprises.</p>
+        <div style="margin-top:12px; display:flex; flex-direction:column; gap:4px">
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">$5/seat/mo → Solo</span>
+          <span class="pill pill-purple" style="font-size:11px; justify-content:center">$8/seat/mo → Tribe (3+ seats)</span>
+          <span class="pill pill-green" style="font-size:11px; justify-content:center">$10/seat/mo → Enterprise</span>
+        </div>
       </div>
-      <div class="card col" style="text-align:center">
-        <div style="font-size:32px; margin-bottom:12px">📄</div>
-        <h3 style="font-size:18px">DocIntel API</h3>
-        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6">Usage-based document processing. Per-page pricing for cloud API; flat-fee licence for on-prem. Replicates the Unstructured.io model at lower cost.</p>
-        <div style="margin-top:16px"><span class="pill pill-amber">$0.001–$0.005/page</span></div>
+      <div class="card col" style="text-align:center; padding:22px 18px">
+        <div style="font-size:26px; margin-bottom:10px">🧠</div>
+        <h3 style="font-size:16px">Purple8 Nexus</h3>
+        <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.55">Agentic Knowledge Hub. Enterprise KMS — sold to knowledge-intensive organisations. High ACV.</p>
+        <div style="margin-top:12px">
+          <span class="pill pill-green" style="font-size:11px; justify-content:center">Custom $9,000–$20,000/mo</span>
+        </div>
+      </div>
+      <div class="card col" style="text-align:center; padding:22px 18px">
+        <div style="font-size:26px; margin-bottom:10px">🏗️</div>
+        <h3 style="font-size:16px">AI Architect</h3>
+        <p style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.55">AEC/BIM vertical platform. Sold to architecture, engineering, and construction firms. Highest ACV.</p>
+        <div style="margin-top:12px">
+          <span class="pill pill-green" style="font-size:11px; justify-content:center">Custom $4,000–$25,000/mo</span>
+        </div>
       </div>
     </div>
   </div>
@@ -510,7 +584,7 @@
       </div>
       <div class="col">
         <div class="metric-grid" style="grid-template-columns:repeat(2,1fr); gap:14px">
-          <div class="metric-card"><div class="val">5,142+</div><div class="label">Tests passing</div><div class="sub2">unit · integration · e2e</div></div>
+          <div class="metric-card"><div class="val">6,255+</div><div class="label">Tests passing</div><div class="sub2">unit · integration · e2e</div></div>
           <div class="metric-card"><div class="val">8.84M</div><div class="label">Nodes benchmarked</div><div class="sub2">MS MARCO · Apple M-series 24 GB</div></div>
           <div class="metric-card"><div class="val">~7µs</div><div class="label">Write latency</div><div class="sub2">per node · lock-free</div></div>
           <div class="metric-card"><div class="val">74</div><div class="label">MCP tools</div><div class="sub2">11 namespaces · RBAC-enforced</div></div>
@@ -535,14 +609,14 @@
     <div class="divider"></div>
     <div class="row" style="margin-top:12px; gap:24px">
       <div class="col">
-        <p style="font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:20px">The current multi-service AI stack isn't just expensive — it's unsustainable at global scale. 8–12 services running 24/7, each with 3× redundancy, for every AI application is a civilisational energy problem.</p>
+        <p style="font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:20px">The current multi-service AI stack isn't just expensive — it's unsustainable at global scale. 8–29 services running 24/7, each with 3× redundancy, for every AI application is a civilisational energy problem.</p>
         <div class="card-sm">
           <table class="compare" style="font-size:13px">
             <thead><tr><th></th><th>Traditional stack</th><th>Purple8</th></tr></thead>
             <tbody>
-              <tr><td class="col-label">Services</td><td class="col-them">8–12 processes</td><td class="col-us">1 process</td></tr>
-              <tr class="highlight"><td class="col-label">Min servers</td><td class="col-them">24–36 (3× each)</td><td class="col-us">3 (HA for 1)</td></tr>
-              <tr><td class="col-label">Idle compute</td><td class="col-them">All 12 run 24/7</td><td class="col-us">1 idle baseline</td></tr>
+              <tr><td class="col-label">Services</td><td class="col-them">8–29 processes</td><td class="col-us">1 process</td></tr>
+              <tr class="highlight"><td class="col-label">Min servers</td><td class="col-them">24–87+ (3× each)</td><td class="col-us">3 (HA for 1)</td></tr>
+              <tr><td class="col-label">Idle compute</td><td class="col-them">All 29 run 24/7</td><td class="col-us">1 idle baseline</td></tr>
               <tr class="highlight"><td class="col-label">Network hops/query</td><td class="col-them">4–8</td><td class="col-us">0 (in-process)</td></tr>
             </tbody>
           </table>
@@ -551,7 +625,7 @@
       <div class="col">
         <div class="card" style="height:100%; border-color:rgba(16,185,129,.3)">
           <div style="font-size:13px; font-weight:700; color:var(--green); letter-spacing:.1em; text-transform:uppercase; margin-bottom:16px">The Bounded-RSS property = a sustainability property</div>
-          <p style="font-size:14px; color:var(--muted); line-height:1.65; margin-bottom:16px">On a constrained machine, Purple8 auto-configures to fit available RAM. The same corpus runs on 4 GB or 128 GB hardware — you trade time for memory, never correctness or capacity. No vertical scaling required as knowledge bases grow.</p>
+          <p style="font-size:14px; color:var(--muted); line-height:1.65; margin-bottom:16px">On a constrained machine, Purple8 auto-configures to fit available RAM. The same corpus runs on 16 GB or 128 GB hardware — you trade time for memory, never correctness or capacity. No vertical scaling required as knowledge bases grow.</p>
           <p style="font-size:14px; color:var(--muted); line-height:1.65">This makes AI commercially viable for organisations that cannot afford to re-provision infrastructure every time their knowledge base doubles.</p>
           <div style="margin-top:20px"><span class="pill pill-green">AI-native · Sustainably</span></div>
         </div>
