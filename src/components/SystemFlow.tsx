@@ -44,7 +44,7 @@ const NODES: Node[] = [
   { id: "agents", label: "AI Agents", sub: "Claude · Copilot · GPT", x: 40, y: 384, w: NW, h: NH, tone: "entry" },
   // Core subsystems (inside the process box). MCP Server is Purple8's OWN
   // agent-facing gateway — not an external actor.
-  { id: "mcp", label: "MCP Server", sub: "69 native + federated tools", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "mcp", label: "MCP Server", sub: "74 tools · 11 namespaces · RBAC", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 150, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "storage", label: "Cortex Storage", sub: "documents · WAL · bounded RSS", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 278, w: 240, h: 44, tone: "core", health: "ok" },
@@ -301,7 +301,7 @@ export default function SystemFlow() {
             </p>
             <p className="text-sm text-zinc-400">
               Agents connect <span className="text-white">once</span>. Purple8&apos;s
-              MCP server exposes its 49 native tools{" "}
+              MCP server exposes its 74 native tools{" "}
               <span className="text-white">and</span> re-exposes any external MCP
               servers you register — one endpoint, one auth, one RBAC boundary.
             </p>
@@ -311,19 +311,21 @@ export default function SystemFlow() {
             {/* Native namespaces */}
             <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
-                Native · 9 namespaces
+                Native · 11 namespaces
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {[
-                  "graph (13)",
+                  "graph (21)",
+                  "schema (11)",
                   "journey (9)",
                   "rag (6)",
                   "registry (5)",
+                  "data (5)",
                   "egress (4)",
                   "feedback (4)",
                   "scheduler (4)",
-                  "data (2)",
                   "memory (2)",
+                  "admin (2)",
                 ].map((ns) => (
                   <span
                     key={ns}
