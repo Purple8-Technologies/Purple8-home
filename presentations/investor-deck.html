@@ -266,8 +266,8 @@
           <div style="font-size:14px; color:var(--muted); margin-top:4px">separate services to run, secure, monitor, and pay for — per application</div>
         </div>
         <div class="card" style="margin-bottom:16px">
-          <div style="font-size:36px; font-weight:800; color:var(--amber)">4–8</div>
-          <div style="font-size:14px; color:var(--muted); margin-top:4px">network hops per RAG query — every hop is a latency tax and a failure point</div>
+          <div style="font-size:36px; font-weight:800; color:var(--amber)">6–14+</div>
+          <div style="font-size:14px; color:var(--muted); margin-top:4px">intra-service hops per request (auth → cache → vector DB → graph → doc store → reranker → LLM → audit) — every hop is a latency tax and a failure point</div>
         </div>
         <div class="card">
           <div style="font-size:36px; font-weight:800; color:var(--amber)">3–6</div>
@@ -656,7 +656,7 @@
               <tr><td class="col-label">Services</td><td class="col-them">8–29 processes</td><td class="col-us">1 process</td></tr>
               <tr class="highlight"><td class="col-label">Min servers</td><td class="col-them">24–87+ (3× each)</td><td class="col-us">3 (HA for 1)</td></tr>
               <tr><td class="col-label">Idle compute</td><td class="col-them">All 29 run 24/7</td><td class="col-us">1 idle baseline</td></tr>
-              <tr class="highlight"><td class="col-label">Network hops/query</td><td class="col-them">4–8</td><td class="col-us">0 (in-process)</td></tr>
+              <tr class="highlight"><td class="col-label">Intra-service hops/request</td><td class="col-them">6–14+</td><td class="col-us">0 (in-process)</td></tr>
             </tbody>
           </table>
         </div>
