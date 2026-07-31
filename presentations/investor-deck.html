@@ -258,20 +258,24 @@
           <div class="stack-item"><span class="service-name">Unstructured.io / Azure DI</span><span class="cost">$0.01–0.10/page</span></div>
           <div class="stack-item"><span class="service-name">+ monitoring, secrets, queues, CDN, logging…</span><span class="cost">+21 more</span></div>
         </div>
-        <p class="caption" style="margin-top:14px">A complete production AI stack in 2026. Typical cost: $3,000–$15,000/mo before engineering labour.</p>
+        <p class="caption" style="margin-top:14px">A complete production AI stack in 2026. Typical infra cost: $3,000–$100,000+/mo — before engineering labour to build, integrate, and maintain it.</p>
       </div>
       <div class="col">
-        <div class="card" style="margin-bottom:16px">
+        <div class="card" style="margin-bottom:12px">
           <div style="font-size:36px; font-weight:800; color:var(--red)">8–29</div>
           <div style="font-size:14px; color:var(--muted); margin-top:4px">separate services to run, secure, monitor, and pay for — per application</div>
         </div>
-        <div class="card" style="margin-bottom:16px">
+        <div class="card" style="margin-bottom:12px">
           <div style="font-size:36px; font-weight:800; color:var(--amber)">6–14+</div>
           <div style="font-size:14px; color:var(--muted); margin-top:4px">intra-service hops per request (auth → cache → vector DB → graph → doc store → reranker → LLM → audit) — every hop is a latency tax and a failure point</div>
         </div>
+        <div class="card" style="margin-bottom:12px">
+          <div style="font-size:36px; font-weight:800; color:var(--amber)">2 wk – 18 mo</div>
+          <div style="font-size:14px; color:var(--muted); margin-top:4px">time-to-production AI backend — weeks for a lean SMB stack, 12–18 months for enterprise — before a line of application code is written</div>
+        </div>
         <div class="card">
-          <div style="font-size:36px; font-weight:800; color:var(--amber)">3–6</div>
-          <div style="font-size:14px; color:var(--muted); margin-top:4px">months typical time-to-production AI backend — before a line of application code is written</div>
+          <div style="font-size:36px; font-weight:800; color:var(--red)">2–5 engineers</div>
+          <div style="font-size:14px; color:var(--muted); margin-top:4px">dedicated just to integrating and maintaining the infrastructure stack — $400K–$1M+/yr in labour before any product feature ships</div>
         </div>
       </div>
     </div>
