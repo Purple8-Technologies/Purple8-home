@@ -241,7 +241,7 @@
 
   <!-- ── 02 THE PROBLEM ────────────────────────────────────────────────── -->
   <div class="slide" id="s2">
-    <div class="slide-num">02 / 13</div>
+    <div class="slide-num">02 / 14</div>
     <div class="eyebrow">The Problem</div>
     <h2>Building an AI app today requires<br/><span class="accent">assembling a small city.</span></h2>
     <div class="divider"></div>
@@ -281,9 +281,83 @@
     </div>
   </div>
 
-  <!-- ── 03 THE SOLUTION ───────────────────────────────────────────────── -->
+  <!-- ── 03 ARCHITECTURE REALITY ─────────────────────────────────────── -->
   <div class="slide" id="s3">
-    <div class="slide-num">03 / 13</div>
+    <div class="slide-num">03 / 14</div>
+    <div class="eyebrow">Architecture Reality</div>
+    <h2>12 services talking over the network<br/><span class="accent">vs. one process talking to itself.</span></h2>
+    <div class="divider"></div>
+    <div style="display:flex; gap:14px; margin-top:8px; align-items:stretch">
+
+      <!-- TRADITIONAL SIDE -->
+      <div style="flex:1.15; display:flex; flex-direction:column">
+        <div style="font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:6px">Traditional AI Backend — every box is a separate process on a separate server</div>
+        <div style="background:var(--bg3); border:1px solid var(--border); border-radius:6px; padding:5px 10px; text-align:center; font-size:11px; font-weight:700; color:var(--text); margin-bottom:3px">Your Application</div>
+        <div style="text-align:center; font-size:9px; color:var(--red); margin-bottom:2px; line-height:1">↓ HTTP / TLS · hop 1</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; margin-bottom:2px">
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Auth / Identity</div><div style="font-size:9px; color:var(--dim); margin-top:1px">JWT · OAuth2 · RBAC</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Cache / Session</div><div style="font-size:9px; color:var(--dim); margin-top:1px">In-memory KV store</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Message Queue</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Async event bus</div></div>
+        </div>
+        <div style="text-align:center; font-size:9px; color:var(--red); margin-bottom:2px; line-height:1">↓ gRPC / HTTP · hops 2–5</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; margin-bottom:2px">
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Graph DB</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Property Graph · RDF Store</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Vector DB</div><div style="font-size:9px; color:var(--dim); margin-top:1px">ANN index · embeddings</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Full-text Search</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Inverted index · BM25</div></div>
+        </div>
+        <div style="text-align:center; font-size:9px; color:var(--red); margin-bottom:2px; line-height:1">↓ HTTP / SDK · hops 6–9</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; margin-bottom:2px">
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Document Store</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Relational · Document DB</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Workflow Engine</div><div style="font-size:9px; color:var(--dim); margin-top:1px">DAG · SLA · HITL gates</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Encryption / KMS</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Key mgmt · DEK rotation</div></div>
+        </div>
+        <div style="text-align:center; font-size:9px; color:var(--red); margin-bottom:2px; line-height:1">↓ HTTP / TLS · hops 10–14+</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; margin-bottom:6px">
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Doc Intelligence</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Parse · extract · chunk</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Audit / Trace</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Append-only log · SIEM</div></div>
+          <div style="background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.2); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--red)">Observability</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Metrics · logs · alerts</div></div>
+        </div>
+        <div style="padding:6px 10px; background:rgba(239,68,68,.07); border:1px solid rgba(239,68,68,.2); border-radius:6px; font-size:10px; color:var(--muted)">
+          <strong style="color:#fca5a5">12+ separate processes</strong> · 24–87+ servers (3× HA each) · 6–14+ network hops/request · 3–6 engineering teams to own and operate
+        </div>
+      </div>
+
+      <!-- Centre arrow -->
+      <div style="display:flex; align-items:center; justify-content:center; flex-shrink:0; width:28px">
+        <div style="font-size:20px; color:var(--purple2)">→</div>
+      </div>
+
+      <!-- PURPLE8 SIDE -->
+      <div style="flex:1; display:flex; flex-direction:column">
+        <div style="font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--purple3); margin-bottom:6px">Purple8 — one process · one binary · one port</div>
+        <div style="background:rgba(124,58,237,.15); border:1px solid rgba(168,85,247,.45); border-radius:6px; padding:5px 10px; text-align:center; font-size:11px; font-weight:700; color:var(--text); margin-bottom:3px">Your Application</div>
+        <div style="text-align:center; font-size:9px; color:var(--purple3); margin-bottom:3px; line-height:1">↓ in-process call · 0 hops</div>
+        <!-- Purple8 container -->
+        <div style="flex:1; border:2px solid rgba(168,85,247,.45); border-radius:10px; background:rgba(124,58,237,.05); padding:7px; display:flex; flex-direction:column; gap:4px">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px">
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Graph Engine</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Property Graph · RDF · Hyper</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Vector Index</div><div style="font-size:9px; color:var(--dim); margin-top:1px">HNSW · ANN · graph-guided</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Full-text Search</div><div style="font-size:9px; color:var(--dim); margin-top:1px">BM25 · inverted index</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Document Store</div><div style="font-size:9px; color:var(--dim); margin-top:1px">BrickCoreStorage · WAL</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Journey Engine</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Workflows · SLA · HITL</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Encryption / KMS</div><div style="font-size:9px; color:var(--dim); margin-top:1px">AES-256-GCM · envelope</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Auth / RBAC</div><div style="font-size:9px; color:var(--dim); margin-top:1px">JWT · 4-tier · multi-tenant</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Doc Intelligence</div><div style="font-size:9px; color:var(--dim); margin-top:1px">70 formats · NER · graph emit</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">Audit Trail</div><div style="font-size:9px; color:var(--dim); margin-top:1px">Immutable graph edges</div></div>
+            <div style="background:rgba(124,58,237,.13); border:1px solid rgba(168,85,247,.25); border-radius:6px; padding:5px 7px"><div style="font-size:10px; font-weight:700; color:var(--purple2)">MCP Server</div><div style="font-size:9px; color:var(--dim); margin-top:1px">74 tools · agent-native API</div></div>
+          </div>
+        </div>
+        <div style="margin-top:5px; padding:6px 10px; background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.2); border-radius:6px; font-size:10px; color:var(--muted)">
+          <strong style="color:#6ee7b7">1 process · 3 servers (HA)</strong> · 0 network hops · 1 team · <span style="color:var(--purple3)">pip install purple8-graph</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 04 THE SOLUTION ───────────────────────────────────────────────── -->
+  <div class="slide" id="s4">
+    <div class="slide-num">04 / 14</div>
     <div class="eyebrow">The Solution</div>
     <h2>Purple8: <span class="accent">one process</span> replaces all of it.</h2>
     <div class="divider"></div>
@@ -324,8 +398,8 @@
   </div>
 
   <!-- ── 04 TECHNOLOGY DIFFERENTIATION ────────────────────────────────── -->
-  <div class="slide" id="s4">
-    <div class="slide-num">04 / 13</div>
+  <div class="slide" id="s5">
+    <div class="slide-num">05 / 14</div>
     <div class="eyebrow">Technology · Why We're Defensible</div>
     <h2>Three inventions that don't exist<br/><span class="accent">anywhere else.</span></h2>
     <div class="divider"></div>
@@ -352,8 +426,8 @@
   </div>
 
   <!-- ── 05 AI AGENT AS DEVELOPER ──────────────────────────────────────── -->
-  <div class="slide" id="s5">
-    <div class="slide-num">05 / 13</div>
+  <div class="slide" id="s6">
+    <div class="slide-num">06 / 14</div>
     <div class="eyebrow">Market Positioning</div>
     <h2>The AI agent <span class="accent">is</span> the developer.</h2>
     <div class="divider"></div>
@@ -396,8 +470,8 @@
   </div>
 
   <!-- ── 06 PRODUCTS ───────────────────────────────────────────────────── -->
-  <div class="slide" id="s6">
-    <div class="slide-num">06 / 13</div>
+  <div class="slide" id="s7">
+    <div class="slide-num">07 / 14</div>
     <div class="eyebrow">Products</div>
     <h2><span class="accent">5 products.</span> Two layers.</h2>
     <div class="divider"></div>
@@ -450,8 +524,8 @@
   </div>
 
   <!-- ── 07 WE EAT OUR OWN DOG FOOD ────────────────────────────────────── -->
-  <div class="slide" id="s7">
-    <div class="slide-num">07 / 13</div>
+  <div class="slide" id="s8">
+    <div class="slide-num">08 / 14</div>
     <div class="eyebrow">Proof · We Run on Purple8</div>
     <h2>Our entire operations<br/><span class="accent">run on our own product.</span></h2>
     <div class="divider"></div>
@@ -490,8 +564,8 @@
   </div>
 
   <!-- ── 08 MARKET ─────────────────────────────────────────────────────── -->
-  <div class="slide" id="s8">
-    <div class="slide-num">08 / 13</div>
+  <div class="slide" id="s9">
+    <div class="slide-num">09 / 14</div>
     <div class="eyebrow">Market Opportunity</div>
     <h2>Every AI application needs<br/><span class="accent">this infrastructure.</span></h2>
     <div class="divider"></div>
@@ -536,8 +610,8 @@
   </div>
 
   <!-- ── 09 BUSINESS MODEL ─────────────────────────────────────────────── -->
-  <div class="slide" id="s9">
-    <div class="slide-num">09 / 13</div>
+  <div class="slide" id="s10">
+    <div class="slide-num">10 / 14</div>
     <div class="eyebrow">Business Model</div>
     <h2>Usage-led. <span class="accent">Enterprise-locked.</span></h2>
     <div class="divider"></div>
@@ -595,8 +669,8 @@
   </div>
 
   <!-- ── 10 TRACTION ───────────────────────────────────────────────────── -->
-  <div class="slide" id="s10">
-    <div class="slide-num">10 / 13</div>
+  <div class="slide" id="s11">
+    <div class="slide-num">11 / 14</div>
     <div class="eyebrow">Traction &amp; Milestones</div>
     <h2>From zero to GA in <span class="accent">10 months.</span></h2>
     <div class="divider"></div>
@@ -645,8 +719,8 @@
   </div>
 
   <!-- ── 11 SUSTAINABILITY ANGLE ───────────────────────────────────────── -->
-  <div class="slide" id="s11">
-    <div class="slide-num">11 / 13</div>
+  <div class="slide" id="s12">
+    <div class="slide-num">12 / 14</div>
     <div class="eyebrow">ESG &amp; Competitive Moat</div>
     <h2>Consolidation <span class="accent">is</span> the sustainability strategy.</h2>
     <div class="divider"></div>
@@ -677,8 +751,8 @@
   </div>
 
   <!-- ── 12 TEAM ────────────────────────────────────────────────────────── -->
-  <div class="slide" id="s12">
-    <div class="slide-num">12 / 13</div>
+  <div class="slide" id="s13">
+    <div class="slide-num">13 / 14</div>
     <div class="eyebrow">Team</div>
     <h2>Built by engineers who have<br/><span class="accent">shipped production AI systems.</span></h2>
     <div class="divider"></div>
@@ -705,8 +779,8 @@
   </div>
 
   <!-- ── 13 ASK ─────────────────────────────────────────────────────────── -->
-  <div class="slide" id="s13">
-    <div class="slide-num">13 / 13</div>
+  <div class="slide" id="s14">
+    <div class="slide-num">14 / 14</div>
     <div class="eyebrow">The Ask</div>
     <h2>Raising <span class="accent">$3M seed</span><br/>to reach enterprise scale.</h2>
     <div class="divider"></div>
