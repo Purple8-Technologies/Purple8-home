@@ -205,6 +205,10 @@
             <span style="font-size:13px; color:var(--muted)">RAG network hops</span>
             <span style="font-size:22px; font-weight:800; color:var(--amber)">2–3</span>
           </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:rgba(239,68,68,.07); border:1px solid rgba(239,68,68,.15); border-radius:8px">
+            <span style="font-size:13px; color:var(--muted)">Data residency</span>
+            <span style="font-size:13px; font-weight:700; color:var(--red); text-align:right; max-width:160px">Vendor cloud<br/><span style="font-weight:400; font-size:11px; color:var(--dim)">per-query fees, no air-gap</span></span>
+          </div>
         </div>
         <div style="margin-top:12px; font-size:12px; color:var(--dim); line-height:1.6">Modern consolidated tools (Supabase, pgvector, Firebase) reduce the stack for scoped applications. The cost is manageable — but the <em style="color:var(--muted)">ceiling</em> arrives fast as you scale.</div>
       </div>
@@ -227,6 +231,10 @@
           <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:var(--bg3); border-radius:8px">
             <span style="font-size:13px; color:var(--muted)">RAG network hops</span>
             <span style="font-size:22px; font-weight:800; color:var(--red)">6–10+</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:rgba(245,158,11,.07); border:1px solid rgba(245,158,11,.2); border-radius:8px">
+            <span style="font-size:13px; color:var(--muted)">Data residency</span>
+            <span style="font-size:13px; font-weight:700; color:var(--amber); text-align:right; max-width:160px">Complex VPC / private cloud<br/><span style="font-weight:400; font-size:11px; color:var(--dim)">expensive, slow to provision</span></span>
           </div>
         </div>
         <div style="margin-top:12px; font-size:12px; color:var(--dim); line-height:1.6">Security reviews, GDPR/HIPAA compliance, RBAC, multi-region routing, and dedicated instances for Pinecone, Neo4j, Elasticsearch, Kafka, and Datadog push both cost and timeline far beyond initial estimates.</div>
@@ -251,8 +259,21 @@
             <span style="font-size:13px; color:var(--muted)">RAG network hops</span>
             <span style="font-size:22px; font-weight:800; color:var(--purple2)">0 (in-process)</span>
           </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.25); border-radius:8px">
+            <span style="font-size:13px; color:var(--muted)">Data residency</span>
+            <span style="font-size:13px; font-weight:700; color:var(--green); text-align:right; max-width:160px">Your infra. Always.<br/><span style="font-weight:400; font-size:11px; color:var(--dim)">air-gap ready, no per-query fees</span></span>
+          </div>
         </div>
         <div style="margin-top:12px; font-size:12px; color:var(--muted); line-height:1.6">Whether you're a two-person startup or a 10,000-person enterprise — the answer is the same. One process. Graph + vector + workflows + security + document intelligence, built in.</div>
+      </div>
+    </div>
+    <!-- Serverless vs self-hosted callout -->
+    <div style="margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:12px">
+      <div style="padding:10px 16px; background:rgba(239,68,68,.06); border:1px solid rgba(239,68,68,.18); border-radius:8px; font-size:12px; color:var(--muted)">
+        <strong style="color:#fca5a5">⚠ The serverless trap:</strong> Pinecone serverless, Firebase, Supabase — cheap at prototype scale. Once you need GDPR/HIPAA compliance, data residency guarantees, air-gapped deployment, or high throughput, per-query costs explode and vendor lock-in is total. You cannot self-host what you do not own.
+      </div>
+      <div style="padding:10px 16px; background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.18); border-radius:8px; font-size:12px; color:var(--muted)">
+        <strong style="color:#6ee7b7">✓ Purple8 is self-hosted by design:</strong> your data never leaves your infrastructure. No per-query fees, no vendor egress costs. Deploy on any machine — laptop, bare metal, private cloud, or air-gapped network. The same binary that runs locally scales to 8M+ nodes on a single server.
       </div>
     </div>
   </div>
