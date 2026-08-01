@@ -10,6 +10,19 @@ export const metadata: Metadata = pageMetadata({
   path: "/products/purple8",
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Purple8 Hyper Graph",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Linux, macOS, Windows, Docker",
+  description: "AI-native embedded multi-model database — graph, vector, document store, full-text search, workflow engine, RAG, auth, and encryption in a single process. MCP-native with 74 agent tools.",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD", description: "pip install purple8-hyper-graph" },
+  url: "https://www.purple8.ai/products/purple8/",
+  publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
+  featureList: ["Property graph engine", "HNSW vector search", "Hybrid RAG", "Journey Engine workflow orchestration", "AES-256-GCM encryption", "MCP server with 74 tools", "Multi-tenant storage", "REST API"],
+};
+
 const capabilities = [
   { icon: "🕸️", label: "Property Graph", desc: "openCypher query engine. Nodes, edges, properties — full graph traversal." },
   { icon: "🔍", label: "Vector Search", desc: "HNSW index built in. Hybrid BM25+vector RAG out of the box." },
@@ -30,6 +43,7 @@ const replaces = [
 export default function HyperGraphPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
       <main id="main-content" className="bg-[#0a0a0f] pt-16">
         {/* Hero */}

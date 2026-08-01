@@ -10,6 +10,19 @@ export const metadata: Metadata = pageMetadata({
   path: "/products/nexus",
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Purple8 Nexus",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Linux, Docker, Cloud",
+  description: "Enterprise AI knowledge management system. Semantic search, knowledge graph, expert discovery, document lineage, governance, and Q&A — built on Purple8.",
+  offers: { "@type": "Offer", priceCurrency: "USD", description: "Enterprise pricing. Contact sales@purple8.ai." },
+  url: "https://www.purple8.ai/products/nexus/",
+  publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
+  featureList: ["Semantic search", "Knowledge graph", "Expert discovery", "Document lineage", "Governance and compliance", "Impact analysis", "Auto-tagging", "Natural language Q&A"],
+};
+
 const capabilities = [
   { icon: "🔍", label: "Semantic Search", desc: "Ask questions across your entire knowledge base in natural language. Vector + graph hybrid retrieval." },
   { icon: "🕸️", label: "Knowledge Graph", desc: "Every document, person, topic, regulation, and project is a node. Relationships surface automatically." },
@@ -24,6 +37,7 @@ const capabilities = [
 export default function NexusPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
       <main id="main-content" className="bg-[#0a0a0f] pt-16">
         {/* Hero */}

@@ -11,9 +11,23 @@ export const metadata: Metadata = pageMetadata({
   path: "/focus",
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Purple8 Focus",
+  applicationCategory: "LifestyleApplication",
+  operatingSystem: "macOS, Windows",
+  description: "On-device cognitive capacity agent. Measures real deep-work hours, focus score, and burnout signals privately on your machine. $5/month per seat. EU AI Act limited-risk by architecture.",
+  offers: { "@type": "Offer", price: "5", priceCurrency: "USD", billingIncrement: "P1M" },
+  url: "https://www.purple8.ai/focus/",
+  publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
+  featureList: ["Deep work measurement", "Focus score", "Burnout signal detection", "On-device processing", "Private Tribe benchmarking", "EU AI Act compliant", "No data egress without consent"],
+};
+
 export default function FocusPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
       <main id="main-content" className="bg-[#0a0a0f] pt-16">
         <FocusAgent />

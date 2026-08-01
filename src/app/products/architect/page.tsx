@@ -10,6 +10,19 @@ export const metadata: Metadata = pageMetadata({
   path: "/products/architect",
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Purple8 Architect",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web, iOS (iPad)",
+  description: "AI-native design platform for architecture, engineering, and construction firms. Floor plan canvas, RIBA project lifecycle, AI chat over project documents, BIM/IFC analysis, structural and MEP simulation.",
+  offers: { "@type": "Offer", priceCurrency: "USD", description: "Enterprise pricing. Contact sales@purple8.ai." },
+  url: "https://www.purple8.ai/products/architect/",
+  publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
+  featureList: ["AI project chat", "Vector floor plan canvas", "RIBA 14-stage project lifecycle", "BIM and IFC ingestion", "Structural topology analysis", "MEP flow simulation", "Space syntax and VGA", "Multi-user collaboration", "Apple Pencil sketch", "GIS and solar analysis"],
+};
+
 const surfaces = [
   {
     tag: "AI Chat",
@@ -115,6 +128,7 @@ const replaces = [
 export default function ArchitectPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
       <main id="main-content" className="bg-[#0a0a0f] pt-16">
 

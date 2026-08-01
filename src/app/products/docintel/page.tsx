@@ -10,6 +10,19 @@ export const metadata: Metadata = pageMetadata({
   path: "/products/docintel",
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Purple8 DocIntel",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Linux, macOS, Windows, Docker",
+  description: "Stateless document intelligence microservice that parses 70+ formats — PDF, DOCX, IFC, DXF, CAD, images, audio — into structured knowledge graphs using proprietary NER and LLM-assisted relationship extraction.",
+  offers: { "@type": "Offer", priceCurrency: "USD", description: "Self-hosted. Contact sales@purple8.ai." },
+  url: "https://www.purple8.ai/products/docintel/",
+  publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
+  featureList: ["70+ document formats", "IFC and CAD native", "Proprietary NER extraction", "LLM relationship mapping", "Self-hosted OCR", "SharePoint and Confluence connectors", "Zero data egress", "Purple8 Graph integration"],
+};
+
 const formats = [
   "PDF", "DOCX", "XLSX", "PPTX", "HTML", "Markdown",
   "IFC / BIM", "DXF / CAD", "Images (OCR)", "Audio (transcription)",
@@ -28,6 +41,7 @@ const features = [
 export default function DocIntelPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
       <main id="main-content" className="bg-[#0a0a0f] pt-16">
         {/* Hero */}
