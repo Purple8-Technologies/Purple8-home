@@ -155,9 +155,7 @@ export default function ArchitectPage() {
               </a>
             </div>
             <p className="mt-4 text-sm text-zinc-500">
-              Live at{" "}
-              <a href="https://architect.purple8.ai" className="text-teal-400 hover:text-teal-300">architect.purple8.ai</a>
-              {" "}· Enterprise pricing ·{" "}
+              Enterprise pricing ·{" "}
               <a href="mailto:sales@purple8.ai" className="text-teal-400 hover:text-teal-300">sales@purple8.ai</a>
             </p>
           </div>
