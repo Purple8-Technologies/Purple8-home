@@ -151,12 +151,12 @@ export default function FocusAgent() {
             Nobody else&apos;s.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/register?product=focus"
+            <a
+              href="mailto:sales@purple8.ai?subject=Purple8 Focus — early access"
               className="rounded-lg bg-purple-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 hover:bg-purple-500 transition-colors"
             >
-              Get started — $5 / month
-            </Link>
+              Register your interest
+            </a>
             <a
               href="#how-it-works"
               className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
@@ -165,7 +165,7 @@ export default function FocusAgent() {
             </a>
           </div>
           <p className="mt-4 text-xs text-zinc-400">
-            macOS available now · Windows coming August 2026 · No card required for 14-day trial
+            Going live soon · macOS first · Windows following · $5 / month at launch
           </p>
         </div>
       </section>
@@ -276,12 +276,12 @@ export default function FocusAgent() {
               </p>
               <FeatureList items={individualFeatures} />
               <div className="mt-8">
-                <Link
-                  href="/register?product=focus"
+                <a
+                  href="mailto:sales@purple8.ai?subject=Purple8 Focus — early access"
                   className="inline-block rounded-lg bg-purple-600 px-6 py-3 text-sm font-semibold text-white hover:bg-purple-500 transition-colors"
                 >
-                  Get started — $5 / month
-                </Link>
+                  Register your interest
+                </a>
               </div>
             </div>
 
@@ -399,7 +399,7 @@ export default function FocusAgent() {
             {[
               { title: "No individual singled out", body: "The team dashboard only activates when 5+ people contribute. Any aggregate derived from fewer than 5 is refused by the server." },
               { title: "Rotating pseudonyms", body: "Your contributor ID is an HMAC that changes every Monday. The server cannot link your contributions across weeks." },
-              { title: "Local differential privacy", body: "Laplace noise (ε=1.5) is added to your focus peak on-device before any transmission. Individual scores cannot be recovered." },
+              { title: "Local differential privacy", body: "Statistical noise is added to your focus data on-device before any transmission. Individual scores mathematically cannot be recovered from what the server receives." },
               { title: "No IP storage", body: "The server strips your IP address before any handler runs. It is never logged or stored." },
               { title: "Raw data purged in 8 days", body: "Individual contribution logs are deleted after one pseudonym rotation cycle. Only aggregate team data persists." },
               { title: "Right to erasure", body: "Run one command to tombstone your data. The server removes all your records and recomputes affected aggregates immediately." },
@@ -420,24 +420,24 @@ export default function FocusAgent() {
             Know where your best work actually goes.
           </h2>
           <p className="mt-4 text-zinc-400">
-            $5 a month. Runs on your machine. Your data stays yours.
+            Going live soon. $5 a month at launch. Runs on your machine. Your data stays yours.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/register?product=focus"
+            <a
+              href="mailto:sales@purple8.ai?subject=Purple8 Focus — early access"
               className="rounded-lg bg-purple-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 hover:bg-purple-500 transition-colors"
             >
-              Get started — $5 / month
-            </Link>
+              Register your interest
+            </a>
             <a
-              href="mailto:hello@purple8.ai?subject=Purple8 Focus — team access"
+              href="mailto:sales@purple8.ai?subject=Purple8 Focus — team access"
               className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
             >
-              Talk to us about team access →
+              Ask about team access →
             </a>
           </div>
           <p className="mt-4 text-xs text-zinc-400">
-            14-day trial · No credit card required to start · macOS now · Windows August 2026
+            macOS first · Windows following · Early access via sales@purple8.ai
           </p>
         </div>
       </section>
