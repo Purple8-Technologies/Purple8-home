@@ -144,58 +144,44 @@ export default function Navbar() {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute left-1/2 top-full mt-3 w-[480px] -translate-x-1/2 rounded-2xl border border-purple-900/40 bg-[#0f0f1a]/98 p-5 shadow-2xl shadow-purple-950/50 backdrop-blur-xl">
+                  <div className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-purple-900/40 bg-[#0f0f1a]/98 py-3 shadow-xl shadow-purple-950/40 backdrop-blur-xl">
                     {/* Platform section */}
-                    <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
-                      Platform — build your backend on these
+                    <p className="px-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">
+                      Platform
                     </p>
-                    <div className="space-y-1">
-                      {platformProducts.map((p) => (
-                        <Link
-                          key={p.href}
-                          href={p.href}
-                          onClick={() => setDropdownOpen(false)}
-                          className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-purple-500/10"
-                        >
-                          <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${p.dot}`} />
-                          <div>
-                            <p className={`text-sm font-semibold ${p.color}`}>{p.name}</p>
-                            <p className="mt-0.5 text-xs text-zinc-500">{p.desc}</p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+                    {platformProducts.map((p) => (
+                      <Link
+                        key={p.href}
+                        href={p.href}
+                        onClick={() => setDropdownOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 transition-colors hover:bg-purple-500/10"
+                      >
+                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${p.dot}`} />
+                        <span className={`text-sm font-medium ${p.color}`}>{p.name}</span>
+                      </Link>
+                    ))}
 
                     {/* Divider */}
-                    <div className="my-4 border-t border-purple-900/30" />
+                    <div className="my-2 border-t border-purple-900/30" />
 
                     {/* Apps section */}
-                    <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
-                      Applications — software you buy and use
+                    <p className="px-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">
+                      Applications
                     </p>
-                    <div className="space-y-1">
-                      {appProducts.map((p) => (
-                        <Link
-                          key={p.href}
-                          href={p.href}
-                          onClick={() => setDropdownOpen(false)}
-                          className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-purple-500/10"
-                        >
-                          <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${p.dot}`} />
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2">
-                              <p className={`text-sm font-semibold ${p.color}`}>{p.name}</p>
-                              {p.badge && (
-                                <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
-                                  {p.badge}
-                                </span>
-                              )}
-                            </div>
-                            <p className="mt-0.5 text-xs text-zinc-500">{p.desc}</p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+                    {appProducts.map((p) => (
+                      <Link
+                        key={p.href}
+                        href={p.href}
+                        onClick={() => setDropdownOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 transition-colors hover:bg-purple-500/10"
+                      >
+                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${p.dot}`} />
+                        <span className={`text-sm font-medium ${p.color}`}>{p.name}</span>
+                        {p.badge && (
+                          <span className="ml-auto text-[10px] text-zinc-600">{p.badge.split(" · ")[0]}</span>
+                        )}
+                      </Link>
+                    ))}
                   </div>
                 )}
               </div>
