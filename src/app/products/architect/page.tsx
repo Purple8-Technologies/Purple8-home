@@ -142,7 +142,7 @@ export default function ArchitectPage() {
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
-                href="https://architect.purple8.ai"
+                href="mailto:sales@purple8.ai?subject=Purple8 Architect — beta access request"
                 className="rounded-full bg-teal-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-900/40 transition-colors hover:bg-teal-500"
               >
                 Request beta access
@@ -228,7 +228,7 @@ export default function ArchitectPage() {
             </p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
-                href="https://architect.purple8.ai"
+                href="mailto:sales@purple8.ai?subject=Purple8 Architect — beta access request"
                 className="rounded-full bg-teal-600 px-8 py-3.5 text-base font-semibold text-white hover:bg-teal-500 transition-colors shadow-lg shadow-teal-900/30"
               >
                 Request beta access
