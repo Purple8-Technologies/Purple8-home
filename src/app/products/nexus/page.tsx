@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Purple8 Nexus — Enterprise Knowledge Management System",
   description:
-    "AI-powered enterprise KMS built on Purple8 Hyper Graph. Semantic search, entity extraction, expert discovery, document lineage, and governance — all in one system.",
+    "AI-powered enterprise KMS powered by Purple8. Semantic search, entity extraction, expert discovery, document lineage, and governance — all in one system.",
   path: "/products/nexus",
 });
 
@@ -33,7 +33,7 @@ export default function NexusPage() {
           </div>
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-700/40 bg-blue-950/40 px-4 py-1.5 text-sm font-medium text-blue-200">
-              Enterprise · Self-Hosted · Built on Purple8 Hyper Graph
+              Enterprise · Self-Hosted · Powered by Purple8
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Your organisation&apos;s knowledge,{" "}
@@ -89,7 +89,7 @@ export default function NexusPage() {
         <section className="py-20 border-t border-white/5">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">Architecture</p>
-            <h2 className="mt-3 text-3xl font-bold text-white">Built entirely on Purple8 Hyper Graph.</h2>
+            <h2 className="mt-3 text-3xl font-bold text-white">Powered by Purple8.</h2>
             <p className="mt-4 text-zinc-400">
               Nexus is a production demonstration of what you can build with Purple8 — 
               the same graph engine, RAG pipeline, Journey Engine, and MCP tools that

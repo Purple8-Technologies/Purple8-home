@@ -138,7 +138,7 @@ export default function ArchitectPage() {
               Draw floor plans. Run compliance. Analyse structure, solar, and MEP.
               Chat with your project in plain English. Manage the full RIBA lifecycle
               without leaving your browser. Purple8 Architect is the AI-native design
-              platform for architecture firms — built on Purple8 Hyper Graph.
+              platform for architecture firms — powered by Purple8.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
