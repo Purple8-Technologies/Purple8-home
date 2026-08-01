@@ -18,10 +18,11 @@ const surfaces = [
     title: "Ask anything about your project",
     desc: "Conversational AI grounded in your entire project knowledge base — drawings, specs, RFIs, contracts, BIM models, and code compliance. The chat agent auto-dispatches to 14 AEC tools and routes results back into your project graph. Every answer cites its source.",
     items: [
-      "P8G hybrid RAG — responses grounded in project documents and the knowledge graph",
-      "Auto-dispatches to 14 AEC tools: floor-plan audit, structural, MEP, solar, cost, cultural design",
-      "Real-time project brief extraction — \"Save to Journey →\" pre-fills the project intake form",
-      "Message pinning, run history, graph source inspector per response",
+      "Every answer is grounded in your actual project documents — drawings, specs, contracts, BIM models",
+      "Understands your whole project — asks about Level 3 structural issues and gets a real answer, not a generic one",
+      "Covers compliance, cost, structural, MEP, solar, spatial design, and cultural design guidance",
+      "Cites the exact document, page, and clause behind every response — no hallucinations",
+      "Chat automatically pre-fills your project brief — one click saves it to the project lifecycle",
     ],
   },
   {
@@ -52,7 +53,6 @@ const surfaces = [
       "Apple Pencil with pressure, tilt, and coalesced events — fine, bold, and pencil brush styles",
       "8 layers with per-layer undo, mirror symmetry, import underlay for tracing",
       "AI Interpret — describes rooms, spatial reads, and design intent from your sketch",
-      "AI Render — photorealistic architectural visualisation via FAL/FLUX",
       "\"Send to Project →\" attaches sketch to the active project stage in Journey",
     ],
   },
