@@ -3,7 +3,9 @@ import Purple8Logo from "@/components/Purple8Logo";
 const productLinks = [
   { label: "Purple8 Hyper Graph", href: "/products/purple8/", comingSoon: false },
   { label: "DocIntel", href: "/products/docintel/", comingSoon: false },
-  { label: "More coming soon", href: null, comingSoon: true },
+  { label: "Focus", href: "/focus/", comingSoon: false },
+  { label: "Nexus", href: "/products/nexus/", comingSoon: false },
+  { label: "Architect", href: "/products/architect/", comingSoon: false },
 ];
 
 const companyLinks = [

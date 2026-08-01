@@ -81,11 +81,11 @@ export default function Products({
           </p>
           {isHighlight ? (
             <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-              Two products. Your whole backend.
+              Two products. Your entire backend.
             </h2>
           ) : (
             <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-              Two products. Your whole backend.
+              Two products. Your entire backend.
             </h1>
           )}
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
@@ -193,13 +193,6 @@ export default function Products({
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Coming soon teaser */}
-        <div className="mt-8 rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/30 px-8 py-6 text-center">
-          <p className="text-sm text-zinc-400">
-            More products coming soon.
-          </p>
         </div>
 
         {isHighlight && (
