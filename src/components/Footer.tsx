@@ -37,7 +37,7 @@ export default function Footer() {
               AI infrastructure software for enterprises and developers — deploy
               anywhere, no external dependencies.
             </p>
-            <p className="mt-4 text-xs text-zinc-500">
+            <p className="mt-4 text-xs text-zinc-400">
               Purple8 Inc.
             </p>
           </div>
@@ -51,7 +51,7 @@ export default function Footer() {
               {productLinks.map((l) => (
                 <li key={l.label}>
                   {l.comingSoon || !l.href ? (
-                    <span className="inline-flex items-center gap-2 text-sm text-zinc-500">
+                    <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
                       {l.label}
                       <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
                         Coming soon
@@ -98,7 +98,7 @@ export default function Footer() {
               {resourceLinks.map((l) => (
                 <li key={l.label}>
                   {l.comingSoon || !l.href ? (
-                    <span className="inline-flex items-center gap-2 text-sm text-zinc-500">
+                    <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
                       {l.label}
                       <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
                         Coming soon
@@ -120,20 +120,20 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-8 sm:flex-row">
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-zinc-400">
             © {new Date().getFullYear()} Purple8 Inc. All rights
             reserved.
           </p>
           <div className="flex gap-6">
             <a
               href="/legal/privacy"
-              className="text-xs text-zinc-500 transition-colors hover:text-purple-400"
+              className="text-xs text-zinc-400 transition-colors hover:text-purple-400"
             >
               Privacy Policy
             </a>
             <a
               href="/legal/terms"
-              className="text-xs text-zinc-500 transition-colors hover:text-purple-400"
+              className="text-xs text-zinc-400 transition-colors hover:text-purple-400"
             >
               Terms of Service
             </a>

@@ -88,7 +88,7 @@ export default function Products({
               Two products. Your whole backend.
             </h1>
           )}
-          <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-500">
+          <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
             <span className="text-zinc-300">Purple8</span> is the backend your app
             runs on — storage, search, RAG, workflows, auth, and encryption in one
             process. <span className="text-zinc-300">DocIntel</span> turns any
@@ -113,7 +113,7 @@ export default function Products({
               <div className="flex items-center gap-3">
                 <h3 className="text-xl font-bold text-white">Purple8</h3>
               </div>
-              <p className="mt-1 text-sm text-zinc-500">A category of one</p>
+              <p className="mt-1 text-sm text-zinc-400">A category of one</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                 A unified AI-native backend — storage, vector search, document store,
@@ -161,7 +161,7 @@ export default function Products({
               <div className="flex items-center gap-3">
                 <h3 className="text-xl font-bold text-white">Purple8 DocIntel</h3>
               </div>
-              <p className="mt-1 text-sm text-zinc-500">Document intelligence microservice</p>
+              <p className="mt-1 text-sm text-zinc-400">Document intelligence microservice</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                 A stateless document intelligence microservice that parses 70+ enterprise
@@ -197,7 +197,7 @@ export default function Products({
 
         {/* Coming soon teaser */}
         <div className="mt-8 rounded-2xl border border-dashed border-zinc-800 bg-zinc-900/30 px-8 py-6 text-center">
-          <p className="text-sm text-zinc-600">
+          <p className="text-sm text-zinc-400">
             More products coming soon.
           </p>
         </div>

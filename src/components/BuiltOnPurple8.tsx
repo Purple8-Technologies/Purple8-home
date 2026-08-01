@@ -41,25 +41,25 @@ export default function BuiltOnPurple8() {
             {/* Right — architecture card */}
             <div className="w-full shrink-0 lg:w-80">
               <div className="rounded-xl border border-zinc-800 bg-zinc-950/80 p-5 font-mono text-xs leading-relaxed">
-                <p className="mb-3 text-zinc-600">{`# Purple8 Command Center`}</p>
+                <p className="mb-3 text-zinc-400">{`# Purple8 Command Center`}</p>
                 <p className="text-zinc-400">
                   <span className="text-violet-400">Customer</span>
-                  <span className="text-zinc-600"> ──PURCHASED──► </span>
+                  <span className="text-zinc-400"> ──PURCHASED──► </span>
                   <span className="text-purple-400">LicenseKey</span>
                 </p>
                 <p className="text-zinc-400">
                   <span className="text-violet-400">LicenseKey</span>
-                  <span className="text-zinc-600"> ──ISSUED_FOR──► </span>
+                  <span className="text-zinc-400"> ──ISSUED_FOR──► </span>
                   <span className="text-purple-400">Product</span>
                 </p>
                 <p className="text-zinc-400">
                   <span className="text-violet-400">StripeEvent</span>
-                  <span className="text-zinc-600"> ──TRIGGERED──► </span>
+                  <span className="text-zinc-400"> ──TRIGGERED──► </span>
                   <span className="text-purple-400">LicenseKey</span>
                 </p>
                 <p className="mt-3 text-zinc-400">
                   <span className="text-violet-400">Install</span>
-                  <span className="text-zinc-600"> ──SENT──► </span>
+                  <span className="text-zinc-400"> ──SENT──► </span>
                   <span className="text-purple-400">TelemetryEvent</span>
                 </p>
 
@@ -72,12 +72,12 @@ export default function BuiltOnPurple8() {
                   ].map(([label, desc]) => (
                     <div key={label} className="flex items-baseline gap-2">
                       <span className="w-20 shrink-0 text-purple-400">{label}</span>
-                      <span className="text-zinc-600">{desc}</span>
+                      <span className="text-zinc-400">{desc}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-4 border-t border-zinc-800 pt-3 text-zinc-600">
+                <div className="mt-4 border-t border-zinc-800 pt-3 text-zinc-400">
                   <span className="text-green-500">✓</span> 0 external services &nbsp;
                   <span className="text-green-500">✓</span> 1 process &nbsp;
                   <span className="text-green-500">✓</span> 1 port

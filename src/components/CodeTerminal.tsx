@@ -44,7 +44,7 @@ const colorMap: Record<LineType, string> = {
   tool: "text-violet-400",
   result: "text-green-400",
   output: "text-green-300 font-semibold",
-  comment: "text-zinc-500 italic",
+  comment: "text-zinc-400 italic",
   blank: "",
 };
 
@@ -161,7 +161,7 @@ export default function CodeTerminal() {
         <span className="h-3 w-3 rounded-full bg-red-500/80" />
         <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
         <span className="h-3 w-3 rounded-full bg-green-500/80" />
-        <span className="ml-3 flex-1 text-center font-mono text-xs text-zinc-600">
+        <span className="ml-3 flex-1 text-center font-mono text-xs text-zinc-400">
           claude · purple8-mcp
         </span>
       </div>

@@ -261,10 +261,10 @@ export default function ReplacementStack() {
                     <StackIcon name={icon} />
                   </span>
                   <div className="flex items-center gap-2 min-w-0">
-                    <div className="text-zinc-500 line-through text-sm font-medium truncate">
+                    <div className="text-zinc-400 line-through text-sm font-medium truncate">
                       {old}
                     </div>
-                    <div className="text-zinc-600 shrink-0">→</div>
+                    <div className="text-zinc-400 shrink-0">→</div>
                   </div>
                 </div>
                 <div className="text-purple-300 font-semibold text-base">
@@ -314,7 +314,7 @@ export default function ReplacementStack() {
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {/* Traditional idle overhead */}
             <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-7">
-              <div className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+              <div className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
                 29-service stack · idle
               </div>
               <div className="mt-4 flex items-baseline gap-2">
@@ -322,10 +322,10 @@ export default function ReplacementStack() {
                   9–15 GB
                 </span>
               </div>
-              <p className="mt-2 text-sm text-zinc-500">
+              <p className="mt-2 text-sm text-zinc-400">
                 reserved before any data is stored
               </p>
-              <p className="mt-5 text-xs leading-relaxed text-zinc-600">
+              <p className="mt-5 text-xs leading-relaxed text-zinc-400">
                 Even at a charitable 50&nbsp;MB floor per service, the runtimes
                 alone are ~1.45&nbsp;GB. The rest is the connective tissue:
                 network hops between services, the same rows cached three to
@@ -358,7 +358,7 @@ export default function ReplacementStack() {
 
           {/* The four-layer tax — what the 9–15 GB is made of */}
           <div className="mt-10 max-w-4xl mx-auto">
-            <p className="text-center text-xs font-semibold uppercase tracking-widest text-zinc-500">
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-zinc-400">
               What that overhead is made of
             </p>
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -366,8 +366,8 @@ export default function ReplacementStack() {
                 <div className="text-sm font-semibold text-zinc-300">
                   Runtime tax
                 </div>
-                <div className="mt-1 text-xs text-zinc-600">~1.45 GB</div>
-                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                <div className="mt-1 text-xs text-zinc-400">~1.45 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                   29 separate runtimes — interpreter, heap, idle worker threads
                   — each loaded before storing a single row.
                 </p>
@@ -376,8 +376,8 @@ export default function ReplacementStack() {
                 <div className="text-sm font-semibold text-zinc-300">
                   IPC / network
                 </div>
-                <div className="mt-1 text-xs text-zinc-600">~1–2 GB</div>
-                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                <div className="mt-1 text-xs text-zinc-400">~1–2 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                   One query crosses 4–8 service hops. Every hop carries socket
                   buffers, a TLS session, and serialize-then-deserialize on both
                   ends.
@@ -387,8 +387,8 @@ export default function ReplacementStack() {
                 <div className="text-sm font-semibold text-zinc-300">
                   Duplicated caches
                 </div>
-                <div className="mt-1 text-xs text-zinc-600">~4–8 GB</div>
-                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                <div className="mt-1 text-xs text-zinc-400">~4–8 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                   The same document sits in three to five caches at once — rows,
                   nodes, index segments, vectors — plus the CDC fabric that
                   keeps them in sync.
@@ -398,8 +398,8 @@ export default function ReplacementStack() {
                 <div className="text-sm font-semibold text-zinc-300">
                   Thread &amp; connection pools
                 </div>
-                <div className="mt-1 text-xs text-zinc-600">~2–4 GB</div>
-                <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                <div className="mt-1 text-xs text-zinc-400">~2–4 GB</div>
+                <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                   Every service runs its own pool, and every caller holds a pool
                   to it — pre-opened connections that scale with the square of
                   the service count.
@@ -437,7 +437,7 @@ export default function ReplacementStack() {
               <div className="text-sm font-semibold text-purple-300">
                 Cleaner for the environment
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+              <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 28 fewer idle runtimes, no cross-service chatter, no duplicated
                 caches — less energy and water per unit of work, because the
                 overhead is architecturally absent, not tuned away.
@@ -447,7 +447,7 @@ export default function ReplacementStack() {
               <div className="text-sm font-semibold text-purple-300">
                 Simpler to use
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+              <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 One process, one runbook, one thing to secure, one metrics
                 endpoint — instead of a 29-service mesh to orchestrate and
                 babysit.
@@ -457,7 +457,7 @@ export default function ReplacementStack() {
               <div className="text-sm font-semibold text-purple-300">
                 Faster to build with
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+              <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 The backend is already one thing — no stitching 20+ services
                 together before you ship. Teams build the frontend and deliver
                 customer value sooner.
@@ -467,7 +467,7 @@ export default function ReplacementStack() {
               <div className="text-sm font-semibold text-purple-300">
                 Better on ROI
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+              <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 One bounded node instead of twenty. Spend goes to outcomes, not
                 idle infrastructure — and the saving compounds with every
                 tenant you add.
@@ -475,7 +475,7 @@ export default function ReplacementStack() {
             </div>
           </div>
 
-          <p className="mt-8 text-center text-xs text-zinc-600">
+          <p className="mt-8 text-center text-xs text-zinc-400">
             We stay focused on our customers&apos; value, so they can stay
             focused on theirs — and the whole stack comes out end-to-end
             cost-optimized as a result.
@@ -484,7 +484,7 @@ export default function ReplacementStack() {
 
         {/* Tally */}
         <div className="mt-12 text-center">
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-400">
             No API gateway. No sidecar. No Kubernetes operators.{" "}
             <span className="text-purple-400 font-medium">
               Just one process, one port, one binary.

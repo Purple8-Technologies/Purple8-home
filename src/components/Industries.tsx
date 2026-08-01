@@ -104,7 +104,7 @@ export default function Industries() {
           <h1 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
             Built for knowledge-intensive sectors
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base text-zinc-500">
+          <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
             Purple8 is purpose-built for domains where AI applications must reason
             over complex, real-world data — connected entities, documents, and
             workflows — not just retrieve text chunks.
@@ -165,7 +165,7 @@ export default function Industries() {
             <h3 className="text-base font-bold text-white">
               Don&rsquo;t see your sector?
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-zinc-500">
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">
               Purple8 is domain-agnostic infrastructure. If your work means
               reasoning over connected data and documents, it fits.
             </p>

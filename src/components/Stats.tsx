@@ -71,7 +71,7 @@ function StatItem({ stat, active }: { stat: Stat; active: boolean }) {
       <div className="text-2xl font-bold tabular-nums text-purple-400 sm:text-3xl">
         {display}
       </div>
-      <div className="mt-1 text-xs text-zinc-500">{stat.label}</div>
+      <div className="mt-1 text-xs text-zinc-400">{stat.label}</div>
     </div>
   );
 }
@@ -87,8 +87,8 @@ export default function Stats() {
             <StatItem key={s.label} stat={s} active={inView} />
           ))}
         </div>
-        <p className="mt-8 text-center text-xs text-zinc-600">
-          <span className="text-zinc-500">*</span> Measured on real, reproducible
+        <p className="mt-8 text-center text-xs text-zinc-400">
+          <span className="text-zinc-400">*</span> Measured on real, reproducible
           benchmark runs.{" "}
           <a
             href="/benchmarks/"

@@ -189,7 +189,7 @@ export default function Pricing() {
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
             Start free. Pay for capacity, never for features.
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-500">
+          <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
             Self-hosted — runs in your own infrastructure, nothing leaves your
             environment. Every production tier from Micro to Starter ships the{" "}
             <span className="text-zinc-300">exact same feature set</span>. Moving
@@ -262,16 +262,16 @@ export default function Pricing() {
 
                     <div className="mt-3 flex items-baseline gap-1">
                       <span className="text-3xl font-extrabold text-white">{p.amount}</span>
-                      {p.suffix && <span className="text-sm text-zinc-500">{p.suffix}</span>}
+                      {p.suffix && <span className="text-sm text-zinc-400">{p.suffix}</span>}
                     </div>
-                    {p.note && <p className="mt-0.5 text-xs text-zinc-600">{p.note}</p>}
+                    {p.note && <p className="mt-0.5 text-xs text-zinc-400">{p.note}</p>}
 
                     <p className="mt-2 text-xs font-medium text-purple-400">
                       {tier.nodesLabel} nodes ·{" "}
                       {tier.agents === null ? "Unlimited agents" : `${tier.agents} MCP agent${tier.agents > 1 ? "s" : ""}`}
                     </p>
 
-                    <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
+                    <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-400">
                       {tier.tagline}
                     </p>
 
@@ -316,7 +316,7 @@ export default function Pricing() {
               </p>
             </div>
 
-            <p className="mt-6 text-center text-xs text-zinc-600">
+            <p className="mt-6 text-center text-xs text-zinc-400">
               Not sure which one?{" "}
               <a href="#calculator" className="text-purple-400 hover:text-purple-300">
                 Use the tier finder ↑
@@ -347,7 +347,7 @@ export default function Pricing() {
                   <div className="mt-4 flex items-baseline gap-1">
                     <span className="text-3xl font-extrabold text-white">{tier.price}</span>
                     {tier.price !== "Custom" && tier.price !== "$0" && (
-                      <span className="text-sm text-zinc-500">/mo</span>
+                      <span className="text-sm text-zinc-400">/mo</span>
                     )}
                   </div>
 
@@ -355,7 +355,7 @@ export default function Pricing() {
                     {tier.quota} · {tier.seats}
                   </p>
 
-                  <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-500">
+                  <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-400">
                     {tier.tagline}
                   </p>
 
@@ -391,14 +391,14 @@ export default function Pricing() {
                 DocIntel Self-Hosted is <span className="text-zinc-200">$299/mo flat and unlimited</span>;
                 Solo covers 10,000 docs for <span className="text-zinc-200">$79</span>. Your bill stops growing.
               </p>
-              <p className="mt-3 text-center text-xs text-zinc-500">
+              <p className="mt-3 text-center text-xs text-zinc-400">
                 Replaces Azure Document Intelligence, AWS Textract, Google Document AI,
                 Unstructured.io &amp; ABBYY. One license key, nothing leaves your infra.
               </p>
             </div>
 
             {/* Bundle note */}
-            <p className="mt-6 text-center text-xs text-zinc-600">
+            <p className="mt-6 text-center text-xs text-zinc-400">
               Already on Purple8{" "}
               <span className="text-purple-400">Growth or above</span>? DocIntel Self-Hosted
               is <span className="text-zinc-400">included at no extra cost</span> — your engine
@@ -411,7 +411,7 @@ export default function Pricing() {
         <div className="mt-14">
           <button
             onClick={() => setTableOpen((v) => !v)}
-            className="mx-auto flex items-center gap-2 text-sm text-zinc-500 transition-colors hover:text-zinc-300"
+            className="mx-auto flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-zinc-300"
           >
             <span>{tableOpen ? "Hide" : "Show"} full feature comparison</span>
             <span className="text-xs">{tableOpen ? "▲" : "▼"}</span>
@@ -422,7 +422,7 @@ export default function Pricing() {
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-zinc-800 bg-zinc-900/60">
-                    <th className="w-2/5 px-4 py-3 text-left text-xs font-medium text-zinc-500">
+                    <th className="w-2/5 px-4 py-3 text-left text-xs font-medium text-zinc-400">
                       Feature
                     </th>
                     {product === "graph"
@@ -434,7 +434,7 @@ export default function Pricing() {
                             }`}
                           >
                             {col.label}
-                            <span className="mt-0.5 block text-[10px] font-normal text-zinc-600">
+                            <span className="mt-0.5 block text-[10px] font-normal text-zinc-400">
                               {col.sub}
                             </span>
                           </th>

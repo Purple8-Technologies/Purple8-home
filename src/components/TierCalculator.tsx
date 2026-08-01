@@ -74,7 +74,7 @@ function Toggle({
       </span>
       <span>
         <span className="block text-sm font-medium text-white">{label}</span>
-        <span className="mt-0.5 block text-xs text-zinc-500">{hint}</span>
+        <span className="mt-0.5 block text-xs text-zinc-400">{hint}</span>
       </span>
     </button>
   );
@@ -139,7 +139,7 @@ export default function TierCalculator() {
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
             What are you building?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-zinc-500">
+          <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
             No node counting, no capacity math. Tell us the app and how many
             people it serves — we&apos;ll point you to the right tier. You still
             start free either way.
@@ -150,7 +150,7 @@ export default function TierCalculator() {
           {/* ── Inputs ── */}
           <div className="rounded-3xl border border-purple-900/40 bg-[#11111b] p-6 sm:p-8">
             {/* Step 1 — use case */}
-            <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+            <label className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
               1 · I&apos;m building a…
             </label>
             <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-2">
@@ -169,12 +169,12 @@ export default function TierCalculator() {
                 </button>
               ))}
             </div>
-            <p className="mt-3 text-xs text-zinc-600">{useCase.blurb}</p>
+            <p className="mt-3 text-xs text-zinc-400">{useCase.blurb}</p>
 
             {/* Step 2 — total users */}
             <div className="mt-8">
               <div className="flex items-baseline justify-between">
-                <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+                <label className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
                   2 · Total {useCase.userNoun} to support
                 </label>
                 <span className="text-lg font-bold tabular-nums text-purple-300">
@@ -197,13 +197,13 @@ export default function TierCalculator() {
                     key={p}
                     type="button"
                     onClick={() => setPos(usersToPos(p))}
-                    className="rounded-full border border-zinc-800 px-2.5 py-0.5 text-xs text-zinc-500 transition-colors hover:border-purple-700 hover:text-purple-300"
+                    className="rounded-full border border-zinc-800 px-2.5 py-0.5 text-xs text-zinc-400 transition-colors hover:border-purple-700 hover:text-purple-300"
                   >
                     {formatCount(p)}
                   </button>
                 ))}
               </div>
-              <p className="mt-2 text-xs text-zinc-600">
+              <p className="mt-2 text-xs text-zinc-400">
                 Total people over the app&apos;s life — not concurrent users.
                 (500 concurrent usually means millions of total customers.)
               </p>
@@ -211,7 +211,7 @@ export default function TierCalculator() {
 
             {/* Step 3 — overrides */}
             <div className="mt-8 space-y-2.5">
-              <label className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+              <label className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
                 3 · Anything special?
               </label>
               <Toggle
@@ -254,7 +254,7 @@ export default function TierCalculator() {
                   {price.amount}
                 </span>
                 {price.suffix && (
-                  <span className="text-sm text-zinc-500">{price.suffix}</span>
+                  <span className="text-sm text-zinc-400">{price.suffix}</span>
                 )}
               </div>
             </div>
@@ -263,7 +263,7 @@ export default function TierCalculator() {
               {result.reason}
             </p>
 
-            <p className="mt-2 text-xs text-zinc-600">
+            <p className="mt-2 text-xs text-zinc-400">
               ≈ {formatCount(result.estimatedNodes)} graph objects ·{" "}
               {result.tier.nodesLabel} capacity
             </p>
@@ -291,7 +291,7 @@ export default function TierCalculator() {
                   See {result.tier.name} in pricing →
                 </a>
               )}
-              <p className="text-center text-xs text-zinc-600">
+              <p className="text-center text-xs text-zinc-400">
                 Upgrade only when you outgrow the free tier. No card to start.
               </p>
             </div>

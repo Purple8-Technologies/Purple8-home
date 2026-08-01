@@ -11,6 +11,21 @@
 		},
 		{
 			"path": "../../../purple8-command-center"
+		},
+		{
+			"path": "../../../Purple8-KMS"
+		},
+		{
+			"path": "../../../Purple8-platform"
+		},
+		{
+			"path": "../../../Purple8- AI Architect"
+		},
+		{
+			"path": "../../../Purple8-chat"
+		},
+		{
+			"path": "../../../Purple8-intranet"
 		}
 	],
 	"settings": {}
