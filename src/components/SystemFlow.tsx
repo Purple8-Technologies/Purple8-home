@@ -128,12 +128,12 @@ function useTicker(base: number, jitter: number, decimals = 0) {
 function Stat({ label, value, unit }: { label: string; value: string; unit?: string }) {
   return (
     <div className="flex flex-col">
-      <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+      <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
         {label}
       </span>
       <span className="mt-0.5 text-lg font-bold tabular-nums text-white">
         {value}
-        {unit && <span className="ml-0.5 text-xs font-medium text-zinc-500">{unit}</span>}
+        {unit && <span className="ml-0.5 text-xs font-medium text-zinc-400">{unit}</span>}
       </span>
     </div>
   );
@@ -310,7 +310,7 @@ export default function SystemFlow() {
           <div className="mt-6 grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
             {/* Native namespaces */}
             <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
                 Native · 11 namespaces
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -346,7 +346,7 @@ export default function SystemFlow() {
 
             {/* Federated external servers */}
             <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
                 Federated · Register MCP Server
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -364,7 +364,7 @@ export default function SystemFlow() {
             </div>
           </div>
 
-          <p className="mt-5 text-center text-xs text-zinc-600">
+          <p className="mt-5 text-center text-xs text-zinc-400">
             → presented to the agent as a single, unified tool surface. Register,
             remove, or test federated tools at runtime via{" "}
             <code className="text-zinc-400">registry.*</code>.

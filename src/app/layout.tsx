@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import ParticleNetwork from "@/components/ParticleNetwork";
+// Canvas animation loader — ssr:false lives in a Client Component wrapper so
+// ParticleNetwork JS is never included in the initial Server Component bundle.
+import ParticleNetworkLoader from "@/components/ParticleNetworkLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -140,7 +142,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col overflow-x-hidden">
-        <ParticleNetwork />
+        <ParticleNetworkLoader />
         <div className="relative z-10 flex min-h-full w-full max-w-full flex-col overflow-x-hidden">{children}</div>
       </body>
     </html>

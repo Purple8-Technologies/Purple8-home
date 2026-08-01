@@ -1,9 +1,9 @@
 import Purple8Logo from "@/components/Purple8Logo";
 
 const productLinks = [
-  { label: "Purple8", href: "/#products" },
-  { label: "DocIntel", href: "/#products" },
-  { label: "More coming soon", href: "/#products" },
+  { label: "Purple8 Hyper Graph", href: "/products/purple8/", comingSoon: false },
+  { label: "DocIntel", href: "/products/docintel/", comingSoon: false },
+  { label: "More coming soon", href: null, comingSoon: true },
 ];
 
 const companyLinks = [
@@ -33,29 +33,38 @@ export default function Footer() {
                 Purple<span className="text-purple-400">8</span>
               </span>
             </a>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-zinc-600">
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-zinc-400">
               AI infrastructure software for enterprises and developers — deploy
               anywhere, no external dependencies.
             </p>
-            <p className="mt-4 text-xs text-zinc-700">
+            <p className="mt-4 text-xs text-zinc-500">
               Purple8 Inc.
             </p>
           </div>
 
           {/* Products */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
               Products
             </h4>
             <ul className="mt-4 space-y-2.5">
               {productLinks.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-zinc-500 transition-colors hover:text-purple-400"
-                  >
-                    {l.label}
-                  </a>
+                  {l.comingSoon || !l.href ? (
+                    <span className="inline-flex items-center gap-2 text-sm text-zinc-500">
+                      {l.label}
+                      <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
+                        Coming soon
+                      </span>
+                    </span>
+                  ) : (
+                    <a
+                      href={l.href}
+                      className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
+                    >
+                      {l.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -63,7 +72,7 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
               Company
             </h4>
             <ul className="mt-4 space-y-2.5">
@@ -71,7 +80,7 @@ export default function Footer() {
                 <li key={l.label}>
                   <a
                     href={l.href}
-                    className="text-sm text-zinc-500 transition-colors hover:text-purple-400"
+                    className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
                   >
                     {l.label}
                   </a>
@@ -82,23 +91,23 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
               Resources
             </h4>
             <ul className="mt-4 space-y-2.5">
               {resourceLinks.map((l) => (
                 <li key={l.label}>
                   {l.comingSoon || !l.href ? (
-                    <span className="inline-flex items-center gap-2 text-sm text-zinc-600">
+                    <span className="inline-flex items-center gap-2 text-sm text-zinc-500">
                       {l.label}
-                      <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+                      <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
                         Coming soon
                       </span>
                     </span>
                   ) : (
                     <a
                       href={l.href}
-                      className="text-sm text-zinc-500 transition-colors hover:text-purple-400"
+                      className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
                     >
                       {l.label}
                     </a>
@@ -111,20 +120,20 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-8 sm:flex-row">
-          <p className="text-xs text-zinc-700">
+          <p className="text-xs text-zinc-500">
             © {new Date().getFullYear()} Purple8 Inc. All rights
             reserved.
           </p>
           <div className="flex gap-6">
             <a
               href="/legal/privacy"
-              className="text-xs text-zinc-700 transition-colors hover:text-purple-400"
+              className="text-xs text-zinc-500 transition-colors hover:text-purple-400"
             >
               Privacy Policy
             </a>
             <a
               href="/legal/terms"
-              className="text-xs text-zinc-700 transition-colors hover:text-purple-400"
+              className="text-xs text-zinc-500 transition-colors hover:text-purple-400"
             >
               Terms of Service
             </a>

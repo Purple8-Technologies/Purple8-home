@@ -55,7 +55,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <p className="mt-4 text-sm text-zinc-600">
+          <p className="mt-4 text-sm text-zinc-400">
             Free forever · No credit card · Runs on your own machine · Upgrade in one click at launch
           </p>
 
@@ -64,7 +64,7 @@ export default function Hero() {
             {["openCypher", "MCP Native", "Model-Agnostic", "Self-Hosted"].map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-zinc-800 bg-zinc-900/60 px-3.5 py-1 text-xs text-zinc-500"
+                className="rounded-full border border-zinc-800 bg-zinc-900/60 px-3.5 py-1 text-xs text-zinc-400"
               >
                 {tag}
               </span>
