@@ -19,7 +19,7 @@ const tribeFeatures = [
   "Week-over-week trend lines for the group — deep work, meeting load, burnout trajectory",
   "Nobody above you can see anything. Tribe members are peers, not managers",
   "Built for freelancers, indie consultants, and remote workers outside employment relationships",
-  "k-Anonymity (k=5) — no individual is ever identifiable from tribe aggregates",
+  "Tribe averages only appear when 5 or more members contribute — no individual is ever identifiable",
   "Rotating pseudonyms — the server cannot link your contributions across weeks",
 ];
 
@@ -397,7 +397,7 @@ export default function FocusAgent() {
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "k-Anonymity (k=5)", body: "The team dashboard only activates when 5+ people contribute. Any aggregate derived from fewer than 5 is refused by the server." },
+              { title: "No individual singled out", body: "The team dashboard only activates when 5+ people contribute. Any aggregate derived from fewer than 5 is refused by the server." },
               { title: "Rotating pseudonyms", body: "Your contributor ID is an HMAC that changes every Monday. The server cannot link your contributions across weeks." },
               { title: "Local differential privacy", body: "Laplace noise (ε=1.5) is added to your focus peak on-device before any transmission. Individual scores cannot be recovered." },
               { title: "No IP storage", body: "The server strips your IP address before any handler runs. It is never logged or stored." },
