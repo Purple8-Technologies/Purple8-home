@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Purple8Logo from "@/components/Purple8Logo";
 import {
   siAnthropic,
@@ -271,40 +272,81 @@ function EnvBadge({ label, icon }: { label: string; icon: React.ReactNode }) {
   );
 }
 
-/* ─── Scenario card wrapper ──────────────────────────────────────────── */
+/* ─── Scenario card wrapper — collapsible accordion ─────────────────── */
 function ScenarioCard({
   number,
   title,
   description,
   envBadges,
+  teaser,
+  defaultOpen = false,
   children,
 }: {
   number: string;
   title: string;
   description: string;
   envBadges: React.ReactNode;
+  teaser: string;
+  defaultOpen?: boolean;
   children: React.ReactNode;
 }) {
+  const [open, setOpen] = useState(defaultOpen);
+
   return (
     <div className="rounded-2xl border border-purple-900/30 bg-[#0f0f1a] overflow-hidden">
-      {/* Header */}
-      <div className="border-b border-purple-900/20 px-6 py-5">
+      {/* ── Header / toggle ── */}
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full text-left px-6 py-5 focus:outline-none group"
+        aria-expanded={open}
+      >
         <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-purple-500">
               Scenario {number}
             </p>
-            <h3 className="mt-1 text-lg font-bold text-white">{title}</h3>
+            <h3 className="mt-1 text-lg font-bold text-white group-hover:text-purple-200 transition-colors">
+              {title}
+            </h3>
             <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-zinc-500">{description}</p>
-          </div>
-          <div className="flex flex-wrap gap-2 pt-0.5">{envBadges}</div>
-        </div>
-      </div>
 
-      {/* Diagram */}
-      <div className="flex flex-col items-center px-6 py-8">
-        {children}
-      </div>
+            {/* Teaser badges — shown only when collapsed */}
+            {!open && (
+              <p className="mt-2 text-[11px] text-zinc-600 italic">{teaser}</p>
+            )}
+          </div>
+
+          {/* Right: env badges + chevron */}
+          <div className="flex flex-col items-end gap-2 pt-0.5 shrink-0">
+            <div className="flex flex-wrap justify-end gap-2">{envBadges}</div>
+            <span
+              className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[10px] font-semibold transition-all ${
+                open
+                  ? "border-purple-700/60 bg-purple-950/40 text-purple-300"
+                  : "border-zinc-700/50 bg-zinc-900/40 text-zinc-400 group-hover:border-purple-700/40 group-hover:text-purple-300"
+              }`}
+            >
+              {open ? "Hide diagram" : "Show diagram"}
+              <svg
+                className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </button>
+
+      {/* ── Collapsible diagram ── */}
+      {open && (
+        <div className="border-t border-purple-900/20 flex flex-col items-center px-6 py-8 animate-in fade-in slide-in-from-top-2 duration-300">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
@@ -316,6 +358,8 @@ function Scenario1() {
       number="01"
       title="The core pattern — you build the frontend, Purple8 is everything else"
       description="The minimum viable AI backend. One process, no external services. Works identically on a developer laptop and in production."
+      teaser="Frontend → Purple8 (Graph + Vector + RAG + Auth + MCP) → LLM provider"
+      defaultOpen={true}
       envBadges={
         <>
           <EnvBadge label="Any cloud" icon={<BrowserIcon className="h-3 w-3" />} />
@@ -360,6 +404,7 @@ function Scenario2() {
       number="02"
       title="Document-intensive workloads — parse, extract, and reason over any content"
       description="Adds DocIntel to the pipeline for organisations with dense document corpora: contracts, BIM files, financial reports, research papers. 70 formats in, structured knowledge graph out."
+      teaser="70 formats → DocIntel (parse + extract) → Purple8 graph → Frontend + AI agents"
       envBadges={
         <>
           <EnvBadge label="Cloud" icon={<BrowserIcon className="h-3 w-3" />} />
@@ -422,6 +467,7 @@ function Scenario3() {
       number="03"
       title="AI agent as the developer — natural language is the only interface"
       description="No application code written by humans. An AI agent uses 74 MCP tools to build, operate, and evolve the entire backend. End users interact via the built-in admin portal or a thin frontend."
+      teaser="AI agent → 74 MCP tools → Purple8 + DocIntel + Admin portal → End users"
       envBadges={
         <>
           <EnvBadge label="Any environment" icon={<BrowserIcon className="h-3 w-3" />} />
@@ -496,6 +542,7 @@ function Scenario4() {
       number="04"
       title="Production HA — horizontally scaled, cloud or on-premises Kubernetes"
       description="High-availability topology for production workloads. Three Purple8 query nodes behind a load balancer, a DocIntel cluster for parallel document processing, deployed on any container platform."
+      teaser="Load balancer → 3 Purple8 nodes + DocIntel cluster → shared WAL storage · Docker / Kubernetes"
       envBadges={
         <>
           <EnvBadge label="Cloud (AWS / Azure / GCP)" icon={<BrowserIcon className="h-3 w-3" />} />

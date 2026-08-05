@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Purple8 — Client Deck · 2026</title>
+<title>Purple8: Client Deck · 2026</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -16,7 +16,7 @@
     --purple3: #c084fc;
     --text:    #f4f4f5;
     --muted:   #a1a1aa;
-    --dim:     #52525b;
+    --dim:     #767683;
     --green:   #10b981;
     --amber:   #f59e0b;
     --red:     #ef4444;
@@ -139,7 +139,7 @@
 </head>
 <body>
 
-<div class="progress" id="progress"></div>
+<div class="progress" id="progress" role="progressbar" aria-label="Slide progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
 
 <div class="deck">
 <div class="slides" id="slides">
@@ -170,7 +170,7 @@
     </div>
     <div class="eyebrow">Product Overview · 2026</div>
     <h2 style="font-size:66px; letter-spacing:-.03em">Your AI application.<br/><span class="accent">Your entire backend.</span><br/>One product.</h2>
-    <p class="sub">Stop assembling databases, vector stores, workflow engines, and auth services. Purple8 is a single install that replaces all of it — and lets AI agents operate it directly.</p>
+    <p class="sub">The only language your team needs to build a complete AI application is English. Purple8 replaces your entire backend, including databases, vector stores, workflows, auth, and audit, in a single install.</p>
     <div style="margin-top:36px; display:flex; gap:16px; flex-wrap:wrap">
       <span class="pill pill-green"><span class="live-dot"></span>&nbsp; Generally Available · August 2026</span>
       <span class="pill pill-purple">pip install purple8-hyper-graph</span>
@@ -178,11 +178,66 @@
     </div>
   </div>
 
-  <!-- ── 02 WHAT YOU'RE DEALING WITH ──────────────────────────────────── -->
+  <!-- ── 02 WHAT THIS MEANS FOR YOU ───────────────────────────────────── -->
+  <div class="slide" id="s_thesis">
+    <div class="slide-num">02 / 13</div>
+    <div class="eyebrow">What This Means For You</div>
+    <h2>The only skill your team needs<br/>is the ability to <span class="accent">think clearly.</span></h2>
+    <div class="divider"></div>
+    <div class="row" style="margin-top:8px; gap:40px; align-items:flex-start">
+      <div class="col" style="max-width:510px">
+        <p style="font-size:17px; color:var(--muted); line-height:1.75; margin-bottom:20px">Every AI project your organisation has attempted hit the same wall. By the time a developer understood what you wanted and translated it into code, databases, and config files — the requirement had changed, the cost had grown, and the output was still wrong.</p>
+        <p style="font-size:17px; color:var(--muted); line-height:1.75; margin-bottom:20px">Purple8 removes the translator.</p>
+        <div style="padding:20px 24px; background:rgba(16,185,129,.07); border:1px solid rgba(16,185,129,.28); border-radius:14px; margin-bottom:16px">
+          <div style="font-size:19px; font-weight:800; color:var(--text); line-height:1.5">Your compliance officer, loan manager, or logistics director can now <span style="color:#6ee7b7">build the system themselves</span> — in plain English, with no developer in the loop.</div>
+        </div>
+        <p style="font-size:13px; color:var(--dim); line-height:1.7">The domain expert becomes the builder. Not with a drag-and-drop tool that approximates intent — with an AI agent and Purple8 that execute it precisely. Every decision in the immutable audit trail. Every step provable.</p>
+        <div style="margin-top:14px; padding:11px 15px; background:var(--bg3); border-radius:10px; font-size:12px; color:var(--dim)">The bottleneck was never intelligence. It was the gap between human intent and machine execution. <strong style="color:var(--text)">Purple8 closes that gap.</strong></div>
+      </div>
+      <div class="col">
+        <div style="display:flex; flex-direction:column; gap:12px">
+          <div style="padding:16px 20px; background:var(--bg2); border:1px solid rgba(239,68,68,.22); border-radius:14px">
+            <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--red); margin-bottom:10px">Without Purple8</div>
+            <ul style="font-size:13px">
+              <li>Domain expert explains requirement to developer</li>
+              <li>Developer misunderstands, leading to a 2-week sprint with wrong output</li>
+              <li>Re-explain, re-spec, re-build. 6 months, 3 teams</li>
+              <li>Still not quite right. Requirement has changed again</li>
+            </ul>
+          </div>
+          <div style="padding:16px 20px; background:rgba(16,185,129,.07); border:1px solid rgba(16,185,129,.28); border-radius:14px">
+            <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--green); margin-bottom:10px">With Purple8</div>
+            <ul class="check" style="font-size:13px">
+              <li>Domain expert tells Claude what they want, in plain English</li>
+              <li>Claude calls Purple8 MCP tools directly and immediately</li>
+              <li>System is built, data is live, workflows are running</li>
+              <li>Same day. No developer. No translation loss. Full audit trail.</li>
+            </ul>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px">
+            <div style="padding:12px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; text-align:center">
+              <div style="font-size:22px; font-weight:800; color:var(--purple2)">0</div>
+              <div style="font-size:11px; color:var(--dim); margin-top:3px">developers needed to operate</div>
+            </div>
+            <div style="padding:12px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; text-align:center">
+              <div style="font-size:22px; font-weight:800; color:var(--green)">Days</div>
+              <div style="font-size:11px; color:var(--dim); margin-top:3px">to production (not months)</div>
+            </div>
+            <div style="padding:12px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; text-align:center">
+              <div style="font-size:22px; font-weight:800; color:var(--purple2)">100%</div>
+              <div style="font-size:11px; color:var(--dim); margin-top:3px">intent fidelity — no translation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 03 WHAT YOU'RE DEALING WITH ──────────────────────────────────── -->
   <div class="slide" id="s2">
-    <div class="slide-num">02 / 12</div>
+    <div class="slide-num">03 / 13</div>
     <div class="eyebrow">The Challenge You're Facing</div>
-    <h2>The AI stack tax — <span class="accent">the size depends on you.</span></h2>
+    <h2>The AI stack tax: <span class="accent">the size depends on you.</span></h2>
     <div class="divider"></div>
     <div class="row" style="margin-top:8px; gap:16px">
       <!-- SMB column -->
@@ -267,17 +322,17 @@
     <!-- Serverless vs self-hosted callout -->
     <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:10px">
       <div style="padding:9px 14px; background:rgba(239,68,68,.06); border:1px solid rgba(239,68,68,.18); border-radius:8px; font-size:11px; color:var(--muted); line-height:1.5">
-        <strong style="color:#fca5a5">⚠ The serverless trap:</strong> Pinecone, Firebase, Supabase — cheap at prototype scale. Once you need GDPR/HIPAA, data residency, or air-gapped deployment, per-query costs explode and vendor lock-in is total.
+        <strong style="color:#fca5a5">⚠ The serverless trap:</strong> Pinecone, Firebase, and Supabase are cheap at prototype scale. Once you need GDPR/HIPAA, data residency, or air-gapped deployment, per-query costs explode and vendor lock-in is total.
       </div>
       <div style="padding:9px 14px; background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.18); border-radius:8px; font-size:11px; color:var(--muted); line-height:1.5">
-        <strong style="color:#6ee7b7">✓ Purple8 is self-hosted by design:</strong> your data never leaves your infrastructure. No per-query fees, no egress costs. Runs on any machine — laptop to bare metal to air-gapped network. Same binary, 8M+ nodes, single server.
+        <strong style="color:#6ee7b7">✓ Purple8 is self-hosted by design:</strong> your data never leaves your infrastructure. No per-query fees, no egress costs. Runs on any machine, from a laptop to bare metal to an air-gapped network. Same binary, 8M+ nodes, single server.
       </div>
     </div>
   </div>
 
   <!-- ── 03 WHAT IS PURPLE8 ────────────────────────────────────────────── -->
   <div class="slide" id="s3">
-    <div class="slide-num">03 / 11</div>
+    <div class="slide-num">04 / 13</div>
     <div class="eyebrow">What Purple8 Is</div>
     <h2>Your complete AI backend.<br/><span class="accent">One process. Zero external deps.</span></h2>
     <div class="divider"></div>
@@ -298,11 +353,11 @@ g = <span class="c3">GraphEngine</span>()<br/>
       </div>
       <div class="col">
         <div class="feat-grid">
-          <div class="feat"><div class="icon">🗄️</div><h4>Graph + Document Store</h4><p>Store nodes, edges, and properties. Query with BFS, Dijkstra, PageRank, community detection — all built in.</p></div>
+          <div class="feat"><div class="icon">🗄️</div><h4>Graph + Document Store</h4><p>Store nodes, edges, and properties. Query with BFS, Dijkstra, PageRank, and community detection, all built in.</p></div>
           <div class="feat"><div class="icon">🔍</div><h4>Vector + Full-Text Search</h4><p>HNSW ANN vector search + full-text, hybrid-fused in a single query. Graph-guided for 80%+ segment skipping.</p></div>
           <div class="feat"><div class="icon">🤖</div><h4>74 MCP Tools</h4><p>Any MCP-compatible AI agent operates the entire backend through 74 native tools across 11 namespaces.</p></div>
-          <div class="feat"><div class="icon">🔄</div><h4>Journey Engine</h4><p>Multi-stage workflows with SLA enforcement, human approval gates, and an immutable audit trail — built in.</p></div>
-          <div class="feat"><div class="icon">🔐</div><h4>Security by Default</h4><p>AES-256-GCM encryption at rest, 4-tier RBAC, multi-tenancy, and a SOC threat-detection vertical — all on from first instantiation.</p></div>
+          <div class="feat"><div class="icon">🔄</div><h4>Journey Engine</h4><p>Multi-stage workflows with SLA enforcement, human approval gates, and an immutable audit trail, all built in.</p></div>
+          <div class="feat"><div class="icon">🔐</div><h4>Security by Default</h4><p>AES-256-GCM encryption at rest, 4-tier RBAC, multi-tenancy, and a SOC threat-detection vertical, all active from first instantiation.</p></div>
           <div class="feat"><div class="icon">📄</div><h4>DocIntel Pipeline</h4><p>70-format document intelligence: PDF, Word, IFC, BIM, images, code. Parse → extract → commit to graph in one call.</p></div>
         </div>
       </div>
@@ -311,24 +366,24 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 04 HOW IT REPLACES YOUR STACK ────────────────────────────────── -->
   <div class="slide" id="s4">
-    <div class="slide-num">04 / 11</div>
+    <div class="slide-num">05 / 13</div>
     <div class="eyebrow">Stack Replacement</div>
     <h2>What you can <span class="accent">stop paying for.</span></h2>
     <div class="divider"></div>
-    <div class="row" style="margin-top:8px; gap:24px">
-      <div class="col">
-        <table class="compare">
-          <thead><tr><th>What you run today</th><th>What Purple8 replaces it with</th></tr></thead>
+    <div class="row" style="margin-top:6px; gap:20px">
+      <div class="col" style="flex:2">
+        <table class="compare" style="font-size:12px">
+          <thead><tr><th style="padding:6px 10px">What you run today</th><th style="padding:6px 10px">What Purple8 replaces it with</th><th style="padding:6px 10px; color:var(--green)">What it means for your business</th></tr></thead>
           <tbody>
-            <tr class="highlight"><td class="col-label">PostgreSQL / MongoDB</td><td class="col-us">GraphEngine + BrickCoreStorage</td></tr>
-            <tr><td class="col-label">Neo4j</td><td class="col-us">Built-in graph engine (same algorithms)</td></tr>
-            <tr class="highlight"><td class="col-label">Pinecone / Weaviate / pgvector</td><td class="col-us">Built-in HNSW vector index</td></tr>
-            <tr><td class="col-label">LangChain + RAG pipeline</td><td class="col-us">rag.hybrid_query (one API call)</td></tr>
-            <tr class="highlight"><td class="col-label">Unstructured.io / Azure Document Intelligence</td><td class="col-us">Purple8 DocIntel (70 formats)</td></tr>
-            <tr><td class="col-label">Airflow / Temporal / LangGraph</td><td class="col-us">Journey Engine (built-in)</td></tr>
-            <tr class="highlight"><td class="col-label">Auth0 / Keycloak</td><td class="col-us">Built-in JWT + API-key, 4-tier RBAC</td></tr>
-            <tr><td class="col-label">Elasticsearch</td><td class="col-us">Built-in full-text search</td></tr>
-            <tr class="highlight"><td class="col-label">LangSmith (tracing)</td><td class="col-us">Immutable graph audit trail</td></tr>
+            <tr class="highlight"><td class="col-label" style="padding:7px 10px">PostgreSQL / MongoDB</td><td class="col-us" style="padding:7px 10px">Built-in graph + document store</td><td style="color:var(--muted); padding:7px 10px">One less vendor contract, one less ops team, no schema migrations</td></tr>
+            <tr><td class="col-label" style="padding:7px 10px">Neo4j</td><td class="col-us" style="padding:7px 10px">Built-in graph engine</td><td style="color:var(--muted); padding:7px 10px">$1,000–$8,000/mo licence gone. Relationship queries included at no extra cost</td></tr>
+            <tr class="highlight"><td class="col-label" style="padding:7px 10px">Pinecone / Weaviate / pgvector</td><td class="col-us" style="padding:7px 10px">Built-in vector search</td><td style="color:var(--muted); padding:7px 10px">$600–$2,000/mo eliminated. Your data never leaves your infrastructure</td></tr>
+            <tr><td class="col-label" style="padding:7px 10px">LangChain + RAG pipeline</td><td class="col-us" style="padding:7px 10px">Single hybrid RAG query, built in</td><td style="color:var(--muted); padding:7px 10px">Weeks of glue code gone. AI answers queries — not a brittle prompt chain</td></tr>
+            <tr class="highlight"><td class="col-label" style="padding:7px 10px">Unstructured.io / Azure DI</td><td class="col-us" style="padding:7px 10px">Purple8 DocIntel (70 formats)</td><td style="color:var(--muted); padding:7px 10px">No per-page fees. Drop any document — it's in the graph</td></tr>
+            <tr><td class="col-label" style="padding:7px 10px">Airflow / Temporal / LangGraph</td><td class="col-us" style="padding:7px 10px">Built-in workflow engine</td><td style="color:var(--muted); padding:7px 10px">SLAs, human approval gates, and audit trail — no separate orchestration team</td></tr>
+            <tr class="highlight"><td class="col-label" style="padding:7px 10px">Auth0 / Keycloak</td><td class="col-us" style="padding:7px 10px">Built-in auth, roles, and multi-tenancy</td><td style="color:var(--muted); padding:7px 10px">$240–$2,400/mo gone. Security on by default — no "add auth later" risk</td></tr>
+            <tr><td class="col-label" style="padding:7px 10px">Elasticsearch</td><td class="col-us" style="padding:7px 10px">Built-in full-text search</td><td style="color:var(--muted); padding:7px 10px">Search the entire knowledge base — no cluster to manage</td></tr>
+            <tr class="highlight"><td class="col-label" style="padding:7px 10px">LangSmith (tracing)</td><td class="col-us" style="padding:7px 10px">Immutable audit trail in the graph</td><td style="color:var(--muted); padding:7px 10px">Every decision legally provable — GDPR and compliance-ready</td></tr>
           </tbody>
         </table>
       </div>
@@ -351,24 +406,23 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 05 AI AGENT AS DEVELOPER ──────────────────────────────────────── -->
   <div class="slide" id="s5">
-    <div class="slide-num">05 / 11</div>
+    <div class="slide-num">06 / 13</div>
     <div class="eyebrow">The Agent-Native Difference</div>
-    <h2>Your AI agent <span class="accent">builds and operates</span><br/>the backend for you.</h2>
+    <h2>English is the programming language.<br/><span class="accent">Your domain expert is the developer.</span></h2>
     <div class="divider"></div>
     <div class="row" style="margin-top:8px; gap:32px; align-items:flex-start">
       <div class="col">
-        <p style="font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:20px">Purple8 ships 74 MCP tools across 11 namespaces. Point any MCP-compatible AI agent at your Purple8 instance and it can:</p>
+        <p style="font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:20px">Purple8 ships 74 MCP tools across 11 namespaces. Point any MCP-compatible AI agent at your Purple8 instance and the person who <em style="color:var(--text)">knows what should be built</em> can build it — without writing code, without waiting for a developer, without losing intent in translation.</p>
+        <div style="padding:14px 18px; background:rgba(124,58,237,.08); border:1px solid rgba(168,85,247,.25); border-radius:10px; margin-bottom:16px; font-size:14px; color:var(--muted); line-height:1.65">
+          <strong style="color:var(--purple3)">What this means in practice:</strong> your compliance manager defines the workflow. Your loan officer sets the SLA. Your operations director builds the escalation policy. All in plain English. All executed precisely by the agent. All auditable.
+        </div>
         <ul class="check" style="font-size:15px">
           <li>Ingest documents and build the knowledge graph</li>
           <li>Define multi-stage workflows with SLA + human approvals</li>
           <li>Run RAG queries across the entire corpus</li>
           <li>Monitor SLA breaches and escalate automatically</li>
           <li>Manage users, tenants, and API keys</li>
-          <li>Register and federate external MCP servers</li>
         </ul>
-        <div style="margin-top:20px; padding:12px 16px; background:rgba(124,58,237,.08); border:1px solid rgba(168,85,247,.25); border-radius:10px; font-size:13px; color:var(--muted)">
-          <strong style="color:var(--purple3)">What this means for your team:</strong> your non-technical staff can operate complex AI workflows through Claude in plain English. No forms. No custom UI. No developer.
-        </div>
       </div>
       <div class="col">
         <div style="background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:24px;">
@@ -387,7 +441,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
             <span class="pill pill-purple">admin · 2 tools</span>
           </div>
           <div style="margin-top:20px; padding:12px 14px; background:var(--bg3); border-radius:10px; font-size:12px; color:var(--dim)">
-            Composite MCP: Purple8 also re-exposes any external MCP servers you register — one endpoint, one auth boundary, one RBAC layer.
+            Composite MCP: Purple8 also re-exposes any external MCP servers you register, giving you one endpoint, one auth boundary, and one RBAC layer.
           </div>
         </div>
       </div>
@@ -396,9 +450,9 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 06 JOURNEY ENGINE ─────────────────────────────────────────────── -->
   <div class="slide" id="s6">
-    <div class="slide-num">06 / 11</div>
+    <div class="slide-num">07 / 13</div>
     <div class="eyebrow">Journey Engine · Built-in Workflow Orchestration</div>
-    <h2>LangGraph + Airflow + LangSmith —<br/><span class="accent">without any of them.</span></h2>
+    <h2>LangGraph, Airflow, and LangSmith:<br/><span class="accent">without any of them.</span></h2>
     <div class="divider"></div>
     <div class="row" style="margin-top:8px; gap:24px">
       <div class="col">
@@ -434,7 +488,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 07 DOCINTEL ───────────────────────────────────────────────────── -->
   <div class="slide" id="s7">
-    <div class="slide-num">07 / 11</div>
+    <div class="slide-num">08 / 13</div>
     <div class="eyebrow">Purple8 DocIntel</div>
     <h2>Any document → <span class="accent">structured knowledge</span><br/>in one API call.</h2>
     <div class="divider"></div>
@@ -478,7 +532,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 08 THE FULL PRODUCT SUITE ───────────────────────────────────── -->
   <div class="slide" id="s8">
-    <div class="slide-num">08 / 12</div>
+    <div class="slide-num">09 / 13</div>
     <div class="eyebrow">The Full Product Suite · 5 Products, One Platform</div>
     <h2>Everything you need.<br/><span class="accent">Nothing you don't.</span></h2>
     <div class="divider"></div>
@@ -507,8 +561,8 @@ g = <span class="c3">GraphEngine</span>()<br/>
       <div style="background:var(--bg2); border:1px solid rgba(168,85,247,.3); border-radius:16px; padding:22px 18px; display:flex; flex-direction:column; gap:10px">
         <div style="font-size:26px">🎯</div>
         <div style="font-size:15px; font-weight:800; color:var(--text)">Purple8 Focus</div>
-        <div style="font-size:11px; font-weight:700; color:var(--purple3); text-transform:uppercase; letter-spacing:.1em">AI Deep-Work Coach</div>
-        <p style="font-size:12px; color:var(--muted); line-height:1.6; flex:1">Per-seat productivity SaaS. Monitors deep work sessions, tracks performance patterns, enforces focus blocks, and surfaces personalised coaching — backed by a Purple8 graph per user.</p>
+        <div style="font-size:11px; font-weight:700; color:var(--purple3); text-transform:uppercase; letter-spacing:.1em">Privacy-First Productivity</div>
+        <p style="font-size:12px; color:var(--muted); line-height:1.6; flex:1">AI productivity coach with zero cloud footprint. All work patterns, keystroke rhythm, and context-switching data stay on your device in <code style="font-size:10px">~/.purple8/</code>. The server is mathematically incapable of spying. The only productivity tool natively compliant with the EU AI Act (limited-risk classification) — a structural guarantee, not a privacy policy.</p>
         <div style="padding:8px 10px; background:var(--bg3); border-radius:8px; font-size:11px; color:var(--dim)">Solo · Tribe · Enterprise seats</div>
       </div>
       <div style="background:var(--bg2); border:1px solid rgba(168,85,247,.3); border-radius:16px; padding:22px 18px; display:flex; flex-direction:column; gap:10px">
@@ -524,7 +578,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 09 WE USE IT OURSELVES ────────────────────────────────────────── -->
   <div class="slide" id="s9">
-    <div class="slide-num">09 / 12</div>
+    <div class="slide-num">10 / 13</div>
     <div class="eyebrow">Real-World Proof · We Run on Purple8</div>
     <h2>We replaced our own infrastructure<br/><span class="accent">with a single Purple8 instance.</span></h2>
     <div class="divider"></div>
@@ -543,17 +597,17 @@ g = <span class="c3">GraphEngine</span>()<br/>
       <div class="card" style="border-color:rgba(168,85,247,.3)">
         <div style="font-size:20px; margin-bottom:10px">🧠</div>
         <h4 style="font-size:16px; font-weight:700; color:var(--text)">AI Focus Agent</h4>
-        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.55">AI-powered productivity coach for the team. Monitors deep work sessions, tracks performance patterns, enforces focus blocks — all backed by Purple8 graph storage and MCP tools.</p>
+        <p style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.55">Privacy-first AI productivity coach. All data — work patterns, keystroke rhythm, deep-work sessions — stored locally, never on our servers. EU AI Act limited-risk compliant by architecture. The only credible enterprise alternative to Microsoft Viva Insights that employees will actually trust.</p>
       </div>
     </div>
     <div style="padding:14px 20px; background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.2); border-radius:12px; font-size:14px; color:var(--muted)">
-      <strong style="color:#6ee7b7">Signal:</strong> Purple8's internal infra bill for these three applications combined is near zero. The same would have cost $3,000–$8,000/month with a conventional stack.
+      <strong style="color:#6ee7b7">Signal:</strong> Purple8's internal infra bill for these three applications combined is near zero. The same would have cost $3,000 to $8,000 per month with a conventional stack.
     </div>
   </div>
 
   <!-- ── 10 GETTING STARTED ────────────────────────────────────────────── -->
   <div class="slide" id="s10">
-    <div class="slide-num">10 / 12</div>
+    <div class="slide-num">11 / 13</div>
     <div class="eyebrow">Getting Started</div>
     <h2>From zero to<br/><span class="accent">production in hours.</span></h2>
     <div class="divider"></div>
@@ -567,7 +621,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
       <div class="step-card">
         <div class="step-num">Step 02</div>
         <h4>Point your agent</h4>
-        <p>Add your Purple8 MCP endpoint to any MCP-compatible AI agent. It immediately has 74 tools to build with — in natural language.</p>
+        <p>Add your Purple8 MCP endpoint to any MCP-compatible AI agent. It immediately has 74 tools to build with, all accessible in natural language.</p>
         <div class="connector">→</div>
       </div>
       <div class="step-card">
@@ -579,7 +633,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
       <div class="step-card">
         <div class="step-num">Step 04</div>
         <h4>Ship your app</h4>
-        <p>Build only your frontend. Purple8 is your entire backend — REST API, RAG, workflows, auth, and audit all ready.</p>
+        <p>Build only your frontend. Purple8 is your entire backend: REST API, RAG, workflows, auth, and audit all ready.</p>
       </div>
     </div>
     <div class="row" style="margin-top:20px; gap:14px">
@@ -591,7 +645,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 11 PRICING ────────────────────────────────────────────────────── -->
   <div class="slide" id="s11">
-    <div class="slide-num">11 / 12</div>
+    <div class="slide-num">12 / 13</div>
     <div class="eyebrow">Pricing</div>
     <h2>Start free. <span class="accent">Talk to us</span> to scale.</h2>
     <div class="divider"></div>
@@ -648,7 +702,7 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   <!-- ── 12 NEXT STEPS ─────────────────────────────────────────────────── -->
   <div class="slide" id="s12">
-    <div class="slide-num">12 / 12</div>
+    <div class="slide-num">13 / 13</div>
     <div class="eyebrow">Next Steps</div>
     <h2>Ready to cut your AI stack<br/>down to <span class="accent">one process?</span></h2>
     <div class="divider"></div>
@@ -715,12 +769,12 @@ g = <span class="c3">GraphEngine</span>()<br/>
 </div><!-- /deck -->
 
 <div class="nav">
-  <button onclick="go(-1)" title="Previous (←)">‹</button>
-  <span class="counter" id="counter">1 / 11</span>
-  <button onclick="go(1)" title="Next (→)">›</button>
+  <button onclick="go(-1)" title="Previous (←)" aria-label="Previous slide">‹</button>
+  <span class="counter" id="counter" aria-live="polite" aria-atomic="true">1 / 11</span>
+  <button onclick="go(1)" title="Next (→)" aria-label="Next slide">›</button>
 </div>
 
-<div class="hint">← → to navigate · F for fullscreen</div>
+<div class="hint" aria-hidden="true">← → to navigate · F for fullscreen</div>
 
 <script>
   const slides = Array.from(document.querySelectorAll('.slide'));
@@ -730,10 +784,14 @@ g = <span class="c3">GraphEngine</span>()<br/>
 
   function show(n) {
     slides[cur].classList.remove('active');
+    slides[cur].removeAttribute('aria-current');
     cur = Math.max(0, Math.min(n, slides.length - 1));
     slides[cur].classList.add('active');
+    slides[cur].setAttribute('aria-current', 'true');
     counter.textContent = `${cur + 1} / ${slides.length}`;
-    progress.style.width = `${((cur + 1) / slides.length) * 100}%`;
+    const pct = Math.round(((cur + 1) / slides.length) * 100);
+    progress.style.width = `${pct}%`;
+    progress.setAttribute('aria-valuenow', pct);
   }
 
   function go(d) { show(cur + d); }

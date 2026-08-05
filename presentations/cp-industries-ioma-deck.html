@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Purple8: CP Industries &amp; IOMA Industrial Intelligence Platform</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0a0a0f; --bg2:#11111b; --bg3:#18181f;
+    --border:rgba(255,255,255,0.07);
+    --purple:#7c3aed; --purple2:#a855f7; --purple3:#c084fc;
+    --purple-glow:rgba(124,58,237,0.15); --purple-border:rgba(124,58,237,0.3);
+    --text:#f4f4f5; --muted:#a1a1aa; --dim:#767683;
+    --green:#10b981; --amber:#f59e0b; --red:#ef4444; --blue:#3b82f6;
+    --steel:#64748b; --steel2:#94a3b8;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--text);overflow:hidden;}
+  .deck{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;}
+  .slides{width:var(--slide-w);height:var(--slide-h);position:relative;}
+  .slide{position:absolute;inset:0;background:var(--bg);display:none;flex-direction:column;justify-content:center;padding:48px 64px;overflow:hidden;}
+  .slide.active{display:flex;}
+  .progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--purple2));transition:width .3s;z-index:200;}
+  .nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:100;background:rgba(17,17,27,0.92);border:1px solid var(--border);border-radius:999px;padding:8px 20px;backdrop-filter:blur(12px);}
+  .nav button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:6px;transition:color .15s,background .15s;}
+  .nav button:hover{color:var(--text);background:var(--border);}
+  .nav .counter{font-size:12px;color:var(--dim);min-width:48px;text-align:center;letter-spacing:.05em;}
+  .hint{position:fixed;bottom:24px;right:32px;font-size:11px;color:var(--dim);letter-spacing:.04em;}
+  .slide-num{display:none;position:absolute;top:12px;right:18px;font-size:10px;color:var(--dim);}
+  /* Watermark */
+  .slide:not(.slide-cover)::after{content:"Purple8 Inc. · Confidential · August 2026";position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:9px;color:rgba(255,255,255,0.1);letter-spacing:.1em;text-transform:uppercase;pointer-events:none;z-index:50;}
+  .slide::before{content:"";position:absolute;bottom:20px;right:32px;width:80px;height:40px;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 120 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30' fill='none' stroke='%23a855f7' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;opacity:0.18;pointer-events:none;z-index:50;}
+  h2{font-size:1.85rem;font-weight:800;line-height:1.15;letter-spacing:-.025em;}
+  h4{font-size:0.95rem;font-weight:700;margin-bottom:5px;}
+  h5{font-size:0.82rem;font-weight:700;margin-bottom:3px;}
+  p{font-size:0.83rem;color:var(--muted);line-height:1.6;}
+  .accent{color:var(--purple3);}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 20px;}
+  .card-sm{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 15px;}
+  .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--bg3);border:1px solid var(--border);color:var(--dim);margin-bottom:7px;}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 12px;border-radius:999px;letter-spacing:.04em;background:rgba(124,58,237,.18);border:1px solid rgba(168,85,247,.4);color:var(--purple3);}
+  .pill-green{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.35);color:#6ee7b7;}
+  .pill-amber{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3);color:#fcd34d;}
+  .pill-blue{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.3);color:#93c5fd;}
+  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .stats-row{display:flex;gap:10px;margin-bottom:14px;}
+  .stat-box{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;}
+  .stat-box .num{display:block;font-size:1.35rem;font-weight:800;color:var(--purple3);letter-spacing:-.02em;}
+  .stat-box .label{display:block;font-size:0.68rem;color:var(--muted);margin-top:2px;line-height:1.3;}
+  .p8-table{width:100%;border-collapse:collapse;font-size:0.75rem;}
+  .p8-table th{padding:7px 10px;text-align:left;font-size:0.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);}
+  .p8-table td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--muted);}
+  .p8-table tr:last-child td{border-bottom:none;}
+  .p8-table .good{color:var(--green);font-weight:600;}
+  .p8-table .bad{color:var(--red);}
+  .p8-table .warn{color:var(--amber);}
+  .p8-table thead th:last-child{background:var(--purple-glow);color:var(--purple3);}
+  .code-box{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:"SF Mono","Fira Code",monospace;font-size:0.68rem;color:#e2e8f0;line-height:1.7;margin-bottom:10px;}
+  .code-box .c1{color:#6ee7b7;} .code-box .c2{color:var(--purple3);} .code-box .c3{color:#fcd34d;} .code-box .c4{color:#93c5fd;}
+  .flow{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:8px;}
+  .flow-node{padding:5px 10px;border-radius:6px;font-size:0.66rem;font-weight:600;text-align:center;white-space:nowrap;}
+  .flow-node.auto{background:rgba(124,58,237,.2);border:1px solid var(--purple-border);color:var(--purple3);}
+  .flow-node.hitl{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:#fcd34d;}
+  .flow-node.ok{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7;}
+  .flow-arrow{color:var(--dim);font-size:0.7rem;flex-shrink:0;}
+  .section-num{font-size:0.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple2);margin-bottom:5px;}
+  .divider-num{font-size:5rem;font-weight:900;color:rgba(168,85,247,.12);line-height:1;margin-bottom:6px;}
+  .divider-title{font-size:2.3rem;font-weight:800;line-height:1.15;letter-spacing:-.03em;margin-bottom:12px;}
+  .slide-cover{background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(124,58,237,.18) 0%,var(--bg) 70%);text-align:center;align-items:center;}
+  .slide-divider{background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(124,58,237,.2) 0%,var(--bg) 70%);}
+  .check-list{list-style:none;padding:0;}
+  .check-list li{padding:4px 0;font-size:0.8rem;color:var(--muted);padding-left:18px;position:relative;}
+  .check-list li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700;}
+  .x-list{list-style:none;padding:0;}
+  .x-list li{padding:4px 0;font-size:0.8rem;color:var(--muted);padding-left:18px;position:relative;}
+  .x-list li::before{content:"✗";position:absolute;left:0;color:var(--red);}
+  @media print {
+    @page{size:1280px 720px;margin:0;}
+    html,body{overflow:visible!important;background:#0a0a0f!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .nav,.hint,.progress{display:none!important;}
+    .deck{display:block!important;width:100%!important;height:auto!important;}
+    .slides{position:static!important;width:1280px!important;height:auto!important;}
+    .slide{display:flex!important;position:relative!important;width:1280px!important;height:720px!important;page-break-after:always;break-after:page;overflow:hidden!important;}
+    .slide:last-child{page-break-after:avoid;break-after:avoid;}
+    .slide-num{display:block!important;}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck"><div class="slides" id="slides">
+
+<!-- 01 COVER -->
+<div class="slide slide-cover active" id="s1">
+<span class="slide-num">1 / 14</span>
+<div style="margin-bottom:16px"><svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:auto"><defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e879f9"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs><path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:999px;padding:5px 14px;font-size:0.7rem;color:var(--purple3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">🏭 Confidential · Industrial Intelligence Briefing</div>
+<h1 style="font-size:2.8rem;letter-spacing:-.03em;margin-bottom:10px;">Operational Intelligence<br>for <span style="color:var(--purple3);">High-Pressure Manufacturing</span></h1>
+<p style="font-size:0.92rem;max-width:640px;margin-bottom:16px;color:var(--muted);">A single-binary AI backend replacing fragmented plant-floor data stacks across CP Industries and the broader IOMA ecosystem. Sub-millisecond telemetry. Automated compliance. Predictive routing. Zero external services.</p>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+  <span class="pill"><span class="dot" style="background:var(--purple2)"></span>CP Industries · McKeesport PA</span>
+  <span class="pill"><span class="dot" style="background:var(--green)"></span>IOMA Member Network</span>
+  <span class="pill"><span class="dot" style="background:var(--amber)"></span>ASME · DOT · NASA · Navy Compliance</span>
+</div>
+<div style="display:flex;gap:28px;justify-content:center;">
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">1 process</strong> replaces 5 systems</span>
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">Sub-ms</strong> telemetry ingestion</span>
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">$0</strong> data egress</span>
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">100%</strong> air-gap capable</span>
+</div>
+<div style="position:absolute;bottom:14px;left:64px;font-size:0.7rem;color:var(--dim);">Purple8 Inc. · purple8.ai · Confidential · August 2026</div>
+</div>
+
+<!-- 02 WHO IS CP INDUSTRIES -->
+<div class="slide" id="s2">
+<span class="slide-num">2 / 14</span>
+<div class="section-num">01 · The Customer</div>
+<h2 style="margin-bottom:6px;">CP Industries: <span class="accent">127 years of zero-defect manufacturing</span></h2>
+<p style="margin-bottom:14px;font-size:0.88rem;">Christy Park Industries, operating globally as CP Industries, is a heavy-industrial manufacturer headquartered in McKeesport, Pennsylvania. Founded in 1897, they are among the world's leading producers of large-diameter seamless steel high-pressure containment vessels and gas cylinders.</p>
+<div class="three-col" style="margin-bottom:14px;">
+  <div class="card">
+    <div class="tag">Aerospace &amp; Defense</div>
+    <h4>NASA &amp; U.S. Navy</h4>
+    <p style="font-size:0.76rem;">Ground-support storage at NASA launch sites. High-pressure flasks for U.S. Navy submarines and surface vessels. Programme-specific qualification on every vessel.</p>
+  </div>
+  <div class="card">
+    <div class="tag">Energy &amp; Transportation</div>
+    <h4>DOT Tube Trailers</h4>
+    <p style="font-size:0.76rem;">DOT 3AA/3T-approved cylinders for tube trailers hauling compressed industrial gases (hydrogen, CNG, and oxygen) across North America.</p>
+  </div>
+  <div class="card">
+    <div class="tag">Industrial &amp; Chemical</div>
+    <h4>Large-Scale Storage</h4>
+    <p style="font-size:0.76rem;">CNG, hydrogen, and petrochemical processing vessels. ASME Section VIII certified. Every vessel survives the most demanding pressure and temperature environments on Earth.</p>
+  </div>
+</div>
+<div style="background:rgba(124,58,237,.07);border:1px solid var(--purple-border);border-radius:12px;padding:14px 20px;display:flex;gap:32px;align-items:center;">
+  <div style="flex:1;font-size:0.82rem;color:var(--muted);">Every vessel CP Industries ships must survive <strong style="color:var(--text);">ASME Section VIII, DOT 3AA/3T,</strong> and programme-specific <strong style="color:var(--text);">NASA or Navy qualification.</strong> The margin for error is zero. The operational intelligence layer around their plant has not kept pace with the precision of the vessels they build.</div>
+  <div style="flex-shrink:0;text-align:center;">
+    <div style="font-size:2rem;font-weight:900;color:var(--purple3);">1897</div>
+    <div style="font-size:0.68rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;">Founded</div>
+    <div style="font-size:2rem;font-weight:900;color:var(--purple3);margin-top:8px;">0</div>
+    <div style="font-size:0.68rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;">Defect tolerance</div>
+  </div>
+</div>
+</div>
+
+<!-- 03 THE OPERATIONAL CHALLENGES -->
+<div class="slide" id="s3">
+<span class="slide-num">3 / 14</span>
+<div class="section-num">02 · The Problem</div>
+<h2 style="margin-bottom:6px;">Three operational gaps <span class="accent">that automation has not yet reached</span></h2>
+<p style="margin-bottom:12px;font-size:0.86rem;">The plant floor runs massive rotary piercing mills, multi-pass drawing benches, induction furnaces, and hydraulic test stands. The data they generate is siloed, the compliance process is manual, and routing is still human-judgement-driven.</p>
+<div class="three-col">
+  <div class="card">
+    <div style="font-size:1.4rem;margin-bottom:6px;">📡</div>
+    <h4>Telemetry with no unified home</h4>
+    <p style="font-size:0.76rem;">Each station emits sub-millisecond vibration, thermal, and pressure readings into isolated PLCs and SCADA historians. No layer correlates a furnace temperature drift with the wall-thickness variance it will cause three process steps later.</p>
+    <div style="margin-top:8px;padding:7px 10px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:6px;font-size:0.7rem;color:#fca5a5;">Root cause: data exists, but it has no graph.</div>
+  </div>
+  <div class="card">
+    <div style="font-size:1.4rem;margin-bottom:6px;">📄</div>
+    <h4>Compliance is a paper mountain</h4>
+    <p style="font-size:0.76rem;">Every cylinder produces MTRs, UT/MPI inspection logs, heat-treatment certs, hydrostatic records, and serialised certificates for DOT, ASME, NASA, and Navy, in PDF, XLSX, XML, and proprietary mill formats. Matching to serial numbers is manual and error-prone.</p>
+    <div style="margin-top:8px;padding:7px 10px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:6px;font-size:0.7rem;color:#fca5a5;">A Navy QA inspector rejects at port. Not before loading.</div>
+  </div>
+  <div class="card">
+    <div style="font-size:1.4rem;margin-bottom:6px;">🔄</div>
+    <h4>Routing is unpredictable</h4>
+    <p style="font-size:0.76rem;">Billets route between stations based on machine availability signals that are never aggregated into a single routing decision layer. A cylinder that should flow Piercing → Drawing → Annealing → NDT instead bounces, causing excess handling, extended cycle times, and utilisation imbalance.</p>
+    <div style="margin-top:8px;padding:7px 10px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:6px;font-size:0.7rem;color:#fca5a5;">No data-driven routing. No bottleneck visibility.</div>
+  </div>
+</div>
+</div>
+
+<!-- 04 PURPLE8 ARCHITECTURE -->
+<div class="slide" id="s4">
+<span class="slide-num">4 / 14</span>
+<div class="section-num">03 · The Solution</div>
+<h2 style="margin-bottom:5px;">One process. <span class="accent">Everything unified.</span></h2>
+<p style="margin-bottom:10px;font-size:0.86rem;">Purple8 is a single-binary, in-process database combining graph storage, vector search, full-text retrieval, document intelligence, and a workflow engine. No Kafka. No separate vector DB. No compliance microservice. One <code style="font-size:0.78rem;background:var(--bg3);padding:1px 5px;border-radius:4px;">docker run</code>.</p>
+<div class="stats-row">
+  <div class="stat-box"><span class="num">&lt;1ms</span><span class="label">Telemetry ingestion per reading</span></div>
+  <div class="stat-box"><span class="num">&lt;100ms</span><span class="label">Full compliance check, serial-to-cert</span></div>
+  <div class="stat-box"><span class="num">70+</span><span class="label">Document formats parsed by DocIntel</span></div>
+  <div class="stat-box"><span class="num">$0</span><span class="label">Data egress: all analysis in-process</span></div>
+  <div class="stat-box"><span class="num">1</span><span class="label">Binary to deploy, approve, and operate</span></div>
+</div>
+<div class="two-col" style="gap:16px;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What Purple8 replaces at CP Industries</div>
+    <table class="p8-table">
+      <thead><tr><th>Today</th><th>With Purple8</th></tr></thead>
+      <tbody>
+        <tr><td>Isolated SCADA historians</td><td class="good">One graph: telemetry and product records co-located</td></tr>
+        <tr><td>Manual MTR/cert matching</td><td class="good">DocIntel auto-extraction + graph compliance queries</td></tr>
+        <tr><td>Spreadsheet routing decisions</td><td class="good">Graph algorithms: shortest path, centrality, Louvain</td></tr>
+        <tr><td>Paper/email HITL anomaly review</td><td class="good">Journey Engine HITL gates, fully tracked, audited, and immutable</td></tr>
+        <tr><td>Separate compliance DB per contract</td><td class="good">Multi-tenant namespacing: one engine, isolated per programme</td></tr>
+        <tr><td>No predictive maintenance layer</td><td class="good">SLA monitors + anomaly edges fire before failures cascade</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Why single-binary matters on plant networks</div>
+    <ul class="check-list" style="margin-bottom:10px;">
+      <li style="margin-bottom:5px;"><strong style="color:var(--text);">One approval, one deployment</strong>, not eight services, eight change tickets, eight runbooks</li>
+      <li style="margin-bottom:5px;"><strong style="color:var(--text);">Air-gap capable</strong>: no data leaves the facility. AES-256-GCM on by default from first call</li>
+      <li style="margin-bottom:5px;"><strong style="color:var(--text);">Bounded resource footprint</strong>: CortexAutoConfig fits available RAM automatically; same binary runs on 16 GB plant server or 128 GB cloud VM</li>
+      <li><strong style="color:var(--text);">MCP-native</strong>: any AI agent can query compliance status, trigger routing recalculations, and resolve HITL holds in natural language</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- 05 TELEMETRY + PREDICTIVE MAINTENANCE -->
+<div class="slide" id="s5">
+<span class="slide-num">5 / 14</span>
+<div class="section-num">04 · Module 1 · Telemetry &amp; Predictive Maintenance</div>
+<h2 style="margin-bottom:6px;">Real-time plant intelligence, <span class="accent">not post-mortem failure analysis</span></h2>
+<div class="two-col">
+  <div>
+    <p style="font-size:0.8rem;margin-bottom:10px;">Purple8's BrickCoreStorage (Cortex) engine ingests high-frequency time-series data from mill sensors directly into the graph. The seal-and-evict memory model keeps peak RSS bounded regardless of how many readings accumulate.</p>
+    <div class="code-box"><span class="c1">// Cylinder production lifecycle — Journey Engine</span>
+[<span class="c2">Billet Cast</span>] → [<span class="c2">Rotary Piercing</span>] → [<span class="c2">Mandrel Drawing</span>]
+→ [<span class="c2">Annealing</span>] → [<span class="c2">Straightening</span>]
+→ [<span class="c2">UT Inspection</span>] → [<span class="c2">Hydro Test</span>]
+→ [<span class="c3">Certified Ship-Ready</span>]
+<span class="c1">// SLA breach → HITL gate fires before part advances</span></div>
+    <div style="padding:10px 14px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;font-size:0.76rem;color:var(--muted);">
+      <strong style="color:#6ee7b7;">Key property:</strong> If furnace temperature deviates during Annealing, the Journey Engine flags the cylinder, triggers HITL review, and emits a <code style="font-size:0.72rem;">SLA_BREACHED</code> graph edge, immutably, before the part advances. Plant engineers see a real-time alert, not a post-mortem failure report.
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">AEC module applied to mill equipment topology</div>
+    <div class="card" style="margin-bottom:10px;padding:13px 16px;">
+      <h5>Structural topology (<code style="font-size:0.7rem;">aec/structural.py</code>)</h5>
+      <p style="font-size:0.75rem;">Originally built for BIM. Maps directly to plant topology: which piercing mill feeds which draw bench, critical machine dependencies, single points of failure (bridge detection) that would cascade a line stoppage.</p>
+    </div>
+    <div class="card" style="padding:13px 16px;">
+      <h5>MEP flow analysis (<code style="font-size:0.7rem;">aec/mep.py</code>)</h5>
+      <p style="font-size:0.75rem;">Max-flow/min-cut (Edmonds-Karp) across production line capacity constraints. Identifies where throughput is genuinely bottlenecked vs where it is scheduling friction. Thermal zone simulation for induction furnace energy balance.</p>
+    </div>
+    <div style="margin-top:10px;padding:9px 13px;background:var(--bg3);border-radius:8px;font-size:0.72rem;color:var(--dim);">
+      The AEC vertical was originally built for architects analysing building systems. The graph algorithms are domain-agnostic. A furnace feeding a draw bench is structurally identical to a boiler feeding a ventilation zone.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 06 COMPLIANCE AUTOMATION -->
+<div class="slide" id="s6">
+<span class="slide-num">6 / 14</span>
+<div class="section-num">05 · Module 2 · Compliance Automation</div>
+<h2 style="margin-bottom:6px;">ASME and DOT compliance: <span class="accent">sub-second graph query, not manual clerk review</span></h2>
+<div class="two-col">
+  <div>
+    <p style="font-size:0.8rem;margin-bottom:10px;">Purple8 DocIntel parses every document format CP Industries produces, including PDF test reports, XLSX material certs, and XML mill data, and extracts structured entities with no template configuration required.</p>
+    <div class="code-box"><span class="c1">// Compliance check — natural language via RAG</span>
+<span class="c4">rag.hybrid_query</span>(
+  query=<span class="c3">"Is cylinder SN-2847-X ship-ready</span>
+<span class="c3">         for Aerospace contract A-7731?"</span>,
+  k=<span class="c2">10</span>, max_hops=<span class="c2">3</span>
+)
+<span class="c1">// → MTR present ✓  UT log present ✓</span>
+<span class="c1">//   Hydro cert present ✓</span>
+<span class="c1">//   NASA NHB 1700.7 cert ✗  → HOLD</span></div>
+    <div class="code-box"><span class="c1">// Or ask across the full corpus</span>
+<span class="c4">rag.hybrid_query</span>(
+  query=<span class="c3">"All cylinders from Heat 44A shipped</span>
+<span class="c3">         to NASA KSC since Jan 2025 — confirm</span>
+<span class="c3">         hydrostatic test pressures"</span>
+)
+<span class="c1">// Answer from graph nodes + source docs, 1 round-trip</span></div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Document types handled automatically</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div class="card-sm"><h5 style="font-size:0.76rem;">Material Test Reports</h5><p style="font-size:0.7rem;">Heat number, chemistry, mechanical properties → graph node</p></div>
+      <div class="card-sm"><h5 style="font-size:0.76rem;">UT / MPI Inspection Logs</h5><p style="font-size:0.7rem;">Serial → result → certifying engineer → timestamp</p></div>
+      <div class="card-sm"><h5 style="font-size:0.76rem;">Hydrostatic Test Records</h5><p style="font-size:0.7rem;">Pressure rating, test date, pass/fail → linked to cylinder SN</p></div>
+      <div class="card-sm"><h5 style="font-size:0.76rem;">Certificates of Conformance</h5><p style="font-size:0.7rem;">DOT / ASME / NASA / Navy, auto-matched to serial number</p></div>
+    </div>
+    <div style="padding:10px 14px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;font-size:0.76rem;color:var(--muted);">
+      <strong style="color:#6ee7b7;">Before Purple8:</strong> manual clerk cross-references 5 documents per cylinder, per government shipment. Discrepancies discovered at port.<br>
+      <strong style="color:#6ee7b7;">After Purple8:</strong> sub-second graph traversal surfaces missing certs before a crate is loaded.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 07 ROUTING OPTIMISATION -->
+<div class="slide" id="s7">
+<span class="slide-num">7 / 14</span>
+<div class="section-num">06 · Module 3 · Production Routing</div>
+<h2 style="margin-bottom:6px;">Graph algorithms as <span class="accent">the routing decision layer</span></h2>
+<div class="two-col">
+  <div>
+    <p style="font-size:0.8rem;margin-bottom:10px;">All routing algorithms operate directly on the station graph stored in Purple8. No separate optimisation engine. No batch compute job. Results are real-time, always reflecting current machine availability.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="card-sm">
+        <h5>Shortest path (Dijkstra)</h5>
+        <p style="font-size:0.75rem;">Minimum-handling route for a cylinder of a given OD and wall thickness, across current machine availability. Updated on each station status change.</p>
+      </div>
+      <div class="card-sm">
+        <h5>Betweenness centrality</h5>
+        <p style="font-size:0.75rem;">Identifies which stations every production route passes through, representing the true bottlenecks. Directs capacity investment accurately rather than by gut feel.</p>
+      </div>
+      <div class="card-sm">
+        <h5>Community detection (Louvain)</h5>
+        <p style="font-size:0.75rem;">Clusters product families with similar routing profiles. Enables schedule batching to reduce furnace setups and tooling changeovers.</p>
+      </div>
+      <div class="card-sm">
+        <h5>Link prediction</h5>
+        <p style="font-size:0.75rem;">Surfaces latent correlations between upstream process parameters (pierce ratio, mandrel speed) and downstream inspection failures, giving process engineers earlier leverage than end-of-line defect analysis.</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Optimal cylinder routing flow</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;">
+      <div class="flow" style="margin-bottom:10px;">
+        <div class="flow-node auto">Billet Receipt</div><div class="flow-arrow">→</div>
+        <div class="flow-node auto">Rotary Piercing</div><div class="flow-arrow">→</div>
+        <div class="flow-node auto">Mandrel Drawing</div><div class="flow-arrow">→</div>
+        <div class="flow-node auto">Annealing</div>
+      </div>
+      <div class="flow" style="margin-bottom:10px;">
+        <div class="flow-node auto">Straightening</div><div class="flow-arrow">→</div>
+        <div class="flow-node hitl">UT Inspection<br><span style="font-size:0.58rem;">HITL if flag</span></div><div class="flow-arrow">→</div>
+        <div class="flow-node hitl">Hydro Test<br><span style="font-size:0.58rem;">SLA 48h</span></div><div class="flow-arrow">→</div>
+        <div class="flow-node ok">Ship-Ready</div>
+      </div>
+      <p style="font-size:0.72rem;color:var(--dim);margin-top:8px;">Every transition is a graph edge. SLA timers run on each stage. Anomalies open HITL gates, not email threads.</p>
+    </div>
+    <div style="margin-top:10px;padding:10px 14px;background:rgba(124,58,237,.07);border:1px solid var(--purple-border);border-radius:8px;font-size:0.76rem;color:var(--muted);">
+      <strong style="color:var(--purple3);">The cost-based query planner</strong> selects the cheapest strategy automatically: <code style="font-size:0.7rem;">PROPERTY_INDEX_SCAN</code> for serial lookup, <code style="font-size:0.7rem;">TRAVERSAL</code> for station-graph navigation, <code style="font-size:0.7rem;">HYBRID</code> for "find similar cylinders with the same failure pattern." No query tuning needed.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 08 IOMA DIVIDER -->
+<div class="slide slide-divider" id="s8">
+<span class="slide-num">8 / 14</span>
+<div class="divider-num">02</div>
+<div class="divider-title">From CP Industries<br>to the <span style="color:var(--purple3);">IOMA Network</span></div>
+<p style="max-width:580px;font-size:0.88rem;margin-bottom:18px;color:var(--muted);">The International Oxygen Manufacturers Association represents the global industrial and medical gas industry: air separation, cylinder manufacturing, cryogenic distribution, and bulk gas supply across 50+ countries. Every IOMA member faces the same three problems CP Industries faces, at industrial scale.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+  <span class="pill"><span class="dot" style="background:var(--green)"></span>Air Separation Plants</span>
+  <span class="pill"><span class="dot" style="background:var(--blue)"></span>Cylinder Manufacturers</span>
+  <span class="pill"><span class="dot" style="background:var(--amber)"></span>Cryogenic Distributors</span>
+  <span class="pill"><span class="dot" style="background:var(--purple2)"></span>Bulk Gas Suppliers</span>
+  <span class="pill"><span class="dot" style="background:var(--steel2)"></span>Medical Gas Networks</span>
+</div>
+</div>
+
+<!-- 09 IOMA PROBLEM LANDSCAPE -->
+<div class="slide" id="s9">
+<span class="slide-num">9 / 14</span>
+<div class="section-num">07 · IOMA Landscape</div>
+<h2 style="margin-bottom:6px;">The same problems, <span class="accent">at industrial-gas scale</span></h2>
+<p style="margin-bottom:12px;font-size:0.86rem;">IOMA members operate across the full gas value chain. Every node in that chain has regulatory exposure, asset-intensive operations, and fragmented data. The CP Industries use case is the proof point: the same architecture applies across the entire member network.</p>
+<div class="two-col">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Value chain nodes and their pain</div>
+    <table class="p8-table">
+      <thead><tr><th>Member Type</th><th>Primary Pain</th><th>Purple8 Capability</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:var(--text);">Air Separation Plants</strong></td><td>Compressor telemetry silos, unplanned downtime</td><td class="good">Real-time graph ingestion + SLA Journey Engine</td></tr>
+        <tr><td><strong style="color:var(--text);">Cylinder Manufacturers</strong></td><td>Manual TPED / DOT compliance packaging</td><td class="good">DocIntel auto-extraction + serial-to-cert graph query</td></tr>
+        <tr><td><strong style="color:var(--text);">Cryogenic Distributors</strong></td><td>Fleet routing and delivery order optimisation</td><td class="good">Graph shortest path + community clustering</td></tr>
+        <tr><td><strong style="color:var(--text);">Medical Gas Networks</strong></td><td>Hospital-grade traceability and batch recall</td><td class="good">Immutable graph audit trail + RAG query across records</td></tr>
+        <tr><td><strong style="color:var(--text);">Bulk Suppliers</strong></td><td>Cross-border regulatory document management</td><td class="good">Multi-tenant namespacing + 70-format DocIntel pipeline</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Regulatory standards covered out of the box</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div class="card-sm"><h5 style="font-size:0.74rem;">ASME Section VIII</h5><p style="font-size:0.7rem;">Pressure vessel certification, with US and global adoption</p></div>
+      <div class="card-sm"><h5 style="font-size:0.74rem;">DOT 3AA / 3T</h5><p style="font-size:0.7rem;">US DOT cylinder approvals for tube trailer transport</p></div>
+      <div class="card-sm"><h5 style="font-size:0.74rem;">TPED / PED</h5><p style="font-size:0.7rem;">EU Transportable and Pressure Equipment Directives</p></div>
+      <div class="card-sm"><h5 style="font-size:0.74rem;">ISO 10461 / 9809</h5><p style="font-size:0.7rem;">International industrial and medical gas cylinder standards</p></div>
+      <div class="card-sm"><h5 style="font-size:0.74rem;">EN 1964 / 12245</h5><p style="font-size:0.7rem;">European seamless steel and composite cylinder standards</p></div>
+      <div class="card-sm"><h5 style="font-size:0.74rem;">NASA NHB 1700.7</h5><p style="font-size:0.7rem;">NASA safety standards for ground support pressure systems</p></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 10 IOMA USE CASES -->
+<div class="slide" id="s10">
+<span class="slide-num">10 / 14</span>
+<div class="section-num">08 · IOMA Use Cases</div>
+<h2 style="margin-bottom:8px;">Three modules, <span class="accent">deployed across the IOMA value chain</span></h2>
+<div class="three-col">
+  <div class="card">
+    <div class="tag" style="background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#6ee7b7;">Air Separation + Cylinder Mfg</div>
+    <h4>Asset Intelligence Hub</h4>
+    <p style="font-size:0.76rem;margin-bottom:8px;">Ingests compressor vibration, valve cycle counts, and sensor telemetry from ASUs and cylinder fill stations. Journey Engine models each asset's maintenance lifecycle. SLA alerts fire before unplanned shutdown.</p>
+    <ul class="check-list" style="font-size:0.74rem;">
+      <li>Predictive maintenance replacing reactive repair</li>
+      <li>Spare parts graph with inventory linked to asset nodes</li>
+      <li>Regulatory inspection scheduling with HITL sign-off</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="tag" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);color:#93c5fd;">Cryogenic Distribution</div>
+    <h4>Fleet &amp; Delivery Intelligence</h4>
+    <p style="font-size:0.76rem;margin-bottom:8px;">Tube trailers, bulk tankers, and cylinder bundles are graph nodes. Delivery routes are edges. Shortest-path and community-detection algorithms optimise load planning. Driver HITL gates for hazmat compliance acknowledgement.</p>
+    <ul class="check-list" style="font-size:0.74rem;">
+      <li>Route optimisation across DOT hazmat constraints</li>
+      <li>Cylinder tracking across fill, test, dispatch, and return</li>
+      <li>Customer SLA monitoring with automated alerts</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="tag" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fcd34d;">Medical Gas Networks</div>
+    <h4>Traceability &amp; Batch Recall</h4>
+    <p style="font-size:0.76rem;margin-bottom:8px;">Every cylinder serial, fill batch, analysis certificate, and hospital delivery is a graph node or edge. A batch recall query traverses the graph in milliseconds, not days of manual record search. Full GMP / pharmacopoeial audit trail.</p>
+    <ul class="check-list" style="font-size:0.74rem;">
+      <li>Batch-to-patient traceability in one graph query</li>
+      <li>Certificate of Analysis auto-matched to cylinder SN</li>
+      <li>Pharmacopoeial compliance (BP/EP/USP) enforced at fill</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- 11 CROSS-MEMBER NETWORK INTELLIGENCE -->
+<div class="slide" id="s11">
+<span class="slide-num">11 / 14</span>
+<div class="section-num">09 · Network-Level Intelligence</div>
+<h2 style="margin-bottom:6px;">IOMA as a <span class="accent">federated intelligence network</span></h2>
+<p style="margin-bottom:12px;font-size:0.86rem;">Each member runs their own Purple8 instance, air-gapped and privately owned. The SuperGraph layer federates read queries across member instances where data-sharing agreements exist, enabling industry-wide intelligence without centralising sensitive operational data.</p>
+<div class="two-col">
+  <div>
+    <div class="card" style="margin-bottom:12px;">
+      <h4 style="margin-bottom:8px;">What federated queries unlock</h4>
+      <ul class="check-list">
+        <li style="margin-bottom:5px;"><strong style="color:var(--text);">Industry defect pattern detection</strong>: a wall-thickness failure mode appearing at three manufacturers simultaneously surfaces as a material supply issue, not three isolated incidents</li>
+        <li style="margin-bottom:5px;"><strong style="color:var(--text);">Cross-member cylinder lifecycle</strong>: a cylinder manufactured by CP Industries, filled by a distributor, and used at a medical facility has a complete chain-of-custody graph across all three organisations</li>
+        <li><strong style="color:var(--text);">Regulatory benchmark sharing</strong>: anonymised compliance pass-rates, inspection cycle times, and cert-matching accuracy across the IOMA membership</li>
+      </ul>
+    </div>
+    <div style="padding:10px 14px;background:rgba(124,58,237,.07);border:1px solid var(--purple-border);border-radius:8px;font-size:0.76rem;color:var(--muted);">
+      <strong style="color:var(--purple3);">Data sovereignty preserved:</strong> each member's Purple8 instance is their own. The SuperGraph layer only reads what the sharing agreement permits. No centralised data warehouse. No cloud intermediary.
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Federation topology</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;">
+      <div style="text-align:center;margin-bottom:12px;font-size:0.76rem;color:var(--dim);">IOMA SuperGraph (federated read layer)</div>
+      <div style="display:flex;justify-content:space-around;gap:8px;flex-wrap:wrap;">
+        <div style="text-align:center;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;min-width:120px;">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--purple3);margin-bottom:3px;">CP Industries</div>
+          <div style="font-size:0.66rem;color:var(--dim);">Cylinder Mfg</div>
+          <div style="font-size:0.62rem;color:var(--green);margin-top:4px;">Air-gapped ✓</div>
+        </div>
+        <div style="text-align:center;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;min-width:120px;">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--blue);margin-bottom:3px;">Linde / Air Products</div>
+          <div style="font-size:0.66rem;color:var(--dim);">ASU + Distribution</div>
+          <div style="font-size:0.62rem;color:var(--green);margin-top:4px;">Private cloud ✓</div>
+        </div>
+        <div style="text-align:center;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;min-width:120px;">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--amber);margin-bottom:3px;">Medical Gas Supplier</div>
+          <div style="font-size:0.66rem;color:var(--dim);">GMP Traceability</div>
+          <div style="font-size:0.62rem;color:var(--green);margin-top:4px;">On-prem ✓</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:10px;font-size:0.7rem;color:var(--dim);">Each instance independently owned · data shared only under explicit agreement</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 12 DEPLOYMENT AND INTEGRATION -->
+<div class="slide" id="s12">
+<span class="slide-num">12 / 14</span>
+<div class="section-num">10 · Deployment</div>
+<h2 style="margin-bottom:6px;">On plant networks, private clouds, <span class="accent">or air-gapped OT segments</span></h2>
+<div class="two-col">
+  <div>
+    <div class="code-box" style="margin-bottom:10px;"><span class="c1"># Option 1: pip install (on-prem server)</span>
+pip install purple8-hyper-graph
+<span class="c4">from</span> purple8_graph <span class="c4">import</span> <span class="c2">GraphEngine</span>
+g = <span class="c2">GraphEngine</span>(auto_config=<span class="c3">True</span>)
+<span class="c1"># CortexAutoConfig solves memory geometry for available RAM</span></div>
+    <div class="code-box"><span class="c1"># Option 2: Docker (change-controlled deployment)</span>
+docker run -d \
+  -v /plant-data:/data \
+  -e ENCRYPTION_KEY=... \
+  purple8/hyper-graph:latest
+<span class="c1"># One approval. One runbook. One port.</span></div>
+    <div style="padding:10px 14px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;font-size:0.76rem;color:var(--muted);margin-top:10px;">
+      <strong style="color:#6ee7b7;">OT/IT separation:</strong> Purple8 runs entirely within the IT zone. SCADA data is forwarded via a one-way data diode or historian bridge; Purple8 never touches OT networks directly.
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Integration points for CP Industries / IOMA</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="card-sm"><h5 style="font-size:0.76rem;">SCADA / Historian bridge</h5><p style="font-size:0.73rem;">OSIsoft PI, Honeywell PHD, Wonderware → Purple8 ingest via REST or batch file push. No Kafka required.</p></div>
+      <div class="card-sm"><h5 style="font-size:0.76rem;">ERP document feed</h5><p style="font-size:0.73rem;">SAP, Oracle → DocIntel via S3 sync, SharePoint connector, or webhook. PDF/XML/XLSX parsed automatically.</p></div>
+      <div class="card-sm"><h5 style="font-size:0.76rem;">MES / MOM integration</h5><p style="font-size:0.73rem;">Work order status events from Opcenter, FactoryTalk, or custom MES posted to Journey Engine stage transitions via REST API.</p></div>
+      <div class="card-sm"><h5 style="font-size:0.76rem;">AI agent interface</h5><p style="font-size:0.73rem;">Claude, Copilot, or internal assistant models connect via MCP server (74 tools). Compliance queries, routing decisions, and HITL resolution all in natural language, with no bespoke UI required.</p></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 13 CLOSING -->
+<div class="slide slide-cover" id="s13">
+<span class="slide-num">13 / 13</span>
+<div style="margin-bottom:14px"><svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto"><defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e879f9"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs><path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<h2 style="font-size:2.2rem;margin-bottom:12px;">CP Industries has manufactured<br>to zero-defect standards since 1897.<br><span class="accent">The operational intelligence layer should match.</span></h2>
+<p style="font-size:0.9rem;max-width:620px;margin-bottom:20px;color:var(--muted);">One binary. Sub-millisecond ingestion. Instant compliance. Predictive routing. Full audit trail. The same machine that handles today's production handles tomorrow's growth.</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin-bottom:20px;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">
+    <div style="font-size:1.6rem;font-weight:900;color:var(--purple3);">1</div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Binary to deploy and operate</div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">
+    <div style="font-size:1.6rem;font-weight:900;color:var(--green);">&lt;100ms</div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Serial-to-cert compliance check</div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">
+    <div style="font-size:1.6rem;font-weight:900;color:var(--amber);">$0</div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Data egress: all in-process</div>
+  </div>
+</div>
+<div style="font-size:0.82rem;color:var(--muted);"><strong style="color:var(--text);">Purple8 Inc.</strong> · purple8.ai · hello@purple8.ai</div>
+</div>
+
+</div></div>
+
+<div class="nav">
+  <button onclick="prev()" aria-label="Previous slide">&#8592;</button>
+  <span class="counter" id="counter">1 / 14</span>
+  <button onclick="next()" aria-label="Next slide">&#8594;</button>
+</div>
+<div class="hint">← → to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    counter.textContent = (cur + 1) + ' / ' + total;
+    progress.style.width = ((cur + 1) / total * 100) + '%';
+  }
+  function next() { show(cur + 1); }
+  function prev() { show(cur - 1); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+  });
+  progress.style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>

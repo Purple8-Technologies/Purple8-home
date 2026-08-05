@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Purple8: Financial Crime Intelligence Platform</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0a0a0f; --bg2:#11111b; --bg3:#18181f;
+    --border:rgba(255,255,255,0.07);
+    --purple:#7c3aed; --purple2:#a855f7; --purple3:#c084fc;
+    --purple-glow:rgba(124,58,237,0.15); --purple-border:rgba(124,58,237,0.3);
+    --text:#f4f4f5; --muted:#a1a1aa; --dim:#767683;
+    --green:#10b981; --amber:#f59e0b; --red:#ef4444; --blue:#3b82f6;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--text);overflow:hidden;}
+  .deck{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;}
+  .slides{width:var(--slide-w);height:var(--slide-h);position:relative;}
+  .slide{position:absolute;inset:0;background:var(--bg);display:none;flex-direction:column;justify-content:center;padding:52px 68px;overflow:hidden;}
+  .slide.active{display:flex;}
+  .progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--purple2));transition:width .3s;z-index:200;}
+  .nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:100;background:rgba(17,17,27,0.92);border:1px solid var(--border);border-radius:999px;padding:8px 20px;backdrop-filter:blur(12px);}
+  .nav button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:6px;transition:color .15s,background .15s;}
+  .nav button:hover{color:var(--text);background:var(--border);}
+  .nav .counter{font-size:12px;color:var(--dim);min-width:48px;text-align:center;letter-spacing:.05em;}
+  .hint{position:fixed;bottom:24px;right:32px;font-size:11px;color:var(--dim);letter-spacing:.04em;}
+  .slide::after{content:"";position:absolute;bottom:20px;right:32px;width:80px;height:40px;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 120 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30' fill='none' stroke='%23a855f7' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;opacity:0.18;pointer-events:none;z-index:50;}
+  h2{font-size:1.9rem;font-weight:800;line-height:1.15;letter-spacing:-.025em;}
+  h4{font-size:1rem;font-weight:700;margin-bottom:6px;}
+  h5{font-size:0.88rem;font-weight:700;margin-bottom:4px;}
+  p{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+  .grad{color:#c084fc;}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px 22px;}
+  .card-sm{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+  .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--bg3);border:1px solid var(--border);color:var(--dim);margin-bottom:8px;}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 12px;border-radius:999px;letter-spacing:.04em;background:rgba(124,58,237,.18);border:1px solid rgba(168,85,247,.4);color:var(--purple3);}
+  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .stats-row{display:flex;gap:10px;margin-bottom:16px;}
+  .stat-box{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+  .stat-box .num{display:block;font-size:1.4rem;font-weight:800;color:var(--purple3);letter-spacing:-.02em;}
+  .stat-box .label{display:block;font-size:0.7rem;color:var(--muted);margin-top:2px;line-height:1.3;}
+  .p8-table{width:100%;border-collapse:collapse;font-size:0.76rem;}
+  .p8-table th{padding:7px 10px;text-align:left;font-size:0.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);}
+  .p8-table td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--muted);}
+  .p8-table tr:last-child td{border-bottom:none;}
+  .p8-table .highlight{color:var(--green);font-weight:600;}
+  .p8-table .check{color:var(--green);}
+  .p8-table .cross{color:var(--red);}
+  .p8-table .warn{color:var(--amber);}
+  .p8-table thead th:last-child{background:var(--purple-glow);color:var(--purple3);}
+  .code-box{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:"SF Mono","Fira Code",monospace;font-size:0.7rem;color:#e2e8f0;line-height:1.7;margin-bottom:10px;}
+  .code-box .comment{color:#6ee7b7;} .code-box .node{color:var(--purple3);} .code-box .edge{color:#fcd34d;} .code-box .prop{color:#93c5fd;}
+  .slide-divider{background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(124,58,237,.2) 0%,var(--bg) 70%);}
+  .divider-num{font-size:5rem;font-weight:900;color:rgba(168,85,247,.12);line-height:1;margin-bottom:6px;}
+  .divider-title{font-size:2.4rem;font-weight:800;line-height:1.15;letter-spacing:-.03em;margin-bottom:12px;}
+  .slide-cover{background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(124,58,237,.18) 0%,var(--bg) 70%);text-align:center;align-items:center;}
+  .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+  .problem-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
+  .problem-card .icon{font-size:1.3rem;margin-bottom:4px;}
+  .problem-card h4{font-size:0.82rem;}
+  .problem-card p{font-size:0.72rem;margin-top:3px;}
+  .journey-flow{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:8px;}
+  .journey-node{padding:5px 10px;border-radius:6px;font-size:0.68rem;font-weight:600;text-align:center;}
+  .journey-node.auto{background:rgba(124,58,237,.2);border:1px solid var(--purple-border);color:var(--purple3);}
+  .journey-node.hitl{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:#fcd34d;}
+  .journey-arrow{color:var(--dim);font-size:0.7rem;}
+  .section-num{font-size:0.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple2);margin-bottom:6px;}
+  .typo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+  .typo-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
+  .typo-card .num{font-size:0.62rem;font-weight:800;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;}
+  .typo-card h5{font-size:0.78rem;}
+  .typo-card p{font-size:0.68rem;margin-top:2px;}
+  .timeline{display:flex;flex-direction:column;gap:7px;}
+  .timeline-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;}
+  .timeline-item .week{font-size:0.65rem;font-weight:700;color:var(--purple2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;}
+  .timeline-item h5{font-size:0.76rem;}
+  .timeline-item p{font-size:0.68rem;margin-top:1px;}
+  .closing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0;}
+  .closing-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center;}
+  .closing-card .big{display:block;font-size:2rem;font-weight:900;color:#c084fc;margin-bottom:6px;}
+  .closing-card p{font-size:0.78rem;}
+  .slide-num{display:none;position:absolute;top:12px;right:18px;font-size:10px;color:var(--dim);}
+  @media print {
+    @page{size:1280px 720px;margin:0;}
+    html,body{overflow:visible!important;background:#0a0a0f!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .nav,.hint,.progress{display:none!important;}
+    .deck{display:block!important;width:100%!important;height:auto!important;}
+    .slides{position:static!important;width:1280px!important;height:auto!important;}
+    .slide{display:flex!important;position:relative!important;width:1280px!important;height:720px!important;page-break-after:always;break-after:page;overflow:hidden!important;}
+    .slide:last-child{page-break-after:avoid;break-after:avoid;}
+    .slide-num{display:block!important;}
+    .slide::after{display:none!important;}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+<div class="deck"><div class="slides" id="slides">
+
+<!-- 01 COVER -->
+<div class="slide slide-cover active" id="s1">
+<span class="slide-num">1 / 13</span>
+<div style="margin-bottom:16px"><svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:38px;width:auto;display:inline-block"><defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e879f9"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs><path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:999px;padding:5px 14px;font-size:0.72rem;color:var(--purple3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;">🔒 Confidential · Client Briefing</div>
+<h1 style="font-size:3rem;letter-spacing:-.03em;margin-bottom:10px;"><span class="grad">Financial Crime</span><br>Intelligence Platform</h1>
+<p style="font-size:0.95rem;max-width:600px;margin-bottom:16px;">A unified graph-native intelligence platform covering traditional AML and KYC, cryptocurrency forensics, and prediction market surveillance, powered by Purple8 Hyper Graph and Purple8 DocIntel.</p>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;">
+  <span class="pill"><span class="dot" style="background:#10b981"></span>Module 1 · AML &amp; Financial Crime</span>
+  <span class="pill"><span class="dot" style="background:#3b82f6"></span>Module 2 · Crypto AML</span>
+  <span class="pill"><span class="dot" style="background:#f59e0b"></span>Module 3 · Prediction Markets</span>
+</div>
+<div style="display:flex;gap:28px;justify-content:center;">
+  <span style="font-size:0.8rem;color:var(--muted);"><strong style="color:var(--text);">5 weeks</strong> to full MVP</span>
+  <span style="font-size:0.8rem;color:var(--muted);"><strong style="color:var(--text);">3 modules</strong> · one platform</span>
+  <span style="font-size:0.8rem;color:var(--muted);"><strong style="color:var(--text);">$0</strong> data egress</span>
+  <span style="font-size:0.8rem;color:var(--muted);"><strong style="color:var(--text);">100%</strong> air-gap capable</span>
+</div>
+<div style="position:absolute;bottom:14px;left:68px;font-size:0.72rem;color:var(--dim);">Purple8 Inc. · purple8.ai · Confidential · August 2026</div>
+</div>
+
+<!-- 02 PROBLEM -->
+<div class="slide" id="s2">
+<span class="slide-num">2 / 13</span>
+<div class="section-num">01 · The Problem</div>
+<h2 style="margin-bottom:5px;">Financial crime teams are <span class="grad">drowning in noise and silos</span></h2>
+<p style="margin-bottom:12px;">Legacy tooling was not built for the connected, cross-asset, cross-chain world of modern financial crime.</p>
+<div class="problem-grid">
+  <div class="problem-card"><div class="icon">🗂️</div><h4>Siloed systems</h4><p>KYC documents, transaction data, sanctions lists, and case notes live in separate systems. No unified entity view. Analysts manually join 4+ platforms per investigation.</p></div>
+  <div class="problem-card"><div class="icon">🔔</div><h4>95%+ false positives</h4><p>Rule-based thresholds generate massive alert noise. Analysts spend 80% of time triaging non-events. Real risk is buried.</p></div>
+  <div class="problem-card"><div class="icon">🕸️</div><h4>No relationship intelligence</h4><p>A suspicious transaction is visible. The beneficial owner controlling 12 shell companies across 4 jurisdictions is not. The graph is the blind spot.</p></div>
+  <div class="problem-card"><div class="icon">📄</div><h4>Document processing bottleneck</h4><p>KYC packets, DDQs, SAR narratives, and corporate filings are all processed manually. Onboarding takes 15 to 30 days for corporate clients.</p></div>
+  <div class="problem-card"><div class="icon">⛓️</div><h4>Crypto is a blind spot</h4><p>On-chain activity, cross-chain bridges, and DeFi flows are invisible to single-chain tools. No existing tool connects blockchain addresses to KYC documents and corporate ownership.</p></div>
+  <div class="problem-card"><div class="icon">🎯</div><h4>Prediction markets unmonitored</h4><p>A regulatory mandate with no product. No surveillance tool connects betting positions to corporate relationships and event outcomes. CFTC/FCA compliance gap.</p></div>
+</div>
+</div>
+
+<!-- 03 PLATFORM -->
+<div class="slide" id="s3">
+<span class="slide-num">3 / 13</span>
+<div class="section-num">02 · The Solution</div>
+<h2 style="margin-bottom:5px;">One platform. <span style="color:var(--purple2)">Every layer of financial crime intelligence.</span></h2>
+<p style="margin-bottom:10px;font-size:0.88rem;">Purple8 is not a FinCrime SaaS product with a graph wrapper. It is an embedded, air-gap capable intelligence engine that runs entirely in your infrastructure.</p>
+<div class="stats-row" style="margin-bottom:10px;">
+  <div class="stat-box"><span class="num">&lt;100ms</span><span class="label">Beneficial ownership traversal, 5+ layers</span></div>
+  <div class="stat-box"><span class="num">60–80%</span><span class="label">Alert noise reduction via graph risk scoring</span></div>
+  <div class="stat-box"><span class="num">&lt;60s</span><span class="label">SAR narrative draft from graph evidence</span></div>
+  <div class="stat-box"><span class="num">$0</span><span class="label">Data egress: all analysis runs in-process</span></div>
+</div>
+<div class="three-col">
+  <div class="card" style="padding:14px 18px;"><div class="tag">DocIntel</div><h4>Universal Document Ingestion</h4><p style="font-size:0.78rem;">70+ formats. Extracts entities, relationships, and risk indicators from KYC packets, corporate filings, SWIFT memos, SAR narratives, sanctions lists, and adverse media automatically.</p></div>
+  <div class="card" style="padding:14px 18px;"><div class="tag">Hyper Graph</div><h4>Relationship Intelligence Engine</h4><p style="font-size:0.78rem;">Graph, vector, and full-text in one in-process engine. PageRank, community detection, link prediction, and temporal analysis run on the connected entity graph, not flat records.</p></div>
+  <div class="card" style="padding:14px 18px;"><div class="tag">Journey Engine</div><h4>Investigation Workflow &amp; Audit Trail</h4><p style="font-size:0.78rem;">Case lifecycle with SLA enforcement, HITL gates, and AI-assist SAR drafting. Every decision is a graph edge — fully explainable for FCA, FinCEN, and MAS.</p></div>
+</div>
+</div>
+
+<!-- 04 AML DIVIDER -->
+<div class="slide slide-divider" id="s4">
+<span class="slide-num">4 / 13</span>
+<div class="divider-num">01</div>
+<div class="divider-title"><span class="grad">AML &amp; Financial Crime</span><br>Intelligence</div>
+<p style="max-width:540px;font-size:0.88rem;margin-bottom:18px;">Beneficial ownership unmasking, network risk scoring, sanctions screening, KYC automation, and SAR filing, all unified across a single entity graph.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+  <span class="pill"><span class="dot" style="background:#10b981"></span>KYC / CDD / EDD</span>
+  <span class="pill"><span class="dot" style="background:#10b981"></span>Sanctions Screening</span>
+  <span class="pill"><span class="dot" style="background:#10b981"></span>Beneficial Ownership</span>
+  <span class="pill"><span class="dot" style="background:#10b981"></span>SAR Filing</span>
+  <span class="pill"><span class="dot" style="background:#10b981"></span>PEP Detection</span>
+  <span class="pill"><span class="dot" style="background:#10b981"></span>Network Risk Scoring</span>
+</div>
+</div>
+
+<!-- 05 AML CAPABILITIES -->
+<div class="slide" id="s5">
+<span class="slide-num">5 / 13</span>
+<div class="section-num">Module 1 · Capabilities</div>
+<h2 style="margin-bottom:8px;">What the graph sees that <span class="grad">rules cannot</span></h2>
+<div class="two-col">
+  <div>
+    <div class="code-box"><span class="comment">// Beneficial ownership · 5 layers · &lt;100ms</span>
+<span class="node">engine</span>.<span class="edge">traverse</span>(start=<span class="prop">"ACME Holdings Ltd"</span>, edge_type=<span class="prop">"OWNS|CONTROLS|BENEFICIAL_OWNER_OF"</span>, depth=<span class="prop">5</span>)
+<span class="comment">// → Person_X (PEP, sanctioned, BVI domicile) · 3 days → 50ms</span></div>
+    <div class="code-box"><span class="comment">// RAG case intelligence · plain English</span>
+<span class="node">rag</span>.<span class="edge">hybrid_query</span>(query=<span class="prop">"shell companies in BVI linked to Russian oil"</span>, k=<span class="prop">20</span>, max_hops=<span class="prop">3</span>)
+<span class="comment">// → Graph traversal + KYC packet excerpts</span></div>
+    <div class="card-sm">
+      <h5>Investigation Workflow: Journey Engine</h5>
+      <div class="journey-flow">
+        <div class="journey-node auto">Alert</div><div class="journey-arrow">→</div>
+        <div class="journey-node hitl">Triage<br><span style="font-size:0.6rem;">HITL 24h</span></div><div class="journey-arrow">→</div>
+        <div class="journey-node hitl">EDD<br><span style="font-size:0.6rem;">HITL 72h</span></div><div class="journey-arrow">→</div>
+        <div class="journey-node hitl">SAR Decision</div><div class="journey-arrow">→</div>
+        <div class="journey-node auto">Filed</div>
+      </div>
+      <p style="font-size:0.68rem;margin-top:5px;">Every transition is an immutable graph edge. Full audit trail for FCA, FinCEN, and MAS.</p>
+    </div>
+  </div>
+  <div>
+    <table class="p8-table">
+      <thead><tr><th>Capability</th><th>Before</th><th>With Purple8</th></tr></thead>
+      <tbody>
+        <tr><td>Beneficial ownership</td><td>3 days manual</td><td class="highlight">&lt;100ms</td></tr>
+        <tr><td>KYC corporate onboarding</td><td>15 to 30 days</td><td class="highlight">Minutes</td></tr>
+        <tr><td>False positive rate</td><td>95%+</td><td class="highlight">20 to 40%</td></tr>
+        <tr><td>SAR narrative</td><td>2 to 3 hours</td><td class="highlight">&lt;60 seconds</td></tr>
+        <tr><td>Cross-system correlation</td><td>4+ platforms</td><td class="highlight">Single query</td></tr>
+        <tr><td>Regulatory explainability</td><td>Black box</td><td class="highlight">Graph path evidence</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- 06 CRYPTO DIVIDER -->
+<div class="slide slide-divider" id="s6">
+<span class="slide-num">6 / 13</span>
+<div class="divider-num">02</div>
+<div class="divider-title"><span class="grad">Cryptocurrency</span><br>AML &amp; Forensics</div>
+<p style="max-width:540px;font-size:0.88rem;margin-bottom:18px;">On-chain graph analysis, cross-chain layering detection, entity clustering, and Travel Rule compliance, all running entirely within your infrastructure. No blockchain address leaves your system.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+  <span class="pill"><span class="dot" style="background:#3b82f6"></span>Chain Analysis</span>
+  <span class="pill"><span class="dot" style="background:#3b82f6"></span>Cross-Chain Tracking</span>
+  <span class="pill"><span class="dot" style="background:#3b82f6"></span>Entity Clustering</span>
+  <span class="pill"><span class="dot" style="background:#3b82f6"></span>DeFi / NFT Fraud</span>
+  <span class="pill"><span class="dot" style="background:#3b82f6"></span>FATF Travel Rule</span>
+</div>
+</div>
+
+<!-- 07 CRYPTO TYPOLOGIES -->
+<div class="slide" id="s7">
+<span class="slide-num">7 / 13</span>
+<div class="section-num">Module 2 · Detection</div>
+<h2 style="margin-bottom:4px;">Six crypto crime typologies <span class="grad">detected natively</span></h2>
+<p style="margin-bottom:10px;">Purple8 detects patterns that single-chain, cloud-based tools miss, including cross-chain layering and DeFi-based laundering.</p>
+<div class="typo-grid">
+  <div class="typo-card"><div class="num">01</div><h5>Peeling Chains</h5><p>Linear 1-in-1-out wallet chains with no economic rationale. Graph detects long-hop paths with no branching, a classic obfuscation technique.</p></div>
+  <div class="typo-card"><div class="num">02</div><h5>Mixing / Tumbling</h5><p>CoinJoin many-to-many patterns. Timing correlation across inputs flags coordinated tumblers even when individual transactions look clean.</p></div>
+  <div class="typo-card"><div class="num">03</div><h5>Cross-Chain Layering</h5><p>CEX → DEX → bridge → new chain → CEX. Multi-hop traversal across Bitcoin, Ethereum, Solana, Tron, and Polygon in a single graph query.</p></div>
+  <div class="typo-card"><div class="num">04</div><h5>Both-Sides Betting</h5><p>Same entity bets YES and NO through different wallets, converting dirty crypto to winnings. Common-input clustering catches it.</p></div>
+  <div class="typo-card"><div class="num">05</div><h5>NFT Wash Trading</h5><p>Community detection finds wallets buying and selling the same NFT to each other, identifying price inflation rings and mixer-disguised royalties.</p></div>
+  <div class="typo-card"><div class="num">06</div><h5>Structuring</h5><p>Sub-threshold transactions across multiple wallets. Temporal aggregation on SENT edges with amount and time windows catches coordinated splitting.</p></div>
+</div>
+<div class="code-box" style="margin-bottom:0;"><span class="comment">// Cross-chain layering · single query across all chains</span>
+<span class="node">graph</span>.<span class="edge">traverse</span>(start=<span class="prop">"ETH:0xA1b2..."</span>, edge_type=<span class="prop">"SENT|BRIDGED_VIA|SWAPPED|DEPOSITED_AT"</span>, depth=<span class="prop">6</span>, follow_chain_boundaries=<span class="prop">True</span>)
+<span class="comment">// → ETH_Wallet → Wormhole → SOL_Wallet → Jupiter DEX → USDC → Binance withdrawal</span></div>
+</div>
+
+<!-- 08 CRYPTO vs COMPETITORS -->
+<div class="slide" id="s8">
+<span class="slide-num">8 / 13</span>
+<div class="section-num">Module 2 · Market Position</div>
+<h2 style="margin-bottom:10px;">Why existing tools <span class="grad">fall short</span></h2>
+<table class="p8-table" style="margin-bottom:12px;">
+  <thead><tr><th>Capability</th><th>Chainalysis</th><th>Elliptic</th><th>TRM Labs</th><th style="background:var(--purple-glow);color:var(--purple3);">Purple8 ✦</th></tr></thead>
+  <tbody>
+    <tr><td>Graph traversal API</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight">✓ Native</td></tr>
+    <tr><td>Cross-chain analysis</td><td class="warn">Partial</td><td class="warn">Partial</td><td class="cross">✗</td><td class="check highlight">✓ All chains</td></tr>
+    <tr><td>Document intelligence (KYC)</td><td class="cross">✗ Separate</td><td class="cross">✗ Separate</td><td class="cross">✗</td><td class="check highlight">✓ Native</td></tr>
+    <tr><td>RAG / plain-English queries</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight">✓ Native</td></tr>
+    <tr><td>Air-gapped / on-premise</td><td class="cross">✗ Cloud only</td><td class="cross">✗ Cloud only</td><td class="cross">✗ Cloud only</td><td class="check highlight">✓ Embedded</td></tr>
+    <tr><td>Investigation workflow</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight">✓ Journey Engine</td></tr>
+    <tr><td>Immutable audit trail</td><td class="warn">Partial</td><td class="warn">Partial</td><td class="warn">Partial</td><td class="check highlight">✓ Graph-native</td></tr>
+    <tr><td>Annual cost (mid-tier)</td><td>$100K to $500K</td><td>$80K to $300K</td><td>$50K to $200K</td><td class="highlight">Significantly less</td></tr>
+  </tbody>
+</table>
+<div style="background:var(--purple-glow);border:1px solid var(--purple-border);border-radius:10px;padding:12px 16px;">
+  <strong style="color:var(--purple3);font-size:0.85rem;">The critical differentiator: </strong>
+  <span style="color:var(--muted);font-size:0.82rem;">Chainalysis, Elliptic, and TRM all require sending wallet addresses and transaction data to their cloud. For tier-1 banks, sovereign wealth funds, and government agencies, this is a non-starter. Purple8 runs inside the client's own VPC or on bare metal. The data never moves.</span>
+</div>
+</div>
+
+<!-- 09 PREDICTION MARKETS DIVIDER -->
+<div class="slide slide-divider" id="s9">
+<span class="slide-num">9 / 13</span>
+<div class="divider-num">03</div>
+<div class="divider-title"><span class="grad">Prediction Market</span><br>Surveillance</div>
+<p style="max-width:540px;font-size:0.88rem;margin-bottom:18px;">The only surveillance tool that connects on-chain betting positions to corporate relationships and real-world event outcomes. A regulatory mandate with no existing product.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+  <span class="pill"><span class="dot" style="background:#f59e0b"></span>Event Manipulation Detection</span>
+  <span class="pill"><span class="dot" style="background:#f59e0b"></span>Wash Trading</span>
+  <span class="pill"><span class="dot" style="background:#f59e0b"></span>Oracle Fraud</span>
+  <span class="pill"><span class="dot" style="background:#f59e0b"></span>Both-Sides Laundering</span>
+  <span class="pill"><span class="dot" style="background:#f59e0b"></span>CFTC / MiCA Compliance</span>
+</div>
+</div>
+
+<!-- 10 PREDICTION MARKETS CAPABILITIES -->
+<div class="slide" id="s10">
+<span class="slide-num">10 / 13</span>
+<div class="section-num">Module 3 · Detection</div>
+<h2 style="margin-bottom:8px;">Surveillance for <span class="grad">regulated prediction markets</span></h2>
+<div class="two-col">
+  <div>
+    <table class="p8-table" style="margin-bottom:12px;">
+      <thead><tr><th>Manipulation Pattern</th><th>Detection Method</th></tr></thead>
+      <tbody>
+        <tr><td>Insider front-running</td><td>Temporal: entity bet timing vs event revelation window</td></tr>
+        <tr><td>Coordinated pump</td><td>Community detection: same-direction position clusters</td></tr>
+        <tr><td>Oracle manipulation</td><td>Temporal: oracle report to position entry window</td></tr>
+        <tr><td>Both-sides laundering</td><td>Common-input clustering to same-entity flag</td></tr>
+        <tr><td>Ring manipulation</td><td>Temporal PageRank: burst of same-direction positions</td></tr>
+        <tr><td>Jurisdictional evasion</td><td>KYC geolocation cross-referenced with wallet activity</td></tr>
+      </tbody>
+    </table>
+    <div class="card-sm">
+      <div class="tag" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fcd34d;">An Unserved Regulatory Mandate</div>
+      <p style="font-size:0.75rem;">The CFTC approved Kalshi for election markets in 2024. MiCA covers prediction markets in the EU from 2025. Every regulated operator needs a compliant surveillance programme within 12 to 18 months.</p>
+    </div>
+  </div>
+  <div>
+    <div class="code-box"><span class="comment">// Insider front-running detection</span>
+<span class="node">graph</span>.<span class="edge">temporal_query</span>(entity=<span class="prop">"Wallet:0xB3c..."</span>, event_type=<span class="prop">"MARKET_POSITION"</span>, window_before_event=<span class="prop">"4h"</span>)
+<span class="comment">// → 94% of positions placed &lt;2h before oracle report</span>
+<span class="comment">// → Same entity across 6 wallets (common-input)</span></div>
+    <div class="card-sm">
+      <h5>Target Buyers</h5>
+      <ul style="font-size:0.75rem;color:var(--muted);padding-left:1rem;line-height:2;list-style:disc;margin-top:4px;">
+        <li>Regulated prediction market operators (Kalshi, CFTC-licensed)</li>
+        <li>Crypto exchanges with prediction market products</li>
+        <li>Financial regulators: CFTC, FCA, MAS</li>
+        <li>Hedge funds detecting manipulation they are victimised by</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 11 COMBINED PLATFORM -->
+<div class="slide" id="s11">
+<span class="slide-num">11 / 13</span>
+<div class="section-num">04 · Why One Platform</div>
+<h2 style="margin-bottom:6px;">A bank with a crypto desk and a prediction market product needs <span class="grad">all three modules</span></h2>
+<p style="margin-bottom:10px;">One deployment. One data model. One audit trail. No vendor sprawl, no data leaving the organisation, no integration tax between modules.</p>
+<table class="p8-table">
+  <thead><tr><th>Capability</th><th>Actimize / NICE</th><th>Quantexa</th><th>Chainalysis + AML</th><th style="background:var(--purple-glow);color:var(--purple3);">Purple8 ✦</th></tr></thead>
+  <tbody>
+    <tr><td>Traditional AML graph</td><td class="cross">✗ Rule-based</td><td class="check">✓</td><td class="cross">✗</td><td class="check highlight">✓ Native</td></tr>
+    <tr><td>Document intelligence</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight">✓ 70+ formats</td></tr>
+    <tr><td>Crypto on-chain analysis</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓ cloud only</td><td class="check highlight">✓ On-premise</td></tr>
+    <tr><td>Prediction market surveillance</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight">✓ Only tool</td></tr>
+    <tr><td>RAG case Q&amp;A</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight">✓ Native</td></tr>
+    <tr><td>Air-gapped / on-premise</td><td class="warn">Partial</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight">✓ Fully embedded</td></tr>
+    <tr><td>Annual cost benchmark</td><td>$500K+</td><td>$300K+</td><td>$100K to $500K</td><td class="highlight">Fraction of above</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 12 BUILD PLAN -->
+<div class="slide" id="s12">
+<span class="slide-num">12 / 13</span>
+<div class="section-num">05 · Delivery</div>
+<h2 style="margin-bottom:5px;">From zero to full MVP <span class="grad">in 5 weeks</span></h2>
+<p style="margin-bottom:10px;">The core engine is production-ready. The remaining work is domain-specific configuration: ontologies, extraction profiles, workflow templates, and dashboard surfaces.</p>
+<div class="two-col">
+  <div class="timeline">
+    <div class="timeline-item"><div class="week">Week 1</div><h5>Financial Crime Ontology</h5><p>Node types: Person, Company, Account, Transaction, Jurisdiction, SanctionsList, PEP, WalletAddress. Edge types: CONTROLS, TRANSACTS_WITH, BENEFICIAL_OWNER_OF, FLAGGED_BY, SAME_ENTITY.</p></div>
+    <div class="timeline-item"><div class="week">Weeks 1 and 2</div><h5>DocIntel Extraction Profiles</h5><p>KYC packet, DDQ, SAR narrative, and VASP registration profiles. Builds on existing financial and contract profiles, incremental work only.</p></div>
+    <div class="timeline-item"><div class="week">Week 2</div><h5>Sanctions + Blockchain Ingesters</h5><p>OFAC/EU/UN XML to Graph. Bitcoin/Ethereum RPC to transaction edges. Common-input-ownership clustering on ingestion.</p></div>
+    <div class="timeline-item"><div class="week">Week 3</div><h5>Crypto Module + Cross-Chain</h5><p>Cross-chain bridge tracking, typology detection queries, entity clustering, Travel Rule Journey template.</p></div>
+    <div class="timeline-item"><div class="week">Week 4</div><h5>Prediction Market Module</h5><p>On-chain market contract ingester, event-position correlation, wash trading community detection, oracle fraud temporal analysis.</p></div>
+    <div class="timeline-item"><div class="week">Week 5</div><h5>Case Management Dashboard</h5><p>LCNC portal: case queue, network visualiser, SAR workflow, KPIs, regulatory reporting exports.</p></div>
+  </div>
+  <div>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="tag">What is already built</div>
+      <h4>The hard infrastructure is done</h4>
+      <ul style="font-size:0.72rem;color:var(--muted);padding-left:1rem;line-height:1.9;list-style:disc;margin-top:5px;">
+        <li>Graph engine: PageRank, community detection, link prediction, temporal analysis, shortest path</li>
+        <li>Vector search and RAG pipeline: hybrid query, profile, tune</li>
+        <li>Document intelligence: 70+ formats, entity and relationship extraction</li>
+        <li>Journey Engine: SLA, HITL gates, AI-assist, immutable audit trail</li>
+        <li>JWT and API-key auth, RBAC, multi-tenancy, AES-256-GCM encryption</li>
+        <li>MCP server: 74 tools, AI agent-native from day one</li>
+      </ul>
+    </div>
+    <div style="background:var(--purple-glow);border:1px solid var(--purple-border);border-radius:10px;padding:12px 14px;">
+      <h5 style="margin-bottom:4px;">AI Agent as the Developer</h5>
+      <p style="font-size:0.72rem;">Because Purple8 is MCP-native, an AI agent can build, configure, and operate the entire FinCrime backend through natural language, with no application code required. An analyst types a question; the agent builds the investigation workflow.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 13 CLOSING -->
+<div class="slide" id="s13" style="align-items:center;text-align:center;">
+<span class="slide-num">13 / 13</span>
+<div style="margin-bottom:14px;"><svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:38px;width:auto;display:inline-block"><defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e879f9"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs><path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div style="font-size:0.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple2);margin-bottom:6px;">06 · Summary</div>
+<h2 style="margin-bottom:8px;">The only platform that connects <span class="grad">documents, graphs, crypto, and prediction markets</span> in a single in-process engine</h2>
+<p style="max-width:660px;margin:0 auto 16px;font-size:0.88rem;">Purple8 is not a FinCrime product. It is an AI-native intelligence backend that makes financial crime tooling one of many things it does natively, without external dependencies, and without your data leaving your infrastructure.</p>
+<div class="closing-grid">
+  <div class="closing-card"><span class="big">5 weeks</span><p>Full MVP: AML, Crypto AML, and Prediction Market Surveillance, production-ready</p></div>
+  <div class="closing-card"><span class="big">$0</span><p>Data egress. All graph analysis, document extraction, and AI inference runs in your infrastructure</p></div>
+  <div class="closing-card"><span class="big">3 → 1</span><p>Three vendor categories replaced by a single deployment, with no integration tax and no vendor sprawl</p></div>
+</div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;">
+  <span class="pill"><span class="dot" style="background:#10b981"></span>Traditional AML · KYC · Sanctions · SAR</span>
+  <span class="pill"><span class="dot" style="background:#3b82f6"></span>Crypto AML · Cross-Chain · Travel Rule</span>
+  <span class="pill"><span class="dot" style="background:#f59e0b"></span>Prediction Markets · Event Manipulation · Oracle Fraud</span>
+</div>
+<div style="font-size:0.76rem;color:var(--dim);">Purple8 Inc. · purple8.ai · hello@purple8.ai · Confidential · August 2026</div>
+</div>
+
+</div></div><!-- /slides /deck -->
+
+<div class="nav">
+  <button onclick="go(-1)" title="Previous" aria-label="Previous slide">&#8249;</button>
+  <span class="counter" id="counter" aria-live="polite">1 / 13</span>
+  <button onclick="go(1)" title="Next" aria-label="Next slide">&#8250;</button>
+</div>
+<div class="hint" aria-hidden="true">&#8592; &#8594; to navigate &middot; F for fullscreen</div>
+
+<script>
+const slides=Array.from(document.querySelectorAll('.slide'));
+const counter=document.getElementById('counter');
+const progress=document.getElementById('progress');
+let cur=0;
+function show(n){
+  slides[cur].classList.remove('active');slides[cur].removeAttribute('aria-current');
+  cur=Math.max(0,Math.min(n,slides.length-1));
+  slides[cur].classList.add('active');slides[cur].setAttribute('aria-current','true');
+  counter.textContent=`${cur+1} / ${slides.length}`;
+  const pct=Math.round(((cur+1)/slides.length)*100);
+  progress.style.width=`${pct}%`;progress.setAttribute('aria-valuenow',pct);
+}
+function go(d){show(cur+d);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+  if(e.key==='f'||e.key==='F')document.documentElement.requestFullscreen?.();
+  if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);
+});
+show(0);
+</script>
+</body>
+</html>
