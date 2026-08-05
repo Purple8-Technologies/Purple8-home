@@ -52,6 +52,7 @@ const appProducts = [
 const plainLinks = [
   { href: "/features/", label: "Features" },
   { href: "/industries/", label: "Industries" },
+  { href: "/architecture/", label: "Architecture" },
   { href: "/benchmarks/", label: "Benchmarks" },
   { href: "/pricing/", label: "Pricing" },
   { href: "/about/", label: "About" },
