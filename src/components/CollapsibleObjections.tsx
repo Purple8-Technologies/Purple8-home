@@ -37,7 +37,7 @@ const objections = [
   },
   {
     q: "\"My team knows Postgres, Redis, and LangChain. There will be a learning curve.\"",
-    a: "Purple8's REST API maps closely to concepts your team already knows. Nodes are records, edges are foreign keys, and vector search is a query parameter. The MCP tools are designed to be called in plain English by an AI agent, so your team does not need to learn a new query language. The Journey Engine maps directly to the workflow patterns your team currently builds in Airflow or hand-rolled state machines. Most teams are productive within a day. The ones who take longer are usually those spending time looking for complexity that is not there.",
+    a: "Purple8's REST API maps closely to concepts your team already knows. Nodes are records, edges are foreign keys, and vector search is a query parameter. The MCP tools are designed to be called in plain English by an AI agent, so your team does not need to learn a new query language. The Journey Engine maps directly to the workflow patterns your team currently builds in Airflow or hand-rolled state machines. We believe the ramp-up will be shorter than you expect, because there is no new query language to learn, no distributed system mental model to internalise, and no inter-service wiring to reason about. The complexity that typically drives long onboarding timelines simply is not there.",
   },
   {
     q: "\"We run on Kubernetes. Does Purple8 fit our existing infrastructure?\"",
