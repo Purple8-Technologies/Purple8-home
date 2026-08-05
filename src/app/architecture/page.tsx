@@ -7,6 +7,7 @@ import RefArchDiagrams from "@/components/RefArchDiagrams";
 import AirGapArch from "@/components/AirGapArch";
 import CollapsibleObjections from "@/components/CollapsibleObjections";
 import BlueGreenSection from "@/components/BlueGreenSection";
+import HonestRisks from "@/components/HonestRisks";
 
 const DemoRequestForm = dynamic(() => import("@/components/DemoRequestForm"));
 
@@ -901,8 +902,25 @@ export default function ArchitecturePage() {
           </div>
         </section>
 
-        {/* ── Air-gapped reference architecture ── */}
-        {/* moved up — see RefArchDiagrams section */}
+        {/* ── Where scepticism is warranted ── */}
+        <section className="border-t border-zinc-800">
+          <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+            <p className="text-sm font-semibold uppercase tracking-widest text-amber-500">
+              Honest assessment
+            </p>
+            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Where scepticism is warranted
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
+              Consolidith is not the right answer for every team in every situation. These are
+              genuine architectural trade-offs that technical buyers should evaluate carefully
+              before committing. We would rather you understand them upfront than discover them
+              six months into a deployment.
+            </p>
+
+            <HonestRisks />
+          </div>
+        </section>
 
         {/* ── CTA: try it + request a demo ── */}
         <section className="border-t border-purple-900/20">
