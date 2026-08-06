@@ -24,6 +24,7 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: Metadata
   { path: "/products/purple8/opinion-engine", priority: 0.9, changeFrequency: "weekly" },
   { path: "/products/purple8/scenario-simulation", priority: 0.9, changeFrequency: "weekly" },
   { path: "/products/purple8/quantum-optimisation", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/products/purple8/medical-research", priority: 0.9, changeFrequency: "weekly" },
   { path: "/products/purple8/ma-due-diligence", priority: 0.9, changeFrequency: "weekly" },
   { path: "/products/docintel", priority: 0.9, changeFrequency: "weekly" },
   { path: "/products/nexus", priority: 0.8, changeFrequency: "monthly" },

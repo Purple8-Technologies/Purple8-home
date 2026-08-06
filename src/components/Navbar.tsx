@@ -56,6 +56,13 @@ const solutions = [
     color: "text-violet-300",
   },
   {
+    href: "/products/purple8/medical-research/",
+    name: "Medical Research",
+    desc: "Drug discovery · clinical trials · genomics · imaging · VQE",
+    icon: "🧬",
+    color: "text-violet-300",
+  },
+  {
     href: "/products/purple8/ma-due-diligence/",
     name: "M&A Due Diligence",
     desc: "Data room to board paper · agents · audit trail",
