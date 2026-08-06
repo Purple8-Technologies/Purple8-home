@@ -1,0 +1,19 @@
+Contact: mailto:security@purple8.ai
+Expires: 2027-08-06T00:00:00.000Z
+Encryption: https://keys.openpgp.org/search?q=security%40purple8.ai
+Preferred-Languages: en
+Canonical: https://www.purple8.ai/.well-known/security.txt
+Policy: https://www.purple8.ai/security
+Acknowledgments: https://www.purple8.ai/security#acknowledgments
+
+# Purple8, Inc. — Responsible Disclosure
+#
+# We welcome security researchers reporting vulnerabilities in:
+#   - purple8.ai and all subdomains
+#   - github.com/Purple8-Technologies (public repositories)
+#   - Purple8 Hyper Graph, Purple8 DocIntel, Purple8 Command Center
+#
+# Please report via email to security@purple8.ai.
+# Do NOT open public GitHub issues for security vulnerabilities.
+# Expected response: acknowledgement within 48 hours.
+# SLA: Critical/High patched within 7 days; Medium within 30 days.

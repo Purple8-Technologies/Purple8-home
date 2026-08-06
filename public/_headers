@@ -1,6 +1,13 @@
-# Long-lived immutable cache for content-hashed Next.js static assets.
-# These filenames contain a hash (e.g. /_next/static/chunks/abc123.js) so they
-# are safe to cache for 1 year — any code change produces a new hash.
+# ⚠️  IMPORTANT: GitHub Pages ignores this file.
+# This file uses Netlify _headers syntax and is NOT enforced by GitHub Pages (Fastly CDN).
+# Security headers for www.purple8.ai MUST be configured as Fastly VCL/CDN rules.
+# These declarations serve as the authoritative source of intent — keep them in sync
+# with the CDN rules. See: https://docs.fastly.com/en/guides/adding-http-headers
+#
+# For development/preview on Netlify or Vercel, these headers will be respected.
+# For production (GitHub Pages), apply equivalent rules at the CDN layer.
+#
+
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
