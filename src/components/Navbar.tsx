@@ -245,7 +245,6 @@ export default function Navbar() {
                               onClick={() => setDropdownOpen(false)}
                               className="flex items-center gap-2.5 pl-9 pr-4 py-1.5 transition-colors hover:bg-purple-500/10"
                             >
-                              <span className="text-sm leading-none">{s.icon}</span>
                               <span className={`text-xs font-medium ${s.color}`}>{s.name}</span>
                             </Link>
                           ))}
@@ -381,7 +380,6 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className="rounded-lg px-2 py-2 text-sm font-medium text-purple-300 flex items-center gap-2"
               >
-                <span>{s.icon}</span>
                 {s.name}
               </Link>
             ))}
