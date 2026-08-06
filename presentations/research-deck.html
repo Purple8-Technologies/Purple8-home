@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Purple8: Graph-Native Research Infrastructure for Quantitative Social Science</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0a0a0f; --bg2:#11111b; --bg3:#18181f;
+    --border:rgba(255,255,255,0.07);
+    --purple:#7c3aed; --purple2:#a855f7; --purple3:#c084fc;
+    --purple-glow:rgba(124,58,237,0.15); --purple-border:rgba(124,58,237,0.3);
+    --text:#f4f4f5; --muted:#a1a1aa; --dim:#767683;
+    --green:#10b981; --amber:#f59e0b; --red:#ef4444; --blue:#3b82f6;
+    --steel:#64748b; --steel2:#94a3b8;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--text);overflow:hidden;}
+  .deck{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;}
+  .slides{width:var(--slide-w);height:var(--slide-h);position:relative;}
+  .slide{position:absolute;inset:0;background:var(--bg);display:none;flex-direction:column;justify-content:center;padding:48px 64px;overflow:hidden;}
+  .slide.active{display:flex;}
+  .progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--purple2));transition:width .3s;z-index:200;}
+  .nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;z-index:100;background:rgba(17,17,27,0.92);border:1px solid var(--border);border-radius:999px;padding:8px 20px;backdrop-filter:blur(12px);}
+  .nav button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;border-radius:6px;transition:color .15s,background .15s;}
+  .nav button:hover{color:var(--text);background:var(--border);}
+  .nav .counter{font-size:12px;color:var(--dim);min-width:48px;text-align:center;letter-spacing:.05em;}
+  .hint{position:fixed;bottom:24px;right:32px;font-size:11px;color:var(--dim);letter-spacing:.04em;}
+  .slide-num{display:none;position:absolute;top:12px;right:18px;font-size:10px;color:var(--dim);}
+  /* Watermark */
+  .slide:not(.slide-cover)::after{content:"Purple8 Inc. · Confidential · August 2026";position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:9px;color:rgba(255,255,255,0.1);letter-spacing:.1em;text-transform:uppercase;pointer-events:none;z-index:50;}
+  .slide::before{content:"";position:absolute;bottom:20px;right:32px;width:80px;height:40px;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 120 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30' fill='none' stroke='%23a855f7' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;opacity:0.18;pointer-events:none;z-index:50;}
+  h2{font-size:1.85rem;font-weight:800;line-height:1.15;letter-spacing:-.025em;}
+  h4{font-size:0.95rem;font-weight:700;margin-bottom:5px;}
+  h5{font-size:0.82rem;font-weight:700;margin-bottom:3px;}
+  p{font-size:0.83rem;color:var(--muted);line-height:1.6;}
+  .accent{color:var(--purple3);}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 20px;}
+  .card-sm{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 15px;}
+  .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--bg3);border:1px solid var(--border);color:var(--dim);margin-bottom:7px;}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 12px;border-radius:999px;letter-spacing:.04em;background:rgba(124,58,237,.18);border:1px solid rgba(168,85,247,.4);color:var(--purple3);}
+  .pill-green{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.35);color:#6ee7b7;}
+  .pill-amber{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3);color:#fcd34d;}
+  .pill-blue{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.3);color:#93c5fd;}
+  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .stats-row{display:flex;gap:10px;margin-bottom:14px;}
+  .stat-box{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;}
+  .stat-box .num{display:block;font-size:1.35rem;font-weight:800;color:var(--purple3);letter-spacing:-.02em;}
+  .stat-box .label{display:block;font-size:0.68rem;color:var(--muted);margin-top:2px;line-height:1.3;}
+  .p8-table{width:100%;border-collapse:collapse;font-size:0.75rem;}
+  .p8-table th{padding:7px 10px;text-align:left;font-size:0.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);}
+  .p8-table td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--muted);}
+  .p8-table tr:last-child td{border-bottom:none;}
+  .p8-table .good{color:var(--green);font-weight:600;}
+  .p8-table .bad{color:var(--red);}
+  .p8-table .warn{color:var(--amber);}
+  .p8-table thead th:last-child{background:var(--purple-glow);color:var(--purple3);}
+  .code-box{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:"SF Mono","Fira Code",monospace;font-size:0.68rem;color:#e2e8f0;line-height:1.7;margin-bottom:10px;}
+  .code-box .c1{color:#6ee7b7;} .code-box .c2{color:var(--purple3);} .code-box .c3{color:#fcd34d;} .code-box .c4{color:#93c5fd;}
+  .flow{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:8px;}
+  .flow-node{padding:5px 10px;border-radius:6px;font-size:0.66rem;font-weight:600;text-align:center;white-space:nowrap;}
+  .flow-node.auto{background:rgba(124,58,237,.2);border:1px solid var(--purple-border);color:var(--purple3);}
+  .flow-node.hitl{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:#fcd34d;}
+  .flow-node.ok{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7;}
+  .flow-arrow{color:var(--dim);font-size:0.7rem;flex-shrink:0;}
+  .section-num{font-size:0.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple2);margin-bottom:5px;}
+  .divider-num{font-size:5rem;font-weight:900;color:rgba(168,85,247,.12);line-height:1;margin-bottom:6px;}
+  .divider-title{font-size:2.3rem;font-weight:800;line-height:1.15;letter-spacing:-.03em;margin-bottom:12px;}
+  .slide-cover{background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(124,58,237,.18) 0%,var(--bg) 70%);text-align:center;align-items:center;}
+  .slide-divider{background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(124,58,237,.2) 0%,var(--bg) 70%);}
+  .check-list{list-style:none;padding:0;}
+  .check-list li{padding:4px 0;font-size:0.8rem;color:var(--muted);padding-left:18px;position:relative;}
+  .check-list li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700;}
+  .x-list{list-style:none;padding:0;}
+  .x-list li{padding:4px 0;font-size:0.8rem;color:var(--muted);padding-left:18px;position:relative;}
+  .x-list li::before{content:"✗";position:absolute;left:0;color:var(--red);}
+  @media print {
+    @page{size:1280px 720px;margin:0;}
+    html,body{overflow:visible!important;background:#0a0a0f!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .nav,.hint,.progress{display:none!important;}
+    .deck{display:block!important;width:100%!important;height:auto!important;}
+    .slides{position:static!important;width:1280px!important;height:auto!important;}
+    .slide{display:flex!important;position:relative!important;width:1280px!important;height:720px!important;page-break-after:always;break-after:page;overflow:hidden!important;}
+    .slide:last-child{page-break-after:avoid;break-after:avoid;}
+    .slide-num{display:block!important;}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck"><div class="slides" id="slides">
+
+<!-- 01 COVER -->
+<div class="slide slide-cover active" id="s1">
+<span class="slide-num">1 / 14</span>
+<div style="margin-bottom:16px"><svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:auto"><defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e879f9"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs><path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:999px;padding:5px 14px;font-size:0.7rem;color:var(--purple3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">🔬 Confidential · Research Infrastructure Briefing</div>
+<h1 style="font-size:2.8rem;letter-spacing:-.03em;margin-bottom:10px;">Graph-Native Infrastructure<br>for <span style="color:var(--purple3);">Quantitative Research</span></h1>
+<p style="font-size:0.92rem;max-width:640px;margin-bottom:16px;color:var(--muted);">A single-binary database combining graph, vector, and full-text search — built for large-scale social science, spatial epidemiology, and sensor-network research. Runs in-process, no external services, air-gap capable.</p>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+  <span class="pill"><span class="dot" style="background:var(--purple2)"></span>Spatial Autocorrelation (Moran's I · LISA)</span>
+  <span class="pill"><span class="dot" style="background:var(--green)"></span>Graph-Native Network Analysis</span>
+  <span class="pill"><span class="dot" style="background:var(--amber)"></span>Reproducible · Audit-Trailed · Air-Gap</span>
+</div>
+<div style="display:flex;gap:28px;justify-content:center;">
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">1 process</strong> replaces 6+ tools</span>
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">8.84M</strong> nodes on a laptop</span>
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">70</strong> document formats ingested natively</span>
+  <span style="font-size:0.78rem;color:var(--muted);"><strong style="color:var(--text);">100%</strong> air-gap capable</span>
+</div>
+<div style="position:absolute;bottom:14px;left:64px;font-size:0.7rem;color:var(--dim);">Purple8 Inc. · purple8.ai · Confidential · August 2026</div>
+</div>
+
+<!-- 02 THE RESEARCH DATA PROBLEM -->
+<div class="slide" id="s2">
+<span class="slide-num">2 / 14</span>
+<div class="section-num">01 · The Problem</div>
+<h2 style="margin-bottom:6px;">Research toolchains were not built<br><span class="accent">for relational data at scale.</span></h2>
+<p style="margin-bottom:14px;">Every quantitative research project reaches the same wall: data that is inherently relational — households within districts, sensors within networks, papers within citation graphs — squeezed into flat tables that discard the structure that makes the analysis meaningful.</p>
+<div class="two-col">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Where standard tools fail</div>
+    <ul class="x-list">
+      <li>R / Stata / SPSS load entire datasets into RAM — 5M+ row surveys exhaust 64 GB workstations</li>
+      <li>Spatial packages (spdep, GeoPandas) require manual contiguity matrix assembly — O(n²) memory for large grids</li>
+      <li>No native graph traversal: multi-hop household-to-district-to-state relationships require repeated joins</li>
+      <li>Reproducibility via script files — no immutable audit trail of which transformation ran on which version of which data</li>
+      <li>Collaboration requires shared file systems or copying datasets — version drift inevitable</li>
+    </ul>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">The fragmentation cost</div>
+    <div class="three-col" style="gap:8px;margin-bottom:10px;">
+      <div class="stat-box"><span class="num">6+</span><span class="label">tools for one analysis pipeline (R, PostGIS, Neo4j, Elasticsearch, Zotero, Stata)</span></div>
+      <div class="stat-box"><span class="num" style="color:var(--amber);">Days</span><span class="label">to assemble spatial weights matrix for a national-level DHS survey</span></div>
+      <div class="stat-box"><span class="num" style="color:var(--red);">0</span><span class="label">graph databases that run air-gapped on a research workstation without a DBA</span></div>
+    </div>
+    <div class="card-sm" style="border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.04);">
+      <h5 style="color:var(--red);font-size:0.74rem;">The reproducibility gap</h5>
+      <p style="font-size:0.72rem;">R Markdown and Quarto documents record <em>code</em>, not <em>data state</em>. If an upstream CSV changes, no audit trail identifies when the change happened, who ingested it, or which downstream results are now stale.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 03 WHAT RESEARCH ACTUALLY NEEDS -->
+<div class="slide" id="s3">
+<span class="slide-num">3 / 14</span>
+<div class="section-num">02 · Requirements</div>
+<h2 style="margin-bottom:12px;">Five things every quantitative<br><span class="accent">research team actually needs.</span></h2>
+<div class="four-col" style="grid-template-columns:repeat(5,1fr);gap:10px;">
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:1.4rem;margin-bottom:8px;">🗺️</div>
+    <h4 style="font-size:0.82rem;">Native Spatial Analysis</h4>
+    <p style="font-size:0.72rem;">Moran's I, LISA cluster detection, contiguity-graph construction — without assembling a separate spatial weights matrix in R before analysis can begin.</p>
+  </div>
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:1.4rem;margin-bottom:8px;">🕸️</div>
+    <h4 style="font-size:0.82rem;">Graph Relationships</h4>
+    <p style="font-size:0.72rem;">Multi-hop traversal across household → village → district → state hierarchies, or citation → author → institution networks, without repeated SQL joins.</p>
+  </div>
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:1.4rem;margin-bottom:8px;">📄</div>
+    <h4 style="font-size:0.82rem;">Document Intelligence</h4>
+    <p style="font-size:0.72rem;">Ingest field reports, survey instruments, academic papers, and codebooks in 70 formats. Extract entities and relationships automatically — no manual tagging.</p>
+  </div>
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:1.4rem;margin-bottom:8px;">🔒</div>
+    <h4 style="font-size:0.82rem;">Reproducible Audit Trail</h4>
+    <p style="font-size:0.72rem;">Every ingestion, every transformation, every query stored as an immutable graph edge. Timestamps, actor, and data version are non-deletable by design.</p>
+  </div>
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:1.4rem;margin-bottom:8px;">🏛️</div>
+    <h4 style="font-size:0.82rem;">Institutional IT Fit</h4>
+    <p style="font-size:0.72rem;">Single binary, pip installable, air-gap capable. No Docker, no Kubernetes, no database administrator. Runs on a 24 GB research laptop or an HPC node with identical behaviour.</p>
+  </div>
+</div>
+<div style="margin-top:12px;background:rgba(124,58,237,.07);border:1px solid var(--purple-border);border-radius:12px;padding:12px 20px;">
+  <p style="font-size:0.8rem;color:var(--text);">Purple8 is the only database that satisfies all five from a <strong style="color:var(--purple3);">single process</strong>. No integration layer, no separate spatial engine, no separate document store.</p>
+</div>
+</div>
+
+<!-- 04 WHAT PURPLE8 IS -->
+<div class="slide" id="s4">
+<span class="slide-num">4 / 14</span>
+<div class="section-num">03 · The Platform</div>
+<h2 style="margin-bottom:10px;">One process. Every capability<br><span class="accent">research needs.</span></h2>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What Purple8 replaces</div>
+    <table class="p8-table" style="margin-bottom:12px;">
+      <thead><tr><th>Tool you'd normally need</th><th>Purple8 component</th></tr></thead>
+      <tbody>
+        <tr><td>PostgreSQL / SQLite</td><td class="good">BrickCoreStorage graph engine</td></tr>
+        <tr><td>Neo4j / NetworkX</td><td class="good">Built-in graph traversal + algorithms</td></tr>
+        <tr><td>spdep / GeoPandas (spatial W)</td><td class="good">morans_i() / local_morans_i() native</td></tr>
+        <tr><td>Elasticsearch / Whoosh</td><td class="good">Built-in full-text search</td></tr>
+        <tr><td>Pinecone / Weaviate</td><td class="good">Built-in HNSW vector index</td></tr>
+        <tr><td>Unstructured.io / Tika</td><td class="good">DocIntel — 70 format parser</td></tr>
+        <tr><td>Provenance / audit log tools</td><td class="good">Immutable edge audit trail</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Architecture in one line</div>
+    <div class="code-box" style="margin-bottom:12px;">
+      <span class="c4">from</span> purple8_graph <span class="c4">import</span> GraphEngine<br><br>
+      <span class="c1"># That's it. Every capability below is now available.</span><br>
+      engine = GraphEngine(<span class="c3">"/data/my-study"</span>, auto_config=<span class="c2">True</span>)
+    </div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Memory model (critical for research)</div>
+    <div class="card-sm" style="border-color:var(--purple-border);background:var(--purple-glow);">
+      <p style="font-size:0.73rem;color:var(--text);">Peak RSS is <strong>bounded by available RAM, not corpus size.</strong> The same 24 GB workstation ingests 2M or 20M survey records with identical peak memory. No vertical scaling, no re-provisioning.</p>
+      <p style="font-size:0.7rem;color:var(--muted);margin-top:4px;">Validated: 8.84M MS MARCO records, Apple M-series 24 GB — peak RSS 9 GB across 90 seal cycles.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 05 SPATIAL AUTOCORRELATION -->
+<div class="slide" id="s5">
+<span class="slide-num">5 / 14</span>
+<div class="section-num">04 · Spatial Analysis</div>
+<h2 style="margin-bottom:6px;">Moran's I and LISA<br><span class="accent">as first-class graph operations.</span></h2>
+<p style="margin-bottom:12px;font-size:0.86rem;">Purple8 stores the spatial weights matrix as graph edges — the same structure used for every other graph operation. Moran's I runs directly over that adjacency, with no intermediate matrix assembly step and no R session required.</p>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What ships out of the box</div>
+    <ul class="check-list" style="margin-bottom:12px;">
+      <li><strong style="color:var(--text);">Global Moran's I</strong> — analytical moments (Cliff &amp; Ord 1981): E[I], Var[I], z-score, two-tailed p-value</li>
+      <li><strong style="color:var(--text);">999-permutation pseudo p-value</strong> — recommended when the variable is non-normal; configurable 0–9 999</li>
+      <li><strong style="color:var(--text);">Row-standardised W</strong> — comparable across different graph densities by default; binary W available</li>
+      <li><strong style="color:var(--text);">LISA (local_morans_i)</strong> — per-node Iᵢ with conditional permutation test; HH / LL / HL / LH / NS classification</li>
+      <li><strong style="color:var(--text);">cluster_summary()</strong> — count of each cluster type across the study area at a chosen alpha</li>
+    </ul>
+    <div class="code-box">
+      <span class="c1"># Single call — no spdep, no shapefile, no CRS</span><br>
+      result = <span class="c2">morans_i</span>(engine._storage, <span class="c3">"District"</span>,<br>
+      &nbsp;&nbsp;value_property=<span class="c3">"u5_stunting_pct"</span>,<br>
+      &nbsp;&nbsp;weight_edge_type=<span class="c3">"BORDERS"</span>,<br>
+      &nbsp;&nbsp;permutations=<span class="c2">999</span>)<br>
+      <span class="c1"># → I=0.62, z=4.8, p=0.001 → "Positive spatial autocorrelation"</span>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Against standard spatial packages</div>
+    <table class="p8-table">
+      <thead><tr><th>Capability</th><th>spdep (R)</th><th style="background:var(--purple-glow);color:var(--purple3);">Purple8</th></tr></thead>
+      <tbody>
+        <tr><td>Contiguity matrix</td><td class="warn">Manual (poly2nb)</td><td class="good">Graph edges are the W matrix</td></tr>
+        <tr><td>Global Moran's I</td><td class="good">moran.test()</td><td class="good">morans_i()</td></tr>
+        <tr><td>LISA</td><td class="good">localmoran()</td><td class="good">local_morans_i()</td></tr>
+        <tr><td>Permutation test</td><td class="warn">Separate moran.mc()</td><td class="good">Built into same call</td></tr>
+        <tr><td>Works on graph data</td><td class="bad">Requires polygon geometry</td><td class="good">Any edge-connected nodes</td></tr>
+        <tr><td>Audit trail</td><td class="bad">None</td><td class="good">Immutable graph edges</td></tr>
+        <tr><td>Deployment</td><td class="warn">R + CRAN packages</td><td class="good">pip install purple8-graph</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- 06 NETWORK ANALYSIS FOR SOCIAL SCIENCE -->
+<div class="slide" id="s6">
+<span class="slide-num">6 / 14</span>
+<div class="section-num">05 · Network Analysis</div>
+<h2 style="margin-bottom:8px;">The full graph algorithm library,<br><span class="accent">without a separate graph database.</span></h2>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Algorithms that matter for social science</div>
+    <table class="p8-table" style="margin-bottom:10px;">
+      <thead><tr><th>Algorithm</th><th>Research application</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:var(--text);">PageRank</strong></td><td>Author influence in citation networks; policy diffusion nodes</td></tr>
+        <tr><td><strong style="color:var(--text);">Community detection</strong></td><td>Clustering of survey units; identification of socioeconomic enclaves</td></tr>
+        <tr><td><strong style="color:var(--text);">Betweenness centrality</strong></td><td>Broker nodes in migration networks; health worker referral bottlenecks</td></tr>
+        <tr><td><strong style="color:var(--text);">Shortest path</strong></td><td>Service accessibility — shortest path from village to nearest health facility</td></tr>
+        <tr><td><strong style="color:var(--text);">Link prediction</strong></td><td>Predict likely undocumented relationships (Jaccard, Adamic-Adar, PPR)</td></tr>
+        <tr><td><strong style="color:var(--text);">Bipartite matching</strong></td><td>Match programme beneficiaries to available services (Hopcroft-Karp)</td></tr>
+        <tr><td><strong style="color:var(--text);">Moran's I / LISA</strong></td><td>Spatial clustering of health, income, and education indicators</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What this looks like in practice</div>
+    <div class="code-box" style="margin-bottom:10px;">
+      <span class="c1"># Citation network: find the 10 most influential papers</span><br>
+      pr = <span class="c2">pagerank</span>(engine._storage, top_k=<span class="c2">10</span>)<br><br>
+      <span class="c1"># Identify research communities (Louvain)</span><br>
+      comms = <span class="c2">detect_communities</span>(engine._storage)<br><br>
+      <span class="c1"># Shortest path: village → nearest PHC in health graph</span><br>
+      path = engine.<span class="c2">shortest_path</span>(<span class="c3">"village_41"</span>, <span class="c3">"phc_07"</span>)<br>
+    </div>
+    <div class="card-sm" style="border-color:var(--purple-border);background:var(--purple-glow);">
+      <p style="font-size:0.73rem;color:var(--text);">All algorithms iterate over <code style="font-size:0.7rem;color:var(--purple3);">iter_nodes()</code> and <code style="font-size:0.7rem;color:var(--purple3);">iter_edges()</code> — they never load the full graph into RAM. A 500 000-node survey network runs on a 16 GB workstation.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 07 RAG OVER RESEARCH CORPORA -->
+<div class="slide" id="s7">
+<span class="slide-num">7 / 14</span>
+<div class="section-num">06 · Document Intelligence &amp; RAG</div>
+<h2 style="margin-bottom:8px;">Query across your entire corpus.<br><span class="accent">Survey instruments, field reports, literature.</span></h2>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What DocIntel ingests automatically</div>
+    <div class="three-col" style="gap:8px;margin-bottom:12px;">
+      <div class="card-sm"><h5 style="font-size:0.73rem;">Survey Data</h5><p style="font-size:0.7rem;">NFHS / DHS codebooks, questionnaires, data dictionaries in PDF and DOCX</p></div>
+      <div class="card-sm"><h5 style="font-size:0.73rem;">Field Reports</h5><p style="font-size:0.7rem;">Qualitative interviewer notes, observation logs, case narratives in 70 formats</p></div>
+      <div class="card-sm"><h5 style="font-size:0.73rem;">Academic Papers</h5><p style="font-size:0.7rem;">PDF → structured entities + relationships extracted; citation graph built automatically</p></div>
+      <div class="card-sm"><h5 style="font-size:0.73rem;">Tabular Data</h5><p style="font-size:0.7rem;">XLSX / CSV district-level indicators ingested as graph nodes with properties</p></div>
+      <div class="card-sm"><h5 style="font-size:0.73rem;">Sensor Logs</h5><p style="font-size:0.7rem;">IoT telemetry streams, environmental monitoring CSVs, time-series readings</p></div>
+      <div class="card-sm"><h5 style="font-size:0.73rem;">Government Records</h5><p style="font-size:0.7rem;">Census tables, administrative boundary files, programme MIS reports</p></div>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Hybrid RAG query in one call</div>
+    <div class="code-box" style="margin-bottom:10px;">
+      <span class="c1"># Graph-traversal + vector search — no pipeline assembly</span><br>
+      results = engine.<span class="c2">hybrid_search</span>(<br>
+      &nbsp;&nbsp;query=<span class="c3">"stunting rates in tribal districts"</span>,<br>
+      &nbsp;&nbsp;start_node=<span class="c3">"state_jharkhand"</span>,<br>
+      &nbsp;&nbsp;max_hops=<span class="c2">3</span>,<br>
+      &nbsp;&nbsp;mode=<span class="c3">"hybrid"</span><br>
+      )<br>
+    </div>
+    <div class="card-sm" style="border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.05);">
+      <h5 style="color:var(--green);font-size:0.73rem;">Literature review in minutes, not days</h5>
+      <p style="font-size:0.72rem;">Ingest 2 000 papers, then ask the graph: "Which papers study the same districts we are analysing?" — returns ranked results with graph-path explanations, no manual cross-referencing required.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 08 REPRODUCIBILITY -->
+<div class="slide" id="s8">
+<span class="slide-num">8 / 14</span>
+<div class="section-num">07 · Reproducibility</div>
+<h2 style="margin-bottom:8px;">Every transformation, every query,<br><span class="accent">stored as an immutable graph edge.</span></h2>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <p style="font-size:0.84rem;margin-bottom:12px;">The audit trail is not a log file — it is part of the graph itself. Every `INGEST_FROM`, `DERIVED_FROM`, and `QUERIED_AT` edge is written before the mutation completes (WAL-first) and cannot be deleted or overwritten.</p>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What gets recorded automatically</div>
+    <ul class="check-list">
+      <li>Which source file each node was derived from, with SHA-256 hash</li>
+      <li>Timestamp of every ingestion event (UTC, nanosecond precision)</li>
+      <li>Which API key / user triggered each operation (JWT or API key identity)</li>
+      <li>Which algorithm version produced which result set</li>
+      <li>When a dataset was replaced — prior version remains queryable</li>
+    </ul>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">For journal submission and replication</div>
+    <div class="card" style="margin-bottom:10px;">
+      <h4 style="font-size:0.82rem;">Replication package in one command</h4>
+      <p style="font-size:0.72rem;">Export the full audit subgraph for any result set: every input dataset, every transformation parameter, every intermediate node — all with timestamps and data hashes. Attach to supplementary materials. Reviewers can verify the chain of custody without re-running the analysis.</p>
+    </div>
+    <div class="card-sm" style="border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.05);">
+      <h5 style="font-size:0.73rem;color:#93c5fd;">Multi-round survey compatibility</h5>
+      <p style="font-size:0.72rem;">NFHS-3, NFHS-4, NFHS-5 can coexist in the same graph as separate subgraphs, each version-tagged. Cross-round comparisons run as graph queries — no manual reconciliation of variable naming changes.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 09 SCALE WITHOUT FRAGMENTATION -->
+<div class="slide" id="s9">
+<span class="slide-num">9 / 14</span>
+<div class="section-num">08 · Scale</div>
+<h2 style="margin-bottom:8px;">National surveys, sensor grids,<br><span class="accent">and census data — on one machine.</span></h2>
+<div class="stats-row" style="margin-bottom:14px;">
+  <div class="stat-box"><span class="num">8.84M</span><span class="label">Nodes ingested on a 24 GB laptop. Same machine handles 2M or 20M with identical peak RSS.</span></div>
+  <div class="stat-box"><span class="num" style="color:var(--green);">~7 µs</span><span class="label">Per-node write latency (lock-free DashMap, no LSM compaction stalls)</span></div>
+  <div class="stat-box"><span class="num" style="color:var(--amber);">9 GB</span><span class="label">Peak RSS across 8.84M ingest — sawtooth pattern, never grew with corpus size</span></div>
+  <div class="stat-box"><span class="num" style="color:var(--blue);">−3.6 GB</span><span class="label">RAM returned to OS after ingest. Query-time steady-state: ~5.4 GB.</span></div>
+</div>
+<div class="two-col">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Why the memory model matters for research</div>
+    <p style="font-size:0.8rem;margin-bottom:8px;">Most survey databases (PostgreSQL with PostGIS, Neo4j) project memory usage by multiplying per-record size by N. BrickCoreStorage does not work this way.</p>
+    <p style="font-size:0.8rem;margin-bottom:8px;">The Cortex storage engine seals and evicts completed batches — pages are returned to the OS after each batch. Peak RSS oscillates in a fixed envelope determined by available RAM, not corpus size.</p>
+    <p style="font-size:0.8rem;">Consequence: a research group's shared 32 GB workstation handles NFHS-5 (636 000 households), all 640 districts as spatial nodes, and the full citation corpus in the same process — simultaneously.</p>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Deployment shapes</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;">
+        <span style="font-size:1.1rem;">💻</span>
+        <div><div style="font-size:0.76rem;font-weight:700;color:var(--text);">Research workstation</div><div style="font-size:0.68rem;color:var(--muted);">pip install — single Python process, 16–32 GB, no configuration</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;">
+        <span style="font-size:1.1rem;">🏫</span>
+        <div><div style="font-size:0.76rem;font-weight:700;color:var(--text);">Institutional HPC node</div><div style="font-size:0.68rem;color:var(--muted);">Single SLURM job, 256 GB, full national census graph in memory</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;">
+        <span style="font-size:1.1rem;">🔒</span>
+        <div><div style="font-size:0.76rem;font-weight:700;color:var(--text);">Air-gapped sensitive data environment</div><div style="font-size:0.68rem;color:var(--muted);">No network calls, no telemetry. Wheel installed offline. DHS / HMIS microdata stays on-premise.</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;">
+        <span style="font-size:1.1rem;">☁️</span>
+        <div><div style="font-size:0.76rem;font-weight:700;color:var(--text);">Shared cloud instance</div><div style="font-size:0.68rem;color:var(--muted);">Multi-tenant mode: each research project in its own isolated namespace, same process</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 10 PUBLIC HEALTH USE CASE -->
+<div class="slide" id="s10">
+<span class="slide-num">10 / 14</span>
+<div class="section-num">09 · Use Case — Public Health Research</div>
+<h2 style="margin-bottom:6px;">NFHS-style survey analysis:<br><span class="accent">636 000 households, 640 districts, one graph.</span></h2>
+<p style="margin-bottom:12px;font-size:0.86rem;">Large-scale demographic health surveys collect data that is inherently hierarchical and spatial — households nested in PSUs, PSUs in districts, districts in states — but almost all analysis treats it as flat. Purple8 makes the structure native.</p>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What becomes possible</div>
+    <ul class="check-list" style="margin-bottom:10px;">
+      <li>Moran's I over district-level stunting rates — identify spatial clusters without assembling a contiguity matrix in R first</li>
+      <li>LISA: which specific districts are HH (hot spots) vs HL (outliers) at p &lt; 0.05</li>
+      <li>Graph traversal: which districts border high-burden districts, and what is their own burden? (one 2-hop query)</li>
+      <li>Shortest path: from any enumeration block to nearest ICDS centre — service coverage gap map in seconds</li>
+      <li>Cross-round: NFHS-4 vs NFHS-5 as parallel subgraphs — delta query without manual variable reconciliation</li>
+    </ul>
+    <div class="code-box">
+      <span class="c1"># Spatial clustering of u5 stunting — no R, no shapefile</span><br>
+      result = <span class="c2">local_morans_i</span>(engine._storage,<br>
+      &nbsp;&nbsp;node_label=<span class="c3">"District"</span>,<br>
+      &nbsp;&nbsp;value_property=<span class="c3">"stunting_pct_u5"</span>,<br>
+      &nbsp;&nbsp;weight_edge_type=<span class="c3">"BORDERS"</span>)<br>
+      <span class="c1"># → {HH: 47, LL: 82, HL: 12, LH: 9, NS: 490}</span>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Analysis that used to take a week</div>
+    <table class="p8-table">
+      <thead><tr><th>Task</th><th>Traditional approach</th><th style="background:var(--purple-glow);color:var(--purple3);">Purple8</th></tr></thead>
+      <tbody>
+        <tr><td>Build district contiguity matrix</td><td class="bad">R + shapefile + poly2nb, ~2 days</td><td class="good">&lt;1 min — edges are the W matrix</td></tr>
+        <tr><td>Moran's I + LISA</td><td class="warn">Separate R packages, no audit</td><td class="good">Single function, audited</td></tr>
+        <tr><td>Cross-round variable mapping</td><td class="bad">Manual CSV reconciliation, error-prone</td><td class="good">Graph subgraph per round, query joins</td></tr>
+        <tr><td>Service accessibility analysis</td><td class="bad">GIS + network analysis, separate stack</td><td class="good">shortest_path() over health-facility graph</td></tr>
+        <tr><td>Replication package</td><td class="warn">Code + flat CSV, no data provenance</td><td class="good">Audit subgraph export with SHA-256 hashes</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- 11 SENSOR NETWORK USE CASE -->
+<div class="slide" id="s11">
+<span class="slide-num">11 / 14</span>
+<div class="section-num">10 · Use Case — Sensor Network Research</div>
+<h2 style="margin-bottom:6px;">Industrial IoT and environmental<br><span class="accent">monitoring: graph-native from the sensor up.</span></h2>
+<p style="margin-bottom:12px;font-size:0.86rem;">Sensor networks are graphs. Each node is a physical device; edges are communication links, spatial adjacency, or shared infrastructure. Purple8 ingests telemetry streams, maintains the network topology, and runs spatial and network analysis over it — without a separate time-series database.</p>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What becomes native</div>
+    <ul class="check-list" style="margin-bottom:10px;">
+      <li><strong style="color:var(--text);">Spatial autocorrelation of readings</strong> — does particulate matter cluster spatially? Moran's I over sensor-node properties answers in one call</li>
+      <li><strong style="color:var(--text);">Fault propagation tracing</strong> — betweenness centrality identifies which sensor nodes are structural bottlenecks in the communication graph</li>
+      <li><strong style="color:var(--text);">Community detection</strong> — Louvain clustering groups sensors by communication pattern, revealing implicit network zones</li>
+      <li><strong style="color:var(--text);">Bridge detection</strong> — find_bridges() identifies single points of failure before they cause network partition</li>
+      <li><strong style="color:var(--text);">Anomaly context</strong> — when a sensor fires an alert, graph traversal retrieves all adjacent sensors and their readings in one hop</li>
+    </ul>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Example: air quality monitoring grid</div>
+    <div class="code-box" style="margin-bottom:10px;">
+      <span class="c1"># Does PM2.5 cluster spatially across the grid?</span><br>
+      result = <span class="c2">morans_i</span>(engine._storage,<br>
+      &nbsp;&nbsp;node_label=<span class="c3">"Sensor"</span>,<br>
+      &nbsp;&nbsp;value_property=<span class="c3">"pm25_24h_avg"</span>,<br>
+      &nbsp;&nbsp;weight_edge_type=<span class="c3">"SPATIAL_ADJACENT"</span>,<br>
+      &nbsp;&nbsp;permutations=<span class="c2">999</span>)<br>
+      <br>
+      <span class="c1"># Find the network's critical sensors</span><br>
+      bc = <span class="c2">betweenness_centrality</span>(engine._storage, top_k=<span class="c2">10</span>)
+    </div>
+    <div class="card-sm" style="border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.05);">
+      <h5 style="font-size:0.73rem;color:var(--amber);">EDAμS compatibility</h5>
+      <p style="font-size:0.72rem;">Sensor metadata, calibration records, and maintenance logs ingested via DocIntel alongside telemetry streams. Calibration drift modelled as a time-varying edge property. The graph is the digital twin.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 12 INTEGRATION -->
+<div class="slide" id="s12">
+<span class="slide-num">12 / 14</span>
+<div class="section-num">11 · Integration</div>
+<h2 style="margin-bottom:8px;">Works alongside your existing<br><span class="accent">Python and R workflows.</span></h2>
+<div class="two-col" style="align-items:start;">
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Python — native library</div>
+    <div class="code-box" style="margin-bottom:12px;">
+      <span class="c1"># Import into any existing analysis script</span><br>
+      <span class="c4">from</span> purple8_graph <span class="c4">import</span> GraphEngine<br>
+      <span class="c4">from</span> purple8_graph.core.algorithms <span class="c4">import</span> morans_i<br><br>
+      <span class="c1"># Results are plain Python dicts — pandas-compatible</span><br>
+      r = morans_i(...).to_dict()<br>
+      df = pd.DataFrame(r[<span class="c3">"node_results"</span>]).T
+    </div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">REST API — callable from R</div>
+    <div class="code-box">
+      <span class="c1"># R — httr2 call to local Purple8 instance</span><br>
+      resp &lt;- <span class="c2">request</span>(<span class="c3">"http://localhost:8100"</span>) |&gt;<br>
+      &nbsp;&nbsp;<span class="c2">req_url_path</span>(<span class="c3">"/algorithms/morans-i"</span>) |&gt;<br>
+      &nbsp;&nbsp;<span class="c2">req_url_query</span>(node_label=<span class="c3">"District"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;value_property=<span class="c3">"stunting_pct_u5"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;weight_edge_type=<span class="c3">"BORDERS"</span>) |&gt;<br>
+      &nbsp;&nbsp;<span class="c2">req_perform</span>() |&gt; <span class="c2">resp_body_json</span>()
+    </div>
+  </div>
+  <div>
+    <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What you keep, what you replace</div>
+    <table class="p8-table" style="margin-bottom:12px;">
+      <thead><tr><th>Keep</th><th>Replace with Purple8</th></tr></thead>
+      <tbody>
+        <tr><td class="good">R / Python for statistical modelling</td><td>PostgreSQL / SQLite as data store</td></tr>
+        <tr><td class="good">ggplot2 / matplotlib for visualisation</td><td>spdep poly2nb matrix assembly</td></tr>
+        <tr><td class="good">Quarto / Jupyter for reporting</td><td>Separate graph database (Neo4j)</td></tr>
+        <tr><td class="good">Existing survey weights &amp; complex sample design</td><td>Elasticsearch for document search</td></tr>
+        <tr><td class="good">Domain expertise and theory</td><td>Manual provenance tracking</td></tr>
+      </tbody>
+    </table>
+    <div class="card-sm" style="border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.05);">
+      <p style="font-size:0.72rem;color:var(--text);">Purple8 is a backend, not a replacement for research tools. It handles storage, graph analysis, spatial statistics, and document intelligence — your analysis code continues to run in R or Python as before.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 13 DEPLOYMENT & SECURITY -->
+<div class="slide" id="s13">
+<span class="slide-num">13 / 14</span>
+<div class="section-num">12 · Deployment &amp; Data Security</div>
+<h2 style="margin-bottom:8px;">Built for institutional data requirements<br><span class="accent">from the first line of code.</span></h2>
+<div class="three-col" style="margin-bottom:14px;">
+  <div class="card">
+    <div class="tag">Encryption</div>
+    <h4>AES-256-GCM at rest</h4>
+    <p style="font-size:0.75rem;">Envelope encryption on every write. Data Encryption Key held in RAM only — never touches disk unencrypted. Compatible with AWS KMS, HashiCorp Vault, GCP Cloud KMS, and a local key store for air-gapped environments.</p>
+  </div>
+  <div class="card">
+    <div class="tag">Access Control</div>
+    <h4>JWT + API key, 4-tier RBAC</h4>
+    <p style="font-size:0.75rem;">viewer / editor / admin / super_admin. Per-tenant isolation: each research project or data-sharing partner operates in its own namespace with no cross-contamination. Audit log records every authenticated operation.</p>
+  </div>
+  <div class="card">
+    <div class="tag">Data Residency</div>
+    <h4>Air-gap and on-premise</h4>
+    <p style="font-size:0.75rem;">No telemetry, no phone-home, no external service dependencies. DHS, HMIS, and NFHS microdata can be processed under data-sharing agreement conditions — the data never leaves the institutional boundary.</p>
+  </div>
+</div>
+<div style="background:rgba(124,58,237,.07);border:1px solid var(--purple-border);border-radius:12px;padding:14px 20px;">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+    <div style="text-align:center;">
+      <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">Install</div>
+      <div class="code-box" style="font-size:0.65rem;text-align:left;">pip install purple8-graph</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">Docker</div>
+      <div class="code-box" style="font-size:0.65rem;text-align:left;">docker run ghcr.io/purple8-technologies/purple8-graph:0.66.9</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">HPC (SLURM)</div>
+      <div class="code-box" style="font-size:0.65rem;text-align:left;">module load python/3.12<br>pip install --user purple8-graph</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">Air-gap</div>
+      <div class="code-box" style="font-size:0.65rem;text-align:left;">pip install --no-index<br>&nbsp;&nbsp;--find-links ./wheels/<br>&nbsp;&nbsp;purple8-graph</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 14 CLOSING -->
+<div class="slide slide-cover" id="s14">
+<span class="slide-num">14 / 14</span>
+<div style="margin-bottom:14px"><svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:auto"><defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e879f9"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs><path d="M60 30 C60 12 45 5 30 15 C15 25 15 35 30 45 C45 55 60 48 60 30 C60 12 75 5 90 15 C105 25 105 35 90 45 C75 55 60 48 60 30" fill="none" stroke="url(#lg2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<h2 style="font-size:2.2rem;margin-bottom:12px;">Research data has graph structure.<br>The database should too.<br><span class="accent">Purple8 is that database.</span></h2>
+<p style="font-size:0.9rem;max-width:620px;margin-bottom:20px;color:var(--muted);">Spatial autocorrelation, network analysis, document intelligence, vector search, and an immutable audit trail — in a single binary that runs on a research laptop, an HPC node, or an air-gapped institutional server.</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin-bottom:20px;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">
+    <div style="font-size:1.6rem;font-weight:900;color:var(--purple3);">1</div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Process for the entire backend</div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">
+    <div style="font-size:1.6rem;font-weight:900;color:var(--green);">8.84M</div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Nodes on a 24 GB laptop</div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">
+    <div style="font-size:1.6rem;font-weight:900;color:var(--amber);">$0</div>
+    <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">External service dependencies</div>
+  </div>
+</div>
+<div style="font-size:0.82rem;color:var(--muted);"><strong style="color:var(--text);">Purple8 Inc.</strong> · purple8.ai · hello@purple8.ai</div>
+</div>
+
+</div></div>
+
+<div class="nav">
+  <button onclick="prev()" aria-label="Previous slide">&#8592;</button>
+  <span class="counter" id="counter">1 / 14</span>
+  <button onclick="next()" aria-label="Next slide">&#8594;</button>
+</div>
+<div class="hint">← → to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    counter.textContent = (cur + 1) + ' / ' + total;
+    progress.style.width = ((cur + 1) / total * 100) + '%';
+  }
+  function next() { show(cur + 1); }
+  function prev() { show(cur - 1); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+  });
+  progress.style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>
