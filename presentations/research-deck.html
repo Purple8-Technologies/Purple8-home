@@ -214,8 +214,8 @@
     </div>
     <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Memory model (critical for research)</div>
     <div class="card-sm" style="border-color:var(--purple-border);background:var(--purple-glow);">
-      <p style="font-size:0.73rem;color:var(--text);">Peak RSS is <strong>bounded by available RAM, not corpus size.</strong> The same 24 GB workstation ingests 2M or 20M survey records with identical peak memory. No vertical scaling, no re-provisioning.</p>
-      <p style="font-size:0.7rem;color:var(--muted);margin-top:4px;">Validated: 8.84M MS MARCO records, Apple M-series 24 GB — peak RSS 9 GB across 90 seal cycles.</p>
+      <p style="font-size:0.73rem;color:var(--text);">Peak memory usage is <strong>bounded by available RAM, not corpus size.</strong> The same 24 GB workstation ingests 2M or 20M survey records with identical peak memory. No vertical scaling, no re-provisioning.</p>
+      <p style="font-size:0.7rem;color:var(--muted);margin-top:4px;">Validated: 8.84M records ingested, Apple M-series 24 GB — peak memory 9 GB, never grew with corpus size.</p>
     </div>
   </div>
 </div>
@@ -226,7 +226,7 @@
 <span class="slide-num">5 / 14</span>
 <div class="section-num">04 · Spatial Analysis</div>
 <h2 style="margin-bottom:6px;">Moran's I and LISA<br><span class="accent">as first-class graph operations.</span></h2>
-<p style="margin-bottom:12px;font-size:0.86rem;">Purple8 stores the spatial weights matrix as graph edges — the same structure used for every other graph operation. Moran's I runs directly over that adjacency, with no intermediate matrix assembly step and no R session required.</p>
+      <p style="margin-bottom:12px;font-size:0.86rem;">Purple8 stores the spatial weights matrix as graph edges — the same structure used for every other graph operation. Moran's I runs directly over that adjacency, with no intermediate matrix assembly step and no R session required.</p>
 <div class="two-col" style="align-items:start;">
   <div>
     <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What ships out of the box</div>
@@ -234,8 +234,8 @@
       <li><strong style="color:var(--text);">Global Moran's I</strong> — analytical moments (Cliff &amp; Ord 1981): E[I], Var[I], z-score, two-tailed p-value</li>
       <li><strong style="color:var(--text);">999-permutation pseudo p-value</strong> — recommended when the variable is non-normal; configurable 0–9 999</li>
       <li><strong style="color:var(--text);">Row-standardised W</strong> — comparable across different graph densities by default; binary W available</li>
-      <li><strong style="color:var(--text);">LISA (local_morans_i)</strong> — per-node Iᵢ with conditional permutation test; HH / LL / HL / LH / NS classification</li>
-      <li><strong style="color:var(--text);">cluster_summary()</strong> — count of each cluster type across the study area at a chosen alpha</li>
+      <li><strong style="color:var(--text);">LISA — Local Indicators of Spatial Association</strong> — per-node local Moran's Iᵢ with conditional permutation test; HH / LL / HL / LH / NS classification</li>
+      <li><strong style="color:var(--text);">Cluster summary report</strong> — count of each cluster type across the study area at a chosen significance level</li>
     </ul>
     <div class="code-box">
       <span class="c1"># Single call — no spdep, no shapefile, no CRS</span><br>
@@ -296,7 +296,7 @@
       path = engine.<span class="c2">shortest_path</span>(<span class="c3">"village_41"</span>, <span class="c3">"phc_07"</span>)<br>
     </div>
     <div class="card-sm" style="border-color:var(--purple-border);background:var(--purple-glow);">
-      <p style="font-size:0.73rem;color:var(--text);">All algorithms iterate over <code style="font-size:0.7rem;color:var(--purple3);">iter_nodes()</code> and <code style="font-size:0.7rem;color:var(--purple3);">iter_edges()</code> — they never load the full graph into RAM. A 500 000-node survey network runs on a 16 GB workstation.</p>
+      <p style="font-size:0.73rem;color:var(--text);">All algorithms stream directly from storage — they never load the full graph into RAM. A 500 000-node survey network runs on a 16 GB workstation.</p>
     </div>
   </div>
 </div>
@@ -345,7 +345,7 @@
 <h2 style="margin-bottom:8px;">Every transformation, every query,<br><span class="accent">stored as an immutable graph edge.</span></h2>
 <div class="two-col" style="align-items:start;">
   <div>
-    <p style="font-size:0.84rem;margin-bottom:12px;">The audit trail is not a log file — it is part of the graph itself. Every `INGEST_FROM`, `DERIVED_FROM`, and `QUERIED_AT` edge is written before the mutation completes (WAL-first) and cannot be deleted or overwritten.</p>
+    <p style="font-size:0.84rem;margin-bottom:12px;">The audit trail is not a log file — it is part of the graph itself. Every data lineage relationship — source file, derivation step, query event — is durably recorded before the write returns and cannot be deleted or overwritten.</p>
     <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">What gets recorded automatically</div>
     <ul class="check-list">
       <li>Which source file each node was derived from, with SHA-256 hash</li>
@@ -375,16 +375,16 @@
 <div class="section-num">08 · Scale</div>
 <h2 style="margin-bottom:8px;">National surveys, sensor grids,<br><span class="accent">and census data — on one machine.</span></h2>
 <div class="stats-row" style="margin-bottom:14px;">
-  <div class="stat-box"><span class="num">8.84M</span><span class="label">Nodes ingested on a 24 GB laptop. Same machine handles 2M or 20M with identical peak RSS.</span></div>
-  <div class="stat-box"><span class="num" style="color:var(--green);">~7 µs</span><span class="label">Per-node write latency (lock-free DashMap, no LSM compaction stalls)</span></div>
-  <div class="stat-box"><span class="num" style="color:var(--amber);">9 GB</span><span class="label">Peak RSS across 8.84M ingest — sawtooth pattern, never grew with corpus size</span></div>
+  <div class="stat-box"><span class="num">8.84M</span><span class="label">Nodes ingested on a 24 GB laptop. Same machine handles 2M or 20M with identical peak memory usage.</span></div>
+  <div class="stat-box"><span class="num" style="color:var(--green);">~7 µs</span><span class="label">Per-node write latency — sub-microsecond write path, no compaction overhead</span></div>
+  <div class="stat-box"><span class="num" style="color:var(--amber);">9 GB</span><span class="label">Peak memory usage across 8.84M ingest — bounded envelope, never grew with corpus size</span></div>
   <div class="stat-box"><span class="num" style="color:var(--blue);">−3.6 GB</span><span class="label">RAM returned to OS after ingest. Query-time steady-state: ~5.4 GB.</span></div>
 </div>
 <div class="two-col">
   <div>
     <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Why the memory model matters for research</div>
-    <p style="font-size:0.8rem;margin-bottom:8px;">Most survey databases (PostgreSQL with PostGIS, Neo4j) project memory usage by multiplying per-record size by N. BrickCoreStorage does not work this way.</p>
-    <p style="font-size:0.8rem;margin-bottom:8px;">The Cortex storage engine seals and evicts completed batches — pages are returned to the OS after each batch. Peak RSS oscillates in a fixed envelope determined by available RAM, not corpus size.</p>
+    <p style="font-size:0.8rem;margin-bottom:8px;">Most survey databases (PostgreSQL with PostGIS, Neo4j) project memory usage by multiplying per-record size by N. Purple8 Hyper Graph does not work this way.</p>
+    <p style="font-size:0.8rem;margin-bottom:8px;">Purple8 Hyper Graph seals and evicts completed write batches — memory is returned to the OS continuously. Peak memory usage stays in a fixed envelope determined by available RAM, not corpus size.</p>
     <p style="font-size:0.8rem;">Consequence: a research group's shared 32 GB workstation handles NFHS-5 (636 000 households), all 640 districts as spatial nodes, and the full citation corpus in the same process — simultaneously.</p>
   </div>
   <div>
@@ -465,7 +465,7 @@
       <li><strong style="color:var(--text);">Spatial autocorrelation of readings</strong> — does particulate matter cluster spatially? Moran's I over sensor-node properties answers in one call</li>
       <li><strong style="color:var(--text);">Fault propagation tracing</strong> — betweenness centrality identifies which sensor nodes are structural bottlenecks in the communication graph</li>
       <li><strong style="color:var(--text);">Community detection</strong> — Louvain clustering groups sensors by communication pattern, revealing implicit network zones</li>
-      <li><strong style="color:var(--text);">Bridge detection</strong> — find_bridges() identifies single points of failure before they cause network partition</li>
+      <li><strong style="color:var(--text);">Bridge detection</strong> — identifies single points of failure before they cause network partition</li>
       <li><strong style="color:var(--text);">Anomaly context</strong> — when a sensor fires an alert, graph traversal retrieves all adjacent sensors and their readings in one hop</li>
     </ul>
   </div>
@@ -501,9 +501,9 @@
     <div class="code-box" style="margin-bottom:12px;">
       <span class="c1"># Import into any existing analysis script</span><br>
       <span class="c4">from</span> purple8_graph <span class="c4">import</span> GraphEngine<br>
-      <span class="c4">from</span> purple8_graph.core.algorithms <span class="c4">import</span> morans_i<br><br>
+      <span class="c4">from</span> purple8_graph <span class="c4">import</span> spatial_analysis<br><br>
       <span class="c1"># Results are plain Python dicts — pandas-compatible</span><br>
-      r = morans_i(...).to_dict()<br>
+      r = spatial_analysis.<span class="c2">morans_i</span>(...).to_dict()<br>
       df = pd.DataFrame(r[<span class="c3">"node_results"</span>]).T
     </div>
     <div style="font-size:0.7rem;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">REST API — callable from R</div>
