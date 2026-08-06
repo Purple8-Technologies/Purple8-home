@@ -16,7 +16,7 @@ const jsonLd = {
   "@type": "WebPage",
   name: "Autonomous M&A Due Diligence — Purple8 Hyper Graph",
   description:
-    "Purple8 runs the entire M&A due diligence process as a coordinated agent workflow: document ingestion, knowledge graph construction, parallel specialist review, scenario stress-testing, deal structure optimisation, and staged human approval — in a single platform with a tamper-evident audit trail.",
+    "Purple8 runs the entire M&A due diligence process as a coordinated agent workflow: document ingestion, knowledge graph construction, parallel specialist review, scenario stress-testing, deal structure optimisation, and staged human approval. All in a single platform with a tamper-evident audit trail.",
   url: "https://www.purple8.ai/products/purple8/ma-due-diligence/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
@@ -51,7 +51,7 @@ const jsonLd = {
         name: "How does the audit trail work for regulatory purposes?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Every finding, every agent action, every human approval decision is written as an immutable graph edge with agent identity, timestamp, and provenance back to the source document. When a regulator asks to see the decision trail — who reviewed what, when, based on which document — the entire chain is in the graph, traversable and exportable. Nothing is reconstructed from memory or emails after the fact.",
+          text: "Every finding, every agent action, every human approval decision is written as an immutable graph edge with agent identity, timestamp, and provenance back to the source document. When a regulator asks to see the decision trail, the entire chain is in the graph, traversable and exportable. Nothing is reconstructed from memory or emails after the fact.",
         },
       },
       {
@@ -67,7 +67,7 @@ const jsonLd = {
         name: "What does scenario simulation add to due diligence?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "After the knowledge graph is built, you can clone it into isolated simulation namespaces and apply shocks: remove the two engineers with the most graph centrality (key-person risk), remove the top customer (revenue concentration), apply the pending regulatory change in the target's primary market. Graph algorithms measure the impact on each scenario. The quantum optimisation layer then finds the optimal deal structure — earnout schedule, escrow, retention packages — under the constraints revealed by the analysis.",
+          text: "After the knowledge graph is built, you can clone it into isolated simulation namespaces and apply shocks: remove the two engineers with the most graph centrality (key-person risk), remove the top customer (revenue concentration), apply the pending regulatory change in the target's primary market. Graph algorithms score the impact on each scenario. The quantum optimisation layer then finds the optimal deal structure (earnout schedule, escrow, retention packages) under the constraints revealed by the analysis.",
         },
       },
     ],
@@ -80,28 +80,28 @@ const phases = [
     title: "Data room ingestion",
     agent: "DocIntel",
     detail:
-      "Every document in the virtual data room — contracts, financials, filings, technical specs, correspondence — is ingested via DocIntel. Entities, obligations, counterparties, dates, and relationships are extracted automatically and written into the knowledge graph. A data room that would take a paralegal team two weeks to index is processed in hours.",
+      "Every document in the virtual data room (contracts, financials, filings, technical specs, correspondence) is ingested via DocIntel. Entities, obligations, counterparties, dates, and relationships are extracted automatically and written into the knowledge graph. A data room that would take a paralegal team two weeks to index is processed in hours.",
   },
   {
     step: "02",
     title: "Knowledge graph construction",
     agent: "graph.*",
     detail:
-      "The target company becomes a living graph. Every contract obligation is an edge. Every counterparty relationship is a node. Every IP dependency, every regulatory filing, every related-party transaction has a place in the structure. Cross-references that require reading 40 contracts simultaneously to find emerge from a single graph query.",
+      "The target company becomes a living graph. Contract obligations become edges. Counterparty relationships, IP dependencies, regulatory filings, and related-party transactions all have typed representations in the structure. Cross-references that require reading 40 contracts simultaneously emerge from a single graph query.",
   },
   {
     step: "03",
     title: "Parallel specialist review",
     agent: "Multi-agent swarm",
     detail:
-      "Five agents run simultaneously, each writing findings to the shared graph as they work. The legal agent flags change-of-control triggers, non-standard indemnities, and IP ownership gaps. The financial agent identifies customer concentration, recurring vs one-off revenue, and covenant exposure. The technical agent maps single-engineer dependencies and licence conflicts. The HR agent flags key-person risk and compensation anomalies. The regulatory agent maps pending matters and jurisdiction exposure. None of them wait for the others.",
+      "Five agents run simultaneously, each writing findings to the shared graph as they work. Legal flags change-of-control triggers, non-standard indemnities, and IP ownership gaps. Finance identifies customer concentration, recurring vs one-off revenue, and covenant exposure. Technical maps single-engineer dependencies and licence conflicts. HR flags key-person risk and compensation anomalies. Regulatory maps pending matters and jurisdiction exposure. None of them wait for the others.",
   },
   {
     step: "04",
     title: "Stakeholder & sentiment mapping",
     agent: "Opinion Engine",
     detail:
-      "The opinion engine traverses the graph to model which executives are likely to stay, which customers are at risk, and which investors may push back on the deal. Document signals — board minutes, investor communications, employment agreements, customer correspondence — are weighted by recency and source credibility. The output is a stakeholder position map before the first management presentation.",
+      "The opinion engine traverses the graph to model which executives are likely to stay, which customers are at risk, and which investors may push back on the deal. Document signals (board minutes, investor communications, employment agreements, customer correspondence) are weighted by recency and source credibility. The output is a stakeholder position map before the first management presentation.",
   },
   {
     step: "05",
@@ -115,14 +115,14 @@ const phases = [
     title: "Deal structure optimisation",
     agent: "quantum.optimize",
     detail:
-      "Earnout schedule, escrow amount, retention package allocation across key employees — all of these are binary allocation problems under competing constraints. The quantum optimisation layer formulates them as QUBO problems and finds the Pareto-optimal deal structure: one that protects the acquirer's downside while remaining acceptable to the target's board.",
+      "Earnout schedule, escrow amount, and retention package allocation across key employees are binary allocation problems under competing constraints. The quantum optimisation layer formulates them as QUBO problems and finds the Pareto-optimal deal structure: one that protects the acquirer's downside while remaining acceptable to the target's board.",
   },
   {
     step: "07",
     title: "Staged approval and audit trail",
     agent: "Journey Engine",
     detail:
-      "The deal moves through defined approval gates: IC memo, legal sign-off, board approval, regulatory filing. Each gate is a mandatory human decision recorded as an immutable graph edge. When the regulator or a court asks to see the decision trail, the full chain is in the graph — who reviewed what, based on which findings, at what time — traversable and exportable in minutes.",
+      "The deal moves through defined approval gates: IC memo, legal sign-off, board approval, regulatory filing. Each gate is a mandatory human decision recorded as an immutable graph edge. When a regulator or a court asks to see the decision trail, the full chain is in the graph, traversable and exportable in minutes, showing who reviewed what based on which findings and when.",
   },
 ];
 
@@ -167,7 +167,7 @@ const targetCustomers = [
   {
     icon: "💼",
     title: "Private equity firms",
-    desc: "Build a consistent due diligence knowledge graph across every portfolio company. When a second acquisition in the same sector comes along, you start from an existing graph — not from zero.",
+    desc: "Build a consistent due diligence knowledge graph across every portfolio company. When a second acquisition in the same sector comes along, you start from an existing graph rather than from scratch.",
   },
 ];
 
@@ -210,8 +210,7 @@ export default function MaDueDiligencePage() {
               and regulatory workstreams. Today those workstreams run sequentially, each
               team blind to what the others are finding. Purple8 ingests the entire data
               room, builds a relational knowledge graph of the target, and runs all five
-              workstreams simultaneously — so the findings talk to each other from the
-              start.
+              workstreams in parallel, so the findings talk to each other from day one.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
@@ -257,7 +256,7 @@ export default function MaDueDiligencePage() {
                   ))}
                 </div>
                 <p className="mt-4 text-xs text-zinc-600 leading-relaxed">
-                  Advisory fees don&apos;t disappear — experienced judgement has real value.
+                  Advisory fees don&apos;t disappear. Experienced judgement has real value.
                   What changes is what that time is spent on.
                 </p>
               </div>
@@ -270,7 +269,7 @@ export default function MaDueDiligencePage() {
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">How it works</p>
-              <h2 className="mt-3 text-3xl font-bold text-white">Seven phases. One platform. Every finding connected.</h2>
+              <h2 className="mt-3 text-3xl font-bold text-white">Seven phases, one platform, all findings connected.</h2>
             </div>
             <div className="space-y-10">
               {phases.map((p) => (
@@ -298,13 +297,13 @@ export default function MaDueDiligencePage() {
                 <h2 className="mt-3 text-3xl font-bold text-white">The risks that matter are between documents, not inside them.</h2>
                 <p className="mt-5 text-zinc-400 leading-relaxed">
                   A change-of-control clause in a supplier agreement only becomes critical
-                  when you know that supplier accounts for 40% of gross margin — a fact
-                  in a different document in a different workstream.
+                  when you know that supplier accounts for 40% of gross margin. That fact
+                  lives in a different document in a different workstream.
                 </p>
                 <p className="mt-3 text-zinc-400 leading-relaxed">
                   An IP ownership gap in a patent assignment only becomes a deal-breaker
-                  when you know the product depends on that specific patent — a fact in
-                  the technical architecture documentation that legal never sees.
+                  when you know the product depends on that specific patent. That context
+                  is in the technical architecture documentation that the legal team never reads.
                 </p>
                 <p className="mt-3 text-zinc-400 leading-relaxed">
                   Purple8 stores every entity from every document in the same graph.
@@ -317,9 +316,9 @@ export default function MaDueDiligencePage() {
                   { edge: "CONTRACT → SUPPLIER", detail: "Change-of-control consent required" },
                   { edge: "SUPPLIER → REVENUE", detail: "43% of gross margin dependency" },
                   { edge: "PATENT → PRODUCT", detail: "Core feature relies on this IP" },
-                  { edge: "PATENT → ASSIGNEE", detail: "Assignment incomplete — founder, not company" },
+                  { edge: "PATENT → ASSIGNEE", detail: "Assignment incomplete: founder holds it, not the company" },
                   { edge: "ENGINEER → CODEBASE", detail: "Sole author of payment module" },
-                  { edge: "ENGINEER → VESTING", detail: "Cliff in 3 months — flight risk" },
+                  { edge: "ENGINEER → VESTING", detail: "Cliff in 3 months, flight risk" },
                 ].map((row) => (
                   <div key={row.edge} className="flex items-start gap-4 rounded-xl border border-white/8 bg-white/[0.02] px-5 py-3">
                     <code className="shrink-0 text-xs font-mono text-purple-400 mt-0.5">{row.edge}</code>
