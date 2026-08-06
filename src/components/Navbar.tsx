@@ -5,6 +5,65 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Purple8Logo from "@/components/Purple8Logo";
 
+const solutions = [
+  {
+    href: "/products/purple8/agentic-process-automation/",
+    name: "Agentic Process Automation",
+    desc: "Journey Engine · SLA · HITL · audit trail",
+    icon: "🤖",
+    color: "text-purple-300",
+  },
+  {
+    href: "/products/purple8/workflow-orchestration/",
+    name: "Workflow Orchestration",
+    desc: "Stateful pipelines · SLA · CDC triggers · no Airflow",
+    icon: "🔄",
+    color: "text-purple-300",
+  },
+  {
+    href: "/products/purple8/rag-pipeline/",
+    name: "GraphRAG & RAG Pipeline",
+    desc: "Flat vector · GraphRAG · hybrid · self-tuning",
+    icon: "🔍",
+    color: "text-purple-300",
+  },
+  {
+    href: "/products/purple8/multi-agent-systems/",
+    name: "Multi-Agent Systems",
+    desc: "Shared graph memory · swarm coordination · RBAC",
+    icon: "🤝",
+    color: "text-purple-300",
+  },
+  {
+    href: "/products/purple8/opinion-engine/",
+    name: "Opinion Engine",
+    desc: "Belief graphs · stance detection · influence tracking",
+    icon: "💡",
+    color: "text-purple-300",
+  },
+  {
+    href: "/products/purple8/scenario-simulation/",
+    name: "Scenario Simulation",
+    desc: "What-if analysis · supply chain · stress testing",
+    icon: "🔮",
+    color: "text-violet-300",
+  },
+  {
+    href: "/products/purple8/quantum-optimisation/",
+    name: "Quantum-Inspired Optimisation",
+    desc: "VRP · scheduling · portfolio · QUBO",
+    icon: "⚛️",
+    color: "text-violet-300",
+  },
+  {
+    href: "/products/purple8/ma-due-diligence/",
+    name: "M&A Due Diligence",
+    desc: "Data room to board paper · agents · audit trail",
+    icon: "🏦",
+    color: "text-purple-300",
+  },
+];
+
 const platformProducts = [
   {
     href: "/products/purple8/",
@@ -145,12 +204,51 @@ export default function Navbar() {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-purple-900/40 bg-[#0f0f1a]/98 py-3 shadow-xl shadow-purple-950/40 backdrop-blur-xl">
+                  <div className="absolute left-0 top-full mt-2 w-72 rounded-xl border border-purple-900/40 bg-[#0f0f1a]/98 py-3 shadow-xl shadow-purple-950/40 backdrop-blur-xl">
                     {/* Platform section */}
                     <p className="px-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">
                       Platform
                     </p>
-                    {platformProducts.map((p) => (
+
+                    {/* Purple8 Hyper Graph — hover to reveal capabilities */}
+                    <div className="group/p8 relative">
+                      <Link
+                        href="/products/purple8/"
+                        onClick={() => setDropdownOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 transition-colors hover:bg-purple-500/10"
+                      >
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" />
+                        <span className="text-sm font-medium text-purple-400 flex-1">Purple8 Hyper Graph</span>
+                        {/* chevron — rotates when group hovered */}
+                        <svg
+                          className="h-3 w-3 text-zinc-600 transition-transform duration-200 group-hover/p8:rotate-90"
+                          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+
+                      {/* Capabilities — hidden until hover on parent row */}
+                      <div className="grid grid-rows-[0fr] transition-all duration-200 group-hover/p8:grid-rows-[1fr]">
+                        <div className="overflow-hidden">
+                          {solutions.map((s) => (
+                            <Link
+                              key={s.href}
+                              href={s.href}
+                              onClick={() => setDropdownOpen(false)}
+                              className="flex items-center gap-2.5 pl-9 pr-4 py-1.5 transition-colors hover:bg-purple-500/10"
+                            >
+                              <span className="text-sm leading-none">{s.icon}</span>
+                              <span className={`text-xs font-medium ${s.color}`}>{s.name}</span>
+                            </Link>
+                          ))}
+                          <div className="ml-9 mr-4 mb-1 border-b border-purple-900/20" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Rest of platform products */}
+                    {platformProducts.slice(1).map((p) => (
                       <Link
                         key={p.href}
                         href={p.href}
@@ -265,6 +363,19 @@ export default function Navbar() {
               >
                 {p.name}
                 {p.badge && <span className="ml-2 text-xs text-zinc-500">{p.badge}</span>}
+              </Link>
+            ))}
+            {/* Solutions */}
+            <p className="mt-2 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">Solutions</p>
+            {solutions.map((s) => (
+              <Link
+                key={s.href}
+                href={s.href}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-2 py-2 text-sm font-medium text-purple-300 flex items-center gap-2"
+              >
+                <span>{s.icon}</span>
+                {s.name}
               </Link>
             ))}
             {/* Plain links */}

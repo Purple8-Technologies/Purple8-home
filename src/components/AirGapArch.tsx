@@ -340,7 +340,7 @@ export default function AirGapArch() {
                 {/* AI Agents */}
                 <rect x="360" y="65" width="140" height="46" rx="8" fill="#1a1a2e" stroke="#7c3aed" strokeWidth="1" />
                 <text x="430" y="84" fill="#c4b5fd" fontSize="10" fontFamily="sans-serif" textAnchor="middle" fontWeight="600">AI Agents (MCP)</text>
-                <text x="430" y="98" fill="#7c3aed" fontSize="9" fontFamily="monospace" textAnchor="middle">74 tools · namespaced</text>
+                <text x="430" y="98" fill="#7c3aed" fontSize="9" fontFamily="monospace" textAnchor="middle">82 tools · namespaced</text>
 
                 {/* Arrows down from clients */}
                 <line x1="105" y1="111" x2="105" y2="148" stroke="#52525b" strokeWidth="1.2" markerEnd="url(#arr)" />

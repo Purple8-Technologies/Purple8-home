@@ -34,8 +34,9 @@ export default function Hero() {
 
           <p className="mt-7 max-w-xl text-lg leading-relaxed text-zinc-400">
             Purple8 is the AI-native backend that replaces 20+ services — database,
-            vector search, graph, RAG, document intelligence, workflow orchestration,
-            auth, and encryption — with one embedded engine. You build the frontend;
+            vector search, graph, RAG, document intelligence, agentic process automation,
+            auth, and encryption — with one embedded engine. AI agents automate
+            end-to-end workflows out of the box. You build the frontend;
             Purple8 is everything behind it.
           </p>
 

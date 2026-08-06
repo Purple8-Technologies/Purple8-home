@@ -146,7 +146,7 @@ const comparisonRows = [
     monolith: "Bolted on",
     micro: "Bolted on per service",
     modulith: "Bolted on",
-    consolidith: "MCP-native (74 tools, day one)",
+    consolidith: "MCP-native (82 tools, day one)",
   },
   {
     trait: "Security (auth, encryption)",
