@@ -51,14 +51,13 @@ const CURL_MCP = `curl -X POST http://localhost:8100/mcp \\
     }
   }'`;
 
-const CLAUDE_CODE_CMD = `claude mcp add purple8 --transport http http://localhost:8100/mcp \\
+const CLAUDE_CODE_CMD = `claude mcp add purple8 --transport sse http://localhost:8100/mcp/sse \\
   --header "X-API-Key: YOUR_API_KEY"`;
 
 const CLAUDE_DESKTOP_CFG = `{
   "mcpServers": {
     "purple8-graph": {
-      "url": "http://localhost:8100/mcp",
-      "headers": { "X-API-Key": "YOUR_API_KEY" }
+      "url": "http://localhost:8100/mcp/sse"
     }
   }
 }`;
@@ -68,8 +67,8 @@ const CURSOR_CFG = `{
     "servers": [
       {
         "name": "purple8-graph",
-        "type": "http",
-        "url": "http://localhost:8100/mcp",
+        "type": "sse",
+        "url": "http://localhost:8100/mcp/sse",
         "headers": { "X-API-Key": "YOUR_API_KEY" }
       }
     ]
@@ -80,8 +79,8 @@ const VSCODE_CFG = `{
   "mcp": {
     "servers": {
       "purple8-graph": {
-        "type": "http",
-        "url": "http://localhost:8100/mcp",
+        "type": "sse",
+        "url": "http://localhost:8100/mcp/sse",
         "headers": { "X-API-Key": "YOUR_API_KEY" }
       }
     }
@@ -91,8 +90,7 @@ const VSCODE_CFG = `{
 const CODEX_CFG = `{
   "mcpServers": {
     "purple8-graph": {
-      "url": "http://localhost:8100/mcp",
-      "headers": { "X-API-Key": "YOUR_API_KEY" }
+      "url": "http://localhost:8100/mcp/sse"
     }
   }
 }`;
@@ -358,10 +356,10 @@ export default function QuickstartPage() {
             <span className="mr-2 text-purple-400">4.</span> Connect an AI agent or coding tool
           </h3>
           <p className="mt-2 text-sm text-gray-400">
-            Purple8 exposes a standards-compliant MCP server at{" "}
-            <code className="text-purple-200">http://localhost:8100/mcp</code>.
+            Purple8 exposes an MCP server at{" "}
+            <code className="text-purple-200">http://localhost:8100/mcp/sse</code>.
             No separate SDK or plugin needed — any MCP-capable client connects
-            with a URL and an API key. You can also call the 82 tools directly
+            with that URL and an API key. You can also call the 82 tools directly
             from your browser without any client at all.
           </p>
 
