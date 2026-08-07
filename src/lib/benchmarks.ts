@@ -31,7 +31,7 @@ export const benchmarkGroups: BenchmarkGroup[] = [
         value: "23 ms",
         label: "P95 vector search (k=10)",
         conditions:
-          "1 user · 1 worker · 1024d · full HTTP + auth + WAL + encryption + RBAC. Single-user, not under concurrent load.",
+          "1 user · 1 worker · 1024d · full HTTP + auth + durable write log + encryption + RBAC. Single-user, not under concurrent load.",
       },
       {
         value: "1.1 ms",
@@ -69,13 +69,13 @@ export const benchmarkGroups: BenchmarkGroup[] = [
   {
     title: "Memory — bounded by hardware, not corpus",
     blurb:
-      "Purple8 fits its ingest footprint to the RAM available. A hardware-aware auto-config sizes the batch geometry so peak memory tracks the machine, not the amount of data. Peak RSS oscillates within a fixed envelope as batches are sealed and evicted — it does not grow with total corpus size.",
+      "Purple8 fits its ingest footprint to the RAM available. A hardware-aware auto-configuration sizes the batch geometry so peak memory tracks the machine, not the amount of data. Peak memory usage stays within a fixed envelope as batches complete and are evicted — it does not grow with total corpus size.",
     items: [
       {
         value: "~9 GB peak",
         label: "8.84M passages on a 24 GB machine",
         conditions:
-          "8.84M MS MARCO corpus · Apple M-series 24 GB. Peak memory held around 9 GB in a sawtooth across all seal cycles — never grew with N. No swap required.",
+          "8.84M-passage corpus · Apple M-series 24 GB. Peak memory held around 9 GB in a stable bounded envelope — never grew with corpus size. No swap required.",
       },
       {
         value: "same footprint",

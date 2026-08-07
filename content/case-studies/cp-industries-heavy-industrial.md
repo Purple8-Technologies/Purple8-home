@@ -80,9 +80,9 @@ compliance microservice. One `docker run`.
 
 ### Real-time telemetry and predictive maintenance
 
-Purple8's **`BrickCoreStorage` (Cortex)** engine ingests high-frequency time-
-series data from mill sensors directly into the graph. The seal-and-evict
-memory model keeps peak RSS bounded regardless of how many data points
+Purple8 Hyper Graph ingests high-frequency time-
+series data from mill sensors directly into the graph. The bounded memory management
+keeps peak memory usage hardware-limited regardless of how many data points
 accumulate — the same hardware that handles 2 million readings handles 20
 million without re-provisioning.
 

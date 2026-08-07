@@ -225,7 +225,7 @@ export default function QuickstartPage() {
                 "Graph engine", "Vector search", "Document store",
                 "Full-text", "Hybrid RAG", "Journey / workflows",
                 "MCP server (82)", "Auth + RBAC", "AES-256 encryption",
-                "LCNC console", "Multi-tenancy", "WAL durability",
+                "LCNC console", "Multi-tenancy", "Durable writes",
               ].map((label, i) => {
                 const col = i % 3;
                 const row = Math.floor(i / 3);

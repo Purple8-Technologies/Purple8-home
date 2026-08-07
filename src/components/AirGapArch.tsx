@@ -223,12 +223,12 @@ const infraTiers = [
     minRam: "≥ 128 GB per app node",
     minCpu: "32+ cores per app node",
     minGpu: "Dedicated inference node with ≥ 80 GB VRAM (for 70B-class models)",
-    minStorage: "≥ 4 TB NVMe per app node (WAL replicated across all 3)",
+    minStorage: "≥ 4 TB NVMe per app node (replicated across all 3)",
     llm: "llama3.3:70b or equivalent 70B-class model on dedicated GPU node",
     rss: "~20 GB/node",
     corpus: "20M+ documents",
     nodes: "3 Purple8 app nodes · 1 Ollama inference node · 1 DocIntel node",
-    notes: "WAL replication across 3 Purple8 nodes. Ollama inference runs on an isolated GPU node reachable over internal LAN — still fully air-gapped, no public egress.",
+    notes: "Replication across 3 Purple8 nodes. Ollama inference runs on an isolated GPU node reachable over internal LAN — still fully air-gapped, no public egress.",
     tip: "80 GB VRAM is the minimum for llama3.3:70b at Q4. If your GPU node has less VRAM, drop to qwen3:30b (MoE, ~19 GB) which fits in 24 GB and performs comparably on most tasks.",
   },
 ];
@@ -380,12 +380,12 @@ export default function AirGapArch() {
                 {/* Storage row */}
                 <line x1="230" y1="230" x2="150" y2="285" stroke="#3b82f6" strokeWidth="1.2" markerEnd="url(#arrB)" />
 
-                {/* BrickCoreStorage */}
+                {/* Purple8 Hyper Graph storage */}
                 <rect x="40" y="287" width="220" height="72" rx="10" fill="#0a0f1a" stroke="#3b82f6" strokeWidth="1.5" />
-                <text x="150" y="308" fill="#93c5fd" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="700">BrickCoreStorage</text>
-                <text x="150" y="323" fill="#71717a" fontSize="9" fontFamily="monospace" textAnchor="middle">WAL · HNSW index · NVMe</text>
-                <text x="98" y="341" fill="#60a5fa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">seal-and-evict</text>
-                <text x="210" y="341" fill="#60a5fa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">bounded RSS</text>
+                <text x="150" y="308" fill="#93c5fd" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="700">Purple8 Hyper Graph</text>
+                <text x="150" y="323" fill="#71717a" fontSize="9" fontFamily="monospace" textAnchor="middle">Durable log · Vector index · NVMe</text>
+                <text x="98" y="341" fill="#60a5fa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">Bounded memory</text>
+                <text x="210" y="341" fill="#60a5fa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">hardware-aware</text>
 
                 {/* HNSW / full-text */}
                 <rect x="560" y="287" width="220" height="72" rx="10" fill="#0a0f1a" stroke="#3b82f6" strokeWidth="1.2" />
@@ -528,7 +528,7 @@ export default function AirGapArch() {
                       { label: "Min. GPU / VRAM", val: t.minGpu },
                       { label: "Min. storage", val: t.minStorage },
                       { label: "Recommended LLM", val: t.llm },
-                      { label: "Purple8 peak RSS", val: t.rss },
+                      { label: "Peak memory usage", val: t.rss },
                       { label: "Corpus capacity", val: t.corpus },
                       { label: "Node topology", val: t.nodes },
                     ].map((r) => (
@@ -712,7 +712,7 @@ volumes:
             </pre>
             <p className="mt-3 text-xs text-zinc-600">
               Set <code className="font-mono text-zinc-400">internal: false</code> temporarily during initial model pull, then switch back to <code className="font-mono text-zinc-400">true</code> to cut egress permanently.
-              For the HA cluster, replace the <code className="font-mono text-zinc-400">bridge</code> network with a dedicated VLAN and run three Purple8 Graph replicas with WAL replication.
+              For the HA cluster, replace the <code className="font-mono text-zinc-400">bridge</code> network with a dedicated VLAN and run three Purple8 Graph replicas with built-in replication.
             </p>
           </Accordion>
 
@@ -943,7 +943,7 @@ volumes:
                 <p className="mt-3 text-xs text-zinc-600">
                   Point a DO Load Balancer at port 8100 for TLS termination.
                   Enable DO Droplet backups ($4–8/mo) for automated snapshots of the full machine.
-                  Block Storage snapshots independently protect the WAL and HNSW index on <code className="font-mono text-zinc-400">/mnt/p8data</code>.
+                  Block Storage snapshots independently protect the durable log and vector index on <code className="font-mono text-zinc-400">/mnt/p8data</code>.
                 </p>
               </div>
 

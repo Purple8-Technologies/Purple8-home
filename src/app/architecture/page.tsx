@@ -160,7 +160,7 @@ const comparisonRows = [
     monolith: "Grows with data",
     micro: "Unbounded per service",
     modulith: "Grows with data",
-    consolidith: "Hardware-bounded (seal-and-evict)",
+    consolidith: "Hardware-bounded memory management",
   },
   {
     trait: "AI output evaluation",

@@ -46,7 +46,7 @@ const NODES: Node[] = [
   // agent-facing gateway — not an external actor.
   { id: "mcp", label: "MCP Server", sub: "82 tools · 11 namespaces · RBAC", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 150, w: 240, h: 44, tone: "core", health: "ok" },
-  { id: "storage", label: "Cortex Storage", sub: "documents · WAL · bounded RSS", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "storage", label: "Persistent Storage", sub: "documents · durable log · bounded memory", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 278, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "journey", label: "Journey Engine", sub: "workflows · SLA · HITL", x: 410, y: 342, w: 240, h: 44, tone: "core", health: "warn" },
   { id: "security", label: "Security & SOC", sub: "AES-256 · RBAC · tenancy", x: 410, y: 406, w: 240, h: 44, tone: "core", health: "ok" },

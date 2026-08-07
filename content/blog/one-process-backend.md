@@ -30,7 +30,7 @@ workflows, and enforces your auth.
 
 ## Bounded memory is a sustainability property
 
-Our storage engine's seal-and-evict cycle means the same backend that ingests
+Purple8's bounded memory management means the same backend that ingests
 2M nodes can ingest 20M nodes on the same hardware. The corpus grows; the
 machine does not. That is what makes AI affordable for teams that can't
 re-provision every time their knowledge base doubles.

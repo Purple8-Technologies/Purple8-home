@@ -133,7 +133,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: 10,
     family: "pro",
     tagline:
-      "Multi-project & compliance-ready: SSO, RBAC, immutable audit, PII, CDC, WAL, Applied Graphs, AEC Core, cloud backup.",
+      "Multi-project & compliance-ready: SSO, RBAC, immutable audit, PII, CDC, durable writes, Applied Graphs, AEC Core, cloud backup.",
     cta: "Start Pro",
   },
   {

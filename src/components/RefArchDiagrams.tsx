@@ -542,7 +542,7 @@ function Scenario4() {
       number="04"
       title="Production HA — horizontally scaled, cloud or on-premises Kubernetes"
       description="High-availability topology for production workloads. Three Purple8 query nodes behind a load balancer, a DocIntel cluster for parallel document processing, deployed on any container platform."
-      teaser="Load balancer → 3 Purple8 nodes + DocIntel cluster → shared WAL storage · Docker / Kubernetes"
+      teaser="Load balancer → 3 Purple8 nodes + DocIntel cluster → shared persistent storage · Docker / Kubernetes"
       envBadges={
         <>
           <EnvBadge label="Cloud (AWS / Azure / GCP)" icon={<BrowserIcon className="h-3 w-3" />} />
@@ -591,7 +591,7 @@ function Scenario4() {
         </div>
       </div>
 
-      <ArrowDown label="Shared WAL / persistent storage" />
+      <ArrowDown label="Shared persistent storage" />
 
       {/* Shared storage */}
       <div className="w-full max-w-2xl">
