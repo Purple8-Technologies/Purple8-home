@@ -88,6 +88,15 @@ const VSCODE_CFG = `{
   }
 }`;
 
+const CODEX_CFG = `{
+  "mcpServers": {
+    "purple8-graph": {
+      "url": "http://localhost:8100/mcp",
+      "headers": { "X-API-Key": "YOUR_API_KEY" }
+    }
+  }
+}`;
+
 function CommandBlock({ code }: { code: string }) {
   return (
     <div className="group relative mt-3">
@@ -462,6 +471,25 @@ export default function QuickstartPage() {
                 After adding, open the Copilot Chat panel, switch to{" "}
                 <strong className="text-gray-400">Agent mode</strong>, and Purple8
                 tools will appear in the tool list.
+              </p>
+            </div>
+
+            {/* 4f — OpenAI Codex */}
+            <div>
+              <p className="text-sm font-semibold text-white mb-1">
+                Option F — OpenAI Codex
+              </p>
+              <p className="text-sm text-gray-400 mb-3">
+                Codex reads MCP server config from{" "}
+                <code className="text-purple-200">~/.codex/config.json</code>.
+                Add the Purple8 server there:
+              </p>
+              <CommandBlock code={CODEX_CFG} />
+              <p className="mt-2 text-xs text-gray-600">
+                Restart Codex after saving. Purple8&rsquo;s 82 tools will be
+                available in every Codex session automatically. The same{" "}
+                <code className="text-gray-400">mcpServers</code> key works for
+                any OpenAI-compatible MCP host (ChatGPT Desktop, etc.).
               </p>
             </div>
 
