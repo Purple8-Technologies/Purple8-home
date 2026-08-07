@@ -38,6 +38,56 @@ const DOCINTEL_RUN_CMD = `docker run -d \\
   -e GRAPH__BASE_URL="http://host.docker.internal:8100" \\
   ghcr.io/purple8-technologies/purple8-docintel:developer`;
 
+const CURL_MCP = `curl -X POST http://localhost:8100/mcp \\
+  -H "X-API-Key: YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "jsonrpc": "2.0",
+    "method": "tools/call",
+    "id": 1,
+    "params": {
+      "name": "graph.counts",
+      "arguments": {}
+    }
+  }'`;
+
+const CLAUDE_CODE_CMD = `claude mcp add purple8 --transport http http://localhost:8100/mcp \\
+  --header "X-API-Key: YOUR_API_KEY"`;
+
+const CLAUDE_DESKTOP_CFG = `{
+  "mcpServers": {
+    "purple8-graph": {
+      "url": "http://localhost:8100/mcp",
+      "headers": { "X-API-Key": "YOUR_API_KEY" }
+    }
+  }
+}`;
+
+const CURSOR_CFG = `{
+  "mcp": {
+    "servers": [
+      {
+        "name": "purple8-graph",
+        "type": "http",
+        "url": "http://localhost:8100/mcp",
+        "headers": { "X-API-Key": "YOUR_API_KEY" }
+      }
+    ]
+  }
+}`;
+
+const VSCODE_CFG = `{
+  "mcp": {
+    "servers": {
+      "purple8-graph": {
+        "type": "http",
+        "url": "http://localhost:8100/mcp",
+        "headers": { "X-API-Key": "YOUR_API_KEY" }
+      }
+    }
+  }
+}`;
+
 function CommandBlock({ code }: { code: string }) {
   return (
     <div className="group relative mt-3">
@@ -293,16 +343,141 @@ export default function QuickstartPage() {
           </p>
         </section>
 
-        {/* Connect an agent */}
-        <section className="mb-10">
+        {/* ── Step 4 — MCP / agent connection ── */}
+        <section id="connect-agent" className="mb-12 scroll-mt-24">
           <h3 className="text-base font-semibold text-white">
-            <span className="mr-2 text-purple-400">4.</span> Connect an AI agent (MCP)
+            <span className="mr-2 text-purple-400">4.</span> Connect an AI agent or coding tool
           </h3>
           <p className="mt-2 text-sm text-gray-400">
-            Purple8 is MCP-native — point Claude Desktop, Cursor, or any MCP client
-            at the server to build and query your backend in natural language:
+            Purple8 exposes a standards-compliant MCP server at{" "}
+            <code className="text-purple-200">http://localhost:8100/mcp</code>.
+            No separate SDK or plugin needed — any MCP-capable client connects
+            with a URL and an API key. You can also call the 82 tools directly
+            from your browser without any client at all.
           </p>
-          <CommandBlock code={"http://localhost:8100/mcp/sse"} />
+
+          {/* Get an API key callout */}
+          <div className="mt-4 rounded-xl border border-purple-900/40 bg-purple-950/20 px-4 py-3 text-sm text-gray-400">
+            <span className="font-semibold text-purple-300">Get your API key first —</span>{" "}
+            open the admin console at{" "}
+            <code className="text-purple-200">http://localhost:8100/lcnc/api-keys</code>,
+            create a key, and copy it. Paste it in place of{" "}
+            <code className="text-purple-200">YOUR_API_KEY</code> in every snippet below.
+          </div>
+
+          {/* Sub-sections */}
+          <div className="mt-8 space-y-8">
+
+            {/* 4a — Try it directly in the browser */}
+            <div>
+              <p className="text-sm font-semibold text-white mb-1">
+                Option A — Try it directly in your browser
+              </p>
+              <p className="text-sm text-gray-400 mb-3">
+                The MCP Console is built into every Purple8 container. Open it,
+                pick any of the 82 tools, fill in the arguments, and run — no
+                client installation, no code.
+              </p>
+              <div className="rounded-xl border border-purple-700/40 bg-[#0d0d16] px-4 py-3 text-sm">
+                <span className="text-purple-300 font-mono">http://localhost:8100/lcnc</span>
+                <span className="text-gray-500"> → </span>
+                <span className="text-gray-300">MCP Console → Try It</span>
+              </div>
+              <p className="mt-3 text-sm text-gray-500">
+                Or call any tool directly over HTTP with{" "}
+                <code className="text-purple-200">curl</code>:
+              </p>
+              <CommandBlock code={CURL_MCP} />
+              <p className="mt-2 text-xs text-gray-600">
+                A successful response returns a JSON object with a{" "}
+                <code className="text-gray-400">result</code> field containing
+                node and edge counts. If you see that, the MCP server is live.
+              </p>
+            </div>
+
+            {/* 4b — Claude Code */}
+            <div>
+              <p className="text-sm font-semibold text-white mb-1">
+                Option B — Claude Code (CLI)
+              </p>
+              <p className="text-sm text-gray-400 mb-3">
+                One command registers Purple8 as an MCP server in your Claude
+                Code session. After this, Claude can call all 82 tools from any
+                conversation.
+              </p>
+              <CommandBlock code={CLAUDE_CODE_CMD} />
+              <p className="mt-2 text-xs text-gray-600">
+                Verify it worked: ask Claude{" "}
+                <em>&ldquo;Call graph.counts and tell me how many nodes are in the database.&rdquo;</em>
+              </p>
+            </div>
+
+            {/* 4c — Claude Desktop */}
+            <div>
+              <p className="text-sm font-semibold text-white mb-1">
+                Option C — Claude Desktop
+              </p>
+              <p className="text-sm text-gray-400 mb-3">
+                Add Purple8 to your{" "}
+                <code className="text-purple-200">claude_desktop_config.json</code>{" "}
+                and restart Claude Desktop.
+              </p>
+              <div className="mb-2 rounded-md bg-[#0d0d16] border border-gray-800 px-3 py-2 text-xs text-gray-500">
+                <span className="font-semibold text-gray-400">macOS: </span>
+                <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>
+                <br />
+                <span className="font-semibold text-gray-400">Windows: </span>
+                <code>%APPDATA%\Claude\claude_desktop_config.json</code>
+              </div>
+              <CommandBlock code={CLAUDE_DESKTOP_CFG} />
+            </div>
+
+            {/* 4d — Cursor */}
+            <div>
+              <p className="text-sm font-semibold text-white mb-1">
+                Option D — Cursor
+              </p>
+              <p className="text-sm text-gray-400 mb-3">
+                Add to your Cursor MCP config file (
+                <code className="text-purple-200">~/.cursor/mcp.json</code>
+                ) or via Cursor Settings → MCP → Add Server:
+              </p>
+              <CommandBlock code={CURSOR_CFG} />
+            </div>
+
+            {/* 4e — VS Code (GitHub Copilot) */}
+            <div>
+              <p className="text-sm font-semibold text-white mb-1">
+                Option E — VS Code / GitHub Copilot
+              </p>
+              <p className="text-sm text-gray-400 mb-3">
+                Add to your VS Code{" "}
+                <code className="text-purple-200">.vscode/mcp.json</code>{" "}
+                (workspace) or{" "}
+                <code className="text-purple-200">settings.json</code>{" "}
+                (user-level):
+              </p>
+              <CommandBlock code={VSCODE_CFG} />
+              <p className="mt-2 text-xs text-gray-600">
+                After adding, open the Copilot Chat panel, switch to{" "}
+                <strong className="text-gray-400">Agent mode</strong>, and Purple8
+                tools will appear in the tool list.
+              </p>
+            </div>
+
+          </div>
+
+          {/* Remote deployment note */}
+          <div className="mt-6 rounded-xl border border-gray-800 bg-[#0d0d16] px-4 py-3 text-sm text-gray-500">
+            <span className="font-semibold text-gray-400">Deploying to a server?</span>{" "}
+            Replace <code className="text-gray-400">http://localhost:8100</code> with
+            your host URL (e.g.{" "}
+            <code className="text-gray-400">https://my-purple8.fly.dev</code>).
+            All clients support remote URLs — no localhost tunnel required.{" "}
+            <Link href="/quickstart/docker-quickstart/" className="text-purple-400 underline">
+              Cloud deploy guide →
+            </Link>
+          </div>
         </section>
 
         {/* What you get */}
