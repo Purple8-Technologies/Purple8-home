@@ -83,6 +83,13 @@ const solutions = [
     icon: "👗",
     color: "text-violet-300",
   },
+  {
+    href: "/products/purple8/ai-architect/",
+    name: "AI Architect Intelligence",
+    desc: "Project graph · RIBA lifecycle · Phase 8 algorithms · BIM",
+    icon: "🏛️",
+    color: "text-teal-300",
+  },
 ];
 
 const platformProducts = [
