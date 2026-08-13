@@ -255,15 +255,10 @@ export default function AiArchitectIntelligencePage() {
             </div>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
-                href="https://architect.purple8.ai"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:sales@purple8.ai?subject=Purple8 AI Architect — live demo request"
                 className="rounded-full bg-teal-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-900/40 transition-colors hover:bg-teal-500"
               >
-                Try AI Architect
-              </a>
-              <a href="/products/architect/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                See the full product →
+                Ask for a live demo
               </a>
             </div>
           </div>
@@ -448,15 +443,10 @@ export default function AiArchitectIntelligencePage() {
             </p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
-                href="https://architect.purple8.ai"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:sales@purple8.ai?subject=Purple8 AI Architect — live demo request"
                 className="rounded-full bg-teal-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-900/40 transition-colors hover:bg-teal-500"
               >
-                Open AI Architect
-              </a>
-              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Ask for a live demo
               </a>
             </div>
           </div>
