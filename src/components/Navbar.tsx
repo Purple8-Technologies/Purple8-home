@@ -69,6 +69,20 @@ const solutions = [
     icon: "🏦",
     color: "text-purple-300",
   },
+  {
+    href: "/products/purple8/financial-crime-intelligence/",
+    name: "Financial Crime Intelligence",
+    desc: "AML · fraud · sanctions screening · KYC · SAR filing",
+    icon: "�️",
+    color: "text-purple-300",
+  },
+  {
+    href: "/products/purple8/fashion-intelligence/",
+    name: "Fashion Trend Intelligence",
+    desc: "Trend origin · influencer graph · SKU · dead stock",
+    icon: "👗",
+    color: "text-violet-300",
+  },
 ];
 
 const platformProducts = [
