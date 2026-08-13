@@ -90,6 +90,13 @@ const solutions = [
     icon: "🏛️",
     color: "text-teal-300",
   },
+  {
+    href: "/products/purple8/equity-research-management/",
+    name: "Equity Research Management",
+    desc: "Data lineage · HITL approval · publishing · semantic portal · audit",
+    icon: "📈",
+    color: "text-amber-300",
+  },
 ];
 
 const platformProducts = [
