@@ -6,6 +6,7 @@ customer: "CP Industries"
 industry: "Heavy Industrial Manufacturing"
 result: "One process replacing five: telemetry, compliance, routing, document parsing, and predictive maintenance — unified"
 tags: ["manufacturing", "aec", "compliance", "predictive-maintenance", "rag"]
+draft: true
 ---
 
 ## Who CP Industries is
