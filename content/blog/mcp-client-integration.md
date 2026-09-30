@@ -19,16 +19,19 @@ clients.
 Purple8 speaks MCP over two transports, and every client below supports at
 least one:
 
-- **Remote (HTTP + SSE).** The client connects directly to a URL:
-  `https://<host>/mcp/sse` with an `X-API-Key` header. Best for deployed or
-  shared instances, Claude Web, and team setups. No local install.
+- **Remote (Streamable HTTP).** The client connects directly to a URL:
+  `https://<host>/mcp` with an `X-API-Key` header. `<host>` can be your own
+  AWS, Fly or Kubernetes deployment or a Purple8 SaaS instance. Best for
+  deployed or shared instances, Claude Web, and team setups. No local install.
+  (Legacy SSE-only clients can use `https://<host>/mcp/sse`.)
 - **stdio bridge.** The client launches a local process that proxies to the
   REST API: `purple8-hyper-graph mcp-server --url <API_URL> --api-key <KEY>`.
   Best for local development and clients without remote-MCP support.
+  `<API_URL>` can also be a hosted instance.
 
-Rule of thumb: if your client can add a **remote/URL** MCP server, use the SSE
-endpoint. If it only supports **local/command** servers, install the SDK
-(`pip install 'purple8-hyper-graph[mcp]'`) and use the stdio bridge.
+Rule of thumb: if your client can add a **remote/URL** MCP server, use the
+`/mcp` endpoint. If it only supports **local/command** servers, install the
+SDK (`pip install 'purple8-hyper-graph[mcp]'`) and use the stdio bridge.
 
 Both transports enforce the same tool-level permissions and use the same **API
 key** — the one generated inside your Purple8 instance. That key is not your
@@ -54,11 +57,12 @@ gates every tool by role.
 
 ```bash
 curl -s https://<host>/health                          # liveness
-curl -N -H "X-API-Key: <KEY>" https://<host>/mcp/sse   # should stream, not 401
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://<host>/mcp -H "X-API-Key: <KEY>" -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"curl","version":"0"}}}'   # 200 OK, 401 bad key, 404 no [mcp] extra
 ```
 
-A `401` means the key is wrong; a `404` on `/mcp/sse` means the MCP transport
-is not mounted on that build. `Ctrl-C` to stop the stream.
+A `401` means the key is wrong, often because it was issued by a different
+instance. Keys don't carry over between local and hosted. A `404` on `/mcp`
+means the MCP transport is not mounted on that build.
 
 ## Claude Desktop
 
@@ -79,7 +83,7 @@ Claude Desktop launches local servers, so use the stdio bridge. Edit
 
 If `purple8-hyper-graph` is not on your global PATH, use the absolute path to
 the binary in your virtualenv. Recent builds also support remote Custom
-Connectors — if yours does, add a connector at `https://<host>/mcp/sse` with an
+Connectors — if yours does, add a connector at `https://<host>/mcp` with an
 `X-API-Key` header instead.
 
 ## Claude Code (CLI)
@@ -87,8 +91,8 @@ Connectors — if yours does, add a connector at `https://<host>/mcp/sse` with a
 Remote, for a deployed instance:
 
 ```bash
-claude mcp add --transport sse purple8 \
-  https://<host>/mcp/sse \
+claude mcp add --transport http purple8 \
+  https://<host>/mcp \
   --header "X-API-Key: YOUR_API_KEY"
 ```
 
@@ -104,7 +108,7 @@ Check it with `claude mcp list`.
 ## Claude Web (claude.ai)
 
 Claude Web connects to remote servers only. In **Settings → Connectors → Add
-custom connector**, set the URL to `https://<host>/mcp/sse` and add the header
+custom connector**, set the URL to `https://<host>/mcp` and add the header
 `X-API-Key: YOUR_API_KEY`. Claude Web needs a publicly reachable **HTTPS** URL —
 a `localhost` instance will not work, so deploy first or expose it through a
 tunnel.
@@ -117,8 +121,8 @@ VS Code has native MCP support. Add `.vscode/mcp.json`:
 {
   "servers": {
     "purple8": {
-      "type": "sse",
-      "url": "https://<host>/mcp/sse",
+      "type": "http",
+      "url": "https://<host>/mcp",
       "headers": { "X-API-Key": "${input:p8gKey}" }
     }
   },
@@ -152,7 +156,7 @@ Cursor reads `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (per-project):
 {
   "mcpServers": {
     "purple8": {
-      "url": "https://<host>/mcp/sse",
+      "url": "https://<host>/mcp",
       "headers": { "X-API-Key": "YOUR_API_KEY" }
     }
   }
@@ -171,7 +175,7 @@ The same two shapes cover the rest:
   (`cline_mcp_settings.json`).
 - **Continue** — add an `mcpServers` entry to `~/.continue/config.yaml`.
 - **Any other client** — remote-capable clients point at
-  `https://<host>/mcp/sse` with the `X-API-Key` header; stdio-only clients
+  `https://<host>/mcp` with the `X-API-Key` header; stdio-only clients
   launch `purple8-hyper-graph mcp-server --url <API_URL> --api-key <KEY>`.
 
 ## First things to ask the agent
@@ -195,7 +199,22 @@ connection snippet in the admin console's MCP page at `https://<host>/lcnc/mcp`.
   use the absolute virtualenv path.
 - Claude Web can't reach `localhost` — it needs a public HTTPS URL.
 - Long agent sessions dropping mid-stream usually means a load-balancer idle
-  timeout set below your session length.
+  timeout set below your session length (the AWS ALB default is 60 s, so raise
+  it to 300 s or more).
+
+## Running it in the cloud yourself
+
+If you self-host on AWS, Fly or Kubernetes, check these before handing the URL
+to agents. On Purple8 SaaS they are handled for you.
+
+- Install the `[mcp]` extra in your image. Without it, `/mcp` returns 404.
+- Terminate TLS in front of the server, because keys travel in headers.
+- Set `P8G_PUBLIC_URL=https://<host>`. Each MCP session sends its tool calls
+  back through this URL. Behind a proxy, the fallback is often an internal
+  `http://` address.
+- Turn off proxy buffering for `/mcp*`, because both transports stream.
+- Use sticky sessions only if clients use legacy `/mcp/sse`. `/mcp` is
+  stateless per request.
 
 Use one named key per client so you can revoke them individually, scope to
 least privilege, and always keep TLS in front. Every tool call is attributed

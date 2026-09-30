@@ -161,13 +161,21 @@ browser is allowed through.
 ## Connect your AI agents
 
 Agents connect to the **same instance** over MCP — no extra deployment. Point
-any MCP client at `https://<host>/mcp/sse` with an `X-API-Key` header, and it
+any MCP client at `https://<host>/mcp` with an `X-API-Key` header, and it
 gets the entire backend as callable tools. A quick sanity check against your
 deployment:
 
 ```bash
-curl -N -H "X-API-Key: $KEY" https://<host>/mcp/sse   # should stream, not 401
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://<host>/mcp -H "X-API-Key: $KEY" -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"curl","version":"0"}}}'   # 200 OK, 401 bad key, 404 no [mcp] extra
 ```
+
+Three settings matter once MCP runs behind Fly's proxy or an AWS ALB:
+
+- Set `P8G_PUBLIC_URL=https://<host>`, because each MCP session sends its tool
+  calls back through it.
+- Raise the ALB idle timeout from the 60 s default to 300 s or more. Long tools
+  like `rag.tune_collection` hold the stream open.
+- Keep proxy buffering off for `/mcp*`.
 
 Per-client setup — Claude Desktop, Claude Code, Claude Web, VS Code, Codex,
 Cursor, and more — is covered in the companion post,

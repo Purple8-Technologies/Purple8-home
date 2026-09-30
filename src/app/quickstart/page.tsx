@@ -51,49 +51,40 @@ const CURL_MCP = `curl -X POST http://localhost:8100/mcp \\
     }
   }'`;
 
-const CLAUDE_CODE_CMD = `claude mcp add purple8 --transport sse http://localhost:8100/mcp/sse \\
+const CLAUDE_CODE_CMD = `claude mcp add purple8 --transport http http://localhost:8100/mcp \\
   --header "X-API-Key: YOUR_API_KEY"`;
 
 const CLAUDE_DESKTOP_CFG = `{
   "mcpServers": {
     "purple8-graph": {
-      "url": "http://localhost:8100/mcp/sse"
+      "command": "purple8-hyper-graph",
+      "args": ["mcp-server", "--url", "http://localhost:8100", "--api-key", "YOUR_API_KEY"]
     }
   }
 }`;
 
 const CURSOR_CFG = `{
-  "mcp": {
-    "servers": [
-      {
-        "name": "purple8-graph",
-        "type": "sse",
-        "url": "http://localhost:8100/mcp/sse",
-        "headers": { "X-API-Key": "YOUR_API_KEY" }
-      }
-    ]
+  "mcpServers": {
+    "purple8-graph": {
+      "url": "http://localhost:8100/mcp",
+      "headers": { "X-API-Key": "YOUR_API_KEY" }
+    }
   }
 }`;
 
 const VSCODE_CFG = `{
-  "mcp": {
-    "servers": {
-      "purple8-graph": {
-        "type": "sse",
-        "url": "http://localhost:8100/mcp/sse",
-        "headers": { "X-API-Key": "YOUR_API_KEY" }
-      }
+  "servers": {
+    "purple8-graph": {
+      "type": "http",
+      "url": "http://localhost:8100/mcp",
+      "headers": { "X-API-Key": "YOUR_API_KEY" }
     }
   }
 }`;
 
-const CODEX_CFG = `{
-  "mcpServers": {
-    "purple8-graph": {
-      "url": "http://localhost:8100/mcp/sse"
-    }
-  }
-}`;
+const CODEX_CFG = `[mcp_servers.purple8]
+command = "purple8-hyper-graph"
+args = ["mcp-server", "--url", "http://localhost:8100", "--api-key", "YOUR_API_KEY"]`;
 
 function CommandBlock({ code }: { code: string }) {
   return (
@@ -357,9 +348,9 @@ export default function QuickstartPage() {
           </h3>
           <p className="mt-2 text-sm text-gray-400">
             Purple8 exposes an MCP server at{" "}
-            <code className="text-purple-200">http://localhost:8100/mcp/sse</code>.
+            <code className="text-purple-200">http://localhost:8100/mcp</code>.
             No separate SDK or plugin needed — any MCP-capable client connects
-            with that URL and an API key. You can also call the 82 tools directly
+            with that URL and an API key. You can also call the 92 tools directly
             from your browser without any client at all.
           </p>
 
@@ -382,7 +373,7 @@ export default function QuickstartPage() {
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 The MCP Console is built into every Purple8 container. Open it,
-                pick any of the 82 tools, fill in the arguments, and run — no
+                pick any of the 92 tools, fill in the arguments, and run — no
                 client installation, no code.
               </p>
               <div className="rounded-xl border border-purple-700/40 bg-[#0d0d16] px-4 py-3 text-sm">
@@ -409,7 +400,7 @@ export default function QuickstartPage() {
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 One command registers Purple8 as an MCP server in your Claude
-                Code session. After this, Claude can call all 82 tools from any
+                Code session. After this, Claude can call all 92 tools from any
                 conversation.
               </p>
               <CommandBlock code={CLAUDE_CODE_CMD} />
@@ -425,9 +416,13 @@ export default function QuickstartPage() {
                 Option C — Claude Desktop
               </p>
               <p className="text-sm text-gray-400 mb-3">
-                Add Purple8 to your{" "}
+                Claude Desktop&rsquo;s{" "}
                 <code className="text-purple-200">claude_desktop_config.json</code>{" "}
-                and restart Claude Desktop.
+                only launches local commands, so use the bundled stdio bridge
+                (<code className="text-purple-200">pip install &apos;purple8-hyper-graph[mcp]&apos;</code>)
+                and restart Claude Desktop. For a hosted instance, use{" "}
+                <strong className="text-gray-400">Settings → Connectors → Add custom connector</strong>{" "}
+                with your <code className="text-purple-200">https://&lt;host&gt;/mcp</code> URL instead.
               </p>
               <div className="mb-2 rounded-md bg-[#0d0d16] border border-gray-800 px-3 py-2 text-xs text-gray-500">
                 <span className="font-semibold text-gray-400">macOS: </span>
@@ -478,16 +473,14 @@ export default function QuickstartPage() {
                 Option F — OpenAI Codex
               </p>
               <p className="text-sm text-gray-400 mb-3">
-                Codex reads MCP server config from{" "}
-                <code className="text-purple-200">~/.codex/config.json</code>.
-                Add the Purple8 server there:
+                Codex reads MCP servers from{" "}
+                <code className="text-purple-200">~/.codex/config.toml</code>.
+                Add the Purple8 bridge there:
               </p>
               <CommandBlock code={CODEX_CFG} />
               <p className="mt-2 text-xs text-gray-600">
-                Restart Codex after saving. Purple8&rsquo;s 82 tools will be
-                available in every Codex session automatically. The same{" "}
-                <code className="text-gray-400">mcpServers</code> key works for
-                any OpenAI-compatible MCP host (ChatGPT Desktop, etc.).
+                Restart Codex after saving. Purple8&rsquo;s 92 tools will be
+                available in every Codex session automatically.
               </p>
             </div>
 
@@ -495,11 +488,15 @@ export default function QuickstartPage() {
 
           {/* Remote deployment note */}
           <div className="mt-6 rounded-xl border border-gray-800 bg-[#0d0d16] px-4 py-3 text-sm text-gray-500">
-            <span className="font-semibold text-gray-400">Deploying to a server?</span>{" "}
+            <span className="font-semibold text-gray-400">Hosted on AWS, Fly, Kubernetes, or Purple8 SaaS?</span>{" "}
             Replace <code className="text-gray-400">http://localhost:8100</code> with
-            your host URL (e.g.{" "}
-            <code className="text-gray-400">https://my-purple8.fly.dev</code>).
-            All clients support remote URLs — no localhost tunnel required.{" "}
+            your instance&rsquo;s HTTPS URL (e.g.{" "}
+            <code className="text-gray-400">https://graph.acme.com/mcp</code>) and use an
+            API key created on <em>that</em> instance (<code className="text-gray-400">/lcnc/api-keys</code>).
+            Nothing is installed locally for URL-based clients; for the stdio bridge, pass{" "}
+            <code className="text-gray-400">--url https://graph.acme.com</code>. Self-hosting? Set{" "}
+            <code className="text-gray-400">P8G_PUBLIC_URL</code>, terminate TLS, disable proxy
+            buffering on <code className="text-gray-400">/mcp</code>, and raise LB idle timeouts to ≥300&nbsp;s.{" "}
             <Link href="/quickstart/docker-quickstart/" className="text-purple-400 underline">
               Cloud deploy guide →
             </Link>
@@ -514,7 +511,7 @@ export default function QuickstartPage() {
           <div className="mt-4 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
             <div>• Graph + vector + document + full-text engine</div>
             <div>• Built-in RAG pipeline (hybrid retrieval)</div>
-            <div>• MCP server — 82 tools across 11 namespaces</div>
+            <div>• MCP server — 92 tools across 14 namespaces</div>
             <div>• Journey Engine (workflows, SLA, HITL, audit)</div>
             <div>• LCNC admin console</div>
             <div>• AES-256-GCM encryption at rest</div>

@@ -32,7 +32,7 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "Full-text + vector / semantic search", developer: true, production: true, pro: true, enterprise: true },
   { label: "ACID transactions", developer: true, production: true, pro: true, enterprise: true },
   { label: "REST API + Python & TypeScript SDKs", developer: true, production: true, pro: true, enterprise: true },
-  { label: "All 82 MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback · schema · admin)", developer: true, production: true, pro: true, enterprise: true },
+  { label: "All 92 MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback · schema · admin)", developer: true, production: true, pro: true, enterprise: true },
   { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, production: true, pro: true, enterprise: true },
   { label: "All 67 graph & AEC algorithms", developer: true, production: true, pro: true, enterprise: true },
   { label: "Journey Engine + SLA monitoring", developer: true, production: true, pro: true, enterprise: true },
@@ -65,8 +65,8 @@ const FEATURE_ROWS: FeatureRow[] = [
 const CAP_COLUMNS: { key: keyof Omit<FeatureRow, "category" | "label">; label: string; sub: string; highlight: boolean }[] = [
   { key: "developer", label: "Developer", sub: "Free", highlight: false },
   { key: "production", label: "Production", sub: "Micro → Starter", highlight: true },
-  { key: "pro", label: "Pro", sub: "$6,999", highlight: false },
-  { key: "enterprise", label: "Enterprise", sub: "Custom", highlight: false },
+  { key: "pro", label: "Pro", sub: "Request pricing", highlight: false },
+  { key: "enterprise", label: "Enterprise", sub: "Talk to sales", highlight: false },
 ];
 
 // ─── DocIntel feature rows ────────────────────────────────────────────────────

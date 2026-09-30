@@ -44,7 +44,7 @@ const NODES: Node[] = [
   { id: "agents", label: "AI Agents", sub: "Claude · Copilot · GPT", x: 40, y: 384, w: NW, h: NH, tone: "entry" },
   // Core subsystems (inside the process box). MCP Server is Purple8's OWN
   // agent-facing gateway — not an external actor.
-  { id: "mcp", label: "MCP Server", sub: "82 tools · 11 namespaces · RBAC", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
+  { id: "mcp", label: "MCP Server", sub: "92 tools · 14 namespaces · RBAC", x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 150, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "storage", label: "Persistent Storage", sub: "documents · durable log · bounded memory", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 278, w: 240, h: 44, tone: "core", health: "ok" },
@@ -311,7 +311,7 @@ export default function SystemFlow() {
             {/* Native namespaces */}
             <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
-                Native · 11 namespaces
+                Native · 14 namespaces
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {[
