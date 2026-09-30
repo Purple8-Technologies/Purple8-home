@@ -1,0 +1,107 @@
+name: Dependabot auto-merge
+
+# Keeps dependencies continuously current without a human in the loop for
+# low-risk updates, and WITH a human gate for risky ones:
+#
+#   patch / minor / security fix  → wait for every other check on the PR to
+#                                   pass, then squash-merge automatically.
+#   major version bump            → never auto-merged. Labelled
+#                                   `needs-human-review` + explanatory comment.
+#   no CI ran on the PR           → never auto-merged (fail-safe).
+#
+# Branch protection is not required: this job does its own CI gating by
+# polling the check runs on the PR head commit.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+concurrency:
+  group: dependabot-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  auto-merge:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR: ${{ github.event.pull_request.html_url }}
+      REPO: ${{ github.repository }}
+      SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Classify update
+        id: policy
+        env:
+          UPDATE_TYPE: ${{ steps.meta.outputs.update-type }}
+          GHSA: ${{ steps.meta.outputs.ghsa-id }}
+        run: |
+          # Grouped PRs report the highest update-type across the group.
+          if [ "$UPDATE_TYPE" = "version-update:semver-major" ]; then
+            echo "decision=human" >> "$GITHUB_OUTPUT"
+          else
+            echo "decision=auto" >> "$GITHUB_OUTPUT"
+          fi
+          echo "update-type=$UPDATE_TYPE ghsa=${GHSA:-none}"
+
+      - name: Major bump → human gate
+        if: steps.policy.outputs.decision == 'human'
+        run: |
+          gh label create needs-human-review --repo "$REPO" --color d93f0b \
+            --description "Dependency change that must be reviewed by a person" 2>/dev/null || true
+          gh pr edit "$PR" --add-label needs-human-review
+          gh pr comment "$PR" --body "Major version bump (\`${{ steps.meta.outputs.dependency-names }}\`). Not auto-merged: please review breaking changes, run the app, then merge."
+
+      - name: Wait for CI on this commit
+        if: steps.policy.outputs.decision == 'auto'
+        id: ci
+        run: |
+          self="auto-merge"
+          deadline=$(( $(date +%s) + 80*60 ))
+          seen_other=0
+          while [ "$(date +%s)" -lt "$deadline" ]; do
+            runs=$(gh api "repos/$REPO/commits/$SHA/check-runs?per_page=100" \
+              --jq "[.check_runs[] | select(.name != \"$self\")]")
+            total=$(echo "$runs" | jq 'length')
+            pending=$(echo "$runs" | jq '[.[] | select(.status != "completed")] | length')
+            failed=$(echo "$runs" | jq -r '[.[] | select(.status == "completed" and (.conclusion | IN("success","skipped","neutral") | not)) | .name] | join(", ")')
+            [ "$total" -gt 0 ] && seen_other=1
+            if [ -n "$failed" ]; then
+              echo "result=failed" >> "$GITHUB_OUTPUT"; echo "Failed checks: $failed"; exit 0
+            fi
+            if [ "$seen_other" = 1 ] && [ "$pending" = 0 ]; then
+              echo "result=passed" >> "$GITHUB_OUTPUT"; echo "All $total checks passed"; exit 0
+            fi
+            # No other checks after 10 min → this repo has no PR CI; do not merge blind.
+            if [ "$seen_other" = 0 ] && [ "$(date +%s)" -gt $(( deadline - 70*60 )) ]; then
+              echo "result=no-ci" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            sleep 30
+          done
+          echo "result=timeout" >> "$GITHUB_OUTPUT"
+
+      - name: Merge
+        if: steps.ci.outputs.result == 'passed'
+        run: |
+          gh pr review "$PR" --approve --body "CI green; ${{ steps.meta.outputs.update-type }} update auto-approved by policy." || true
+          gh pr merge "$PR" --squash --delete-branch
+
+      - name: Escalate to a human
+        if: steps.policy.outputs.decision == 'auto' && steps.ci.outputs.result != 'passed'
+        run: |
+          gh label create needs-human-review --repo "$REPO" --color d93f0b \
+            --description "Dependency change that must be reviewed by a person" 2>/dev/null || true
+          gh pr edit "$PR" --add-label needs-human-review
+          gh pr comment "$PR" --body "Auto-merge held: CI result \`${{ steps.ci.outputs.result }}\`. A person needs to look at this update."
