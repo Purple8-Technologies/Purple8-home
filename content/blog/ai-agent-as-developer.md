@@ -20,7 +20,7 @@ We did not write a single line of application code. This is what happened.
 ## Why this is even possible
 
 Most databases expose a query interface. Most workflow engines expose an API.
-Purple8 exposes **92 MCP tools** — `graph.*`, `journey.*`, `rag.*`, `data.*`,
+Purple8 exposes **93 MCP tools** — `graph.*`, `journey.*`, `rag.*`, `data.*`,
 `memory.*` — that map directly to backend operations. An AI agent with access
 to those tools can design a schema, build a workflow, ingest documents, and
 start handling requests, all through natural language.
@@ -122,7 +122,7 @@ This is the list that matters:
 | LangSmith for tracing | `journey.audit` — immutable graph edges |
 | Airflow for SLA scheduling | `SLAMonitor` — built into Journey Engine |
 | Auth0 for HITL user identity | Purple8 RBAC — enforced per tool |
-| A developer to write any of this | Claude — via 92 MCP tools |
+| A developer to write any of this | Claude — via 93 MCP tools |
 
 The frontend still needs to be built — a loan officer UI, a borrower portal.
 But the entire backend: data layer, search, workflow, audit, SLA, RAG — Claude

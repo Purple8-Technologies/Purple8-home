@@ -350,7 +350,7 @@ export default function QuickstartPage() {
             Purple8 exposes an MCP server at{" "}
             <code className="text-purple-200">http://localhost:8100/mcp</code>.
             No separate SDK or plugin needed — any MCP-capable client connects
-            with that URL and an API key. You can also call the 92 tools directly
+            with that URL and an API key. You can also call the 93 tools directly
             from your browser without any client at all.
           </p>
 
@@ -373,7 +373,7 @@ export default function QuickstartPage() {
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 The MCP Console is built into every Purple8 container. Open it,
-                pick any of the 92 tools, fill in the arguments, and run — no
+                pick any of the 93 tools, fill in the arguments, and run — no
                 client installation, no code.
               </p>
               <div className="rounded-xl border border-purple-700/40 bg-[#0d0d16] px-4 py-3 text-sm">
@@ -400,7 +400,7 @@ export default function QuickstartPage() {
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 One command registers Purple8 as an MCP server in your Claude
-                Code session. After this, Claude can call all 92 tools from any
+                Code session. After this, Claude can call all 93 tools from any
                 conversation.
               </p>
               <CommandBlock code={CLAUDE_CODE_CMD} />
@@ -479,7 +479,7 @@ export default function QuickstartPage() {
               </p>
               <CommandBlock code={CODEX_CFG} />
               <p className="mt-2 text-xs text-gray-600">
-                Restart Codex after saving. Purple8&rsquo;s 92 tools will be
+                Restart Codex after saving. Purple8&rsquo;s 93 tools will be
                 available in every Codex session automatically.
               </p>
             </div>
@@ -511,7 +511,7 @@ export default function QuickstartPage() {
           <div className="mt-4 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
             <div>• Graph + vector + document + full-text engine</div>
             <div>• Built-in RAG pipeline (hybrid retrieval)</div>
-            <div>• MCP server — 92 tools across 14 namespaces</div>
+            <div>• MCP server — 93 tools across 14 namespaces</div>
             <div>• Journey Engine (workflows, SLA, HITL, audit)</div>
             <div>• LCNC admin console</div>
             <div>• AES-256-GCM encryption at rest</div>

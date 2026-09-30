@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Agentic Process Automation — Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph is the AI-native backend for agentic process automation. Journey Engine, 92 MCP tools, graph memory, SLA enforcement, and human-in-the-loop gates — all built in. No Airflow, no LangGraph, no custom glue code.",
+    "Purple8 Hyper Graph is the AI-native backend for agentic process automation. Journey Engine, 93 MCP tools, graph memory, SLA enforcement, and human-in-the-loop gates — all built in. No Airflow, no LangGraph, no custom glue code.",
   path: "/products/purple8/agentic-process-automation",
 });
 
@@ -16,7 +16,7 @@ const jsonLd = {
   "@type": "WebPage",
   name: "Agentic Process Automation — Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph provides out-of-the-box agentic process automation: AI agents orchestrate multi-stage workflows, enforce SLAs, handle human-in-the-loop approvals, and maintain an immutable audit trail — all through 92 MCP tools, with no custom orchestration code.",
+    "Purple8 Hyper Graph provides out-of-the-box agentic process automation: AI agents orchestrate multi-stage workflows, enforce SLAs, handle human-in-the-loop approvals, and maintain an immutable audit trail — all through 93 MCP tools, with no custom orchestration code.",
   url: "https://www.purple8.ai/products/purple8/agentic-process-automation/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
@@ -43,7 +43,7 @@ const jsonLd = {
         name: "How does Purple8 support agentic process automation?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Purple8's Journey Engine provides the stateful workflow layer AI agents need: multi-stage process definitions, SLA enforcement, human-in-the-loop approval gates, and an immutable audit trail — all stored in the graph and accessible to agents through 92 MCP tools. An agent can start a process instance, advance it through stages, handle exceptions, and surface decisions for human review entirely through natural language tool calls.",
+          text: "Purple8's Journey Engine provides the stateful workflow layer AI agents need: multi-stage process definitions, SLA enforcement, human-in-the-loop approval gates, and an immutable audit trail — all stored in the graph and accessible to agents through 93 MCP tools. An agent can start a process instance, advance it through stages, handle exceptions, and surface decisions for human review entirely through natural language tool calls.",
         },
       },
       {
@@ -175,7 +175,7 @@ export default function AgenticProcessAutomationPage() {
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
               Purple8 gives AI agents everything they need to run real business processes
               end-to-end: stateful workflows, SLA enforcement, human-approval gates,
-              knowledge graph memory, and a full audit trail. Through 92 MCP tools, in a
+              knowledge graph memory, and a full audit trail. Through 93 MCP tools, in a
               single process. An agent that can call <code className="text-purple-300 text-base">journey.advance</code> can
               run a loan application, a compliance review, or a supplier approval from
               start to finish.
