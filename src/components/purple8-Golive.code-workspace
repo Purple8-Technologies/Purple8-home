@@ -26,6 +26,12 @@
 		},
 		{
 			"path": "../../../Purple8-intranet"
+		},
+		{
+			"path": "../../../purple8-aml-demo"
+		},
+		{
+			"path": "../../../purple8-sentinel"
 		}
 	],
 	"settings": {}

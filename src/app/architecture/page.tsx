@@ -257,7 +257,7 @@ export default function ArchitecturePage() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="pt-16">
 
         {/* ── Hero ── */}
         <section className="relative overflow-hidden">
@@ -291,7 +291,7 @@ export default function ArchitecturePage() {
         </section>
 
         {/* ── The problem: category cards with logos ── */}
-        <section className="border-t border-purple-900/20 bg-[#0d0d16]">
+        <section className="border-t border-purple-900/20 bg-[#0d0d16]/60">
           <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
             <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
               The problem
@@ -679,7 +679,7 @@ export default function ArchitecturePage() {
         </section>
 
         {/* ── Comparison table ── */}
-        <section className="border-t border-purple-900/20 bg-[#0d0d16]">
+        <section className="border-t border-purple-900/20 bg-[#0d0d16]/60">
           <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
             <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
               Side by side
@@ -824,7 +824,7 @@ export default function ArchitecturePage() {
         </section>
 
         {/* ── Replacement stack ── */}
-        <section className="border-t border-purple-900/20 bg-[#0d0d16]">
+        <section className="border-t border-purple-900/20 bg-[#0d0d16]/60">
           <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
             <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
               What Consolidith eliminates
@@ -885,7 +885,7 @@ export default function ArchitecturePage() {
         </section>
 
         {/* ── Three objections ── */}
-        <section className="border-t border-purple-900/20 bg-[#0d0d16]">
+        <section className="border-t border-purple-900/20 bg-[#0d0d16]/60">
           <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
             <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
               The hard questions

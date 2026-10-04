@@ -52,7 +52,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="bg-[#0a0a0f] text-zinc-100">
+      <main id="main-content" className="text-zinc-100">
         {/* ── Hero ── */}
         <section className="relative overflow-hidden px-4 pt-32 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -132,7 +132,7 @@ export default function AboutPage() {
 
         {/* ── Why we exist ── */}
         <FadeIn direction="up">
-          <section className="border-y border-purple-900/20 bg-[#0d0d17] px-4 py-24 sm:px-6 lg:px-8">
+          <section className="border-y border-purple-900/20 bg-[#0d0d17]/60 px-4 py-24 sm:px-6 lg:px-8">
             <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
               <div>
                 <h2 className="text-5xl font-extrabold leading-none text-white">
@@ -226,7 +226,7 @@ export default function AboutPage() {
 
         {/* ── The name ── */}
         <FadeIn direction="up">
-          <section className="border-y border-purple-900/20 bg-[#0d0d17] px-4 py-24 sm:px-6 lg:px-8">
+          <section className="border-y border-purple-900/20 bg-[#0d0d17]/60 px-4 py-24 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-4xl text-center">
               <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
                 The name

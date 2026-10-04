@@ -266,7 +266,7 @@ const compliance = [
 /* ─── Main component ──────────────────────────────────────────────────── */
 export default function AirGapArch() {
   return (
-    <section className="border-t border-purple-900/20 bg-[#0a0a0f]">
+    <section className="border-t border-purple-900/20">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
 
         {/* Section header */}

@@ -183,7 +183,7 @@ export default function WorkflowOrchestrationPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
-      <main id="main-content" className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="pt-16">
 
         {/* Breadcrumb */}
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-8">

@@ -15,10 +15,10 @@ interface Particle {
 const NODE_COUNT = 90;
 const CONNECTION_DIST = 160;
 const NODE_SPEED = 0.28;
-const NODE_COLOR = "147, 51, 234";   // purple-600
-const EDGE_COLOR  = "139, 92, 246";  // violet-500
-const MAX_EDGE_OPACITY = 0.18;
-const MAX_NODE_OPACITY = 0.55;
+const NODE_COLOR = "168, 85, 247";   // purple-500 (brighter)
+const EDGE_COLOR  = "167, 139, 250"; // violet-400 (brighter)
+const MAX_EDGE_OPACITY = 0.28;
+const MAX_NODE_OPACITY = 0.75;
 
 function initParticles(w: number, h: number): Particle[] {
   return Array.from({ length: NODE_COUNT }, () => ({
@@ -94,7 +94,7 @@ export default function ParticleNetwork() {
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.strokeStyle = `rgba(${EDGE_COLOR}, ${alpha})`;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }

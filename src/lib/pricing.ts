@@ -6,9 +6,9 @@
  *   Purple8-DocIntel/src/purple8_docintel/licensing/models.py (LicenseTier)
  *
  * KEY MESSAGE this file encodes:
- *   The full production engine starts at $119 (Micro). Everything from Micro
- *   through Starter shares the SAME feature set — you are choosing *capacity*,
- *   not capability. Pro adds governance/compliance; Enterprise adds HA/scale.
+ *   Everything from Micro through Starter shares the SAME feature set — you
+ *   are choosing *capacity*, not capability. Pro adds governance/compliance;
+ *   Enterprise adds HA/scale.
  *
  * Annual price = floor(monthly * 10 / 12)  ("pay for 10 months, get 12").
  */
@@ -198,38 +198,38 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "solo",
     name: "Solo",
-    price: "$99",
+    price: "$49",
     quota: "10,000 docs/mo",
     seats: "2 workers",
     tagline:
       "The affordable on-ramp. Every Self-Hosted capability — all connectors, all 5 OCR engines, all LLM providers — metered to 10K documents/month. Every new version included.",
     cta: "Start Solo",
-    ctaHref: "https://purple8.ai/checkout/create-session?plan=docintel-solo",
+    ctaHref: "/checkout?plan=docintel-solo",
     badge: "New",
   },
   {
     id: "self-hosted",
     name: "Self-Hosted",
-    price: "$799",
+    price: "$299",
     quota: "Unlimited docs",
     seats: "Unlimited workers",
     tagline:
-      "Unlimited processing at a flat $799/mo — no per-page fees. All connectors (SharePoint, Confluence, S3), all 5 OCR engines, all LLM providers. Nothing leaves your infra. Every new version included.",
-    cta: "Get license",
-    ctaHref: "https://purple8.ai/checkout/create-session?plan=docintel",
+      "Unlimited processing, flat monthly fee — no per-page fees. All connectors (SharePoint, Confluence, S3), all 5 OCR engines, all LLM providers. Nothing leaves your infra. Every new version included.",
+    cta: "Start Self-Hosted",
+    ctaHref: "/checkout?plan=docintel-self-hosted",
     highlight: true,
     badge: "Most popular",
   },
   {
     id: "enterprise",
     name: "Enterprise",
-    price: "$1,499",
+    price: "Custom",
     quota: "Unlimited",
     seats: "Unlimited",
     tagline:
-      "Everything in Self-Hosted plus SSO/SAML, air-gapped deployment, one custom fine-tuned domain adapter, one custom connector, LTS security-patch backports, guided upgrades, and a dedicated response SLA. Half the price of Unstructured.io enterprise.",
-    cta: "Start Enterprise",
-    ctaHref: "https://purple8.ai/checkout/create-session?plan=docintel-enterprise",
+      "Everything in Self-Hosted plus SSO/SAML, air-gapped deployment, one custom fine-tuned domain adapter, one custom connector, LTS security-patch backports, guided upgrades, and a dedicated response SLA.",
+    cta: "Contact sales",
+    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Enterprise%20inquiry",
   },
 ];
 
@@ -245,10 +245,6 @@ export const PURCHASABLE_PLAN_IDS: ReadonlySet<string> = new Set<string>([
   ...GRAPH_TIERS.filter(
     (t) => typeof t.priceMonthly === "number" && t.priceMonthly > 0,
   ).map((t) => t.id),
-  ...DOCINTEL_TIERS.map((t) => {
-    const match = t.ctaHref.match(/[?&]plan=([^&]+)/);
-    return match ? decodeURIComponent(match[1]) : null;
-  }).filter((id): id is string => id !== null),
 ]);
 
 // ─────────────────────────────────────────────────────────────────────────────

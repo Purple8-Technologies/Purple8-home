@@ -14,7 +14,7 @@ export default function SupportPage() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="min-h-screen bg-[#0a0a0f] pt-16 text-slate-100">
+      <main id="main-content" className="min-h-screen pt-16 text-slate-100">
         {/* Header */}
         <div className="border-b border-slate-800/60 bg-[#0d0d17]">
           <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">

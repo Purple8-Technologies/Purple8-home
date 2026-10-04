@@ -101,7 +101,7 @@ function CommandBlock({ code }: { code: string }) {
 
 export default function QuickstartPage() {
   return (
-    <main id="main-content" className="min-h-screen bg-[#0a0a0f] px-4 py-16 sm:px-6 lg:px-8">
+    <main id="main-content" className="min-h-screen px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="mb-10">

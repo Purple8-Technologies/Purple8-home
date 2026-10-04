@@ -83,7 +83,7 @@ function CheckoutSuccessContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <a
         href="/"
         className="absolute left-4 top-4 inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300 sm:left-6 sm:top-6"

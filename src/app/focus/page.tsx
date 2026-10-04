@@ -29,7 +29,7 @@ export default function FocusPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
-      <main id="main-content" className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="pt-16">
         <FocusAgent />
       </main>
       <Footer />

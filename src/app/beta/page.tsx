@@ -12,7 +12,7 @@ import Link from "next/link";
  */
 export default function BetaPage() {
   return (
-    <main id="main-content" className="flex min-h-screen items-center justify-center bg-[#0a0a0f] px-4 text-center">
+    <main id="main-content" className="flex min-h-screen items-center justify-center px-4 text-center">
       <meta httpEquiv="refresh" content="0; url=/register" />
       <div className="max-w-md">
         <h1 className="text-xl font-bold text-white">Redirecting to registration…</h1>

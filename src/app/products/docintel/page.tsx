@@ -43,7 +43,7 @@ export default function DocIntelPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
-      <main id="main-content" className="bg-[#0a0a0f] pt-16">
+      <main id="main-content" className="pt-16">
         {/* Hero */}
         <section className="relative overflow-hidden py-24">
           <div className="pointer-events-none absolute inset-0">

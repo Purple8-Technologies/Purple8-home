@@ -129,7 +129,7 @@ function Badge({ label }: { label: string }) {
 
 export default function FocusAgent() {
   return (
-    <div className="bg-[#0a0a0f]">
+    <div className="">
 
       {/* ── Hero ──────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-24 sm:py-32">

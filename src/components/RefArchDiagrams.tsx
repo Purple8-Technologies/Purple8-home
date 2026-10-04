@@ -629,7 +629,7 @@ function Scenario4() {
 /* ─── Public export ──────────────────────────────────────────────────── */
 export default function RefArchDiagrams() {
   return (
-    <section className="border-t border-purple-900/20 bg-[#0d0d16]">
+    <section className="border-t border-purple-900/20 bg-[#0d0d16]/60">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
           Reference architecture
