@@ -65,22 +65,8 @@ export default function Purple8Logo({
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeDasharray="14 86"
+          strokeDasharray="22 78"
           style={{ filter: "drop-shadow(0 0 2px #f0abfc)" }}
-        />
-      )}
-      {animated && (
-        <path
-          d={d}
-          className="purple8-logo-streak-reverse"
-          pathLength={100}
-          fill="none"
-          stroke="#e9d5ff"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="14 86"
-          style={{ filter: "drop-shadow(0 0 2px #c084fc)" }}
         />
       )}
     </svg>

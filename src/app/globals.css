@@ -121,14 +121,8 @@ body {
   to   { stroke-dashoffset: 0; }
 }
 .purple8-logo-streak {
-  animation: purple8-streak 3.2s linear infinite;
-}
-.purple8-logo-streak-reverse {
-  /* same direction, half a loop behind the first streak */
-  animation: purple8-streak 3.2s linear infinite;
-  animation-delay: -1.6s;
+  animation: purple8-streak 4.5s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .purple8-logo-streak,
-  .purple8-logo-streak-reverse { animation: none; opacity: 0; }
+  .purple8-logo-streak { animation: none; opacity: 0; }
 }
