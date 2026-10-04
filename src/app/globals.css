@@ -124,7 +124,9 @@ body {
   animation: purple8-streak 3.2s linear infinite;
 }
 .purple8-logo-streak-reverse {
-  animation: purple8-streak 3.2s linear infinite reverse;
+  /* same direction, half a loop behind the first streak */
+  animation: purple8-streak 3.2s linear infinite;
+  animation-delay: -1.6s;
 }
 @media (prefers-reduced-motion: reduce) {
   .purple8-logo-streak,
