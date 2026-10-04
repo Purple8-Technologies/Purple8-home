@@ -7,11 +7,11 @@ import { CC_BASE_URL } from "@/lib/cc";
 const SANDBOX_URL = "https://purple8-docintel.fly.dev/try";
 
 const dataPoints = [
-  "Your document is processed in memory and is never written to disk.",
-  "Results are available for your session only — about 60 minutes after a job finishes — then deleted.",
-  "We keep only job metadata (job id, status, file format, category, language, timestamps) to enforce the monthly limit. Not your filename, not your content.",
+  "Your processed documents are never saved.",
+  "Results are available for your session only — then deleted.",
+  "We keep only job metadata (job id, status, file format, category, language, timestamps). Not your filename, not your content.",
   "Only you can see your jobs.",
-  "Please don't upload confidential documents. For real data, self-host DocIntel.",
+  "Please don't upload confidential documents. For real data, use self-hosted DocIntel.",
 ];
 
 /**
