@@ -123,6 +123,10 @@ body {
 .purple8-logo-streak {
   animation: purple8-streak 3.2s linear infinite;
 }
+.purple8-logo-streak-reverse {
+  animation: purple8-streak 3.2s linear infinite reverse;
+}
 @media (prefers-reduced-motion: reduce) {
-  .purple8-logo-streak { animation: none; opacity: 0; }
+  .purple8-logo-streak,
+  .purple8-logo-streak-reverse { animation: none; opacity: 0; }
 }
