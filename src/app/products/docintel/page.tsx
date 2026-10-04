@@ -67,13 +67,13 @@ export default function DocIntelPage() {
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
-                href="/quickstart#add-docintel"
+                href="/try/docintel/"
                 className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500"
               >
-                Get started
+                Try it free in your browser
               </a>
-              <a href="mailto:hello@purple8.ai" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Talk to us →
+              <a href="/quickstart#add-docintel" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
+                Self-host →
               </a>
             </div>
           </div>
@@ -121,8 +121,11 @@ export default function DocIntelPage() {
             <h2 className="text-3xl font-bold text-white">Add document intelligence to your stack.</h2>
             <p className="mt-4 text-zinc-400">Works standalone or alongside Purple8 Hyper Graph. Self-hosted, air-gap ready.</p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <a href="/quickstart#add-docintel" className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white hover:bg-purple-500">
-                Get started
+              <a href="/try/docintel/" className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white hover:bg-purple-500">
+                Try it free
+              </a>
+              <a href="/quickstart#add-docintel" className="text-base text-zinc-300 hover:text-white">
+                Self-host →
               </a>
               <a href="/pricing/" className="text-base text-zinc-300 hover:text-white">
                 See pricing →

@@ -184,8 +184,8 @@ export default function Products({
               <FeatureList items={docItems} />
 
               <div className="mt-8 flex items-center gap-4">
-                <a href="/quickstart#add-docintel" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
-                  Get Started
+                <a href="/try/docintel/" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
+                  Try it free
                 </a>
                 <a href="/features/" className="text-sm text-purple-400 hover:text-purple-300">
                   Explore features →
