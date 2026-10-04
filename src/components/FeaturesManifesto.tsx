@@ -63,7 +63,7 @@ export default function FeaturesManifesto({
   const rows = isHighlight ? EIGHT.slice(0, 4) : EIGHT;
 
   return (
-    <section id="features" className="bg-[#0a0a0f] py-24 sm:py-32">
+    <section id="features" className="py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
 
         {/* Section label */}

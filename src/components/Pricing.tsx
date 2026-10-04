@@ -179,7 +179,7 @@ export default function Pricing() {
   }
 
   return (
-    <section id="pricing" className="bg-[#0a0a0f] py-24 sm:py-32">
+    <section id="pricing" className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ── Header ── */}
         <div className="text-center">

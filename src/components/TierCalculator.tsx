@@ -129,7 +129,7 @@ export default function TierCalculator() {
     totalUsers >= USERS_MAX ? "10M+" : totalUsers.toLocaleString();
 
   return (
-    <section id="calculator" className="bg-[#0a0a0f] py-24 sm:py-28">
+    <section id="calculator" className="py-24 sm:py-28">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center">

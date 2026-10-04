@@ -80,7 +80,7 @@ export default function Stats() {
   const { ref, inView } = useInView(0.2);
 
   return (
-    <section ref={ref} className="border-y border-purple-900/30 bg-[#0d0d17] py-14">
+    <section ref={ref} className="border-y border-purple-900/30 bg-[#0d0d17]/60 py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {STATS.map((s) => (

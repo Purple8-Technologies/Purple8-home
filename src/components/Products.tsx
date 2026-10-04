@@ -72,7 +72,7 @@ export default function Products({
   const docItems = isHighlight ? docIntelFeatures.slice(0, 4) : docIntelFeatures;
 
   return (
-    <section id="products" className="bg-[#0a0a0f] py-24 sm:py-32">
+    <section id="products" className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center">

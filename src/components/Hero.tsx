@@ -2,7 +2,7 @@ import CodeTerminal from "@/components/CodeTerminal";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#0a0a0f] pt-16">
+    <section className="relative min-h-screen overflow-hidden pt-16">
       {/* Subtle background glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-48 left-1/2 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-purple-900/15 blur-3xl" />

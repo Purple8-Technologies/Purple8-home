@@ -24,7 +24,7 @@ const resourceLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-purple-900/30 bg-[#0a0a0f]">
+    <footer className="border-t border-purple-900/30 bg-[#0a0a0f]/70">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}

@@ -1,6 +1,6 @@
 export default function BuiltOnPurple8() {
   return (
-    <section className="bg-[#0d0d17] py-20 sm:py-24">
+    <section className="bg-[#0d0d17]/60 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-2xl border border-purple-900/40 bg-[#11111b] px-8 py-12 sm:px-14 sm:py-16">
           {/* Background glows */}

@@ -145,7 +145,7 @@ export default function SystemFlow() {
   const hops = 0; // in-process — always zero network hops
 
   return (
-    <section id="how-it-works" className="bg-[#0a0a0f] py-24 sm:py-28">
+    <section id="how-it-works" className="py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center">
