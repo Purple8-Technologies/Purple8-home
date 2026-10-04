@@ -114,3 +114,15 @@ body {
   color: #a1a1aa;
   font-style: italic;
 }
+
+/* Homepage logo: light streak looping through the infinity mark */
+@keyframes purple8-streak {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+.purple8-logo-streak {
+  animation: purple8-streak 3.2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .purple8-logo-streak { animation: none; opacity: 0; }
+}

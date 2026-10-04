@@ -203,7 +203,7 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5">
-              <Purple8Logo className="h-8 w-16" />
+              <Purple8Logo className="h-8 w-16" animated={pathname === "/"} />
               <span className="text-sm font-semibold tracking-tight text-white">
                 Purple<span className="text-purple-400">8</span>
               </span>

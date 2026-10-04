@@ -3,12 +3,26 @@
 // Purple8 Graph Logo - Infinity symbol (∞)
 import { useId } from "react";
 
-export default function Purple8Logo({ className = "h-10 w-10" }: { className?: string }) {
+export default function Purple8Logo({
+  className = "h-10 w-10",
+  animated = false,
+}: {
+  className?: string;
+  /** Light streak travelling the infinity loop forever (homepage only). */
+  animated?: boolean;
+}) {
   // #7: unique per-instance IDs so multiple logos on one page (Navbar + Footer)
   // don't emit duplicate DOM IDs or cross-reference each other's gradient/glow.
   const uid = useId().replace(/:/g, "");
   const gradientId = `purple8-gradient-${uid}`;
   const glowId = `purple8-glow-${uid}`;
+  const d = `M60 30
+             C60 12 45 5 30 15
+             C15 25 15 35 30 45
+             C45 55 60 48 60 30
+             C60 12 75 5 90 15
+             C105 25 105 35 90 45
+             C75 55 60 48 60 30`;
   return (
     <svg
       viewBox="0 0 120 60"
@@ -33,13 +47,7 @@ export default function Purple8Logo({ className = "h-10 w-10" }: { className?: s
       </defs>
       <g filter={`url(#${glowId})`}>
         <path
-          d="M60 30
-             C60 12 45 5 30 15
-             C15 25 15 35 30 45
-             C45 55 60 48 60 30
-             C60 12 75 5 90 15
-             C105 25 105 35 90 45
-             C75 55 60 48 60 30"
+          d={d}
           fill="none"
           stroke={`url(#${gradientId})`}
           strokeWidth="7"
@@ -47,6 +55,20 @@ export default function Purple8Logo({ className = "h-10 w-10" }: { className?: s
           strokeLinejoin="round"
         />
       </g>
+      {animated && (
+        <path
+          d={d}
+          className="purple8-logo-streak"
+          pathLength={100}
+          fill="none"
+          stroke="#fdf4ff"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="14 86"
+          style={{ filter: "drop-shadow(0 0 2px #f0abfc)" }}
+        />
+      )}
     </svg>
   );
 }
