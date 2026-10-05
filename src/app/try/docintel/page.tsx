@@ -101,9 +101,11 @@ export default function TryDocIntelPage() {
           <div className="mt-8 rounded-3xl border border-purple-900/40 bg-[#11111b] p-8">
             <h2 className="text-2xl font-bold text-white">Check your email 📧</h2>
             <p className="mt-4 text-gray-300">
-              We sent your sandbox key to{" "}
-              <span className="text-purple-300">{email.toLowerCase()}</span>. Open the
-              sandbox and paste the key.
+              We emailed{" "}
+              <span className="text-purple-300">{email.toLowerCase()}</span>. If a place
+              is free, it contains your sandbox key — open the sandbox and paste it. If
+              demand is high, you&apos;re on the waitlist and we&apos;ll send your key as
+              soon as a place opens.
             </p>
             <a
               href={SANDBOX_URL}
