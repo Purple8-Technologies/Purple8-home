@@ -56,18 +56,52 @@ export default function Purple8Logo({
         />
       </g>
       {animated && (
-        <path
-          d={d}
-          className="purple8-logo-streak"
-          pathLength={100}
-          fill="none"
-          stroke="#fdf4ff"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="22 78"
-          style={{ filter: "drop-shadow(0 0 2px #f0abfc)" }}
-        />
+        <g>
+          {/* Comet = particle train riding the loop (SMIL animateMotion).
+              Each particle follows the exact curve, lagging the head a little
+              more and getting smaller/fainter — a true tapering tail. The
+              head is a radial-gradient coma with a white-hot nucleus. */}
+          <defs>
+            <radialGradient id={`${uid}-coma`}>
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+              <stop offset="30%" stopColor="#fdf4ff" stopOpacity="0.95" />
+              <stop offset="60%" stopColor="#f0abfc" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#c084fc" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id={`${uid}-dust`}>
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#e9d5ff" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          {Array.from({ length: 50 }, (_, i) => {
+            const k = i / 49; // 0 = just behind head, 1 = tail end
+            return (
+              <circle
+                key={i}
+                r={(3.2 * (1 - k) ** 1.4 + 0.4).toFixed(2)}
+                fill={`url(#${uid}-dust)`}
+                opacity={(0.75 * (1 - k) ** 1.6).toFixed(3)}
+                className="p8-logo-comet"
+              >
+                <animateMotion
+                  dur="6s"
+                  repeatCount="indefinite"
+                  path={d}
+                  begin={`${(-1.6 + (i + 1) * 0.045).toFixed(3)}s`}
+                />
+              </circle>
+            );
+          })}
+          {/* head: coma + nucleus */}
+          <g className="p8-logo-comet">
+            <circle r="7" fill={`url(#${uid}-coma)`} />
+            <circle r="1.8" fill="#ffffff" style={{ filter: "drop-shadow(0 0 2px #ffffff)" }} />
+            <animateMotion dur="6s" repeatCount="indefinite" path={d} begin="-1.6s" />
+          </g>
+          <style>{`
+            @media (prefers-reduced-motion: reduce) { .p8-logo-comet { display: none; } }
+          `}</style>
+        </g>
       )}
     </svg>
   );
