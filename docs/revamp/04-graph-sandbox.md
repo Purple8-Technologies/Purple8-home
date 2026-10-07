@@ -42,6 +42,9 @@ Hyper Graph backend over MCP → user logs in to the app to see that configurati
 
 ## 3. Storage
 
+- **Separate Fly app:** `purple8-graph-sandbox` (`fly.sandbox.toml`, own
+  volume `p8g_sandbox_data`). Production `purple8-graph` (AI Architect and
+  paying tenants) runs with sandbox mode off, so sandbox data never touches it.
 - **Shared multi-tenant storage** (`tenancy.py`, shared mode).
 - Clear disclaimer on sign-up and in the app header:
   "Sandbox — do not upload sensitive or personal data."
@@ -52,7 +55,12 @@ Hyper Graph backend over MCP → user logs in to the app to see that configurati
 - One per domain (e.g. Finance, Legal, AEC, Support), user picks on first
   login so the graph is never empty.
 - **Auto-cleared** the first time the user ingests their own data, or sends a
-  DocIntel result. One prompt: "Replace the sample with your data?"
+  DocIntel result. No prompt; one-line notice: "Sample removed; your data is
+  now the only data in the graph."
+- Samples only load into an empty graph, so sample and user data never mix
+  (409 otherwise). Switching between samples is allowed while no user data
+  exists. **Built:** `sandbox_samples.py`, `routers/sandbox.py`,
+  `SampleDataCard.tsx`.
 
 ## 5. Send to Hyper Graph (upsell)
 
@@ -90,7 +98,9 @@ storage settings, danger zone. Done through existing roles, not new screens.
 | # | Check | Status |
 |---|---|---|
 | V1 | Analytics in shared tenancy | **Fixed.** Link prediction, triangle counting, bridges and `profile_collection` (and therefore `rag.tune_collection`) are now tenant-scoped in `tenancy.py`, with tests in `tests/test_tenancy.py`. Still blocked in shared mode: MST, bipartite, biconnected, motifs, structural roles, fraud rings, simrank, temporal/dynamic PageRank. Any upsell is intentional, never a cover for a gap. |
-| V2 | Sandbox key auto-issued and filled into the MCP config | Build item. |
+| V2 | Sandbox key auto-issued and filled into the MCP config | **Built.** `POST /mcp/clients/{client}/connect` issues an agent key (90 days, one live key per user per client, re-connect revokes the old one; API keys cannot mint) and returns the config with the key filled in, shown once. Configs now point at the hosted `<server>/mcp` (Streamable HTTP, `X-API-Key`) — nothing to `pip install`; Claude Desktop bridges via `npx mcp-remote`. "Connect your agent" card on the Dashboard and MCP Console. Tests: `tests/test_mcp_connect.py`. |
+| V4 | 30-day limits (§3, §8) | **Built** behind `P8G_SANDBOX=1`: 500 queries + 50 RAG answers / tenant / UTC day (429), free-plan tenants expire at day 30 (403) and an hourly sweep hard-deletes them (shared-store purge included), disclaimer + days-left banner on every page. Counters are in-process: single-replica sandbox only. Tests: `tests/test_sandbox_policy.py`. |
+| V5 | Shared account + Send to Hyper Graph (§5) | **Built.** Graph: `POST /auth/sandbox/exchange` accepts the Command Center sandbox key (RS256, `aud=docintel-sandbox`, `email` claim), find-or-creates the sandbox user + own tenant (plan `sandbox` → 30-day rules), returns a session; a sandbox key can never enter a full (password) account (409). `/sandbox/start#key=…` signs the browser in. DocIntel: "Send to Hyper Graph" on every result (`GRAPH__SANDBOX_URL`), `POST /jobs/{id}/send-to-graph` exchanges the key, commits with the session, opens Graph. Any sample is auto-cleared on the next dashboard load. Tests: `tests/test_sandbox_identity.py` (Graph), `tests/test_send_to_graph.py` (DocIntel). |
 | V3 | Hiding admin screens by role | **Fixed.** Key Management and Settings are admin-only in the nav (`Layout.tsx`) and guarded by `AdminRoute` (`App.tsx`). |
 
 ## 10. Open decisions
