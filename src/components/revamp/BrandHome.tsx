@@ -193,7 +193,7 @@ export default function BrandHome() {
             <Link href="/products/docintel/" className="rounded-full bg-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:opacity-90">
               Try DocIntel
             </Link>
-            <Link href="/products/hyper-graph/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
+            <Link href="/try/graph/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
               Try Hyper Graph
             </Link>
           </div>
