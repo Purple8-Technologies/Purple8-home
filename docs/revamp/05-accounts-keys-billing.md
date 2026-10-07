@@ -46,7 +46,9 @@ Account (email, verified_at, mfa_enabled, created_at)
 
 | Item | Spec |
 |---|---|
-| Sandbox key | Created automatically per product at verification. Never shown; used by the sandbox UI behind the session and pre-filled into the MCP config (04 §6). Expires with the sandbox. |
+| Sandbox key | Issued per product through one Command Center flow (`/public/sandbox/{product}`), emailed, 30 days, one active key per customer per product, active in one place only. Used behind the session and pre-filled into the MCP config (04 §6). |
+| Projects | One account → many projects; each project has its own independent key per product. First project gets the free credit; others are pay-as-you-go or monthly/annual packs. Customer sees all keys on their account page. |
+| Data movement | Separate from keys. "Send to Hyper Graph": DocIntel asks Command Center for the customer's Graph project(s) and uses the **Graph** key (04 §5). |
 | Paid keys | Unlimited per product, named by the user, shown **once** at creation. Stored as a hash only. |
 | Scope | Product-specific (a DocIntel key does not work on Graph). Graph keys are bound to the account's tenant. |
 | Spend cap | Optional per key; stops the key when reached. |
@@ -77,9 +79,9 @@ On purple8.ai (`/console`), per product tab:
 
 | Type | Item |
 |---|---|
-| Strip | Free Developer licence flow (`/public/developer/*`) |
-| Strip | Sandbox capacity waitlist (`sandbox_capacity.py`) — replaced by the 30-day / 50-file limits. |
-| Change | `/public/sandbox/docintel` → verify-email + session (03) |
+| Keep | Developer licence flow (`/public/developer/*`) — open-ended, self-hosted only |
+| Keep | Sandbox capacity waitlist (`sandbox_capacity.py`) — per product, as a cost safety valve; revisit on demand/performance data (D2) |
+| Change | `/public/sandbox/docintel` → generic `/public/sandbox/{product}` (done: docintel, graph) |
 | Change | Stripe checkout: subscription licence → credits / plan per product |
 | Change | Licences: kept for Enterprise self-host only |
 | Add | `Account` + per-product records (§2) |
@@ -94,7 +96,7 @@ On purple8.ai (`/console`), per product tab:
 | # | Question | Decision |
 |---|---|---|
 | D1 | Existing paid self-host licence holders | **Unchanged.** When the sandbox launches, every existing user (paid licence, free Developer licence, old sandbox key) gets an invite email to try it. |
-| D2 | Drop the sandbox capacity waitlist, or keep it as a cost safety valve? | **Drop.** Cost is controlled by the 30-day / 50-file limits and by shifting work to the customer's device (§8). |
+| D2 | Drop the sandbox capacity waitlist, or keep it as a cost safety valve? | **Keep, per product** (2026-10-08). Decide later from demand and performance; browser-side (WebAssembly) processing reduces server load (§8). |
 | D3 | Console: page on purple8.ai, or inside each product's app? | **purple8.ai** (`/console`). Static page; all data comes from command-center APIs with the session cookie. |
 | D4 | Usage reporting interval and behaviour when command-center is unreachable | **Every 60 s; products keep serving and send the backlog later.** |
 

@@ -64,9 +64,16 @@ Hyper Graph backend over MCP → user logs in to the app to see that configurati
 
 ## 5. Send to Hyper Graph (upsell)
 
-- Button on every DocIntel sandbox result.
-- Not signed up for Graph yet → Graph sandbox is enabled on the same parent
-  account (no second registration), result lands in their graph, app opens.
+- Button on every DocIntel sandbox result. **Data movement only — keys never
+  cross products.**
+- DocIntel asks Command Center (service call) for the customer's Hyper Graph
+  projects, identified by DocIntel's own key id → Customer record. Command
+  Center returns endpoint + Graph key per project. No Graph project yet → one
+  is issued through the normal Graph sandbox flow (capacity waitlist, key
+  emailed) — no second registration.
+- Several projects → the user picks one. One → no prompt.
+- DocIntel commits the result with the **Graph key**; Graph validates its own
+  key as usual. The app opens signed in to that project.
 
 ## 6. Connecting the agent (MCP)
 
@@ -100,7 +107,7 @@ storage settings, danger zone. Done through existing roles, not new screens.
 | V1 | Analytics in shared tenancy | **Fixed.** Link prediction, triangle counting, bridges and `profile_collection` (and therefore `rag.tune_collection`) are now tenant-scoped in `tenancy.py`, with tests in `tests/test_tenancy.py`. Still blocked in shared mode: MST, bipartite, biconnected, motifs, structural roles, fraud rings, simrank, temporal/dynamic PageRank. Any upsell is intentional, never a cover for a gap. |
 | V2 | Sandbox key auto-issued and filled into the MCP config | **Built.** `POST /mcp/clients/{client}/connect` issues an agent key (90 days, one live key per user per client, re-connect revokes the old one; API keys cannot mint) and returns the config with the key filled in, shown once. Configs now point at the hosted `<server>/mcp` (Streamable HTTP, `X-API-Key`) — nothing to `pip install`; Claude Desktop bridges via `npx mcp-remote`. "Connect your agent" card on the Dashboard and MCP Console. Tests: `tests/test_mcp_connect.py`. |
 | V4 | 30-day limits (§3, §8) | **Built** behind `P8G_SANDBOX=1`: 500 queries + 50 RAG answers / tenant / UTC day (429), free-plan tenants expire at day 30 (403) and an hourly sweep hard-deletes them (shared-store purge included), disclaimer + days-left banner on every page. Counters are in-process: single-replica sandbox only. Tests: `tests/test_sandbox_policy.py`. |
-| V5 | Shared account + Send to Hyper Graph (§5) | **Built.** Graph: `POST /auth/sandbox/exchange` accepts the Command Center sandbox key (RS256, `aud=docintel-sandbox`, `email` claim), find-or-creates the sandbox user + own tenant (plan `sandbox` → 30-day rules), returns a session; a sandbox key can never enter a full (password) account (409). `/sandbox/start#key=…` signs the browser in. DocIntel: "Send to Hyper Graph" on every result (`GRAPH__SANDBOX_URL`), `POST /jobs/{id}/send-to-graph` exchanges the key, commits with the session, opens Graph. Any sample is auto-cleared on the next dashboard load. Tests: `tests/test_sandbox_identity.py` (Graph), `tests/test_send_to_graph.py` (DocIntel). |
+| V5 | Graph sandbox key + Send to Hyper Graph (§5) | **Rebuilt 2026-10-08.** Command Center issues a Hyper Graph sandbox key (`aud=graph-sandbox`) through the same flow as DocIntel (`/public/sandbox/{product}`, `purple8.ai/try/graph`, per-product waitlist, admin page with product selector). Graph accepts **only** `graph-sandbox` keys (`POST /auth/sandbox/exchange`, `/sandbox/start#key=…`). Send to Hyper Graph: DocIntel → CC `POST /public/sandbox/graph/projects` → Graph key → commit (§5). Tests: CC `test_graph_sandbox_key.py`, `test_data_movement.py`; Graph `test_sandbox_identity.py`; DocIntel `test_send_to_graph.py`. |
 | V3 | Hiding admin screens by role | **Fixed.** Key Management and Settings are admin-only in the nav (`Layout.tsx`) and guarded by `AdminRoute` (`App.tsx`). |
 
 ## 10. Open decisions
