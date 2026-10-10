@@ -8,6 +8,7 @@ import AirGapArch from "@/components/AirGapArch";
 import CollapsibleObjections from "@/components/CollapsibleObjections";
 import BlueGreenSection from "@/components/BlueGreenSection";
 import HonestRisks from "@/components/HonestRisks";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const DemoRequestForm = dynamic(() => import("@/components/DemoRequestForm"));
 
@@ -255,7 +256,8 @@ const replacements = [
 
 export default function ArchitecturePage() {
   return (
-    <>
+    <div className="p8-themed">
+      <ThemeToggle />
       <Navbar />
       <main id="main-content" className="pt-16">
 
@@ -984,6 +986,6 @@ export default function ArchitecturePage() {
 
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

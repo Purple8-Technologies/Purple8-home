@@ -102,6 +102,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
@@ -115,6 +116,17 @@ export default function RootLayout({
           here as documentation of intent; enforce them via GitHub Pages custom
           headers (_headers file) or a CDN (Cloudflare) when available.
         */}
+        {/*
+          Day / night theme (revamp doc 02 §2): applied before first paint so
+          there is no flash. Saved choice wins; otherwise follow the OS;
+          fallback day. Only pages wrapped in `.p8-themed` react to it.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('p8-theme');if(t!=='day'&&t!=='night'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'night':'day';}document.documentElement.dataset.p8Theme=t;}catch(e){document.documentElement.dataset.p8Theme='day';}})();",
+          }}
+        />
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
         <meta
           httpEquiv="Content-Security-Policy"

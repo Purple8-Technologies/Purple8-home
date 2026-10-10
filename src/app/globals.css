@@ -126,3 +126,89 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .purple8-logo-streak { animation: none; opacity: 0; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Day / night theme for opt-in pages (revamp doc 02 §2, doc 10 §3)
+   ─────────────────────────────────────────────────────────────────────
+   Night = the existing design, untouched. Day = overrides below, active
+   only when <html data-p8-theme="day"> AND the page is wrapped in
+   `.p8-themed`. Pages that have not opted in are unaffected.
+   Text on white uses #7c3aed or darker (contrast), lighter purple only
+   for decoration.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Toggle button (both themes) */
+.p8-theme-toggle { background: #11111b; border-color: rgba(168,85,247,.35); color: #e9d5ff; }
+.p8-theme-toggle:hover { background: #1e1036; }
+html[data-p8-theme="day"] .p8-theme-toggle { background: #ffffff; border-color: #e4e4e7; color: #5b21b6; }
+html[data-p8-theme="day"] .p8-theme-toggle:hover { background: #f5f3ff; }
+
+.p8-themed { position: relative; transition: background-color .3s, color .3s; }
+html[data-p8-theme="day"] .p8-themed { background: #ffffff; color: #18181b; isolation: isolate; }
+
+/* ── Surfaces ── */
+html[data-p8-theme="day"] .p8-themed :is(
+  .bg-\[\#0a0a0f\], .bg-\[\#0a0a0f\]\/95, .bg-\[\#0a0a0f\]\/80, .bg-\[\#0a0a0f\]\/70,
+  .bg-\[\#0f0f1a\]\/98
+) { background-color: rgba(255,255,255,.92); }
+html[data-p8-theme="day"] .p8-themed :is(
+  .bg-\[\#0f0f1a\], .bg-\[\#11111b\], .bg-\[\#11111b\]\/40, .bg-\[\#0d0a1a\], .bg-\[\#0a0f1a\],
+  .bg-zinc-900, .bg-zinc-900\/70, .bg-zinc-900\/60, .bg-zinc-900\/50, .bg-zinc-900\/40, .bg-zinc-900\/30
+) { background-color: #fafafa; }
+html[data-p8-theme="day"] .p8-themed :is(.bg-\[\#0d0d16\], .bg-\[\#0d0d16\]\/60) { background-color: #f8f7fc; }
+html[data-p8-theme="day"] .p8-themed :is(
+  .bg-purple-950, .bg-purple-950\/60, .bg-purple-950\/50, .bg-purple-950\/40, .bg-purple-950\/25,
+  .bg-purple-950\/20, .bg-purple-950\/10, .bg-purple-900\/40, .bg-purple-900\/12,
+  .bg-violet-950, .bg-violet-950\/50, .bg-violet-950\/20, .bg-violet-950\/10, .bg-violet-900\/40
+) { background-color: #f5f3ff; }
+/* Other tinted dark panels (e.g. bg-blue-950/30) → light tint */
+html[data-p8-theme="day"] .p8-themed [class*="bg-"][class*="-950"]:not([class*="purple-950"]):not([class*="violet-950"]) { background-color: #f8fafc; }
+
+/* ── Text ── */
+html[data-p8-theme="day"] .p8-themed .text-white:not([class*="bg-purple-5"]):not([class*="bg-purple-6"]):not([class*="bg-violet-5"]):not([class*="bg-violet-6"]) { color: #18181b; }
+html[data-p8-theme="day"] .p8-themed :is(.text-zinc-300, .text-violet-200, .text-purple-200) { color: #27272a; }
+html[data-p8-theme="day"] .p8-themed .text-zinc-400 { color: #3f3f46; }
+html[data-p8-theme="day"] .p8-themed :is(.text-zinc-500, .text-zinc-600) { color: #52525b; }
+html[data-p8-theme="day"] .p8-themed :is(
+  .text-purple-300, .text-purple-300\/70, .text-purple-400, .text-purple-500,
+  .text-violet-300, .text-violet-400
+) { color: #6d28d9; }
+html[data-p8-theme="day"] .p8-themed :is(.hover\:text-purple-400:hover, .hover\:text-white:hover, .hover\:text-purple-100:hover,
+  .group:hover .group-hover\:text-purple-300, .group:hover .group-hover\:text-purple-200) { color: #5b21b6; }
+/* Gradient headline text */
+html[data-p8-theme="day"] .p8-themed :is(.from-purple-400) { --tw-gradient-from: #7c3aed; }
+html[data-p8-theme="day"] .p8-themed :is(.to-violet-400) { --tw-gradient-to: #4c1d95; }
+/* Accent hues used as text (300/400 are too light on white) */
+html[data-p8-theme="day"] .p8-themed :is(.text-blue-300, .text-blue-400, .text-sky-300, .text-sky-400) { color: #1d4ed8; }
+html[data-p8-theme="day"] .p8-themed :is(.text-green-300, .text-green-400, .text-emerald-300, .text-emerald-400, .text-teal-300, .text-teal-400) { color: #047857; }
+html[data-p8-theme="day"] .p8-themed :is(.text-cyan-300, .text-cyan-400) { color: #0e7490; }
+html[data-p8-theme="day"] .p8-themed :is(.text-yellow-300, .text-yellow-400, .text-amber-300, .text-amber-400) { color: #a16207; }
+html[data-p8-theme="day"] .p8-themed :is(.text-orange-300, .text-orange-400) { color: #c2410c; }
+html[data-p8-theme="day"] .p8-themed :is(.text-red-300, .text-red-400, .text-rose-300, .text-rose-400, .text-pink-300, .text-pink-400) { color: #be123c; }
+
+/* ── Borders ── */
+html[data-p8-theme="day"] .p8-themed :is(
+  .border-zinc-900, .border-zinc-800, .border-zinc-800\/60, .border-zinc-800\/50,
+  .border-zinc-700, .border-zinc-700\/60, .border-zinc-700\/50, .border-zinc-700\/40, .border-zinc-700\/30
+) { border-color: #e4e4e7; }
+html[data-p8-theme="day"] .p8-themed :is(
+  .border-purple-900\/50, .border-purple-900\/40, .border-purple-900\/30, .border-purple-900\/25, .border-purple-900\/20,
+  .border-purple-800, .border-purple-800\/50, .border-purple-800\/40, .border-purple-800\/30,
+  .border-violet-900\/40, .border-violet-800, .border-violet-800\/50, .border-violet-800\/40
+) { border-color: #e9d5ff; }
+html[data-p8-theme="day"] .p8-themed [class*="border-"][class*="-900/"]:not([class*="purple-900"]):not([class*="violet-900"]) { border-color: #e2e8f0; }
+
+/* ── Forms ── */
+html[data-p8-theme="day"] .p8-themed :is(input, textarea, select) { color: #18181b; }
+html[data-p8-theme="day"] .p8-themed .placeholder-zinc-600::placeholder { color: #a1a1aa; }
+
+/* ── Inline SVG diagrams (RefArchDiagrams, AirGapArch, …) ── */
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#1a1a2e"], [fill="#0a0f1a"], [fill="#0f0a1a"], [fill="#1a0a2e"], [fill="#1a0a0a"]) { fill: #f5f3ff; }
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#d4d4d8"], [fill="#a0a0a0"], [fill="#ffffff"]) { fill: #3f3f46; }
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#71717a"], [fill="#6b7280"]) { fill: #52525b; }
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#c4b5fd"], [fill="#a78bfa"]) { fill: #6d28d9; }
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#93c5fd"], [fill="#60a5fa"]) { fill: #1d4ed8; }
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#86efac"], [fill="#4ade80"]) { fill: #15803d; }
+html[data-p8-theme="day"] .p8-themed svg [fill="#fdba74"] { fill: #c2410c; }
+html[data-p8-theme="day"] .p8-themed svg [stroke="#ffffff"] { stroke: #3f3f46; }
+html[data-p8-theme="day"] .p8-themed svg :is([stroke="#4b5563"], [stroke="#52525b"]) { stroke: #a1a1aa; }
