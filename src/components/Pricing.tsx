@@ -10,6 +10,7 @@ import {
   type GraphTierId,
   type BillingCycle,
 } from "@/lib/pricing";
+import { FACTS as F } from "@/lib/facts";
 
 type ProductTab = "graph" | "docintel";
 
@@ -32,7 +33,7 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "Full-text + vector / semantic search", developer: true, production: true, pro: true, enterprise: true },
   { label: "ACID transactions", developer: true, production: true, pro: true, enterprise: true },
   { label: "REST API + Python & TypeScript SDKs", developer: true, production: true, pro: true, enterprise: true },
-  { label: "All 93 MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback · schema · admin)", developer: true, production: true, pro: true, enterprise: true },
+  { label: `All ${F.mcpTools} MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback · schema · admin)`, developer: true, production: true, pro: true, enterprise: true },
   { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, production: true, pro: true, enterprise: true },
   { label: "All 67 graph & AEC algorithms", developer: true, production: true, pro: true, enterprise: true },
   { label: "Journey Engine + SLA monitoring", developer: true, production: true, pro: true, enterprise: true },

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { ClassicShell } from "@/components/revamp/BrandShell";
 import SupportTicket from "@/components/SupportTicket";
 import { pageMetadata } from "@/lib/seo";
 
@@ -12,9 +11,8 @@ export const metadata: Metadata = pageMetadata({
 
 export default function SupportPage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="min-h-screen pt-16 text-slate-100">
+    <ClassicShell>
+      <main id="main-content" className="min-h-screen text-slate-100">
         {/* Header */}
         <div className="border-b border-slate-800/60 bg-[#0d0d17]">
           <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
@@ -40,34 +38,27 @@ export default function SupportPage() {
           <aside className="lg:col-span-1 order-2 lg:order-1">
             <div className="space-y-6 text-sm">
               <div>
-                <h3 className="font-semibold text-slate-300 mb-2">Install &amp; get started</h3>
+                <h3 className="font-semibold text-slate-300 mb-2">Get started</h3>
                 <ul className="space-y-2 text-slate-500">
                   <li>
-                    <a href="/quickstart/"
+                    <a href="/try/docintel/"
                        className="hover:text-purple-400 transition-colors">
-                      → Docker install &amp; quickstart
+                      → Try DocIntel in the sandbox
                     </a>
                   </li>
                   <li>
-                    <a href="/register/"
+                    <a href="/try/graph/"
                        className="hover:text-purple-400 transition-colors">
-                      → Get a free Developer license
+                      → Try Hyper Graph in the sandbox
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:hello@purple8.ai?subject=Purple8%20self-hosted%20(Pro%20%2F%20Enterprise)"
+                       className="hover:text-purple-400 transition-colors">
+                      → Self-hosted (Pro / Enterprise): talk to us
                     </a>
                   </li>
                 </ul>
-                <div className="mt-3 rounded-lg border border-slate-800 bg-[#0c0c14] p-3">
-                  <p className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
-                    One-click install
-                  </p>
-                  <p className="mt-1.5 text-[11px] text-slate-600">macOS &amp; Linux</p>
-                  <code className="mt-1 block break-all font-mono text-[11px] text-purple-300">
-                    curl -fsSL https://www.purple8.ai/install.sh | bash
-                  </code>
-                  <p className="mt-2 text-[11px] text-slate-600">Windows (PowerShell)</p>
-                  <code className="mt-1 block break-all font-mono text-[11px] text-purple-300">
-                    irm https://www.purple8.ai/install.ps1 | iex
-                  </code>
-                </div>
               </div>
               <div>
                 <h3 className="font-semibold text-slate-300 mb-2">Before you submit</h3>
@@ -99,7 +90,6 @@ export default function SupportPage() {
         </div>
       </div>
       </main>
-      <Footer />
-    </>
+    </ClassicShell>
   );
 }

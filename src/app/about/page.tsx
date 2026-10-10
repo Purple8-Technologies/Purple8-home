@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { FACTS as F } from "@/lib/facts";
+import { ClassicShell } from "@/components/revamp/BrandShell";
 import FadeIn from "@/components/FadeIn";
 import { pageMetadata } from "@/lib/seo";
 
@@ -13,8 +13,8 @@ export const metadata: Metadata = pageMetadata({
 
 // ── Slide 1 stats ────────────────────────────────────────────────────────────
 const STATS = [
-  { value: "9 GB", label: "peak RAM", sub: "vs 80+ GB for equivalent stacks" },
-  { value: "70+", label: "document formats", sub: "parsed on-prem, zero data egress" },
+  { value: F.corpusPeak.replace("~", ""), label: "peak RAM", sub: "vs 80+ GB for equivalent stacks" },
+  { value: F.docFormats, label: "document formats", sub: "parsed on-prem, zero data egress" },
   { value: "1", label: "deployment", sub: "replaces 29 separately billed services" },
 ];
 
@@ -50,8 +50,7 @@ const FRAGMENTS = [
 
 export default function AboutPage() {
   return (
-    <>
-      <Navbar />
+    <ClassicShell>
       <main id="main-content" className="text-zinc-100">
         {/* ── Hero ── */}
         <section className="relative overflow-hidden px-4 pt-32 pb-20 sm:px-6 lg:px-8">
@@ -337,7 +336,6 @@ export default function AboutPage() {
           </section>
         </FadeIn>
       </main>
-      <Footer />
-    </>
+    </ClassicShell>
   );
 }

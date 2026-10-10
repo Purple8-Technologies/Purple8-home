@@ -1,4 +1,5 @@
 "use client";
+import { FACTS as F } from "@/lib/facts";
 import { useEffect, useRef, useState } from "react";
 
 type LineType =
@@ -20,7 +21,7 @@ interface CodeLine {
 const LINES: CodeLine[] = [
   { text: "You  ▸  Stand up a supplier-risk backend from these contracts.", type: "prompt" },
   { text: "", type: "blank" },
-  { text: "Claude  ▸  connected to Purple8 MCP · 92 tools", type: "agent" },
+  { text: `Claude  ▸  connected to Purple8 MCP · ${F.mcpTools} tools`, type: "agent" },
   { text: "", type: "blank" },
   { text: '→ data.ingest_file("contracts/*.pdf")', type: "tool" },
   { text: "✓ 1,204 docs · entities + edges extracted", type: "result" },

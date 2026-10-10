@@ -1,4 +1,5 @@
 "use client";
+import { FACTS as F } from "@/lib/facts";
 
 /**
  * FeaturesManifesto — Option D
@@ -20,7 +21,7 @@ const EIGHT = [
   {
     claim: "AI agents operate it natively.",
     proof:
-      "A first-class agent interface with 93 tools across 14 namespaces, RBAC-enforced. Claude, Cursor, and Copilot connect directly — no wrapper, no glue code.",
+      `A first-class agent interface with ${F.mcpTools} tools, RBAC-enforced. Claude, Cursor, and Copilot connect directly — no wrapper, no glue code.`,
   },
   {
     claim: "Three RAG modes. Self-tuning.",
@@ -30,7 +31,7 @@ const EIGHT = [
   {
     claim: "Agentic process automation. Built in.",
     proof:
-      "Stateful workflows, SLA enforcement, human-approval gates, and an immutable audit trail — all in the same process. AI agents orchestrate end-to-end business processes through 93 MCP tools, with no DAG files, no separate orchestration service, no tracing backend. Replaces LangChain, LangGraph, LangSmith, and Airflow.",
+      `Stateful workflows, SLA enforcement, human-approval gates, and an immutable audit trail — all in the same process. AI agents orchestrate end-to-end business processes through ${F.mcpTools} MCP tools, with no DAG files, no separate orchestration service, no tracing backend. Replaces LangChain, LangGraph, LangSmith, and Airflow.`,
   },
   {
     claim: "Memory bounded by hardware, not data.",

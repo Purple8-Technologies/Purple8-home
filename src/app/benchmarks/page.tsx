@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { ClassicShell } from "@/components/revamp/BrandShell";
 import { benchmarkGroups, benchmarkMeta } from "@/lib/benchmarks";
 import { pageMetadata } from "@/lib/seo";
 
@@ -13,9 +12,8 @@ export const metadata: Metadata = pageMetadata({
 
 export default function BenchmarksPage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="pt-16">
+    <ClassicShell>
+      <main id="main-content">
         <section className="mx-auto max-w-5xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
           {/* Header */}
           <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
@@ -110,7 +108,6 @@ export default function BenchmarksPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+    </ClassicShell>
   );
 }

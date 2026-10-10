@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { FACTS as F } from "@/lib/facts";
 import Link from "next/link";
 import CopyButton from "@/components/CopyButton";
+import { ClassicShell } from "@/components/revamp/BrandShell";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -101,6 +103,7 @@ function CommandBlock({ code }: { code: string }) {
 
 export default function QuickstartPage() {
   return (
+    <ClassicShell>
     <main id="main-content" className="min-h-screen px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
@@ -123,7 +126,7 @@ export default function QuickstartPage() {
           <p className="mt-3 text-gray-400">
             Purple8 Hyper Graph is your entire backend in one container — graph,
             vector, document &amp; full-text storage, a built-in RAG pipeline, a
-            82-tool MCP server, workflows, auth, and encryption. No external
+            {F.mcpTools}-tool MCP server, workflows, auth, and encryption. No external
             services. The free Developer edition runs it all locally.
           </p>
         </div>
@@ -350,7 +353,7 @@ export default function QuickstartPage() {
             Purple8 exposes an MCP server at{" "}
             <code className="text-purple-200">http://localhost:8100/mcp</code>.
             No separate SDK or plugin needed — any MCP-capable client connects
-            with that URL and an API key. You can also call the 93 tools directly
+            with that URL and an API key. You can also call the {F.mcpTools} tools directly
             from your browser without any client at all.
           </p>
 
@@ -373,7 +376,7 @@ export default function QuickstartPage() {
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 The MCP Console is built into every Purple8 container. Open it,
-                pick any of the 93 tools, fill in the arguments, and run — no
+                pick any of the {F.mcpTools} tools, fill in the arguments, and run — no
                 client installation, no code.
               </p>
               <div className="rounded-xl border border-purple-700/40 bg-[#0d0d16] px-4 py-3 text-sm">
@@ -400,7 +403,7 @@ export default function QuickstartPage() {
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 One command registers Purple8 as an MCP server in your Claude
-                Code session. After this, Claude can call all 93 tools from any
+                Code session. After this, Claude can call all {F.mcpTools} tools from any
                 conversation.
               </p>
               <CommandBlock code={CLAUDE_CODE_CMD} />
@@ -479,7 +482,7 @@ export default function QuickstartPage() {
               </p>
               <CommandBlock code={CODEX_CFG} />
               <p className="mt-2 text-xs text-gray-600">
-                Restart Codex after saving. Purple8&rsquo;s 93 tools will be
+                Restart Codex after saving. Purple8&rsquo;s {F.mcpTools} tools will be
                 available in every Codex session automatically.
               </p>
             </div>
@@ -511,7 +514,7 @@ export default function QuickstartPage() {
           <div className="mt-4 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
             <div>• Graph + vector + document + full-text engine</div>
             <div>• Built-in RAG pipeline (hybrid retrieval)</div>
-            <div>• MCP server — 93 tools across 14 namespaces</div>
+            <div>• MCP server — {F.mcpTools} tools</div>
             <div>• Journey Engine (workflows, SLA, HITL, audit)</div>
             <div>• LCNC admin console</div>
             <div>• AES-256-GCM encryption at rest</div>
@@ -531,7 +534,7 @@ export default function QuickstartPage() {
             </h2>
           </div>
           <p className="mt-3 text-sm text-gray-400">
-            DocIntel is a separate microservice that parses 70+ formats (PDF,
+            DocIntel is a separate microservice that parses {F.docFormats} formats (PDF,
             Office, HTML, images, CAD &amp; BIM), extracts entities and
             relationships, and emits them straight into your Purple8 graph. The{" "}
             <span className="text-violet-300">Community edition is free</span> —
@@ -604,5 +607,6 @@ export default function QuickstartPage() {
         </div>
       </div>
     </main>
+    </ClassicShell>
   );
 }

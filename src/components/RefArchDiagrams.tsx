@@ -13,6 +13,7 @@ import {
   siMeta,
   siMistralai,
 } from "simple-icons";
+import { FACTS as F } from "@/lib/facts";
 
 /* ─── Primitive: simple-icons brand icon ─────────────────────────────── */
 function SiIcon({
@@ -208,7 +209,7 @@ function LLMProviderBox() {
 
 function AIAgentBox() {
   return (
-    <ExtBox title="AI Agent" subtitle="Calls Purple8 via 92 MCP tools" accent="amber">
+    <ExtBox title="AI Agent" subtitle={`Calls Purple8 via ${F.mcpTools} MCP tools`} accent="amber">
       <SiIcon path={siClaude.path} hex={siClaude.hex} title="Claude" className="h-4 w-4" />
       <SiIcon path={siGithubcopilot.path} hex={siGithubcopilot.hex} title="GitHub Copilot" className="h-4 w-4" />
       <OpenAIIcon className="h-4 w-4" />
@@ -382,7 +383,7 @@ function Scenario1() {
         <P8Box
           name="Purple8"
           subtitle="Your complete AI backend — one process"
-          caps={["Graph + Vector + RAG", "Journey Engine", "Auth + RBAC", "Encryption", "AI Evaluation", "SOC Agent", "MCP · 92 tools"]}
+          caps={["Graph + Vector + RAG", "Journey Engine", "Auth + RBAC", "Encryption", "AI Evaluation", "SOC Agent", `MCP · ${F.mcpTools} tools`]}
         />
       </div>
 
@@ -466,8 +467,8 @@ function Scenario3() {
     <ScenarioCard
       number="03"
       title="AI agent as the developer — natural language is the only interface"
-      description="No application code written by humans. An AI agent uses 92 MCP tools to build, operate, and evolve the entire backend. End users interact via the built-in admin portal or a thin frontend."
-      teaser="AI agent → 92 MCP tools → Purple8 + DocIntel + Admin portal → End users"
+      description={`No application code written by humans. An AI agent uses ${F.mcpTools} MCP tools to build, operate, and evolve the entire backend. End users interact via the built-in admin portal or a thin frontend.`}
+      teaser={`AI agent → ${F.mcpTools} MCP tools → Purple8 + DocIntel + Admin portal → End users`}
       envBadges={
         <>
           <EnvBadge label="Any environment" icon={<BrowserIcon className="h-3 w-3" />} />
@@ -478,7 +479,7 @@ function Scenario3() {
       <div className="w-full max-w-md">
         <ExtBox
           title="AI Agent"
-          subtitle="Operates the entire backend via 92 MCP tools — no human writing backend code"
+          subtitle={`Operates the entire backend via ${F.mcpTools} MCP tools — no human writing backend code`}
           accent="amber"
         >
           <SiIcon path={siClaude.path} hex={siClaude.hex} title="Claude" className="h-5 w-5" />
@@ -490,7 +491,7 @@ function Scenario3() {
 
       <div className="flex flex-col items-center py-1">
         <span className="rounded-full border border-amber-800/50 bg-amber-950/30 px-2.5 py-0.5 text-[10px] font-medium text-amber-400">
-          92 MCP tools (graph · rag · journey · data · schema · admin…)
+          {F.mcpTools} MCP tools (graph · rag · journey · data · schema · admin…)
         </span>
         <svg width="20" height="24" viewBox="0 0 20 24" fill="none" className="mt-1 shrink-0">
           <line x1="10" y1="2" x2="10" y2="18" stroke="#4b5563" strokeWidth="1.5" />

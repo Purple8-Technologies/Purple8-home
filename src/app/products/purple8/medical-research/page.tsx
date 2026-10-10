@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
+import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
   title: "Quantum AI for Medical Research — Purple8 Hyper Graph",
@@ -203,7 +204,7 @@ export default function MedicalResearchPage() {
                     ["Imaging similarity search", "Cosine vector search only", "Purple8 Quantum — fidelity-based state similarity"],
                     ["IRB / regulatory workflow", "Jira + manual email chains", "Purple8 Journey Engine — SLA + approval gates"],
                     ["Audit trail", "Separate logging service", "Purple8 Hyper Graph — immutable audit trail"],
-                    ["AI agent interface", "Custom API + LangGraph", "Purple8 MCP Server — 93 tools, agent-native"],
+                    ["AI agent interface", "Custom API + LangGraph", `Purple8 MCP Server — ${F.mcpTools} tools, agent-native`],
                   ].map(([cap, old, p8]) => (
                     <tr key={cap}>
                       <td className="py-3 pr-6 text-zinc-300">{cap}</td>

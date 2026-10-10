@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
+import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
   title: "Purple8 Hyper Graph — AI-Native Embedded Backend",
   description:
-    "Graph + vector + document + full-text + agentic process automation in one process. AI agents orchestrate end-to-end workflows via 93 MCP tools. Replaces 20+ services. Self-hosted. pip install purple8-hyper-graph.",
+    `Graph + vector + document + full-text + agentic process automation in one process. AI agents orchestrate end-to-end workflows via ${F.mcpTools} MCP tools. Replaces 20+ services. Self-hosted. pip install purple8-hyper-graph.`,
   path: "/products/purple8",
 });
 
@@ -20,7 +21,7 @@ const jsonLd = {
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD", description: "pip install purple8-hyper-graph" },
   url: "https://www.purple8.ai/products/purple8/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
-  featureList: ["Property graph engine", "HNSW vector search", "Hybrid RAG", "Journey Engine workflow orchestration", "AES-256-GCM encryption", "MCP server with 93 tools", "Quantum-inspired optimisation (QUBO, VRP, scheduling)", "Multi-tenant storage", "REST API"],
+  featureList: ["Property graph engine", "HNSW vector search", "Hybrid RAG", "Journey Engine workflow orchestration", "AES-256-GCM encryption", `MCP server with ${F.mcpTools} tools`, "Quantum-inspired optimisation (QUBO, VRP, scheduling)", "Multi-tenant storage", "REST API"],
 };
 
 const capabilities = [
@@ -69,7 +70,7 @@ export default function HyperGraphPage() {
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
               Purple8 Hyper Graph is an embedded multi-model database purpose-built for
               AI applications. Graph + vector + document + full-text + workflows +
-              93 MCP tools — in a single process, with zero external dependencies.
+              {F.mcpTools} MCP tools — in a single process, with zero external dependencies.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a

@@ -141,3 +141,9 @@ Every product page has the same four blocks, in the same order. Nothing else.
 2. Product page template + Hyper Graph and DocIntel pages.
 3. Benchmarks review.
 4. Close §5.5 → build ledger + Stripe flows in command-center (test mode) → pricing page + Console.
+
+---
+
+## Canonical facts rule
+
+Every public number lives in `src/lib/facts.ts` and nowhere else. Pages import `FACTS`; no figure is typed into a page. Fast-growing counts are published rounded down with "+". Each measured figure names its source result file in `purple8-graph/benchmarks/results/`.

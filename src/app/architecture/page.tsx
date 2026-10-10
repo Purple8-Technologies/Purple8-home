@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
+import { FACTS as F } from "@/lib/facts";
 import dynamic from "next/dynamic";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { ClassicShell } from "@/components/revamp/BrandShell";
 import { pageMetadata } from "@/lib/seo";
 import RefArchDiagrams from "@/components/RefArchDiagrams";
 import AirGapArch from "@/components/AirGapArch";
 import CollapsibleObjections from "@/components/CollapsibleObjections";
 import BlueGreenSection from "@/components/BlueGreenSection";
 import HonestRisks from "@/components/HonestRisks";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const DemoRequestForm = dynamic(() => import("@/components/DemoRequestForm"));
 
@@ -147,7 +146,7 @@ const comparisonRows = [
     monolith: "Bolted on",
     micro: "Bolted on per service",
     modulith: "Bolted on",
-    consolidith: "MCP-native (93 tools, day one)",
+    consolidith: `MCP-native (${F.mcpTools} tools, day one)`,
   },
   {
     trait: "Security (auth, encryption)",
@@ -256,10 +255,8 @@ const replacements = [
 
 export default function ArchitecturePage() {
   return (
-    <div className="p8-themed">
-      <ThemeToggle />
-      <Navbar />
-      <main id="main-content" className="pt-16">
+    <ClassicShell>
+      <main id="main-content">
 
         {/* ── Hero ── */}
         <section className="relative overflow-hidden">
@@ -985,7 +982,6 @@ export default function ArchitecturePage() {
         </section>
 
       </main>
-      <Footer />
-    </div>
+    </ClassicShell>
   );
 }

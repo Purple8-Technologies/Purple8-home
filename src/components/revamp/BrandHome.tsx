@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
+import SiteHeader from "@/components/revamp/SiteHeader";
+import SystemFlow from "@/components/SystemFlow";
+import Differentiators from "@/components/revamp/Differentiators";
+import Numbers from "@/components/revamp/Numbers";
 
 type Theme = "day" | "night";
 
@@ -63,95 +67,6 @@ function PurpleWave() {
   );
 }
 
-/* ── Header ─────────────────────────────────────────────────────────── */
-function Header({ theme, toggle }: { theme: Theme; toggle: () => void }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const h = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener("mousedown", h);
-    return () => document.removeEventListener("mousedown", h);
-  }, []);
-  const link = "text-sm text-[var(--p8-muted)] hover:text-[var(--p8-accent)] transition-colors";
-  return (
-    <header className="relative z-20">
-      <div className="bg-[var(--p8-accent)] py-1.5 text-center text-xs font-medium text-white">
-        Now launching <span className="font-semibold">Purple8 Cloud</span>
-      </div>
-      <nav
-        aria-label="Main navigation"
-        className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
-      >
-        <Link href="/" className="flex items-center gap-2.5">
-          <Purple8Logo className="h-8 w-16" />
-          <span className="text-sm font-semibold tracking-tight text-[var(--p8-fg)]">
-            Purple<span className="text-[var(--p8-accent)]">8</span>
-          </span>
-        </Link>
-
-        <div className="hidden items-center gap-8 md:flex">
-          <div className="relative" ref={ref}>
-            <button
-              onClick={() => setOpen((v) => !v)}
-              aria-haspopup="true"
-              aria-expanded={open}
-              className={`${link} flex items-center gap-1`}
-            >
-              Products
-              <svg className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {open && (
-              <div className="absolute left-0 top-full mt-3 w-72 rounded-xl border border-[var(--p8-border)] bg-[var(--p8-surface)] p-2 shadow-xl">
-                {[
-                  { href: "/products/docintel/", name: "DocIntel", desc: "Any document → entities & relationships" },
-                  { href: "/products/hyper-graph/", name: "Hyper Graph", desc: "Graph + vector + RAG + workflows, one process" },
-                ].map((p) => (
-                  <Link
-                    key={p.href}
-                    href={p.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-2.5 hover:bg-[var(--p8-hover)]"
-                  >
-                    <span className="block text-sm font-semibold text-[var(--p8-fg)]">{p.name}</span>
-                    <span className="block text-xs text-[var(--p8-muted)]">{p.desc}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-          <Link href="/quickstart/" className={link}>Developers</Link>
-          <Link href="/pricing/" className={link}>Pricing</Link>
-          <Link href="/benchmarks/" className={link}>Benchmarks</Link>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            onClick={toggle}
-            aria-label={theme === "day" ? "Switch to night theme" : "Switch to day theme"}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--p8-border)] text-[var(--p8-fg)] hover:bg-[var(--p8-hover)]"
-          >
-            {theme === "day" ? (
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" /></svg>
-            ) : (
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><circle cx="12" cy="12" r="4" /><path strokeLinecap="round" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
-            )}
-          </button>
-          <Link
-            href="#"
-            className="hidden rounded-full bg-[var(--p8-accent)] px-5 py-2 text-sm font-semibold text-white hover:opacity-90 sm:inline-block"
-          >
-            Get API key
-          </Link>
-        </div>
-      </nav>
-    </header>
-  );
-}
-
 /* ── Page shell ─────────────────────────────────────────────────────── */
 export default function BrandHome() {
   const [theme, setTheme] = useState<Theme>("day");
@@ -167,12 +82,14 @@ export default function BrandHome() {
     const next = theme === "day" ? "night" : "day";
     setTheme(next);
     localStorage.setItem("p8-theme", next);
+    // Keep the site-wide root attribute in sync for client-side navigation
+    document.documentElement.dataset.p8Theme = next;
   };
 
   return (
     <div data-p8-theme={theme} className="p8-shell relative min-h-screen bg-[var(--p8-bg)] text-[var(--p8-fg)] transition-colors duration-500">
       <style>{CSS}</style>
-      <Header theme={theme} toggle={toggle} />
+      <SiteHeader theme={theme} toggle={toggle} />
 
       <main id="main-content" className="relative flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center overflow-hidden px-4 pb-24 text-center">
         <PurpleWave />
@@ -190,7 +107,7 @@ export default function BrandHome() {
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Link href="/products/docintel/" className="rounded-full bg-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:opacity-90">
+            <Link href="/try/docintel/" className="rounded-full bg-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:opacity-90">
               Try DocIntel
             </Link>
             <Link href="/try/graph/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
@@ -199,6 +116,12 @@ export default function BrandHome() {
           </div>
         </div>
       </main>
+
+      <div className="p8-themed border-t border-[var(--p8-border)]">
+        <SystemFlow />
+      </div>
+      <Differentiators />
+      <Numbers />
 
       <footer className="border-t border-[var(--p8-border)] py-8 text-center text-xs text-[var(--p8-muted)]">
         © 2026 Purple8 Inc. · Preview build — footer lifted from current site at build time

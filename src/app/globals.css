@@ -137,11 +137,6 @@ body {
    for decoration.
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* Toggle button (both themes) */
-.p8-theme-toggle { background: #11111b; border-color: rgba(168,85,247,.35); color: #e9d5ff; }
-.p8-theme-toggle:hover { background: #1e1036; }
-html[data-p8-theme="day"] .p8-theme-toggle { background: #ffffff; border-color: #e4e4e7; color: #5b21b6; }
-html[data-p8-theme="day"] .p8-theme-toggle:hover { background: #f5f3ff; }
 
 .p8-themed { position: relative; transition: background-color .3s, color .3s; }
 html[data-p8-theme="day"] .p8-themed { background: #ffffff; color: #18181b; isolation: isolate; }
@@ -212,3 +207,50 @@ html[data-p8-theme="day"] .p8-themed svg :is([fill="#86efac"], [fill="#4ade80"])
 html[data-p8-theme="day"] .p8-themed svg [fill="#fdba74"] { fill: #c2410c; }
 html[data-p8-theme="day"] .p8-themed svg [stroke="#ffffff"] { stroke: #3f3f46; }
 html[data-p8-theme="day"] .p8-themed svg :is([stroke="#4b5563"], [stroke="#52525b"]) { stroke: #a1a1aa; }
+
+/* ── Additional coverage: Benchmarks, About, Support (2026-10-10) ── */
+html[data-p8-theme="day"] .p8-themed :is(.bg-\[\#0c0c14\], .bg-\[\#0d0d17\], .bg-\[\#0d0d17\]\/60, .bg-slate-900) { background-color: #fafafa; }
+html[data-p8-theme="day"] .p8-themed :is(.bg-purple-900\/10, .bg-purple-900\/50) { background-color: #f5f3ff; }
+html[data-p8-theme="day"] .p8-themed :is(.from-purple-900\/25) { --tw-gradient-from: #f5f3ff; }
+html[data-p8-theme="day"] .p8-themed :is(.to-\[\#11111b\]) { --tw-gradient-to: #ffffff; }
+html[data-p8-theme="day"] .p8-themed :is(.text-zinc-100, .text-zinc-200, .text-slate-100, .text-slate-200) { color: #18181b; }
+html[data-p8-theme="day"] .p8-themed .text-slate-300 { color: #27272a; }
+html[data-p8-theme="day"] .p8-themed .text-slate-400 { color: #3f3f46; }
+html[data-p8-theme="day"] .p8-themed :is(.text-slate-500, .text-slate-600) { color: #52525b; }
+html[data-p8-theme="day"] .p8-themed :is(.text-purple-400\/70, .text-purple-400\/80) { color: #6d28d9; }
+html[data-p8-theme="day"] .p8-themed :is(.border-slate-700, .border-slate-800, .border-slate-800\/60) { border-color: #e4e4e7; }
+html[data-p8-theme="day"] .p8-themed .border-slate-500 { border-color: #a1a1aa; }
+html[data-p8-theme="day"] .p8-themed .border-purple-700\/50 { border-color: #e9d5ff; }
+html[data-p8-theme="day"] .p8-themed :is(.ring-purple-600\/50, .ring-purple-700\/50) { --tw-ring-color: #ddd6fe; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Brand pages (product pages) — same tokens as the revamp homepage
+   (BrandHome). Driven by <html data-p8-theme>, set before paint in layout.
+   Use only var(--p8-*) inside `.p8-brand`; no hard-coded colours.
+   ═══════════════════════════════════════════════════════════════════════ */
+.p8-brand {
+  --p8-bg:#ffffff; --p8-fg:#18181b; --p8-muted:#52525b; --p8-accent:#7c3aed;
+  --p8-surface:#ffffff; --p8-subtle:#fafafa; --p8-border:#e4e4e7; --p8-hover:#f5f3ff;
+  /* Filled buttons (white text): #7c3aed in both themes for contrast */
+  --p8-button:#7c3aed;
+  background: var(--p8-bg); color: var(--p8-fg);
+  transition: background-color .4s, color .4s;
+}
+html[data-p8-theme="night"] .p8-brand {
+  --p8-bg:#0a0a0f; --p8-fg:#f4f4f5; --p8-muted:#a1a1aa; --p8-accent:#a855f7;
+  --p8-surface:#11111a; --p8-subtle:#0e0e16; --p8-border:#2e1065; --p8-hover:#1e1036;
+}
+
+/* Day overrides — gray scale (quickstart) */
+html[data-p8-theme="day"] .p8-themed .text-gray-300 { color: #3f3f46; }
+html[data-p8-theme="day"] .p8-themed .text-gray-400 { color: #52525b; }
+html[data-p8-theme="day"] .p8-themed .text-gray-500 { color: #71717a; }
+html[data-p8-theme="day"] .p8-themed .text-gray-600 { color: #a1a1aa; }
+html[data-p8-theme="day"] .p8-themed .border-gray-700,
+html[data-p8-theme="day"] .p8-themed .border-gray-800 { border-color: #e4e4e7; }
+
+/* Day overrides — SystemFlow ("How Purple8 works") SVG */
+html[data-p8-theme="day"] .p8-themed svg [fill="#11111b"] { fill: #ffffff; }
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#e4e4e7"], [fill="#f4f4f5"]) { fill: #18181b; }
+html[data-p8-theme="day"] .p8-themed svg [stroke="#3f3f46"] { stroke: #d4d4d8; }
+html[data-p8-theme="day"] .p8-themed svg [stroke="#27272a"] { stroke: #e4e4e7; }

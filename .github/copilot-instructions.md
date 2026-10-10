@@ -17,8 +17,14 @@ Stack: Next.js 14 (App Router) · TypeScript · Tailwind CSS · shadcn/ui.
 
 ## Products
 - **Purple8 Hyper Graph** — multi-model embedded graph + vector database
-- **Purple8 DocIntel** — 70-format document intelligence microservice
+- **Purple8 DocIntel** — document intelligence microservice (format count: see `src/lib/facts.ts`)
 - More products coming soon
+
+## Canonical Facts (website)
+
+Product numbers (tool counts, formats, languages, benchmarks, versions) are never typed into code, docs or copy. The single reference is the **Canonical Facts** table in `purple8-graph/.github/copilot-instructions.md`; the website reads them from `Purple8-home/src/lib/facts.ts`. When a number changes, update both in the same change. Public copy uses the rounded figure (e.g. "110+ tools", "70+ formats").
+
+All figures on the site import `FACTS` from `src/lib/facts.ts`. Never write a number directly into a page or component.
 
 ## Style
 - Dark theme: background `#0a0a0f`, accent purple `#7c3aed` / `#a855f7`
