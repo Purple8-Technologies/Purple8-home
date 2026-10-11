@@ -42,10 +42,10 @@ export default function Hero() {
 
           <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <a
-              href="/register/"
+              href="/try/graph/"
               className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500"
             >
-              Start free — Developer edition
+              Try Hyper Graph free
             </a>
             <a
               href="#calculator"
