@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { CC_BASE_URL } from "@/lib/cc";
 
 const SANDBOX_URL = "https://purple8-graph-sandbox.fly.dev/sandbox/start";
