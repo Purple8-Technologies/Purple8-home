@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { CC_BASE_URL } from "@/lib/cc";
 
 const SANDBOX_URL = "https://purple8-graph-sandbox.fly.dev/sandbox/start";
@@ -200,7 +199,7 @@ export default function TryHyperGraphPage() {
               <a href={SANDBOX_URL} className="text-purple-400 underline">Open the sandbox</a>
               {" · "}
               Want it on your own machine?{" "}
-              <Link href="/register" className="text-purple-400 underline">Self-host</Link>
+              <a href="mailto:hello@purple8.ai?subject=Self-hosted%20Hyper%20Graph" className="text-purple-400 underline">Self-host</a>
             </p>
           </form>
         )}
