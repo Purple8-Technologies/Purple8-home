@@ -171,9 +171,10 @@ export function priceLabel(
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface DocIntelTier {
-  id: "beta" | "solo" | "self-hosted" | "enterprise";
+  id: "beta" | "cloud";
   name: string;
   price: string;
+  priceUnit?: string;
   quota: string;
   seats: string;
   tagline: string;
@@ -181,6 +182,37 @@ export interface DocIntelTier {
   ctaHref: string;
   highlight?: boolean;
   badge?: string;
+}
+
+/** Checkout plan id for DocIntel Cloud (metered; price lives in Stripe). */
+export const DOCINTEL_CLOUD_PLAN = "docintel-payg";
+
+/**
+ * DocIntel Cloud monthly bands — mirrors the Stripe price with lookup key
+ * `docintel_subscription_graduated_v1` (volume tiers: the month's total page
+ * count picks ONE band; the bill is that band's flat fee + pages × rate).
+ * Stripe is the source of truth; update this table when the price changes.
+ */
+export interface DocIntelCloudBand {
+  upTo: number | null; // inclusive upper bound; null = no limit
+  flatUsd: number;
+  perPageUsd: number;
+}
+
+export const DOCINTEL_CLOUD_BANDS: DocIntelCloudBand[] = [
+  { upTo: 1_000, flatUsd: 5, perPageUsd: 0.03 },
+  { upTo: 5_000, flatUsd: 25, perPageUsd: 0.03 },
+  { upTo: 20_000, flatUsd: 109, perPageUsd: 0.027 },
+  { upTo: 100_000, flatUsd: 299, perPageUsd: 0.022 },
+  { upTo: null, flatUsd: 999, perPageUsd: 0.015 },
+];
+
+/** Monthly bill in USD for `pages` processed (volume pricing). */
+export function docIntelCloudBill(pages: number): number {
+  const band =
+    DOCINTEL_CLOUD_BANDS.find((b) => b.upTo === null || pages <= b.upTo) ??
+    DOCINTEL_CLOUD_BANDS[DOCINTEL_CLOUD_BANDS.length - 1];
+  return band.flatUsd + pages * band.perPageUsd;
 }
 
 export const DOCINTEL_TIERS: DocIntelTier[] = [
@@ -196,40 +228,17 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     ctaHref: "/register",
   },
   {
-    id: "solo",
-    name: "Solo",
-    price: "$49",
-    quota: "10,000 docs/mo",
-    seats: "2 workers",
+    id: "cloud",
+    name: "Cloud",
+    price: `$${DOCINTEL_CLOUD_BANDS[0].flatUsd}`,
+    priceUnit: "/mo + per page",
+    quota: "No page limit",
+    seats: "Hosted by Purple8",
     tagline:
-      "The affordable on-ramp. Every Self-Hosted capability — all connectors, all 5 OCR engines, all LLM providers — metered to 10K documents/month. Every new version included.",
-    cta: "Start Solo",
-    ctaHref: "/checkout?plan=docintel-solo",
-    badge: "New",
-  },
-  {
-    id: "self-hosted",
-    name: "Self-Hosted",
-    price: "$299",
-    quota: "Unlimited docs",
-    seats: "Unlimited workers",
-    tagline:
-      "Unlimited processing, flat monthly fee — no per-page fees. All connectors (SharePoint, Confluence, S3), all 5 OCR engines, all LLM providers. Nothing leaves your infra. Every new version included.",
-    cta: "Start Self-Hosted",
-    ctaHref: "/checkout?plan=docintel-self-hosted",
+      "Hosted DocIntel. A monthly fee plus a per-page rate, set by your month's volume — the more you process, the lower the rate. Relationships extracted with our default model or your own LLM at the same price.",
+    cta: "Start now",
+    ctaHref: `/checkout/create-session?plan=${DOCINTEL_CLOUD_PLAN}`,
     highlight: true,
-    badge: "Most popular",
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    price: "Custom",
-    quota: "Unlimited",
-    seats: "Unlimited",
-    tagline:
-      "Everything in Self-Hosted plus SSO/SAML, air-gapped deployment, one custom fine-tuned domain adapter, one custom connector, LTS security-patch backports, guided upgrades, and a dedicated response SLA.",
-    cta: "Contact sales",
-    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Enterprise%20inquiry",
   },
 ];
 
@@ -239,12 +248,13 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
  * can never drift from the offered tiers (see issue #3):
  *   - Graph tiers with a real positive price (excludes free Developer and
  *     contact-sales Enterprise).
- *   - DocIntel tiers whose CTA targets the checkout route (plan= query param).
+ *   - DocIntel Cloud (metered, monthly only).
  */
 export const PURCHASABLE_PLAN_IDS: ReadonlySet<string> = new Set<string>([
   ...GRAPH_TIERS.filter(
     (t) => typeof t.priceMonthly === "number" && t.priceMonthly > 0,
   ).map((t) => t.id),
+  DOCINTEL_CLOUD_PLAN,
 ]);
 
 // ─────────────────────────────────────────────────────────────────────────────

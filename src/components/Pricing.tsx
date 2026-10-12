@@ -6,6 +6,8 @@ import { CC_BASE_URL } from "@/lib/cc";
 import {
   GRAPH_TIERS,
   DOCINTEL_TIERS,
+  DOCINTEL_CLOUD_BANDS,
+  docIntelCloudBill,
   priceLabel,
   type GraphTierId,
   type BillingCycle,
@@ -76,39 +78,24 @@ interface DocIntelFeatureRow {
   category?: string;
   label: string;
   beta: boolean | string;
-  solo: boolean | string;
-  self_hosted: boolean | string;
-  enterprise: boolean | string;
+  cloud: boolean | string;
 }
 
 const DOCINTEL_FEATURE_ROWS: DocIntelFeatureRow[] = [
-  { category: "Capacity", label: "Documents / month", beta: "500", solo: "10,000", self_hosted: "Unlimited", enterprise: "Unlimited" },
-  { label: "Concurrent workers", beta: "1", solo: "2", self_hosted: "Unlimited", enterprise: "Unlimited" },
-  { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "SAP IDocs", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", solo: true, self_hosted: true, enterprise: true },
-  { category: "Extraction", label: "GLiNER NER — Pass 1 (all tiers)", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", solo: true, self_hosted: true, enterprise: true },
-  { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "Custom extraction ontology", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { category: "OCR Engines", label: "Tesseract + P8OCR (native)", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "Azure Document Intelligence", beta: false, solo: true, self_hosted: true, enterprise: true },
-  { label: "Google Vision / AWS Textract", beta: false, solo: true, self_hosted: true, enterprise: true },
-  { category: "Connectors", label: "Webhook (inbound push)", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "SharePoint + Confluence sync", beta: false, solo: true, self_hosted: true, enterprise: true },
-  { label: "AWS S3 sync", beta: false, solo: true, self_hosted: true, enterprise: true },
-  { label: "Custom connectors", beta: false, solo: false, self_hosted: false, enterprise: "1 included" },
-  { category: "Enterprise", label: "SSO / SAML", beta: false, solo: false, self_hosted: false, enterprise: true },
-  { label: "Air-gapped deployment", beta: false, solo: false, self_hosted: false, enterprise: true },
-  { label: "Custom fine-tuned domain adapter", beta: false, solo: false, self_hosted: false, enterprise: "1 included" },
-  { category: "Updates & support", label: "Every new version — included while active", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "LTS security-patch backports (stay on your pinned version)", beta: false, solo: false, self_hosted: false, enterprise: true },
-  { label: "Guided upgrades / migration help", beta: false, solo: false, self_hosted: false, enterprise: true },
-  { label: "Community (GitHub + Discord)", beta: true, solo: true, self_hosted: true, enterprise: true },
-  { label: "Email support", beta: false, solo: true, self_hosted: true, enterprise: true },
-  { label: "Dedicated response SLA (1 business-hr first response)", beta: false, solo: false, self_hosted: false, enterprise: true },
-  { label: "Dedicated success engineer", beta: false, solo: false, self_hosted: false, enterprise: true },
+  { category: "Capacity", label: "Volume", beta: "500 docs / month", cloud: "No limit — billed per page" },
+  { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, cloud: true },
+  { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, cloud: true },
+  { label: "SAP IDocs", beta: true, cloud: true },
+  { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", cloud: "Tesseract + P8OCR" },
+  { category: "Extraction", label: "GLiNER NER — Pass 1", beta: true, cloud: true },
+  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", cloud: "Our default model or your own LLM" },
+  { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, cloud: true },
+  { label: "Custom extraction ontology", beta: true, cloud: true },
+  { category: "Connectors", label: "Webhook (inbound push)", beta: true, cloud: true },
+  { label: "SharePoint + Confluence sync", beta: false, cloud: true },
+  { label: "AWS S3 sync", beta: false, cloud: true },
+  { category: "Updates & support", label: "Every new version — included", beta: true, cloud: true },
+  { label: "Community (GitHub + Discord)", beta: true, cloud: true },
 ];
 
 // ─── Cell helpers ─────────────────────────────────────────────────────────────
@@ -327,7 +314,7 @@ export default function Pricing() {
           </>
         ) : (
           <>
-            <div className="mx-auto mt-12 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto mt-12 grid max-w-3xl gap-6 md:grid-cols-2">
               {DOCINTEL_TIERS.map((tier) => (
                 <div
                   key={tier.id}
@@ -348,7 +335,7 @@ export default function Pricing() {
                   <div className="mt-4 flex items-baseline gap-1">
                     <span className="text-3xl font-extrabold text-white">{tier.price}</span>
                     {tier.price !== "Custom" && tier.price !== "$0" && (
-                      <span className="text-sm text-zinc-400">/mo</span>
+                      <span className="text-sm text-zinc-400">{tier.priceUnit ?? "/mo"}</span>
                     )}
                   </div>
 
@@ -383,28 +370,42 @@ export default function Pricing() {
               ))}
             </div>
 
-            {/* TCO narrative — flat fee vs per-page cloud APIs */}
+            {/* DocIntel Cloud bands — mirrors the Stripe price (lib/pricing.ts) */}
             <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-5">
-              <p className="text-center text-sm text-zinc-300">
-                <span className="font-semibold text-purple-300">Flat fee, not per-page.</span>{" "}
-                Azure Document Intelligence and AWS Textract bill roughly $1.50 per 1,000
-                pages — <span className="text-zinc-200">100,000 pages/month is ~$150, and it climbs with every page.</span>{" "}
-                DocIntel Self-Hosted is <span className="text-zinc-200">$299/mo flat and unlimited</span>;
-                Solo covers 10,000 docs for <span className="text-zinc-200">$79</span>. Your bill stops growing.
+              <p className="text-center text-sm font-semibold text-purple-300">
+                Cloud pricing — your month&apos;s total pages picks one band
               </p>
+              <table className="mx-auto mt-4 w-full max-w-xl text-xs">
+                <thead>
+                  <tr className="text-zinc-400">
+                    <th className="py-1 text-left font-medium">Pages / month</th>
+                    <th className="py-1 text-right font-medium">Monthly fee</th>
+                    <th className="py-1 text-right font-medium">Per page</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DOCINTEL_CLOUD_BANDS.map((b, i) => {
+                    const from = i === 0 ? 1 : (DOCINTEL_CLOUD_BANDS[i - 1].upTo ?? 0) + 1;
+                    return (
+                      <tr key={from} className="border-t border-zinc-800/60 text-zinc-300">
+                        <td className="py-1.5">
+                          {b.upTo === null
+                            ? `${from.toLocaleString("en-US")}+`
+                            : `${from.toLocaleString("en-US")} – ${b.upTo.toLocaleString("en-US")}`}
+                        </td>
+                        <td className="py-1.5 text-right">${b.flatUsd}</td>
+                        <td className="py-1.5 text-right">${b.perPageUsd}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
               <p className="mt-3 text-center text-xs text-zinc-400">
-                Replaces Azure Document Intelligence, AWS Textract, Google Document AI,
-                Unstructured.io &amp; ABBYY. One license key, nothing leaves your infra.
+                Example: 10,000 pages = ${docIntelCloudBill(10_000).toLocaleString("en-US")} ·
+                50,000 pages = ${docIntelCloudBill(50_000).toLocaleString("en-US")}. Billed monthly
+                in arrears; prices exclude tax.
               </p>
             </div>
-
-            {/* Bundle note */}
-            <p className="mt-6 text-center text-xs text-zinc-400">
-              Already on Purple8{" "}
-              <span className="text-purple-400">Growth or above</span>? DocIntel Self-Hosted
-              is <span className="text-zinc-400">included at no extra cost</span> — your engine
-              license unlocks it automatically.
-            </p>
           </>
         )}
 
@@ -440,11 +441,11 @@ export default function Pricing() {
                             </span>
                           </th>
                         ))
-                      : ["Community", "Solo", "Self-Hosted", "Enterprise"].map((name, i) => (
+                      : ["Community", "Cloud"].map((name, i) => (
                           <th
                             key={name}
                             className={`px-3 py-3 text-center text-xs font-semibold ${
-                              i === 2 ? "text-purple-300" : "text-zinc-400"
+                              i === 1 ? "text-purple-300" : "text-zinc-400"
                             }`}
                           >
                             {name}
@@ -488,9 +489,7 @@ export default function Pricing() {
                           <tr key={row.label} className={`border-t border-zinc-800/60 ${idx % 2 === 0 ? "bg-zinc-900/20" : ""}`}>
                             <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
                             <Cell value={row.beta} highlight={false} />
-                            <Cell value={row.solo} highlight={false} />
-                            <Cell value={row.self_hosted} highlight={true} />
-                            <Cell value={row.enterprise} highlight={false} />
+                            <Cell value={row.cloud} highlight={true} />
                           </tr>
                         );
                       })}
