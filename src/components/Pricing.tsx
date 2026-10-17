@@ -178,10 +178,14 @@ export default function Pricing() {
             Start free. Pay for capacity, never for features.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
-            Self-hosted — runs in your own infrastructure, nothing leaves your
+            {product === "docintel" ? (
+              "Choose Community for self-hosting, or Cloud for managed document processing."
+            ) : (
+              <>Self-hosted — runs in your own infrastructure, nothing leaves your
             environment. Every production tier from Micro to Starter ships the{" "}
             <span className="text-zinc-300">exact same feature set</span>. Moving
-            up the ladder buys more capacity, not more capability.
+            up the ladder buys more capacity, not more capability.</>
+            )}
           </p>
 
           {/* Product tabs */}
@@ -373,13 +377,13 @@ export default function Pricing() {
             {/* DocIntel Cloud bands — mirrors the Stripe price (lib/pricing.ts) */}
             <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-5">
               <p className="text-center text-sm font-semibold text-purple-300">
-                Cloud pricing — your month&apos;s total pages picks one band
+                Cloud pricing — monthly access plus graduated page usage
               </p>
               <table className="mx-auto mt-4 w-full max-w-xl text-xs">
                 <thead>
                   <tr className="text-zinc-400">
                     <th className="py-1 text-left font-medium">Pages / month</th>
-                    <th className="py-1 text-right font-medium">Monthly fee</th>
+                    <th className="py-1 text-right font-medium">Access fee</th>
                     <th className="py-1 text-right font-medium">Per page</th>
                   </tr>
                 </thead>
@@ -403,7 +407,10 @@ export default function Pricing() {
               <p className="mt-3 text-center text-xs text-zinc-400">
                 Example: 10,000 pages = ${docIntelCloudBill(10_000).toLocaleString("en-US")} ·
                 50,000 pages = ${docIntelCloudBill(50_000).toLocaleString("en-US")}. Billed monthly
-                in arrears; prices exclude tax.
+                usage in arrears; the access fee is paid upfront. Prices exclude tax.
+              </p>
+              <p className="mt-3 text-center text-xs text-zinc-400">
+                The separate $0.03/page prepaid option is not available for activation yet.
               </p>
             </div>
           </>

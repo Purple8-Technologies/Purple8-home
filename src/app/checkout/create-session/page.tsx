@@ -1,9 +1,11 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CC_BASE_URL } from "@/lib/cc";
 import { PURCHASABLE_PLAN_IDS } from "@/lib/pricing";
+import { ClassicShell } from "@/components/revamp/BrandShell";
+import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 
 type BillingCycle = "monthly" | "annual";
 
@@ -12,6 +14,11 @@ const SUPPORTED_PLANS: ReadonlySet<string> = PURCHASABLE_PLAN_IDS;
 function CheckoutCreateSessionContent() {
   const params = useSearchParams();
   const [error, setError] = useState<string>("");
+  const sessionRequest = useRef<{
+    plan: string;
+    billing: BillingCycle;
+    checkoutUrl: Promise<string>;
+  } | null>(null);
 
   const plan = useMemo(() => {
     const raw = (params.get("plan") || "").trim().toLowerCase();
@@ -24,22 +31,32 @@ function CheckoutCreateSessionContent() {
   }, [params]);
 
   useEffect(() => {
-    async function createSession() {
-      if (!plan) {
-        setError("Invalid plan. Please return to pricing and choose a valid plan.");
-        return;
-      }
-
-      try {
+    if (!plan) {
+      setError("Invalid plan. Please return to pricing and choose a valid plan.");
+      return;
+    }
+    if (plan === "docintel-graduated" || plan === "docintel-payg") {
+      return;
+    }
+    let cancelled = false;
+    setError("");
+    if (sessionRequest.current?.plan !== plan || sessionRequest.current.billing !== billing) {
+      // Reuse the in-flight request when React replays this effect.
+      const checkoutUrl = (async () => {
         const res = await fetch(`${CC_BASE_URL}/billing/checkout/create-session`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ plan, billing }),
+          body: JSON.stringify({
+            plan, billing,
+            theme: document.documentElement.dataset.p8Theme === "night" ? "night" : "day",
+          }),
         });
 
         if (!res.ok) {
           const text = await res.text();
-          throw new Error(text || `Checkout bootstrap failed (${res.status})`);
+          let detail: unknown;
+          try { detail = JSON.parse(text).detail; } catch { /* response is not JSON */ }
+          throw new Error(typeof detail === "string" ? detail : `Checkout request failed (HTTP ${res.status}).`);
         }
 
         const data = await res.json();
@@ -47,19 +64,45 @@ function CheckoutCreateSessionContent() {
         if (!checkoutUrl || typeof checkoutUrl !== "string") {
           throw new Error("Checkout URL missing from billing service response.");
         }
+        const target = new URL(checkoutUrl);
+        if (target.protocol !== "https:" || target.hostname !== "checkout.stripe.com" ||
+            target.username || target.password || target.port) {
+          throw new Error("The billing service returned an invalid Stripe checkout URL.");
+        }
 
-        window.location.assign(checkoutUrl);
-      } catch (e) {
+        return checkoutUrl;
+      })();
+      sessionRequest.current = { plan, billing, checkoutUrl };
+    }
+    sessionRequest.current.checkoutUrl.then((url) => {
+      if (!cancelled) window.location.assign(url);
+    }).catch((e: unknown) => {
+      if (!cancelled) {
         setError(
           e instanceof Error
             ? e.message
             : "Could not start checkout right now. Please try again."
         );
       }
-    }
-
-    void createSession();
+    });
+    return () => { cancelled = true; };
   }, [plan, billing]);
+
+  if (plan === "docintel-graduated" || plan === "docintel-payg") {
+    return (
+      <main id="main-content" className="min-h-screen px-4 flex items-center justify-center">
+        <div className="max-w-lg w-full rounded-2xl border border-zinc-800 bg-[#11111b] p-8 text-center">
+          <h1 className="text-xl font-bold text-white">DocIntel subscription</h1>
+          <p className="mt-3 text-sm text-zinc-400">
+            Sign in to your DocIntel workspace to manage the subscription for all your projects.
+          </p>
+          <DocIntelWorkspaceLink view="billing" className="mt-6 inline-block text-sm text-purple-400 underline">
+            Open DocIntel workspace
+          </DocIntelWorkspaceLink>
+        </div>
+      </main>
+    );
+  }
 
   if (!error) {
     return (
@@ -101,8 +144,10 @@ function CheckoutCreateSessionContent() {
 
 export default function CheckoutCreateSessionPage() {
   return (
+    <ClassicShell>
     <Suspense>
       <CheckoutCreateSessionContent />
     </Suspense>
+    </ClassicShell>
   );
 }

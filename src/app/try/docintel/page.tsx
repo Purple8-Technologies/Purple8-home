@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { CC_BASE_URL } from "@/lib/cc";
-
-const SANDBOX_URL = "https://purple8-docintel.fly.dev/try";
+import { ClassicShell } from "@/components/revamp/BrandShell";
+import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 
 const dataPoints = [
   "Your processed documents are never saved.",
@@ -69,6 +69,7 @@ export default function TryDocIntelPage() {
   }
 
   return (
+    <ClassicShell>
     <main id="main-content" className="min-h-screen px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl">
         <a
@@ -107,12 +108,12 @@ export default function TryDocIntelPage() {
               demand is high, you&apos;re on the waitlist and we&apos;ll send your key as
               soon as a place opens.
             </p>
-            <a
-              href={SANDBOX_URL}
+            <DocIntelWorkspaceLink
+              view="api"
               className="mt-6 inline-block rounded-lg bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-purple-500"
             >
-              Open the sandbox →
-            </a>
+              Open your DocIntel workspace →
+            </DocIntelWorkspaceLink>
             <p className="mt-4 text-sm text-gray-500">
               Didn&apos;t get it? Check spam, or{" "}
               <button onClick={() => setSent(false)} className="text-purple-400 underline">
@@ -198,7 +199,7 @@ export default function TryDocIntelPage() {
 
             <p className="mt-4 text-center text-xs text-gray-600">
               Already have a key?{" "}
-              <a href={SANDBOX_URL} className="text-purple-400 underline">Open the sandbox</a>
+              <DocIntelWorkspaceLink view="api" className="text-purple-400 underline">Open the workspace</DocIntelWorkspaceLink>
               {" · "}
               Want it on your own machine?{" "}
               <Link href="/quickstart#add-docintel" className="text-purple-400 underline">Self-host</Link>
@@ -207,5 +208,6 @@ export default function TryDocIntelPage() {
         )}
       </div>
     </main>
+    </ClassicShell>
   );
 }

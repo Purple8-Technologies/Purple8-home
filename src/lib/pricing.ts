@@ -184,13 +184,13 @@ export interface DocIntelTier {
   badge?: string;
 }
 
-/** Checkout plan id for DocIntel Cloud (metered; price lives in Stripe). */
-export const DOCINTEL_CLOUD_PLAN = "docintel-payg";
+/** Checkout plan id for monthly access plus graduated metered usage. */
+export const DOCINTEL_CLOUD_PLAN = "docintel-graduated";
 
 /**
  * DocIntel Cloud monthly bands — mirrors the Stripe price with lookup key
- * `docintel_subscription_graduated_v1` (volume tiers: the month's total page
- * count picks ONE band; the bill is that band's flat fee + pages × rate).
+ * `docintel_graduated_access_monthly_v1` (access fee) and
+ * `docintel_graduated_pages_monthly_v1` (graduated metered pages).
  * Stripe is the source of truth; update this table when the price changes.
  */
 export interface DocIntelCloudBand {
@@ -200,19 +200,24 @@ export interface DocIntelCloudBand {
 }
 
 export const DOCINTEL_CLOUD_BANDS: DocIntelCloudBand[] = [
-  { upTo: 1_000, flatUsd: 5, perPageUsd: 0.03 },
-  { upTo: 5_000, flatUsd: 25, perPageUsd: 0.03 },
-  { upTo: 20_000, flatUsd: 109, perPageUsd: 0.027 },
-  { upTo: 100_000, flatUsd: 299, perPageUsd: 0.022 },
-  { upTo: null, flatUsd: 999, perPageUsd: 0.015 },
+  { upTo: 10_000, flatUsd: 100, perPageUsd: 0.02 },
+  { upTo: null, flatUsd: 0, perPageUsd: 0.018 },
 ];
 
-/** Monthly bill in USD for `pages` processed (volume pricing). */
+/** Monthly access plus graduated usage, excluding tax. */
 export function docIntelCloudBill(pages: number): number {
-  const band =
-    DOCINTEL_CLOUD_BANDS.find((b) => b.upTo === null || pages <= b.upTo) ??
-    DOCINTEL_CLOUD_BANDS[DOCINTEL_CLOUD_BANDS.length - 1];
-  return band.flatUsd + pages * band.perPageUsd;
+  if (!Number.isSafeInteger(pages) || pages < 0) {
+    throw new RangeError("Pages must be a non-negative safe integer.");
+  }
+  let total = DOCINTEL_CLOUD_BANDS[0].flatUsd;
+  let previousLimit = 0;
+  for (const band of DOCINTEL_CLOUD_BANDS) {
+    const limit = band.upTo ?? pages;
+    total += Math.max(0, Math.min(pages, limit) - previousLimit) * band.perPageUsd;
+    if (pages <= limit) break;
+    previousLimit = limit;
+  }
+  return Math.round(total * 100) / 100;
 }
 
 export const DOCINTEL_TIERS: DocIntelTier[] = [
@@ -229,13 +234,13 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   },
   {
     id: "cloud",
-    name: "Cloud",
+    name: "Cloud Graduated",
     price: `$${DOCINTEL_CLOUD_BANDS[0].flatUsd}`,
     priceUnit: "/mo + per page",
     quota: "No page limit",
     seats: "Hosted by Purple8",
     tagline:
-      "Hosted DocIntel. A monthly fee plus a per-page rate, set by your month's volume — the more you process, the lower the rate. Relationships extracted with our default model or your own LLM at the same price.",
+      "Hosted DocIntel. Pay the monthly access fee upfront, then pay for pages processed. The lower rate applies only to pages above the first band. No installation or Graph database required.",
     cta: "Start now",
     ctaHref: `/checkout/create-session?plan=${DOCINTEL_CLOUD_PLAN}`,
     highlight: true,

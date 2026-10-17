@@ -124,7 +124,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=localStorage.getItem('p8-theme');if(t!=='day'&&t!=='night'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'night':'day';}document.documentElement.dataset.p8Theme=t;}catch(e){document.documentElement.dataset.p8Theme='day';}})();",
+              "(function(){var t=new URLSearchParams(location.search).get('theme');try{if(t==='day'||t==='night'){localStorage.setItem('p8-theme',t);}else{t=localStorage.getItem('p8-theme');}}catch(e){}if(t!=='day'&&t!=='night'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'night':'day';}document.documentElement.dataset.p8Theme=t;})();",
           }}
         />
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />

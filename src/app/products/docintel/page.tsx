@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BrandShell from "@/components/revamp/BrandShell";
+import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 import StartPaths from "@/components/revamp/StartPaths";
 import Proofs, { type Proof } from "@/components/revamp/Proofs";
 import { pageMetadata } from "@/lib/seo";
@@ -51,9 +52,9 @@ export default function DocIntelPage() {
           Turns every document into the people, money, dates and relationships inside it, ready for your graph.
         </p>
         <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href="/try/docintel/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
+          <DocIntelWorkspaceLink view="playground" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
             Try DocIntel
-          </a>
+          </DocIntelWorkspaceLink>
           <a href="#start" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
             All ways to start
           </a>

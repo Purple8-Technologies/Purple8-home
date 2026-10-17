@@ -2,6 +2,8 @@
 // never drifts (docs/revamp/10-site-pages.md §2.1, decisions PP1/PP2).
 // Colours come only from var(--p8-*) so day and night both work.
 
+import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
+
 type Props = {
   product: "Hyper Graph" | "DocIntel";
   sandboxHref: string;
@@ -32,8 +34,8 @@ export default function StartPaths({ product, sandboxHref }: Props) {
     {
       name: "Purple8 Cloud",
       line: "Fully managed by Purple8.",
-      note: "Coming soon",
-      cta: "Join the waitlist",
+      note: product === "DocIntel" ? "Hosted document intelligence" : "Coming soon",
+      cta: product === "DocIntel" ? "Explore Cloud in the workspace" : "Join the waitlist",
       href: mailto(`Purple8 ${product}: Cloud waitlist`),
       primary: false,
     },
@@ -52,7 +54,19 @@ export default function StartPaths({ product, sandboxHref }: Props) {
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--p8-accent)]">{p.note}</p>
           <h3 className="mt-3 text-xl font-semibold">{p.name}</h3>
           <p className="mt-2 flex-1 text-[var(--p8-muted)]">{p.line}</p>
-          <a
+          {product === "DocIntel" && p.name !== "Self-hosted" ? (
+            <DocIntelWorkspaceLink
+              view={p.name === "Sandbox" ? "playground" : "billing"}
+              className={
+                "mt-8 rounded-full px-5 py-2.5 text-center text-sm font-semibold transition " +
+                (p.primary
+                  ? "bg-[var(--p8-button)] text-white hover:opacity-90"
+                  : "border border-[var(--p8-border)] hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]")
+              }
+            >
+              {p.cta}
+            </DocIntelWorkspaceLink>
+          ) : <a
             href={p.href}
             className={
               "mt-8 rounded-full px-5 py-2.5 text-center text-sm font-semibold transition " +
@@ -62,7 +76,7 @@ export default function StartPaths({ product, sandboxHref }: Props) {
             }
           >
             {p.cta}
-          </a>
+          </a>}
         </div>
       ))}
     </div>
