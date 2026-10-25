@@ -3,8 +3,11 @@ import BrandShell from "@/components/revamp/BrandShell";
 import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 import StartPaths from "@/components/revamp/StartPaths";
 import Proofs, { type Proof } from "@/components/revamp/Proofs";
+import Differentiators from "@/components/revamp/Differentiators";
+import DocIntelFlow from "@/components/revamp/DocIntelFlow";
 import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
+import { DOCINTEL_CLOUD_BANDS, docIntelCloudBill } from "@/lib/pricing";
 
 export const metadata: Metadata = pageMetadata({
   title: "Purple8 DocIntel: any document, structured knowledge",
@@ -30,13 +33,35 @@ const proofs: [Proof, Proof, Proof] = [
   { figure: "2-pass", unit: "extraction", detail: "entity recognition first, then an LLM for relationships, tuned per domain", href: "/architecture/" },
 ];
 
+const lead = [
+  {
+    tag: "Graph-ready",
+    title: "Built to feed a graph, not a chatbot",
+    body: "Most document tools stop at text chunks for a vector store. DocIntel returns the people, organisations, money, dates and relationships between them, with stable IDs. Download structured results or send them to your chosen graph or application. Hyper Graph is an optional destination, not a requirement.",
+  },
+  {
+    tag: "Two-pass",
+    title: "Entities first, then relationships",
+    body: "A fast entity model finds what is in the document. A language model then links those entities, given the full list as context. Each pass does what it is best at, and every domain profile (contracts, finance, science, AEC) brings its own ontology.",
+  },
+];
+
+const more = [
+  { title: "Stable IDs for integration", body: "Normalized names and types produce deterministic IDs for de-duplication. Review ambiguous names before merging records across documents." },
+  { title: "Session-based processing", body: "Hosted document content and results stay in RAM for the processing session. Account, job and billing metadata are retained separately. Download results before the session ends." },
+  { title: "Native script, every language", body: `Language is detected per document across ${F.languages} languages, and entity names stay in their original script.` },
+  { title: "Structure-aware chunking", body: "Contracts split on clauses, papers on sections, spreadsheets keep their tables. The split follows the document, not a character count." },
+  { title: "Your providers, your choice", body: "Self-host with local OCR and a local language model for in-network processing, or choose cloud providers. Data handling depends on your selected providers." },
+  { title: "Ready for your destination", body: "Document type and chunking hints travel with structured output. Use the REST API, export results, or connect an optional graph destination." },
+];
+
 const features = [
   { group: "Formats", items: ["PDF, Word, Excel, PowerPoint, HTML", "Scanned images with OCR", "Email, CAD, BIM, SAP IDocs"] },
   { group: "Extraction", items: ["People, money, dates, relationships", "Contract, financial, scientific, AEC profiles", "Custom ontologies"] },
   { group: "Quality", items: ["Stable entity IDs", "De-duplication", "Confidence thresholds per profile"] },
   { group: "Connectors", items: ["SharePoint", "Confluence", "Amazon S3 and webhooks"] },
-  { group: "Operations", items: ["Async jobs with live progress", "Crash-safe job store", "Metrics, health and readiness"] },
-  { group: "Output", items: ["Commits straight into Hyper Graph", "Preview before commit", "Processing history"] },
+  { group: "Operations", items: ["Async jobs with live progress", "RAM-only hosted document sessions", "Metrics, health and readiness"] },
+  { group: "Output", items: ["Structured exports and REST API", "Preview before sending", "Optional Hyper Graph integration"] },
 ];
 
 export default function DocIntelPage() {
@@ -61,8 +86,39 @@ export default function DocIntelPage() {
         </div>
       </section>
 
+      {/* How it works */}
+      <div className="border-t border-[var(--p8-border)]">
+        <DocIntelFlow />
+      </div>
+
       {/* Why is it different? */}
+      <Differentiators heading="Documents become knowledge, not just text" lead={lead} more={more} />
       <Proofs proofs={proofs} />
+
+      <section className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
+        <h2 className="text-3xl font-bold tracking-tight">Start free. Activate Cloud or Enterprise Self-Hosted when ready.</h2>
+        <p className="mt-5 text-lg text-[var(--p8-muted)]">
+          <strong className="text-[var(--p8-fg)]">Cloud Graduated:</strong> ${DOCINTEL_CLOUD_BANDS[0].flatUsd}/month for access, plus ${DOCINTEL_CLOUD_BANDS[0].perPageUsd}/page
+          {" "}for the first {DOCINTEL_CLOUD_BANDS[0].upTo?.toLocaleString("en-US")} pages each month;
+          {" "}${DOCINTEL_CLOUD_BANDS[1].perPageUsd}/page above that.
+        </p>
+        <p className="mt-3 text-sm text-[var(--p8-muted)]">
+          Access is paid upfront; page usage is billed in arrears. The access fee is not usage credit.
+          {" "}For example, 10,000 pages costs ${docIntelCloudBill(10_000).toLocaleString("en-US")} before tax.
+          One subscription covers all your projects. No prepaid purchase is required or offered.
+        </p>
+        <p className="mt-4 text-sm text-[var(--p8-muted)]">
+          <strong className="text-[var(--p8-fg)]">Self-Hosted:</strong> Free Community edition (500 docs/month) for evaluation, or one commercial self-hosted tier — <strong className="text-[var(--p8-fg)]">Enterprise / Custom</strong> — for unlimited in-network processing.
+        </p>
+        <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+          <DocIntelWorkspaceLink view="billing" className="inline-block rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
+            View Cloud billing
+          </DocIntelWorkspaceLink>
+          <a href="mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20%2F%20Custom" className="inline-block rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
+            Self-Hosted Enterprise / Custom
+          </a>
+        </div>
+      </section>
 
       {/* How do I start? */}
       <section id="start" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-24 sm:px-6 lg:px-8">

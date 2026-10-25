@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Pricing",
   description:
-    "Start free with the Developer edition. Pay for capacity, never for features — every production tier ships the exact same feature set. Self-hosted, runs in your own infrastructure.",
+    "Start free with the Developer edition. For commercial self-hosted deployments, we offer one simple tier: Enterprise / Custom — tailored to your infrastructure, capacity, and SLA.",
   path: "/pricing",
 });
 

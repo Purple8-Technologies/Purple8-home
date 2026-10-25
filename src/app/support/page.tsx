@@ -53,9 +53,9 @@ export default function SupportPage() {
                     </a>
                   </li>
                   <li>
-                    <a href="mailto:hello@purple8.ai?subject=Purple8%20self-hosted%20(Pro%20%2F%20Enterprise)"
+                    <a href="mailto:hello@purple8.ai?subject=Purple8%20self-hosted%20(Enterprise%20%2F%20Custom)"
                        className="hover:text-purple-400 transition-colors">
-                      → Self-hosted (Pro / Enterprise): talk to us
+                      → Self-hosted (Enterprise / Custom): talk to us
                     </a>
                   </li>
                 </ul>

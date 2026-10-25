@@ -132,7 +132,9 @@ export default function HyperGraphPage() {
         <section className="py-20 border-t border-white/5">
           <div className="mx-auto max-w-2xl px-4 text-center">
             <h2 className="text-3xl font-bold text-white">Ready to simplify your stack?</h2>
-            <p className="mt-4 text-zinc-400">Developer edition is free forever. Upgrade to a paid tier when you scale.</p>
+            <p className="mt-4 text-zinc-400">
+              Developer edition is free forever. For commercial self-hosted deployments, we offer one simple tier: <strong className="text-white">Enterprise / Custom</strong>.
+            </p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a href="/register/" className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white hover:bg-purple-500">
                 Get started free

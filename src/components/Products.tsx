@@ -139,10 +139,10 @@ export default function Products({
 
               <div className="mt-8 flex items-center gap-4">
                 <a href="/register/" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
-                  Get Started
+                  Start Free (Developer)
                 </a>
-                <a href="/features/" className="text-sm text-purple-400 hover:text-purple-300">
-                  Explore features →
+                <a href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Enterprise%20%2F%20Custom" className="text-sm font-semibold text-purple-400 hover:text-purple-300">
+                  Self-Hosted Enterprise / Custom →
                 </a>
               </div>
             </div>

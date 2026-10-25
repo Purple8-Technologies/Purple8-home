@@ -1,46 +1,39 @@
 /**
  * pricing.ts — Single source of truth for Purple8 pricing + the tier calculator.
  *
- * Mirrors the real entitlement model in
- *   purple8-graph/src/purple8_graph/licensing.py  (LicenseTier + _TIER_FEATURES)
- *   Purple8-DocIntel/src/purple8_docintel/licensing/models.py (LicenseTier)
+ * Mirrors the simplified self-hosted model:
+ *   - Developer (Free): full local engine up to 50K nodes for dev, testing & evaluation.
+ *   - Enterprise / Custom (Self-Hosted): one commercial self-hosted tier tailored to your
+ *     infrastructure, capacity, compliance, and HA requirements.
  *
- * KEY MESSAGE this file encodes:
- *   Everything from Micro through Starter shares the SAME feature set — you
- *   are choosing *capacity*, not capability. Pro adds governance/compliance;
- *   Enterprise adds HA/scale.
- *
- * Annual price = floor(monthly * 10 / 12)  ("pay for 10 months, get 12").
+ * DocIntel offers:
+ *   - Community (Self-Hosted Free): up to 500 docs/mo.
+ *   - Enterprise / Custom (Self-Hosted): unlimited commercial self-hosted deployment.
+ *   - Cloud Graduated: hosted by Purple8 ($100/mo access + per-page usage).
  */
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Purple8 (flagship) tiers
+// Purple8 (flagship) tiers — Self-Hosted: Developer (Free) + Enterprise / Custom
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type GraphTierId =
   | "developer"
-  | "micro"
-  | "mini"
-  | "growth"
-  | "starter"
-  | "pro"
   | "enterprise";
 
 export type BillingCycle = "monthly" | "annual";
 
-/** Which capability bundle a tier belongs to. Micro→Starter share "production". */
-export type FeatureFamily = "free" | "production" | "pro" | "enterprise";
+export type FeatureFamily = "free" | "enterprise";
 
 export interface GraphTier {
   id: GraphTierId;
   name: string;
   /** Monthly price in USD. null = custom / contact sales. */
   priceMonthly: number | null;
-  /** Annual monthly-equivalent in USD (floor(monthly*10/12)). null = custom. */
+  /** Annual monthly-equivalent in USD. null = custom. */
   priceAnnual: number | null;
   /** Node capacity ceiling — used by the calculator to map an estimate → tier. */
   nodes: number;
-  /** Human label for the capacity, e.g. "500K". */
+  /** Human label for the capacity, e.g. "50K" or "Custom / Unlimited". */
   nodesLabel: string;
   /** Included MCP agents. null = unlimited. */
   agents: number | null;
@@ -52,12 +45,10 @@ export interface GraphTier {
   badge?: string;
 }
 
-const floorAnnual = (m: number): number => Math.floor((m * 10) / 12);
-
 export const GRAPH_TIERS: GraphTier[] = [
   {
     id: "developer",
-    name: "Developer",
+    name: "Developer (Self-Hosted Free)",
     priceMonthly: 0,
     priceAnnual: 0,
     nodes: 50_000,
@@ -65,89 +56,23 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: 1,
     family: "free",
     tagline:
-      "The full engine on your machine — every RAG pipeline, every MCP tool, every algorithm, and the full Journey Engine (workflows, HITL, SLA). No credit card, no expiry.",
+      "The full engine on your machine — every RAG pipeline, every MCP tool, every algorithm, and the full Journey Engine (workflows, HITL, SLA). Free for development, prototyping, and evaluation. No credit card, no expiry.",
     cta: "Download free",
   },
   {
-    id: "micro",
-    name: "Micro",
-    priceMonthly: 119,
-    priceAnnual: floorAnnual(119), // 99
-    nodes: 500_000,
-    nodesLabel: "500K",
-    agents: 3,
-    family: "production",
-    tagline:
-      "Production scale starts here — 10× the capacity, 3 agents & seats, plus agentic/late-chunking RAG, local KMS encryption, data lineage and local backup.",
-    cta: "Start Micro",
-    badge: "Production starts here",
-  },
-  {
-    id: "mini",
-    name: "Mini",
-    priceMonthly: 239,
-    priceAnnual: floorAnnual(239), // 199
-    nodes: 1_000_000,
-    nodesLabel: "1M",
-    agents: 3,
-    family: "production",
-    tagline:
-      "Same full production feature set as Micro — twice the capacity for growing workloads.",
-    cta: "Start Mini",
-  },
-  {
-    id: "growth",
-    name: "Growth",
-    priceMonthly: 699,
-    priceAnnual: floorAnnual(699), // 582
-    nodes: 3_000_000,
-    nodesLabel: "3M",
-    agents: 3,
-    family: "production",
-    tagline:
-      "The comfortable middle. Full production feature set at 3M capacity — before you need multi-project or compliance.",
-    cta: "Start Growth",
-    highlight: true,
-    badge: "Most popular",
-  },
-  {
-    id: "starter",
-    name: "Starter",
-    priceMonthly: 1199,
-    priceAnnual: floorAnnual(1199), // 999
-    nodes: 5_000_000,
-    nodesLabel: "5M",
-    agents: 3,
-    family: "production",
-    tagline:
-      "Top of the production family — maximum single-project capacity with the same full feature set.",
-    cta: "Start Starter",
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    priceMonthly: 6999,
-    priceAnnual: floorAnnual(6999), // 5832
-    nodes: 50_000_000,
-    nodesLabel: "50M",
-    agents: 10,
-    family: "pro",
-    tagline:
-      "Multi-project & compliance-ready: SSO, RBAC, immutable audit, PII, CDC, durable writes, Applied Graphs, AEC Core, cloud backup.",
-    cta: "Start Pro",
-  },
-  {
     id: "enterprise",
-    name: "Enterprise",
+    name: "Enterprise / Custom (Self-Hosted)",
     priceMonthly: null,
     priceAnnual: null,
     nodes: Number.POSITIVE_INFINITY,
-    nodesLabel: "Unlimited",
+    nodesLabel: "Custom / Unlimited",
     agents: null,
     family: "enterprise",
     tagline:
-      "Mission-critical scale: Raft HA, sharding, federation, SOC vertical, managed KMS, Supergraph, AEC Advanced.",
-    cta: "Contact sales",
+      "One commercial self-hosted tier tailored to your deployment — unlimited nodes & MCP agents, SSO/OIDC, RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, sharding, Supergraph federation, SOC vertical, and SLA-backed support.",
+    cta: "Talk to sales",
+    highlight: true,
+    badge: "Commercial Self-Hosted",
   },
 ];
 
@@ -157,8 +82,8 @@ export function priceLabel(
   cycle: BillingCycle,
 ): { amount: string; suffix: string; note?: string } {
   const value = cycle === "annual" ? tier.priceAnnual : tier.priceMonthly;
-  if (value === null) return { amount: "Custom", suffix: "" };
-  if (value === 0) return { amount: "$0", suffix: "" };
+  if (value === null) return { amount: "Custom", suffix: "", note: "Tailored to your infrastructure & SLA" };
+  if (value === 0) return { amount: "$0", suffix: "", note: "Free for dev & prototyping" };
   return {
     amount: `$${value.toLocaleString()}`,
     suffix: "/mo",
@@ -171,7 +96,7 @@ export function priceLabel(
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface DocIntelTier {
-  id: "beta" | "cloud";
+  id: "beta" | "enterprise" | "cloud";
   name: string;
   price: string;
   priceUnit?: string;
@@ -223,14 +148,26 @@ export function docIntelCloudBill(pages: number): number {
 export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "beta",
-    name: "Community",
+    name: "Community (self-hosted)",
     price: "$0",
     quota: "500 docs/mo",
     seats: "1 worker",
     tagline:
       "Free forever. Full extraction pipeline — GLiNER NER, LLM relationship extraction, webhook connector, Tesseract + P8OCR. No credit card, no expiry.",
-    cta: "Start for free",
-    ctaHref: "/register",
+    cta: "Self-host for free",
+    ctaHref: "/quickstart/#add-docintel",
+  },
+  {
+    id: "enterprise",
+    name: "Enterprise / Custom (self-hosted)",
+    price: "Custom",
+    quota: "Unlimited docs",
+    seats: "Unlimited workers",
+    tagline:
+      "One commercial self-hosted tier in your VPC or air-gapped network. SharePoint, Confluence, and S3 connectors, custom ontologies, BYO LLM, and SLA-backed support.",
+    cta: "Talk to sales",
+    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20inquiry",
+    badge: "Commercial Self-Hosted",
   },
   {
     id: "cloud",
@@ -241,7 +178,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     seats: "Hosted by Purple8",
     tagline:
       "Hosted DocIntel. Pay the monthly access fee upfront, then pay for pages processed. The lower rate applies only to pages above the first band. No installation or Graph database required.",
-    cta: "Start now",
+    cta: "View Cloud billing",
     ctaHref: `/checkout/create-session?plan=${DOCINTEL_CLOUD_PLAN}`,
     highlight: true,
   },
@@ -261,6 +198,12 @@ export const PURCHASABLE_PLAN_IDS: ReadonlySet<string> = new Set<string>([
   ).map((t) => t.id),
   DOCINTEL_CLOUD_PLAN,
 ]);
+
+export function checkoutPlan(value: string): string | null {
+  const plan = value.trim().toLowerCase();
+  if (plan === "docintel-payg") return DOCINTEL_CLOUD_PLAN;
+  return PURCHASABLE_PLAN_IDS.has(plan) ? plan : null;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Tier calculator — "what are you building?" → recommended tier
@@ -397,21 +340,19 @@ export function recommendTier(input: CalculatorInput): CalculatorResult {
   const estimatedNodes = estimateNodes(useCase, input.totalUsers);
 
   let tier = tierForNodes(estimatedNodes);
-  let reason = `~${formatCount(estimatedNodes)} graph objects at your scale fits ${tier.name}.`;
+  let reason = `~${formatCount(estimatedNodes)} graph objects fits ${tier.name}.`;
 
-  // Mission-critical uptime → Enterprise (Raft HA, failover, sharding).
+  // Mission-critical uptime → Enterprise / Custom (Raft HA, failover, sharding).
   if (input.needsHighAvailability) {
     tier = tierById("enterprise");
-    reason = "High-availability / mission-critical uptime needs Enterprise (Raft HA, failover).";
+    reason = "High-availability / mission-critical uptime is included in Enterprise / Custom (Raft HA, failover, sharding).";
     return { tier, estimatedNodes, useCase, reason };
   }
 
-  // Governance (SSO/RBAC/audit/PII) starts at Pro.
-  const proRank = GRAPH_TIERS.findIndex((t) => t.id === "pro");
-  const currentRank = GRAPH_TIERS.findIndex((t) => t.id === tier.id);
-  if (input.needsGovernance && currentRank < proRank) {
-    tier = tierById("pro");
-    reason = "SSO, audit logs, and regulated-data controls start at Pro.";
+  // Governance (SSO/RBAC/audit/PII) or commercial production → Enterprise / Custom.
+  if (input.needsGovernance) {
+    tier = tierById("enterprise");
+    reason = "SSO, audit logs, regulated-data controls, and commercial self-hosted deployments use Enterprise / Custom.";
   }
 
   return { tier, estimatedNodes, useCase, reason };

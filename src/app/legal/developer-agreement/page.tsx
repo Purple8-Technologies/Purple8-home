@@ -62,9 +62,9 @@ export default function DeveloperAgreementPage() {
         The Developer edition may <strong>not</strong> be used for commercial
         purposes. A deployment is commercial when it generates revenue, serves
         external users in production, or is offered as a service to third
-        parties. Upon commercial launch you must upgrade to a paid tier (Micro,
-        Mini, Growth, Starter, Pro, or Enterprise) under the EULA. See{" "}
-        <a href="/#pricing">purple8.ai pricing</a> for the current paid tiers, or
+        parties. Upon commercial launch you must upgrade to our commercial
+        self-hosted tier (<strong>Enterprise / Custom</strong>) under the EULA. See{" "}
+        <a href="/pricing/">purple8.ai pricing</a> or
         contact <a href="mailto:sales@purple8.ai">sales@purple8.ai</a>.
       </p>
 

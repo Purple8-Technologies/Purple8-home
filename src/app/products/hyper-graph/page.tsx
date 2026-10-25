@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import BrandShell from "@/components/revamp/BrandShell";
 import StartPaths from "@/components/revamp/StartPaths";
-import Proofs, { type Proof } from "@/components/revamp/Proofs";
+import Numbers from "@/components/revamp/Numbers";
 import Differentiators from "@/components/revamp/Differentiators";
+import SystemFlow from "@/components/SystemFlow";
 import { pageMetadata } from "@/lib/seo";
-import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
   title: "Purple8 Hyper Graph: the AI backend in one process",
@@ -13,11 +13,6 @@ export const metadata: Metadata = pageMetadata({
   path: "/products/hyper-graph",
 });
 
-const proofs: [Proof, Proof, Proof] = [
-  { figure: F.vectorQps, unit: "queries / s", detail: `recall@10 of ${F.vectorRecall} on the 1M × 768d industry benchmark`, href: "/benchmarks/" },
-  { figure: F.corpusDocs, unit: "documents", detail: `ingested on a ${F.corpusRam} laptop, with memory bounded throughout`, href: "/benchmarks/" },
-  { figure: F.mcpTools, unit: "MCP tools", detail: "so AI agents build and run the backend directly", href: "/architecture/" },
-];
 
 const features = [
   { group: "Store and search", items: ["Graph, document and vector store", "Vector, full-text and hybrid search", "Graph RAG with self-tuning retrieval"] },
@@ -48,9 +43,32 @@ export default function HyperGraphPage() {
         </div>
       </section>
 
+      {/* How it works */}
+      <div className="p8-themed border-t border-[var(--p8-border)]">
+        <SystemFlow />
+      </div>
+
       {/* Why is it different? */}
       <Differentiators />
-      <Proofs proofs={proofs} />
+      <Numbers />
+
+      {/* Self-hosted pricing philosophy */}
+      <section className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Self-Hosted Licensing</p>
+        <h2 className="mt-3 text-3xl font-bold tracking-tight">Start free. One commercial self-hosted tier: Enterprise / Custom.</h2>
+        <p className="mt-5 text-lg text-[var(--p8-muted)]">
+          Build and prototype locally for free with the Developer edition (up to 50K nodes, all {features.length > 0 ? "120+ MCP tools" : "MCP tools"}, RAG pipelines, and Journey workflows).
+          When you deploy to production in your own VPC, on-premise, or air-gapped infrastructure, there is only one commercial self-hosted tier: <strong className="text-[var(--p8-fg)]">Enterprise / Custom</strong> — tailored to your capacity, HA, and compliance needs.
+        </p>
+        <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href="/register/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
+            Download Developer Free
+          </a>
+          <a href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Enterprise%20%2F%20Custom%20inquiry" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
+            Talk to sales — Enterprise / Custom
+          </a>
+        </div>
+      </section>
 
       {/* How do I start? */}
       <section id="start" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-24 sm:px-6 lg:px-8">

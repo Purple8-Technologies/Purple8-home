@@ -18,24 +18,27 @@ export default function StartPaths({ product, sandboxHref }: Props) {
     {
       name: "Sandbox",
       line: "Try it now with synthetic data.",
-      note: "$10 free credit · 30 days",
+      note: product === "DocIntel" ? "Free sandbox · sign in to start" : "Free sandbox · 30 days",
       cta: `Try ${product}`,
       href: sandboxHref,
       primary: true,
     },
     {
       name: "Self-hosted",
-      line: "Your infrastructure, your data.",
-      note: "Pro and Enterprise",
+      line:
+        product === "DocIntel"
+          ? "Your infrastructure, your data. Free Community edition or Enterprise / Custom for commercial deployments."
+          : "Your infrastructure, your data. Free Developer edition for local prototyping, or one commercial tier: Enterprise / Custom.",
+      note: "Developer Free · Enterprise / Custom",
       cta: "Talk to us",
-      href: mailto(`Purple8 ${product}: self-hosted (Pro / Enterprise)`),
+      href: mailto(`Purple8 ${product}: self-hosted (Enterprise / Custom)`),
       primary: false,
     },
     {
       name: "Purple8 Cloud",
       line: "Fully managed by Purple8.",
       note: product === "DocIntel" ? "Hosted document intelligence" : "Coming soon",
-      cta: product === "DocIntel" ? "Explore Cloud in the workspace" : "Join the waitlist",
+      cta: product === "DocIntel" ? "View plans and billing" : "Join the waitlist",
       href: mailto(`Purple8 ${product}: Cloud waitlist`),
       primary: false,
     },

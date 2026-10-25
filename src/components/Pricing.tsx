@@ -16,60 +16,49 @@ import { FACTS as F } from "@/lib/facts";
 
 type ProductTab = "graph" | "docintel";
 
-// ─── Feature comparison — 4 CAPABILITY columns ────────────────────────────────
-// Micro → Starter share ONE column ("Production") because their feature set is
-// identical; only capacity (nodes) differs. That is the whole pricing story.
+// ─── Feature comparison — 2 Self-Hosted CAPABILITY columns ────────────────────
+// Self-hosted is simple: Developer (Free) for local building/prototyping, and
+// one commercial tier — Enterprise / Custom — for production deployments.
 
 interface FeatureRow {
   category?: string;
   label: string;
   developer: boolean | string;
-  production: boolean | string;
-  pro: boolean | string;
   enterprise: boolean | string;
 }
 
 const FEATURE_ROWS: FeatureRow[] = [
   // Core — every tier, including free Developer
-  { category: "Core engine — every tier", label: "Nodes, edges & graph traversal", developer: true, production: true, pro: true, enterprise: true },
-  { label: "Full-text + vector / semantic search", developer: true, production: true, pro: true, enterprise: true },
-  { label: "ACID transactions", developer: true, production: true, pro: true, enterprise: true },
-  { label: "REST API + Python & TypeScript SDKs", developer: true, production: true, pro: true, enterprise: true },
-  { label: `All ${F.mcpTools} MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback · schema · admin)`, developer: true, production: true, pro: true, enterprise: true },
-  { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, production: true, pro: true, enterprise: true },
-  { label: "All 67 graph & AEC algorithms", developer: true, production: true, pro: true, enterprise: true },
-  { label: "Journey Engine + SLA monitoring", developer: true, production: true, pro: true, enterprise: true },
-  { label: "Human-in-the-Loop (HITL) gates", developer: true, production: true, pro: true, enterprise: true },
-  // Production family — Micro, Mini, Growth, Starter (lifts the node/edge cap for production scale)
-  { category: "Production — Micro → Starter", label: "Advanced RAG (late & agentic chunking)", developer: false, production: true, pro: true, enterprise: true },
-  { label: "Local KMS (encryption at rest)", developer: false, production: true, pro: true, enterprise: true },
-  { label: "Data lineage + local backup", developer: false, production: true, pro: true, enterprise: true },
-  // Pro & above
-  { category: "Pro & above", label: "Change Data Capture (CDC)", developer: false, production: false, pro: true, enterprise: true },
-  { label: "Durable writes", developer: false, production: false, pro: true, enterprise: true },
-  { label: "SSO / OIDC · RBAC · immutable audit log", developer: false, production: false, pro: true, enterprise: true },
-  { label: "Field / row-level security + PII tagging", developer: false, production: false, pro: true, enterprise: true },
-  { label: "AEC Core (BIM/IFC, MEP, structural, VGA)", developer: false, production: false, pro: true, enterprise: true },
-  { label: "Applied Graphs (fraud, supply-chain, attack-paths)", developer: false, production: false, pro: true, enterprise: true },
-  { label: "Cloud backup (S3 / GCS / Azure Blob)", developer: false, production: false, pro: true, enterprise: true },
-  // Enterprise only
-  { category: "Enterprise only", label: "Raft HA + automatic failover", developer: false, production: false, pro: false, enterprise: true },
-  { label: "Sharding + federated multi-graph queries", developer: false, production: false, pro: false, enterprise: true },
-  { label: "Managed KMS (Vault · AWS · GCP · Azure)", developer: false, production: false, pro: false, enterprise: true },
-  { label: "SOC vertical (threat detection + containment)", developer: false, production: false, pro: false, enterprise: true },
-  { label: "Supergraph + Node2Vec + AEC Advanced", developer: false, production: false, pro: false, enterprise: true },
+  { category: "Core engine — every tier", label: "Nodes, edges & graph traversal", developer: true, enterprise: true },
+  { label: "Full-text + vector / semantic search", developer: true, enterprise: true },
+  { label: "ACID transactions", developer: true, enterprise: true },
+  { label: "REST API + Python & TypeScript SDKs", developer: true, enterprise: true },
+  { label: `All ${F.mcpTools} MCP tools (graph · rag · data · journey · memory · registry · scheduler · egress · feedback · schema · admin)`, developer: true, enterprise: true },
+  { label: "All RAG pipelines (basic, hybrid, graph-guided)", developer: true, enterprise: true },
+  { label: "All 67 graph & AEC algorithms", developer: true, enterprise: true },
+  { label: "Journey Engine + SLA monitoring", developer: true, enterprise: true },
+  { label: "Human-in-the-Loop (HITL) gates", developer: true, enterprise: true },
+  // Enterprise / Custom (Self-Hosted Commercial)
+  { category: "Enterprise / Custom — Commercial Self-Hosted", label: "Node & edge capacity", developer: "Up to 50K nodes", enterprise: "Custom / Unlimited" },
+  { label: "Advanced RAG (late & agentic chunking)", developer: false, enterprise: true },
+  { label: "Managed KMS (Local · Vault · AWS · GCP · Azure)", developer: false, enterprise: true },
+  { label: "Data lineage + local & cloud backup (S3 / GCS / Azure Blob)", developer: false, enterprise: true },
+  { label: "Change Data Capture (CDC) & durable writes", developer: false, enterprise: true },
+  { label: "SSO / OIDC · RBAC · immutable audit log", developer: false, enterprise: true },
+  { label: "Field / row-level security + PII tagging", developer: false, enterprise: true },
+  { label: "AEC Core & Advanced (BIM/IFC, MEP, structural, VGA)", developer: false, enterprise: true },
+  { label: "Applied Graphs (fraud, supply-chain, attack-paths)", developer: false, enterprise: true },
+  { label: "Raft HA + automatic failover", developer: false, enterprise: true },
+  { label: "Sharding + Supergraph federated multi-graph queries", developer: false, enterprise: true },
+  { label: "SOC vertical (threat detection + containment)", developer: false, enterprise: true },
   // Support
-  { category: "Support", label: "Community (GitHub + Discord)", developer: true, production: true, pro: true, enterprise: true },
-  { label: "Email support", developer: false, production: true, pro: true, enterprise: true },
-  { label: "SLA-backed support", developer: false, production: false, pro: true, enterprise: true },
-  { label: "Dedicated success engineer", developer: false, production: false, pro: false, enterprise: true },
+  { category: "Support", label: "Community (GitHub + Discord)", developer: true, enterprise: true },
+  { label: "SLA-backed enterprise support & dedicated success engineer", developer: false, enterprise: true },
 ];
 
 const CAP_COLUMNS: { key: keyof Omit<FeatureRow, "category" | "label">; label: string; sub: string; highlight: boolean }[] = [
-  { key: "developer", label: "Developer", sub: "Free", highlight: false },
-  { key: "production", label: "Production", sub: "Micro → Starter", highlight: true },
-  { key: "pro", label: "Pro", sub: "Request pricing", highlight: false },
-  { key: "enterprise", label: "Enterprise", sub: "Talk to sales", highlight: false },
+  { key: "developer", label: "Developer", sub: "Self-Hosted Free", highlight: false },
+  { key: "enterprise", label: "Enterprise / Custom", sub: "Commercial Self-Hosted", highlight: true },
 ];
 
 // ─── DocIntel feature rows ────────────────────────────────────────────────────
@@ -78,24 +67,25 @@ interface DocIntelFeatureRow {
   category?: string;
   label: string;
   beta: boolean | string;
+  enterprise: boolean | string;
   cloud: boolean | string;
 }
 
 const DOCINTEL_FEATURE_ROWS: DocIntelFeatureRow[] = [
-  { category: "Capacity", label: "Volume", beta: "500 docs / month", cloud: "No limit — billed per page" },
-  { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, cloud: true },
-  { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, cloud: true },
-  { label: "SAP IDocs", beta: true, cloud: true },
-  { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", cloud: "Tesseract + P8OCR" },
-  { category: "Extraction", label: "GLiNER NER — Pass 1", beta: true, cloud: true },
-  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", cloud: "Our default model or your own LLM" },
-  { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, cloud: true },
-  { label: "Custom extraction ontology", beta: true, cloud: true },
-  { category: "Connectors", label: "Webhook (inbound push)", beta: true, cloud: true },
-  { label: "SharePoint + Confluence sync", beta: false, cloud: true },
-  { label: "AWS S3 sync", beta: false, cloud: true },
-  { category: "Updates & support", label: "Every new version — included", beta: true, cloud: true },
-  { label: "Community (GitHub + Discord)", beta: true, cloud: true },
+  { category: "Capacity", label: "Volume", beta: "500 docs / month", enterprise: "Custom / Unlimited", cloud: "No limit — billed per page" },
+  { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, enterprise: true, cloud: true },
+  { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, enterprise: true, cloud: true },
+  { label: "SAP IDocs", beta: true, enterprise: true, cloud: true },
+  { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", enterprise: "Tesseract + P8OCR", cloud: "Tesseract + P8OCR" },
+  { category: "Extraction", label: "GLiNER NER — Pass 1", beta: true, enterprise: true, cloud: true },
+  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", enterprise: "Any local or cloud LLM", cloud: "Our default model or your own LLM" },
+  { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, enterprise: true, cloud: true },
+  { label: "Custom extraction ontology", beta: true, enterprise: true, cloud: true },
+  { category: "Connectors", label: "Webhook (inbound push)", beta: true, enterprise: true, cloud: true },
+  { label: "SharePoint + Confluence sync", beta: false, enterprise: true, cloud: true },
+  { label: "AWS S3 sync", beta: false, enterprise: true, cloud: true },
+  { category: "Updates & support", label: "Every new version — included", beta: true, enterprise: true, cloud: true },
+  { label: "SLA-backed enterprise support", beta: false, enterprise: true, cloud: true },
 ];
 
 // ─── Cell helpers ─────────────────────────────────────────────────────────────
@@ -175,16 +165,17 @@ export default function Pricing() {
             Pricing
           </p>
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            Start free. Pay for capacity, never for features.
+            Start free. One commercial self-hosted tier: Enterprise / Custom.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
             {product === "docintel" ? (
-              "Choose Community for self-hosting, or Cloud for managed document processing."
+              "Choose Community (free) or Enterprise / Custom for self-hosting, or Cloud Graduated for managed document processing."
             ) : (
               <>Self-hosted — runs in your own infrastructure, nothing leaves your
-            environment. Every production tier from Micro to Starter ships the{" "}
-            <span className="text-zinc-300">exact same feature set</span>. Moving
-            up the ladder buys more capacity, not more capability.</>
+            environment. Build and prototype for free with the{" "}
+            <span className="text-zinc-300">Developer edition</span>, and move to{" "}
+            <span className="text-zinc-300">Enterprise / Custom</span> when you
+            deploy in production.</>
             )}
           </p>
 
@@ -205,40 +196,18 @@ export default function Pricing() {
               </button>
             ))}
           </div>
-
-          {/* Billing toggle — Purple8 only */}
-          {product === "graph" && (
-            <div className="mt-4 inline-flex items-center gap-3 rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
-              {(["monthly", "annual"] as BillingCycle[]).map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setBilling(c)}
-                  className={`rounded-full px-5 py-1.5 text-sm font-medium transition-colors ${
-                    billing === c ? "bg-purple-600 text-white" : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  {c === "monthly" ? "Monthly" : "Annual"}
-                  {c === "annual" && (
-                    <span className="ml-1.5 rounded-full bg-purple-900/60 px-2 py-0.5 text-xs text-purple-300">
-                      10 months for 12
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* ── Purple8 plan cards ── */}
         {product === "graph" ? (
           <>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">
               {GRAPH_TIERS.map((tier) => {
                 const p = priceLabel(tier, billing);
                 return (
                   <div
                     key={tier.id}
-                    className={`relative flex flex-col rounded-2xl border p-6 ${
+                    className={`relative flex flex-col rounded-2xl border p-7 ${
                       tier.highlight
                         ? "border-purple-600/60 bg-gradient-to-b from-purple-900/30 to-[#11111b] shadow-lg shadow-purple-900/30"
                         : "border-zinc-800 bg-[#11111b]"
@@ -270,14 +239,14 @@ export default function Pricing() {
                     {tier.id === "developer" ? (
                       <Link
                         href="/register/"
-                        className="mt-6 block rounded-full border border-purple-800/60 px-4 py-2 text-center text-sm font-semibold text-purple-300 transition-colors hover:border-purple-600 hover:text-white"
+                        className="mt-6 block rounded-full border border-purple-800/60 px-4 py-2.5 text-center text-sm font-semibold text-purple-300 transition-colors hover:border-purple-600 hover:text-white"
                       >
                         {tier.cta}
                       </Link>
                     ) : tier.id === "enterprise" ? (
                       <a
                         href="mailto:sales@purple8.ai?subject=Enterprise%20license%20inquiry"
-                        className="mt-6 block rounded-full border border-zinc-700 px-4 py-2 text-center text-sm font-semibold text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+                        className="mt-6 block rounded-full bg-purple-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-purple-500"
                       >
                         {tier.cta}
                       </a>
@@ -302,9 +271,8 @@ export default function Pricing() {
             {/* Reinforce the core message */}
             <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-4 text-center">
               <p className="text-sm text-zinc-300">
-                <span className="font-semibold text-purple-300">The full production engine is $119/mo.</span>{" "}
-                Micro, Mini, Growth, and Starter are the same product — you pick
-                the capacity you need and upgrade only when you outgrow it.
+                <span className="font-semibold text-purple-300">No artificial middle tiers for self-hosted.</span>{" "}
+                Prototype locally for free with Developer, or deploy in production with Enterprise / Custom tailored to your hardware, cluster topology, and SLA.
               </p>
             </div>
 
@@ -313,12 +281,12 @@ export default function Pricing() {
               <a href="#calculator" className="text-purple-400 hover:text-purple-300">
                 Use the tier finder ↑
               </a>{" "}
-              · All paid tiers will be available on AWS, GCP &amp; Azure Marketplace soon.
+              · Enterprise / Custom is available directly and via Red Hat, AWS, GCP &amp; Azure Marketplace.
             </p>
           </>
         ) : (
           <>
-            <div className="mx-auto mt-12 grid max-w-3xl gap-6 md:grid-cols-2">
+            <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
               {DOCINTEL_TIERS.map((tier) => (
                 <div
                   key={tier.id}
@@ -448,11 +416,11 @@ export default function Pricing() {
                             </span>
                           </th>
                         ))
-                      : ["Community", "Cloud"].map((name, i) => (
+                      : ["Community (Self-Hosted)", "Enterprise (Self-Hosted)", "Cloud"].map((name, i) => (
                           <th
                             key={name}
                             className={`px-3 py-3 text-center text-xs font-semibold ${
-                              i === 1 ? "text-purple-300" : "text-zinc-400"
+                              i >= 1 ? "text-purple-300" : "text-zinc-400"
                             }`}
                           >
                             {name}
@@ -466,7 +434,7 @@ export default function Pricing() {
                         if (row.category) {
                           return (
                             <tr key={`cat-${row.category}`} className="border-t border-zinc-800 bg-purple-950/20">
-                              <td colSpan={5} className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500">
+                              <td colSpan={3} className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500">
                                 {row.category}
                               </td>
                             </tr>
@@ -476,9 +444,7 @@ export default function Pricing() {
                           <tr key={row.label} className={`border-t border-zinc-800/60 ${idx % 2 === 0 ? "bg-zinc-900/20" : ""}`}>
                             <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
                             <Cell value={row.developer} highlight={false} />
-                            <Cell value={row.production} highlight={true} />
-                            <Cell value={row.pro} highlight={false} />
-                            <Cell value={row.enterprise} highlight={false} />
+                            <Cell value={row.enterprise} highlight={true} />
                           </tr>
                         );
                       })
@@ -486,7 +452,7 @@ export default function Pricing() {
                         if (row.category) {
                           return (
                             <tr key={`cat-${row.category}`} className="border-t border-zinc-800 bg-purple-950/20">
-                              <td colSpan={5} className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500">
+                              <td colSpan={4} className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-purple-500">
                                 {row.category}
                               </td>
                             </tr>
@@ -496,6 +462,7 @@ export default function Pricing() {
                           <tr key={row.label} className={`border-t border-zinc-800/60 ${idx % 2 === 0 ? "bg-zinc-900/20" : ""}`}>
                             <td className="px-4 py-3 text-xs text-zinc-400">{row.label}</td>
                             <Cell value={row.beta} highlight={false} />
+                            <Cell value={row.enterprise} highlight={true} />
                             <Cell value={row.cloud} highlight={true} />
                           </tr>
                         );
