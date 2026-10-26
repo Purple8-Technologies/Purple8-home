@@ -1,5 +1,6 @@
 import Purple8Logo from "@/components/Purple8Logo";
 import NvidiaInceptionBadge, { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/NvidiaInceptionBadge";
+import RedHatPartnerBadge, { REDHAT_LEGAL_ATTRIBUTION } from "@/components/RedHatPartnerBadge";
 
 const productLinks = [
   { label: "Purple8 Hyper Graph", href: "/products/purple8/", comingSoon: false },
@@ -41,10 +42,11 @@ export default function Footer() {
               anywhere, no external dependencies.
             </p>
             <p className="mt-4 text-xs text-zinc-400">
-              Purple8 Inc. · Member of the NVIDIA Inception program
+              Purple8 Inc. · NVIDIA Inception program member &amp; Red Hat Technology Partner
             </p>
-            <div className="mt-4">
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               <NvidiaInceptionBadge className="h-11" variant="dark" />
+              <RedHatPartnerBadge className="h-11" variant="dark" />
             </div>
           </div>
 
@@ -133,6 +135,9 @@ export default function Footer() {
             </p>
             <p className="mt-1 text-[11px] text-zinc-500">
               {NVIDIA_LEGAL_ATTRIBUTION}
+            </p>
+            <p className="mt-0.5 text-[11px] text-zinc-500">
+              {REDHAT_LEGAL_ATTRIBUTION}
             </p>
           </div>
           <div className="flex gap-6">

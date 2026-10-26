@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
 import NvidiaInceptionBadge, { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/NvidiaInceptionBadge";
+import RedHatPartnerBadge, { REDHAT_LEGAL_ATTRIBUTION } from "@/components/RedHatPartnerBadge";
 import SiteHeader from "@/components/revamp/SiteHeader";
 
 type Theme = "day" | "night";
@@ -113,10 +114,13 @@ export default function BrandHome() {
             </Link>
           </div>
 
-          <div className="mt-12 flex flex-col items-center gap-2">
-            <NvidiaInceptionBadge className="h-12" variant="auto" />
+          <div className="mt-12 flex flex-col items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <NvidiaInceptionBadge className="h-12" variant="auto" />
+              <RedHatPartnerBadge className="h-12" variant="auto" />
+            </div>
             <span className="text-xs text-[var(--p8-muted)]">
-              Purple8 is a member of the NVIDIA Inception program
+              Purple8 is a member of the NVIDIA Inception program and a Red Hat Technology Partner
             </span>
           </div>
         </div>
@@ -126,6 +130,7 @@ export default function BrandHome() {
       <footer className="border-t border-[var(--p8-border)] px-4 py-8 text-center text-xs text-[var(--p8-muted)]">
         <p>© 2026 Purple8 Inc. All rights reserved.</p>
         <p className="mt-1.5 text-[11px] opacity-80">{NVIDIA_LEGAL_ATTRIBUTION}</p>
+        <p className="mt-1 text-[11px] opacity-80">{REDHAT_LEGAL_ATTRIBUTION}</p>
       </footer>
     </div>
   );

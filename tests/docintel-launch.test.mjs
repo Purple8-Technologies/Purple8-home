@@ -68,12 +68,17 @@ test("self-hosted pricing offers only Developer Free and Enterprise / Custom", (
   assert.doesNotMatch(hgHtml, /Pro and Enterprise/);
 });
 
-test("NVIDIA Inception badge and legal attribution render on homepage and product pages", () => {
+test("NVIDIA Inception and Red Hat Partner badges and legal attributions render on homepage", () => {
   const homeHtml = readFileSync(new URL("out/index.html", root), "utf8");
   assert.match(homeHtml, /NVIDIA Inception Program Member/);
-  assert.match(homeHtml, /member of the NVIDIA Inception program/);
+  assert.match(homeHtml, /Red Hat Partner/);
+  assert.match(homeHtml, /member of the NVIDIA Inception program and a Red Hat Technology Partner/);
   assert.match(
     homeHtml,
     /© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and\/or registered trademarks of NVIDIA Corporation/,
+  );
+  assert.match(
+    homeHtml,
+    /Red Hat, the Red Hat logo, and OpenShift are trademarks or registered trademarks of Red Hat, Inc\./,
   );
 });
