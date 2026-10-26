@@ -67,3 +67,13 @@ test("self-hosted pricing offers only Developer Free and Enterprise / Custom", (
   assert.match(hgHtml, /Developer Free/);
   assert.doesNotMatch(hgHtml, /Pro and Enterprise/);
 });
+
+test("NVIDIA Inception badge and legal attribution render on homepage and product pages", () => {
+  const homeHtml = readFileSync(new URL("out/index.html", root), "utf8");
+  assert.match(homeHtml, /NVIDIA Inception Program Member/);
+  assert.match(homeHtml, /member of the NVIDIA Inception program/);
+  assert.match(
+    homeHtml,
+    /© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and\/or registered trademarks of NVIDIA Corporation/,
+  );
+});

@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
+import NvidiaInceptionBadge, { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/NvidiaInceptionBadge";
 import SiteHeader from "@/components/revamp/SiteHeader";
-import SystemFlow from "@/components/SystemFlow";
-import Differentiators from "@/components/revamp/Differentiators";
-import Numbers from "@/components/revamp/Numbers";
 
 type Theme = "day" | "night";
 
@@ -87,7 +85,7 @@ export default function BrandHome() {
   };
 
   return (
-    <div data-p8-theme={theme} className="p8-shell relative min-h-screen bg-[var(--p8-bg)] text-[var(--p8-fg)] transition-colors duration-500">
+    <div data-p8-theme={theme} className="p8-shell relative min-h-screen text-[var(--p8-fg)] transition-colors duration-500">
       <style>{CSS}</style>
       <SiteHeader theme={theme} toggle={toggle} />
 
@@ -114,17 +112,20 @@ export default function BrandHome() {
               Try Hyper Graph
             </Link>
           </div>
+
+          <div className="mt-12 flex flex-col items-center gap-2">
+            <NvidiaInceptionBadge className="h-12" variant="auto" />
+            <span className="text-xs text-[var(--p8-muted)]">
+              Purple8 is a member of the NVIDIA Inception program
+            </span>
+          </div>
         </div>
       </main>
 
-      <div className="p8-themed border-t border-[var(--p8-border)]">
-        <SystemFlow />
-      </div>
-      <Differentiators />
-      <Numbers />
 
-      <footer className="border-t border-[var(--p8-border)] py-8 text-center text-xs text-[var(--p8-muted)]">
-        © 2026 Purple8 Inc. · Preview build — footer lifted from current site at build time
+      <footer className="border-t border-[var(--p8-border)] px-4 py-8 text-center text-xs text-[var(--p8-muted)]">
+        <p>© 2026 Purple8 Inc. All rights reserved.</p>
+        <p className="mt-1.5 text-[11px] opacity-80">{NVIDIA_LEGAL_ATTRIBUTION}</p>
       </footer>
     </div>
   );
