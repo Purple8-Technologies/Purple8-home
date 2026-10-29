@@ -1,10 +1,31 @@
 ---
 title: "Changelog"
-description: "What's new in Purple8 Hyper Graph — bug fixes, new features, and improvements shipped to the developer tier."
-date: "2026-07-25"
+description: "What's new in Purple8 Hyper Graph and Purple8 DocIntel — bug fixes, new features, and improvements shipped to the developer tier."
+date: "2026-10-29"
 ---
 
 Every release shipped to the free developer tier is listed here. We follow [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+---
+
+## v0.72.0 (Hyper Graph) & v0.12.5 (DocIntel) — 29 October 2026
+
+### New features
+
+**Red Hat UBI9 / OpenShift Certification & NVIDIA Blackwell Ultra (B300) Support**
+
+- **Red Hat OpenShift UBI9 Containers (`Dockerfile.rhel`)**: Both Purple8 Hyper Graph and Purple8 DocIntel now ship Red Hat Universal Base Image 9 (`ubi9/python-312:9.5`) containers engineered for OpenShift's default `restricted` Security Context Constraint (arbitrary-UID, group `0`, `/licenses/LICENSE`).
+- **Hardware & Accelerator Auto-Discovery (`CortexAutoConfig`)**: Automatic detection of multi-socket CPU and NUMA topologies (`recommended_shards = max(cpu_sockets, numa_nodes)`), Intel AMX tile instructions, Intel XPU (`torch.xpu`), and NVIDIA Tensor Core GPUs up to **Blackwell Ultra B300 / GB300** (`288 GB` HBM3e, `sm_103`, FP4).
+- **120+ MCP Tools Across 16 Namespaces**: Expanded the MCP agent server with `evolution.*` (multi-objective evolutionary optimisation), `sentinel.*` (autonomous model/threshold governance and drift detection), `quantum.*` (QUBO/Ising solvers), and `admin.*` (legal holds, retention policies, and audit verification).
+- **Structured Tables, Pages, and Source-Bound Commits (DocIntel v0.12.5)**: DocIntel extracts structured tables (`docintel.get_tables` with row paging), page character spans, and entity mention spans across 70+ document formats and 75+ languages, with deterministic `EntityValidator` checks and source-hash commit verification.
+
+### Six-Sigma Operational Hardening & Fixes
+
+- **Online Storage Scrubber (`POST /admin/storage/scrub`)**: Non-destructive verification of WAL CRC32 frames and cold-slab records without taking the database offline.
+- **Disk High-Watermark Write Admission Gate**: `WriteAdmissionController` monitors the `/data` volume (`P8G_WRITE_ADMISSION_DISK_MAX_PCT`, default `95%`) to reject writes cleanly before `ENOSPC`.
+- **Durable Journey AI Outbox**: `JourneyEngine` tracks `ai_dispatched` on stage transitions and replays pending AI steps automatically on startup.
+- **OIDC Identity Provider (`POST /auth/idp/token`)**: Added single-use `refresh_token` rotation and strict confidential client secret verification.
+- **Security Hardening**: Added 100 MiB ODF zip-bomb and XML entity (`<!ENTITY`) expansion guards in DocIntel, and upgraded `vite` (`8.3.5`) and `vitest` (`4.1.12`).
 
 ---
 
