@@ -3,13 +3,11 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CC_BASE_URL } from "@/lib/cc";
-import { PURCHASABLE_PLAN_IDS } from "@/lib/pricing";
+import { checkoutPlan, DOCINTEL_CLOUD_PLAN } from "@/lib/pricing";
 import { ClassicShell } from "@/components/revamp/BrandShell";
 import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 
 type BillingCycle = "monthly" | "annual";
-
-const SUPPORTED_PLANS: ReadonlySet<string> = PURCHASABLE_PLAN_IDS;
 
 function CheckoutCreateSessionContent() {
   const params = useSearchParams();
@@ -20,10 +18,7 @@ function CheckoutCreateSessionContent() {
     checkoutUrl: Promise<string>;
   } | null>(null);
 
-  const plan = useMemo(() => {
-    const raw = (params.get("plan") || "").trim().toLowerCase();
-    return SUPPORTED_PLANS.has(raw) ? raw : null;
-  }, [params]);
+  const plan = useMemo(() => checkoutPlan(params.get("plan") || ""), [params]);
 
   const billing = useMemo<BillingCycle>(() => {
     const raw = (params.get("billing") || "monthly").trim().toLowerCase();
@@ -35,7 +30,7 @@ function CheckoutCreateSessionContent() {
       setError("Invalid plan. Please return to pricing and choose a valid plan.");
       return;
     }
-    if (plan === "docintel-graduated" || plan === "docintel-payg") {
+    if (plan === DOCINTEL_CLOUD_PLAN) {
       return;
     }
     let cancelled = false;
@@ -88,13 +83,14 @@ function CheckoutCreateSessionContent() {
     return () => { cancelled = true; };
   }, [plan, billing]);
 
-  if (plan === "docintel-graduated" || plan === "docintel-payg") {
+  if (plan === DOCINTEL_CLOUD_PLAN) {
     return (
       <main id="main-content" className="min-h-screen px-4 flex items-center justify-center">
         <div className="max-w-lg w-full rounded-2xl border border-zinc-800 bg-[#11111b] p-8 text-center">
           <h1 className="text-xl font-bold text-white">DocIntel subscription</h1>
           <p className="mt-3 text-sm text-zinc-400">
-            Sign in to your DocIntel workspace to manage the subscription for all your projects.
+            Sign in to your DocIntel workspace, create a project, and choose whether to activate paid processing.
+            One monthly subscription covers all your projects. Visiting this page does not start a subscription.
           </p>
           <DocIntelWorkspaceLink view="billing" className="mt-6 inline-block text-sm text-purple-400 underline">
             Open DocIntel workspace
@@ -125,7 +121,7 @@ function CheckoutCreateSessionContent() {
         <p className="mt-3 text-sm text-red-300">{error}</p>
         <div className="mt-6 flex flex-col items-center gap-3">
           <a
-            href="/#pricing"
+            href="/pricing/"
             className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white hover:bg-purple-500 transition-colors"
           >
             Back to pricing

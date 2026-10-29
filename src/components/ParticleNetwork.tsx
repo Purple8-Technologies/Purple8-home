@@ -114,7 +114,7 @@ export default function ParticleNetwork() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0"
+      className="p8-canvas pointer-events-none fixed inset-0 z-0"
       aria-hidden="true"
     />
   );

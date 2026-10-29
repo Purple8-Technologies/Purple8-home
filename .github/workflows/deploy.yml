@@ -35,6 +35,10 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_CC_BASE_URL: ${{ secrets.NEXT_PUBLIC_CC_BASE_URL || 'https://cc.purple8.ai' }}
+          NEXT_PUBLIC_DOCINTEL_WORKSPACE_URL: ${{ vars.NEXT_PUBLIC_DOCINTEL_WORKSPACE_URL || 'https://docintel.purple8.ai/try' }}
+
+      - name: Verify DocIntel launch paths
+        run: npm run test:launch
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

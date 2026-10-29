@@ -66,7 +66,7 @@ export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }
   return (
     <header className="relative z-20">
       <div className="bg-[var(--p8-button,var(--p8-accent))] py-1.5 text-center text-xs font-medium text-white">
-        Purple8 Cloud: <span className="font-semibold">coming soon</span>
+        Hyper Graph Cloud: <span className="font-semibold">coming soon</span>
       </div>
       <nav
         aria-label="Main navigation"

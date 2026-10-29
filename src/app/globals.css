@@ -139,7 +139,7 @@ body {
 
 
 .p8-themed { position: relative; transition: background-color .3s, color .3s; }
-html[data-p8-theme="day"] .p8-themed { background: #ffffff; color: #18181b; isolation: isolate; }
+html[data-p8-theme="day"] .p8-themed { background: transparent; color: #18181b; isolation: isolate; }
 
 /* ── Surfaces ── */
 html[data-p8-theme="day"] .p8-themed :is(
@@ -233,8 +233,8 @@ html[data-p8-theme="day"] .p8-themed :is(.ring-purple-600\/50, .ring-purple-700\
   --p8-surface:#ffffff; --p8-subtle:#fafafa; --p8-border:#e4e4e7; --p8-hover:#f5f3ff;
   /* Filled buttons (white text): #7c3aed in both themes for contrast */
   --p8-button:#7c3aed;
-  background: var(--p8-bg); color: var(--p8-fg);
-  transition: background-color .4s, color .4s;
+  background: transparent; color: var(--p8-fg);
+  transition: color .4s;
 }
 html[data-p8-theme="night"] .p8-brand {
   --p8-bg:#0a0a0f; --p8-fg:#f4f4f5; --p8-muted:#a1a1aa; --p8-accent:#a855f7;
@@ -254,3 +254,16 @@ html[data-p8-theme="day"] .p8-themed svg [fill="#11111b"] { fill: #ffffff; }
 html[data-p8-theme="day"] .p8-themed svg :is([fill="#e4e4e7"], [fill="#f4f4f5"]) { fill: #18181b; }
 html[data-p8-theme="day"] .p8-themed svg [stroke="#3f3f46"] { stroke: #d4d4d8; }
 html[data-p8-theme="day"] .p8-themed svg [stroke="#27272a"] { stroke: #e4e4e7; }
+
+/* ── Connected-nodes background on every page ─────────────────────────
+   ParticleNetwork (layout.tsx) is a fixed canvas behind all content.
+   The page colour lives on <body>; shells are transparent so it shows. */
+body { transition: background-color .4s; }
+html[data-p8-theme="day"] body { background: #ffffff; }
+html[data-p8-theme="night"] body { background: #0a0a0f; }
+html[data-p8-theme="day"] .p8-brand { --p8-subtle: rgba(250,250,250,.75); }
+html[data-p8-theme="night"] .p8-brand { --p8-subtle: rgba(14,14,22,.75); }
+
+/* Connected-nodes layer carries the page colour, per theme */
+.p8-canvas { background: #0a0a0f; transition: background-color .4s; }
+html[data-p8-theme="day"] .p8-canvas { background: #ffffff; }

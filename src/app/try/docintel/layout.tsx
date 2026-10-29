@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Try DocIntel in your browser",
   description:
-    "Upload a document and see the entities and relationships Purple8 DocIntel extracts — free, no install. Documents are processed in memory and never stored.",
+    "Sign in to the DocIntel workspace, upload a sample document, and review structured results. Free sandbox, no installation or Graph database required.",
   path: "/try/docintel",
 });
 

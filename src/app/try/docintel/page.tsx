@@ -1,213 +1,53 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import { CC_BASE_URL } from "@/lib/cc";
-import { ClassicShell } from "@/components/revamp/BrandShell";
+import BrandShell from "@/components/revamp/BrandShell";
 import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 
-const dataPoints = [
-  "Your processed documents are never saved.",
-  "Results are available for your session only — then deleted.",
-  "We keep only job metadata (job id, status, file format, category, language, timestamps). Not your filename, not your content.",
-  "Only you can see your jobs.",
-  "Please don't upload confidential documents. For real data, use self-hosted DocIntel.",
-];
-
-/**
- * Hosted DocIntel sandbox — self-serve key request.
- *
- * The key is only ever emailed (never shown here), so receiving it proves the
- * person owns the inbox. The response is the same for new, existing and
- * throttled addresses.
- */
 export default function TryDocIntelPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [accepted, setAccepted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [err, setErr] = useState("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email.trim() || !email.includes("@")) {
-      setErr("Enter a valid email address.");
-      return;
-    }
-    if (!accepted) {
-      setErr("Please accept the sandbox terms to continue.");
-      return;
-    }
-    setLoading(true);
-    setErr("");
-    try {
-      const res = await fetch(`${CC_BASE_URL}/public/sandbox/docintel`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim().toLowerCase(),
-          company: company.trim(),
-          accepted_terms: accepted,
-          source: "purple8.ai/try/docintel",
-        }),
-      });
-      if (!res.ok) {
-        const text = await res.text();
-        let detail = text;
-        try { detail = JSON.parse(text).detail || text; } catch { /* keep raw */ }
-        throw new Error(detail || `Request failed (${res.status})`);
-      }
-      setSent(true);
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : "Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
-    <ClassicShell>
-    <main id="main-content" className="min-h-screen px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-2xl">
-        <a
-          href="/products/docintel/"
-          className="mb-6 inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300"
-        >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
+    <BrandShell>
+      <section className="mx-auto max-w-2xl px-4 py-20 sm:px-6">
+        <Link href="/products/docintel/" className="text-sm text-[var(--p8-accent)]">
           Back to DocIntel
-        </a>
-
-        <h1 className="text-3xl font-bold text-white sm:text-4xl">
-          Try DocIntel in your browser
-        </h1>
-        <p className="mt-3 text-gray-400">
-          Upload a PDF, Word file, spreadsheet, image or email and see the entities and
-          relationships DocIntel extracts. Free, no install, no credit card —
-          50 documents a month for 30 days.
+        </Link>
+        <h1 className="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">Try DocIntel in your browser</h1>
+        <p className="mt-4 text-lg text-[var(--p8-muted)]">
+          Sign in once, upload a sample document, and review the entities and relationships.
+          No installation, API key, or Graph database required.
         </p>
-
-        <div className="mt-8 rounded-2xl border border-purple-900/40 border-l-4 border-l-purple-500 bg-[#11111b] p-6">
-          <h2 className="text-base font-semibold text-white">Your data</h2>
-          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-gray-400">
-            {dataPoints.map((d) => <li key={d}>{d}</li>)}
-          </ul>
-        </div>
-
-        {sent ? (
-          <div className="mt-8 rounded-3xl border border-purple-900/40 bg-[#11111b] p-8">
-            <h2 className="text-2xl font-bold text-white">Check your email 📧</h2>
-            <p className="mt-4 text-gray-300">
-              We emailed{" "}
-              <span className="text-purple-300">{email.toLowerCase()}</span>. If a place
-              is free, it contains your sandbox key — open the sandbox and paste it. If
-              demand is high, you&apos;re on the waitlist and we&apos;ll send your key as
-              soon as a place opens.
-            </p>
-            <DocIntelWorkspaceLink
-              view="api"
-              className="mt-6 inline-block rounded-lg bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-purple-500"
-            >
-              Open your DocIntel workspace →
-            </DocIntelWorkspaceLink>
-            <p className="mt-4 text-sm text-gray-500">
-              Didn&apos;t get it? Check spam, or{" "}
-              <button onClick={() => setSent(false)} className="text-purple-400 underline">
-                try again
-              </button>{" "}
-              in a few minutes.
-            </p>
+        <DocIntelWorkspaceLink view="playground" className="mt-8 inline-block rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
+          Open DocIntel
+        </DocIntelWorkspaceLink>
+        <p className="mt-3 text-sm text-[var(--p8-muted)]">
+          Start with the free sandbox. Paid processing is a separate subscription you choose to activate.
+          Your available sandbox allowance is shown in the workspace.
+        </p>
+        <ol className="mt-10 space-y-4 text-[var(--p8-muted)]">
+          <li><strong className="text-[var(--p8-fg)]">Sign in.</strong> Use Your account in the workspace. No separate website registration.</li>
+          <li><strong className="text-[var(--p8-fg)]">Upload and review.</strong> Check the extraction before downloading or sending it to your chosen destination.</li>
+          <li><strong className="text-[var(--p8-fg)]">Integrate when ready.</strong> Create a project and activate Cloud from Usage &amp; billing. API keys are optional for browser use.</li>
+        </ol>
+        <div className="mt-10 rounded-2xl border border-[var(--p8-border)] bg-[var(--p8-surface)] p-6">
+          <h2 className="font-semibold">Your documents, your choice</h2>
+          <p className="mt-3 text-sm leading-relaxed text-[var(--p8-muted)]">
+            Hosted document content and extraction results are held in memory for the processing
+            session, not saved to document storage. Account, job, and billing metadata are retained
+            separately. Selected AI providers may process content under their own policies.
+            Use synthetic, non-confidential documents in the sandbox and download results before the session ends.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-4 text-sm text-[var(--p8-accent)]">
+            <Link href="/legal/privacy/">Privacy policy</Link>
+            <Link href="/legal/terms/">Terms</Link>
+            <Link href="/quickstart/#add-docintel">Self-host DocIntel</Link>
           </div>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 rounded-3xl border border-purple-900/40 bg-[#11111b] p-6 sm:p-8"
-          >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="block">
-                <span className="text-sm text-gray-300">Name</span>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-700 bg-[#0a0a0f] px-3 py-2 text-white focus:border-purple-500 focus:outline-none"
-                  placeholder="Ada Lovelace"
-                />
-              </label>
-              <label className="block">
-                <span className="text-sm text-gray-300">Company (optional)</span>
-                <input
-                  type="text"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-700 bg-[#0a0a0f] px-3 py-2 text-white focus:border-purple-500 focus:outline-none"
-                  placeholder="Acme Inc."
-                />
-              </label>
-            </div>
-
-            <label className="mt-5 block">
-              <span className="text-sm text-gray-300">Email</span>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-700 bg-[#0a0a0f] px-3 py-2 text-white focus:border-purple-500 focus:outline-none"
-                placeholder="you@company.com"
-              />
-            </label>
-
-            <label className="mt-6 flex items-start gap-3">
-              <input
-                type="checkbox"
-                checked={accepted}
-                onChange={(e) => setAccepted(e.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-gray-600 bg-[#0a0a0f] text-purple-600 focus:ring-purple-500"
-              />
-              <span className="text-sm text-gray-400">
-                I&apos;ve read how my data is handled above, I won&apos;t upload confidential
-                documents, and I agree to the{" "}
-                <a href="/legal/terms" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline">
-                  Terms
-                </a>{" "}
-                and{" "}
-                <a href="/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-purple-400 underline">
-                  Privacy Policy
-                </a>
-                .
-              </span>
-            </label>
-
-            {err && (
-              <p className="mt-4 rounded-lg border border-red-900/50 bg-red-950/40 px-3 py-2 text-sm text-red-300">
-                {err}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-6 w-full rounded-lg bg-purple-600 px-4 py-3 font-semibold text-white transition hover:bg-purple-500 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {loading ? "Sending…" : "Email me a sandbox key"}
-            </button>
-
-            <p className="mt-4 text-center text-xs text-gray-600">
-              Already have a key?{" "}
-              <DocIntelWorkspaceLink view="api" className="text-purple-400 underline">Open the workspace</DocIntelWorkspaceLink>
-              {" · "}
-              Want it on your own machine?{" "}
-              <Link href="/quickstart#add-docintel" className="text-purple-400 underline">Self-host</Link>
-            </p>
-          </form>
-        )}
-      </div>
-    </main>
-    </ClassicShell>
+        </div>
+        <p className="mt-6 text-sm text-[var(--p8-muted)]">
+          Already have an emailed or integration key?{" "}
+          <DocIntelWorkspaceLink view="api" className="text-[var(--p8-accent)] underline">
+            Connect your existing key
+          </DocIntelWorkspaceLink>
+          .
+        </p>
+      </section>
+    </BrandShell>
   );
 }

@@ -35,12 +35,17 @@ parameter). Missing endpoint configuration is shown explicitly.
 
 ## Unified DocIntel workspace
 
-The DocIntel product page links to the existing service-hosted `/try` UI, now
-organized into Playground, Connections, API keys & access, and Usage & billing.
-The free-key request remains at `/try/docintel/`; it returns to the same workspace.
+The DocIntel product page links to the service-hosted `/try` UI, with Playground,
+Your account, Connections, API keys & access, and Usage & billing.
+`/try/docintel/` now explains the same sign-in -> upload -> review journey instead
+of collecting an email and sending a sandbox key. Existing emailed keys still
+work through the secondary key-connection link.
 Hyper Graph's start paths are unchanged. `NEXT_PUBLIC_DOCINTEL_WORKSPACE_URL`
-can select the rehearsal endpoint at build time; it defaults to the existing
-DocIntel Fly `/try` URL. Do not point a rehearsal at production processing.
+can select the rehearsal endpoint at build time; it defaults to
+`https://docintel.purple8.ai/try`. Do not point a rehearsal at production processing.
+Both current `docintel-graduated` and legacy `docintel-payg` checkout links lead
+to signed-in workspace billing; neither starts anonymous Stripe checkout.
+The self-hosted Community edition is distinct from the hosted sandbox.
 
 Workspace links carry the selected day/night theme in a non-secret query
 parameter. Both sites consume that choice before paint and retain the shared
@@ -50,8 +55,12 @@ processing call or relaxed CORS policy is needed.
 Deploy the matching DocIntel workspace assets and website together before
 exposing Cloud activation. Checkout still requires the Command Center Cloud
 endpoint and graduated Stripe prices. Customer sign-in and project/key
-provisioning are handled by DocIntel and Command Center. Prepaid payments and
-account usage/invoice management remain unavailable.
+provisioning are handled by DocIntel and Command Center. Prepaid payments and an in-workspace billable-usage dashboard remain unavailable.
+Invoices, payment-method changes and subscription cancellation use the signed-in
+workspace's Stripe billing portal, not a public email-based customer lookup.
+Command Center requires a dedicated `STRIPE_DOCINTEL_PORTAL_CONFIGURATION`;
+see its README for required features and safe activation. Do not advertise the
+portal as deployed until Command Center and the DocIntel relay/UI are released.
 Set DocIntel's `SERVER__WORKSPACE_WEBSITE_URL` to this website's origin and
 enable `SERVER__WORKSPACE_CHECKOUT_ENABLED` only when checkout is ready.
 For other plans, the bootstrap sends the selected theme to Command Center and accepts only
@@ -64,6 +73,13 @@ weaken live CORS for a preview. Browser-supplied Stripe return URLs remain
 restricted to the approved website hosts. Subscription cancellation uses the
 server-configured Cloud workspace; success uses the configured website.
 A local preview does not change those deployment settings.
+
+Validate changes with `npm run build && npm run test:launch`. The latter checks
+exported DocIntel pages, plan routing, graduated-price boundaries and self-hosted
+vs hosted CTAs. CI and the Pages build run these checks before publishing.
+For local browser checks, serve `out/` with an existing static server rather than
+`next start`. A successful local build does not deploy the website or complete a
+Stripe transaction.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

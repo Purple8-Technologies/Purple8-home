@@ -3,12 +3,12 @@
 import type { MouseEvent, ReactNode } from "react";
 
 const WORKSPACE_URL = process.env.NEXT_PUBLIC_DOCINTEL_WORKSPACE_URL ||
-  "https://purple8-docintel.fly.dev/try";
+  "https://docintel.purple8.ai/try";
 
 type Props = {
   children: ReactNode;
   className?: string;
-  view?: "playground" | "connections" | "api" | "billing";
+  view?: "playground" | "account" | "connections" | "api" | "billing";
   href?: string;
 };
 
