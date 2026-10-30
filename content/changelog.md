@@ -1,19 +1,22 @@
 ---
 title: "Changelog"
-description: "What's new in Purple8 Hyper Graph and Purple8 DocIntel — bug fixes, new features, and improvements shipped to the developer tier."
-date: "2026-10-29"
+description: "What's new in Purple8 Hyper Graph and Purple8 DocIntel: bug fixes, new features, and improvements shipped to the developer tier."
+date: "2026-10-30"
 ---
 
 Every release shipped to the free developer tier is listed here. We follow [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
-## v0.72.0 (Hyper Graph) & v0.12.5 (DocIntel) — 29 October 2026
+## v0.72.0 (Hyper Graph) & v0.12.5 (DocIntel) - 30 October 2026
 
 ### New features
 
-**Red Hat UBI9 / OpenShift Certification & NVIDIA Blackwell Ultra (B300) Support**
+**AI-Native Execution Infrastructure, 50M-Object Single-Node Scale & Sandbox MCP**
 
+- **AI-Native Execution Infrastructure Positioning**: Updated Purple8 Hyper Graph positioning around autonomous application building, execution, and operation with native intelligence, adaptive computing, and human-supervised governance (*Built for AI. Operated by AI. Supervised by Humans.*).
+- **20M-Node / 30M-Edge (`50M` Graph Objects) Single-Node Scale & 100K-Joint AEC Structural Analysis**: Added single-batch `BrickWAL.append_batch` + Rayon `batch_add_edges` acceleration (`23.5x` faster edge ingestion), power-law intermediate super-hub fan-out protection (`P8G_MAX_HUB_FANOUT`, tested up to `6,000,000` edges on a single hub with zero timeouts), auto-indexed foreign-key table row linking (`34.2x` speedup), and iterative Tarjan bridge/BCC analysis scaling to `100,000` 3-D joints and `478,840` structural members.
+- **Universal MCP Experience Across Self-Hosted & Sandbox (Hyper Graph & DocIntel)**: Every self-hosted Docker, OpenShift, cloud, or sandbox deployment gets the exact same zero-friction MCP experience. Both `/mcp` and `/mcp/sse` on Hyper Graph accept `p8g_...` API keys, session JWTs, and Sandbox Keys, and the in-browser MCP Console (`POST /mcp/invoke`) executes all 124+ MCP tools across all 16 namespaces. DocIntel's `/mcp` endpoint accepts `X-API-Key` alongside `Authorization: Bearer`, defaults `auto_commit=false` when no graph target is configured, and avoids job-store WAL replay in spawned CPU workers.
 - **Red Hat OpenShift UBI9 Containers (`Dockerfile.rhel`)**: Both Purple8 Hyper Graph and Purple8 DocIntel now ship Red Hat Universal Base Image 9 (`ubi9/python-312:9.5`) containers engineered for OpenShift's default `restricted` Security Context Constraint (arbitrary-UID, group `0`, `/licenses/LICENSE`).
 - **Hardware & Accelerator Auto-Discovery (`CortexAutoConfig`)**: Automatic detection of multi-socket CPU and NUMA topologies (`recommended_shards = max(cpu_sockets, numa_nodes)`), Intel AMX tile instructions, Intel XPU (`torch.xpu`), and NVIDIA Tensor Core GPUs up to **Blackwell Ultra B300 / GB300** (`288 GB` HBM3e, `sm_103`, FP4).
 - **120+ MCP Tools Across 16 Namespaces**: Expanded the MCP agent server with `evolution.*` (multi-objective evolutionary optimisation), `sentinel.*` (autonomous model/threshold governance and drift detection), `quantum.*` (QUBO/Ising solvers), and `admin.*` (legal holds, retention policies, and audit verification).

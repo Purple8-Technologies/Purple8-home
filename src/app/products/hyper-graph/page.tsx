@@ -7,9 +7,9 @@ import SystemFlow from "@/components/SystemFlow";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Purple8 Hyper Graph: the AI backend in one process",
+  title: "Purple8 Hyper Graph: AI-Native Execution Infrastructure",
   description:
-    "Graph, vector, documents, workflows and security in one embedded engine that AI agents build on directly through MCP.",
+    "Infrastructure that enables AI systems to autonomously build, execute and operate applications, with native intelligence, adaptive computing and human-supervised governance.",
   path: "/products/hyper-graph",
 });
 
@@ -27,11 +27,17 @@ export default function HyperGraphPage() {
   return (
     <BrandShell>
       {/* What is it? */}
-      <section className="mx-auto max-w-3xl px-4 pt-28 pb-24 text-center sm:px-6">
+      <section className="mx-auto max-w-4xl px-4 pt-28 pb-24 text-center sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Purple8 Hyper Graph</p>
-        <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-6xl">The AI backend, in one process.</h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[var(--p8-muted)]">
-          Graph, vector, documents, workflows and security in one engine your AI agents build on directly.
+        <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-6xl">AI-Native Execution Infrastructure</h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--p8-muted)]">
+          Infrastructure that enables AI systems to autonomously build, execute and operate applications, with native intelligence, adaptive computing and human-supervised governance.
+        </p>
+        <p className="mx-auto mt-4 text-base font-semibold tracking-wide text-[var(--p8-accent)]">
+          Built for AI. Operated by AI. Supervised by Humans.
+        </p>
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-[var(--p8-muted)]">
+          One in-process engine replacing your database, vector store, knowledge graph, workflow orchestrator, and security layer.
         </p>
         <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
           <a href="/try/graph/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
@@ -58,14 +64,14 @@ export default function HyperGraphPage() {
         <h2 className="mt-3 text-3xl font-bold tracking-tight">Start free. One commercial self-hosted tier: Enterprise / Custom.</h2>
         <p className="mt-5 text-lg text-[var(--p8-muted)]">
           Build and prototype locally for free with the Developer edition (up to 50K nodes, all {features.length > 0 ? "120+ MCP tools" : "MCP tools"}, RAG pipelines, and Journey workflows).
-          When you deploy to production in your own VPC, on-premise, or air-gapped infrastructure, there is only one commercial self-hosted tier: <strong className="text-[var(--p8-fg)]">Enterprise / Custom</strong> — tailored to your capacity, HA, and compliance needs.
+          When you deploy to production in your own VPC, on-premise, or air-gapped infrastructure, there is only one commercial self-hosted tier: <strong className="text-[var(--p8-fg)]">Enterprise / Custom</strong>, tailored to your capacity, HA, and compliance needs.
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <a href="/register/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
             Download Developer Free
           </a>
           <a href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Enterprise%20%2F%20Custom%20inquiry" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
-            Talk to sales — Enterprise / Custom
+            Talk to sales: Enterprise / Custom
           </a>
         </div>
       </section>
