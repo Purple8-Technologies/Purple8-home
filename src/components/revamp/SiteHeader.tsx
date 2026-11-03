@@ -176,50 +176,58 @@ export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }
             )}
           </button>
 
-          {/* 3-Mode Theme Switcher: Light (Day) | Dark (Night) | Auto */}
+          {/* 3-Mode Theme Switcher Icons: Sun (Light) | Moon (Dark) | Monitor (Auto) */}
           <div
             role="group"
             aria-label="Theme mode"
-            className="inline-flex items-center rounded-full border border-[var(--p8-border)] bg-[var(--p8-surface)] p-0.5 text-[11px] font-medium"
+            className="inline-flex items-center rounded-full border border-[var(--p8-border)] bg-[var(--p8-surface)] p-0.5"
           >
             <button
               type="button"
               onClick={() => setMode("day")}
               aria-label="Light theme"
               title="Light theme"
-              className={`rounded-full px-2.5 py-1 transition-colors ${
+              className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
                 mode === "day"
                   ? "bg-[var(--p8-accent)] text-white"
                   : "text-[var(--p8-muted)] hover:text-[var(--p8-fg)]"
               }`}
             >
-              Light
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <circle cx="12" cy="12" r="4" />
+                <path strokeLinecap="round" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+              </svg>
             </button>
             <button
               type="button"
               onClick={() => setMode("night")}
               aria-label="Dark theme"
               title="Dark theme"
-              className={`rounded-full px-2.5 py-1 transition-colors ${
+              className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
                 mode === "night"
                   ? "bg-[var(--p8-accent)] text-white"
                   : "text-[var(--p8-muted)] hover:text-[var(--p8-fg)]"
               }`}
             >
-              Dark
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+              </svg>
             </button>
             <button
               type="button"
               onClick={() => setMode("auto")}
               aria-label="Auto system theme"
               title="Auto (system preference)"
-              className={`rounded-full px-2.5 py-1 transition-colors ${
+              className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
                 mode === "auto"
                   ? "bg-[var(--p8-accent)] text-white"
                   : "text-[var(--p8-muted)] hover:text-[var(--p8-fg)]"
               }`}
             >
-              Auto
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <rect x="3" y="4" width="18" height="12" rx="2" />
+                <path strokeLinecap="round" d="M8 20h8M12 16v4" />
+              </svg>
             </button>
           </div>
         </div>
