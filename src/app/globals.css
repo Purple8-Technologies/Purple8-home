@@ -249,9 +249,9 @@ html[data-p8-theme="day"] .p8-themed .text-gray-600 { color: #a1a1aa; }
 html[data-p8-theme="day"] .p8-themed .border-gray-700,
 html[data-p8-theme="day"] .p8-themed .border-gray-800 { border-color: #e4e4e7; }
 
-/* Day overrides - SystemFlow ("How Purple8 works") SVG */
-html[data-p8-theme="day"] .p8-themed svg [fill="#11111b"] { fill: #ffffff; }
-html[data-p8-theme="day"] .p8-themed svg :is([fill="#e4e4e7"], [fill="#f4f4f5"]) { fill: #18181b; }
+/* Day overrides - SystemFlow ("How Purple8 works") & Quickstart architecture SVGs */
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#11111b"], [fill="#160f24"], [fill="#1e1633"]) { fill: #f5f3ff; }
+html[data-p8-theme="day"] .p8-themed svg :is([fill="#e4e4e7"], [fill="#f4f4f5"], [fill="#ddd6fe"], [fill="#c4b5fd"]) { fill: #2e1065; }
 html[data-p8-theme="day"] .p8-themed svg [stroke="#3f3f46"] { stroke: #d4d4d8; }
 html[data-p8-theme="day"] .p8-themed svg [stroke="#27272a"] { stroke: #e4e4e7; }
 
@@ -297,6 +297,19 @@ html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) pre,
 html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) .bg-black {
   background-color: #181824 !important;
   color: #f4f4f5 !important;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) pre :is(code, span),
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) .bg-black :is(code, span) {
+  color: #f4f4f5 !important;
+  background-color: transparent !important;
+}
+
+/* Keep CopyButton inside dark <pre> command blocks readable in Light Mode */
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) .group > .absolute button {
+  background-color: #27273a !important;
+  color: #f4f4f5 !important;
+  border-color: #52526b !important;
 }
 
 html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) :is(
