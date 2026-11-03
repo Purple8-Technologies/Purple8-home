@@ -23,27 +23,27 @@ export type BenchmarkGroup = {
 
 export const benchmarkGroups: BenchmarkGroup[] = [
   {
-    title: "20M-Node / 30M-Edge (50M Object) Production Graph Benchmark",
+    title: "High-Scale Graph Traversal — up to 20M Nodes / 30M Edges (50M Objects)",
     blurb:
-      "Verified on a single 64 GB RAM / 8 vCPU cloud instance (Fly.io performance-8x) with 20,000,000 nodes and 30,000,000 edges (50M total graph objects) across realistic enterprise topologies, including a 6M-edge super-hub stress test.",
+      "Verified on a single 16-vCPU cloud instance (Fly.io performance-16x) scaling up to 20,000,000 nodes and 30,000,000 edges (50M total graph objects in 25.35 GB on NVMe), including power-law super-hub stress tests with millions of incident edges on a single node.",
     items: [
       {
         value: "52 µs / 1.26 ms",
         label: "Point node lookup (P50 / P99)",
         conditions:
-          "20M nodes · 30M edges · 52 µs P50, 1.26 ms P99 over full in-process engine.",
+          "16 vCPU · cold-slab mmap lookup across multi-million-node graph · 52.0 µs P50, 1.26 ms P99.",
       },
       {
         value: "0.38 ms / 0.87 ms",
         label: "2-hop neighbourhood walk (P50 / P99)",
         conditions:
-          "20M nodes · 30M edges · 2-hop graph traversal returning connected subgraph in sub-millisecond P99.",
+          "16 vCPU · 2-hop graph traversal returning connected subgraph in sub-millisecond P99; guarded super-hub walk completes in 53.1 ms P50 / 58.8 ms P99 with 0 errors.",
       },
       {
-        value: "~42.3 GB RAM",
-        label: "50M graph objects (25.35 GB NVMe)",
+        value: "4,181 QPS",
+        label: "Concurrent 16-thread graph reads",
         conditions:
-          "20M nodes + 30M edges held in ~42.3 GB resident RAM and 25.35 GB on disk; 6M-edge super-hub walk completes in 53.1 ms P50 / 58.8 ms P99.",
+          "16 concurrent reader threads · 0.44 ms P50 / 13.8 ms P99 latency; 20M nodes + 30M edges stored in 25.35 GB on NVMe.",
       },
     ],
   },
@@ -133,7 +133,7 @@ export const benchmarkGroups: BenchmarkGroup[] = [
 
 // Reproducibility footer.
 export const benchmarkMeta = {
-  instance: "AWS c6i.metal (128 vCPU, 251 GB RAM) & Fly.io performance-8x (8 vCPU, 64 GB RAM, 20M nodes / 30M edges)",
+  instance: "AWS c6i.metal (128 vCPU, 251 GB RAM) & Fly.io performance-16x (16 vCPU, 60 GB NVMe, up to 20M nodes / 30M edges)",
   engine: "Purple8 v0.72.0 · Cortex storage · 14,500+ automated tests",
   engineNote: "v0.72.0 is the purple8-hyper-graph release version.",
   suite: "purple8-graph benchmarks/ suite",
