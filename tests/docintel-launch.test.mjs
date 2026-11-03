@@ -32,9 +32,9 @@ test("monthly access and graduated usage match the published bill at boundaries"
   for (const pages of [-1, 0.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1]) {
     assert.throws(() => exports.docIntelCloudBill(pages), /non-negative safe integer/);
   }
-  const community = exports.DOCINTEL_TIERS.find((tier) => tier.id === "beta");
-  assert.match(community.name, /self-hosted/);
-  assert.equal(community.ctaHref, "/quickstart/#add-docintel");
+  const sandbox = exports.DOCINTEL_TIERS.find((tier) => tier.id === "beta");
+  assert.match(sandbox.name, /Sandbox/);
+  assert.equal(sandbox.ctaHref, "/try/docintel/");
 });
 
 test("exported trial uses account handoff and retains existing-key support", () => {
@@ -47,25 +47,24 @@ test("exported trial uses account handoff and retains existing-key support", () 
   assert.doesNotMatch(html, /Email me a sandbox key|Check your email|50 documents a month|<form/);
 });
 
-test("exported product is standalone, accurate about retention, and offers Cloud billing", () => {
+test("exported product is standalone, accurate about retention, and routes licensing to Contact Us", () => {
   const html = readFileSync(new URL("out/products/docintel/index.html", root), "utf8");
-  assert.match(html, /view=billing/);
   assert.match(html, /view=playground/);
   assert.match(html, /optional destination, not a requirement/);
   assert.match(html, /RAM-only session/);
-  assert.match(html, /Enterprise \/ Custom/);
-  assert.doesNotMatch(html, /DocIntel keeps no data|documents never leave your network|\$10 free credit/);
+  assert.match(html, /Contact Us/);
+  assert.doesNotMatch(html, /DocIntel keeps no data|documents never leave your network|\$10 free credit|\$100\/month/);
 });
 
-test("self-hosted pricing offers only Developer Free and Enterprise / Custom", () => {
+test("licensing offers Cloud Sandbox and Commercial & Enterprise License without hardcoded dollar prices", () => {
   assert.deepEqual(
     Array.from(exports.GRAPH_TIERS, (t) => t.id),
     ["developer", "enterprise"],
   );
   const hgHtml = readFileSync(new URL("out/products/hyper-graph/index.html", root), "utf8");
-  assert.match(hgHtml, /Enterprise \/ Custom/);
-  assert.match(hgHtml, /Developer Free/);
-  assert.doesNotMatch(hgHtml, /Pro and Enterprise/);
+  assert.match(hgHtml, /Contact Us/);
+  assert.match(hgHtml, /Cloud Sandbox/);
+  assert.doesNotMatch(hgHtml, /Pro and Enterprise|\$119\/mo/);
 });
 
 test("NVIDIA Inception and Red Hat Partner badges and legal attributions render on homepage", () => {
