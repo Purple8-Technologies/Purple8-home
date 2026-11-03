@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CC_BASE_URL } from "@/lib/cc";
+import { ClassicShell } from "@/components/revamp/BrandShell";
 
 const SANDBOX_URL = "https://purple8-graph-sandbox.fly.dev/sandbox/start";
 
@@ -67,6 +68,7 @@ export default function TryHyperGraphPage() {
   }
 
   return (
+    <ClassicShell>
     <main id="main-content" className="min-h-screen px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl">
         <a
@@ -205,5 +207,6 @@ export default function TryHyperGraphPage() {
         )}
       </div>
     </main>
+    </ClassicShell>
   );
 }

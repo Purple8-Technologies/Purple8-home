@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
 import NvidiaInceptionBadge from "@/components/NvidiaInceptionBadge";
 import RedHatPartnerBadge from "@/components/RedHatPartnerBadge";
-import SiteHeader from "@/components/revamp/SiteHeader";
+import SiteHeader, { useRootTheme } from "@/components/revamp/SiteHeader";
 import Footer from "@/components/Footer";
 
 type Theme = "day" | "night";
@@ -69,27 +68,12 @@ function PurpleWave() {
 
 /* ── Page shell ─────────────────────────────────────────────────────── */
 export default function BrandHome() {
-  const [theme, setTheme] = useState<Theme>("day");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("p8-theme") as Theme | null;
-    const sys = window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day";
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(saved ?? sys);
-  }, []);
-
-  const toggle = () => {
-    const next = theme === "day" ? "night" : "day";
-    setTheme(next);
-    localStorage.setItem("p8-theme", next);
-    // Keep the site-wide root attribute in sync for client-side navigation
-    document.documentElement.dataset.p8Theme = next;
-  };
+  const [theme] = useRootTheme();
 
   return (
     <div data-p8-theme={theme} className="p8-shell relative min-h-screen text-[var(--p8-fg)] transition-colors duration-500">
       <style>{CSS}</style>
-      <SiteHeader theme={theme} toggle={toggle} />
+      <SiteHeader />
 
       <main id="main-content" className="relative flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center overflow-hidden px-4 pb-24 text-center">
         <PurpleWave />

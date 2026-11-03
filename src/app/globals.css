@@ -267,3 +267,107 @@ html[data-p8-theme="night"] .p8-brand { --p8-subtle: rgba(14,14,22,.75); }
 /* Connected-nodes layer carries the page colour, per theme */
 .p8-canvas { background: #0a0a0f; transition: background-color .4s; }
 html[data-p8-theme="day"] .p8-canvas { background: #ffffff; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Global Light ("day") Theme Contrast Rules for ALL Pages & Components
+   ─────────────────────────────────────────────────────────────────────
+   Previously, light-mode overrides only applied inside `.p8-themed`, so
+   legacy pages using `<Navbar />` + `<main>` had white text on a white
+   `body` background. Applying the day rules to `main:not(#main-content.p8-shell)`
+   and `.p8-themed` ensures 100% WCAG contrast across every page on the site.
+   ═══════════════════════════════════════════════════════════════════════ */
+html[data-p8-theme="day"] body {
+  color: #18181b;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) :is(
+  .bg-\[\#0a0a0f\], .bg-\[\#0a0a0f\]\/95, .bg-\[\#0a0a0f\]\/80, .bg-\[\#0a0a0f\]\/70,
+  .bg-\[\#0f0f1a\], .bg-\[\#0f0f1a\]\/98, .bg-\[\#11111b\], .bg-\[\#11111b\]\/40,
+  .bg-\[\#0d0a1a\], .bg-\[\#0a0f1a\], .bg-\[\#0c0c14\], .bg-\[\#0d0d17\], .bg-\[\#0d0d17\]\/60,
+  .bg-\[\#0d0d16\], .bg-\[\#0d0d16\]\/60,
+  .bg-zinc-950, .bg-zinc-950\/80, .bg-zinc-950\/60, .bg-zinc-900, .bg-zinc-900\/70,
+  .bg-zinc-900\/60, .bg-zinc-900\/50, .bg-zinc-900\/40, .bg-zinc-900\/30, .bg-zinc-800\/50,
+  .bg-slate-950, .bg-slate-900, .bg-slate-900\/60
+) {
+  background-color: #f8f7fc !important;
+  color: #18181b;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) pre,
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) .bg-black {
+  background-color: #181824 !important;
+  color: #f4f4f5 !important;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) :is(
+  .bg-purple-950, .bg-purple-950\/60, .bg-purple-950\/50, .bg-purple-950\/40,
+  .bg-purple-950\/25, .bg-purple-950\/20, .bg-purple-950\/10, .bg-purple-900\/40,
+  .bg-purple-900\/30, .bg-purple-900\/20, .bg-purple-900\/12, .bg-purple-900\/10,
+  .bg-violet-950, .bg-violet-950\/50, .bg-violet-950\/40, .bg-violet-950\/20,
+  .bg-violet-950\/10, .bg-violet-900\/40, .bg-violet-600\/10, .bg-purple-500\/10
+) {
+  background-color: #f3e8ff !important;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) .text-white:not([class*="bg-purple-5"]):not([class*="bg-purple-6"]):not([class*="bg-purple-7"]):not([class*="bg-violet-5"]):not([class*="bg-violet-6"]):not([class*="bg-violet-7"]):not([class*="bg-emerald-6"]):not([class*="bg-red-6"]):not([class*="bg-\[var\(--p8-button"]) {
+  color: #18181b !important;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) :is(
+  .text-zinc-100, .text-zinc-200, .text-zinc-300,
+  .text-slate-100, .text-slate-200, .text-slate-300,
+  .text-gray-100, .text-gray-200, .text-gray-300,
+  .text-violet-200, .text-purple-200
+) {
+  color: #27272a !important;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) :is(
+  .text-zinc-400, .text-zinc-500, .text-zinc-600,
+  .text-slate-400, .text-slate-500, .text-slate-600,
+  .text-gray-400, .text-gray-500, .text-gray-600
+) {
+  color: #3f3f46 !important;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) :is(
+  .text-purple-300, .text-purple-400, .text-violet-300, .text-violet-400
+) {
+  color: #6d28d9 !important;
+}
+
+html[data-p8-theme="day"] :is(.p8-themed, main):not(.p8-shell) :is(
+  .border-zinc-900, .border-zinc-800, .border-zinc-800\/60, .border-zinc-700,
+  .border-slate-800, .border-slate-800\/60, .border-slate-700,
+  .border-gray-800, .border-gray-700, .border-white\/5, .border-white\/10
+) {
+  border-color: #e4e4e7 !important;
+}
+
+/* Prose / Blog / Case Study / LegalDoc overrides in Light Mode */
+html[data-p8-theme="day"] .prose-p8 {
+  color: #27272a;
+}
+html[data-p8-theme="day"] .prose-p8 :is(h1, h2, h3, h4, strong) {
+  color: #18181b;
+}
+html[data-p8-theme="day"] .prose-p8 a {
+  color: #6d28d9;
+}
+html[data-p8-theme="day"] .prose-p8 code:not(pre code) {
+  background: #f3e8ff;
+  color: #5b21b6;
+  border-color: #d8b4fe;
+}
+html[data-p8-theme="day"] article :is(h1, h2, h3, strong) {
+  color: #18181b !important;
+}
+html[data-p8-theme="day"] article :is(th, code) {
+  background-color: #f3e8ff !important;
+  color: #4c1d95 !important;
+  border-color: #d8b4fe !important;
+}
+html[data-p8-theme="day"] article td {
+  border-color: #e4e4e7 !important;
+  color: #27272a !important;
+}

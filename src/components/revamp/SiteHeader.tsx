@@ -5,25 +5,21 @@ import { useEffect, useRef, useState } from "react";
 import Purple8Logo from "@/components/Purple8Logo";
 
 /**
- * SiteHeader: the one header for the revamp site.
+ * SiteHeader: the unified header across the entire Purple8 website.
  *
- * Lifted unchanged from the homepage (BrandHome) so every page looks the
- * same. Colours come only from var(--p8-*), which are defined both by the
- * homepage shell (.p8-shell) and by brand pages (.p8-brand, globals.css).
- *
- * Theme:
- *  - Controlled: pass `theme` + `toggle` (the homepage does this).
- *  - Uncontrolled: omit them; the header reads/writes <html data-p8-theme>
- *    and the shared `p8-theme` localStorage key (set before paint in layout).
+ * Supports 3-mode theme switching:
+ *  - "day" (Light)
+ *  - "night" (Dark)
+ *  - "auto" (Follows OS `prefers-color-scheme`)
  */
 export type Theme = "day" | "night";
+export type ThemeMode = "day" | "night" | "auto";
 
 const PRODUCTS = [
   { href: "/products/docintel/", name: "DocIntel", desc: "Any document → entities & relationships" },
   { href: "/products/hyper-graph/", name: "Hyper Graph", desc: "Graph + vector + RAG + workflows, one process" },
 ];
 
-// Same order as the desktop links.
 const NAV = [
   { href: "/architecture/", name: "Architecture" },
   { href: "/quickstart/", name: "Developers" },
@@ -31,25 +27,76 @@ const NAV = [
   { href: "mailto:sales@purple8.ai?subject=Purple8%20Inquiry", name: "Contact Us" },
 ];
 
-function useRootTheme(): [Theme, () => void] {
+function resolveEffectiveTheme(mode: ThemeMode): Theme {
+  if (mode === "day" || mode === "night") return mode;
+  if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return "night";
+  }
+  return "day";
+}
+
+export function useRootTheme(): [Theme, () => void, ThemeMode, (m: ThemeMode) => void] {
+  const [mode, setModeState] = useState<ThemeMode>("auto");
   const [theme, setTheme] = useState<Theme>("day");
+
   useEffect(() => {
+    let saved: ThemeMode = "auto";
+    try {
+      const raw = localStorage.getItem("p8-theme");
+      if (raw === "day" || raw === "night" || raw === "auto") saved = raw;
+    } catch { /* ignore */ }
+    const eff = resolveEffectiveTheme(saved);
+    document.documentElement.dataset.p8Theme = eff;
+    document.documentElement.dataset.p8ThemeMode = saved;
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(document.documentElement.dataset.p8Theme === "night" ? "night" : "day");
+    setModeState(saved);
+    setTheme(eff);
+
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onMq = () => {
+      let cur: ThemeMode = "auto";
+      try {
+        const raw = localStorage.getItem("p8-theme");
+        if (raw === "day" || raw === "night" || raw === "auto") cur = raw;
+      } catch { /* ignore */ }
+      if (cur === "auto") {
+        const nextEff: Theme = mq.matches ? "night" : "day";
+        document.documentElement.dataset.p8Theme = nextEff;
+        setTheme(nextEff);
+      }
+    };
+    mq.addEventListener("change", onMq);
+    return () => mq.removeEventListener("change", onMq);
   }, []);
-  const toggle = () => {
-    const next: Theme = theme === "night" ? "day" : "night";
-    document.documentElement.dataset.p8Theme = next;
-    try { localStorage.setItem("p8-theme", next); } catch { /* ignore */ }
-    setTheme(next);
+
+  const setMode = (nextMode: ThemeMode) => {
+    const eff = resolveEffectiveTheme(nextMode);
+    document.documentElement.dataset.p8Theme = eff;
+    document.documentElement.dataset.p8ThemeMode = nextMode;
+    try {
+      if (nextMode === "auto") {
+        localStorage.removeItem("p8-theme");
+      } else {
+        localStorage.setItem("p8-theme", nextMode);
+      }
+    } catch { /* ignore */ }
+    setModeState(nextMode);
+    setTheme(eff);
   };
-  return [theme, toggle];
+
+  // Cycle: day -> night -> auto -> day
+  const toggle = () => {
+    const nextMode: ThemeMode = mode === "day" ? "night" : mode === "night" ? "auto" : "day";
+    setMode(nextMode);
+  };
+
+  return [theme, toggle, mode, setMode];
 }
 
 export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }) {
-  const [rootTheme, rootToggle] = useRootTheme();
+  const [rootTheme, rootToggle, mode, setMode] = useRootTheme();
   const theme = props.theme ?? rootTheme;
-  const toggle = props.toggle ?? rootToggle;
+  const _toggle = props.toggle ?? rootToggle;
 
   const [open, setOpen] = useState(false);
   const [mobile, setMobile] = useState(false);
@@ -128,17 +175,53 @@ export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" /></svg>
             )}
           </button>
-          <button
-            onClick={toggle}
-            aria-label={theme === "day" ? "Switch to night theme" : "Switch to day theme"}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--p8-border)] text-[var(--p8-fg)] hover:bg-[var(--p8-hover)]"
+
+          {/* 3-Mode Theme Switcher: Light (Day) | Dark (Night) | Auto */}
+          <div
+            role="group"
+            aria-label="Theme mode"
+            className="inline-flex items-center rounded-full border border-[var(--p8-border)] bg-[var(--p8-surface)] p-0.5 text-[11px] font-medium"
           >
-            {theme === "day" ? (
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" /></svg>
-            ) : (
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><circle cx="12" cy="12" r="4" /><path strokeLinecap="round" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
-            )}
-          </button>
+            <button
+              type="button"
+              onClick={() => setMode("day")}
+              aria-label="Light theme"
+              title="Light theme"
+              className={`rounded-full px-2.5 py-1 transition-colors ${
+                mode === "day"
+                  ? "bg-[var(--p8-accent)] text-white"
+                  : "text-[var(--p8-muted)] hover:text-[var(--p8-fg)]"
+              }`}
+            >
+              Light
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode("night")}
+              aria-label="Dark theme"
+              title="Dark theme"
+              className={`rounded-full px-2.5 py-1 transition-colors ${
+                mode === "night"
+                  ? "bg-[var(--p8-accent)] text-white"
+                  : "text-[var(--p8-muted)] hover:text-[var(--p8-fg)]"
+              }`}
+            >
+              Dark
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode("auto")}
+              aria-label="Auto system theme"
+              title="Auto (system preference)"
+              className={`rounded-full px-2.5 py-1 transition-colors ${
+                mode === "auto"
+                  ? "bg-[var(--p8-accent)] text-white"
+                  : "text-[var(--p8-muted)] hover:text-[var(--p8-fg)]"
+              }`}
+            >
+              Auto
+            </button>
+          </div>
         </div>
       </nav>
 
