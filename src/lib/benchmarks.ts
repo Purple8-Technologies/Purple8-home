@@ -48,6 +48,49 @@ export const benchmarkGroups: BenchmarkGroup[] = [
     ],
   },
   {
+    title: "Multi-User, Multi-Tenant & Concurrent Workloads (v0.72.0)",
+    blurb:
+      "Measured on Purple8 v0.72.0 across 16 dedicated vCPUs (Fly.io performance-16x), validating concurrent multi-thread graph reads, 16-tenant cryptographic isolation, mixed read/write/traversal/vector storms, and parallel DocIntel document-to-graph commits.",
+    items: [
+      {
+        value: "4,858 QPS",
+        label: "16-thread peak concurrent graph reads",
+        conditions:
+          "v0.72.0 · 16 concurrent reader threads · 1.25 ms P50 / 9.73 ms P99 latency at 2.5M graph objects; sustains 4,181 QPS at 40M graph objects (0.44 ms P50).",
+      },
+      {
+        value: "1,900 ops/s",
+        label: "16-tenant concurrent isolation (0 leaks)",
+        conditions:
+          "v0.72.0 · 16 concurrent tenants executing 1,600 simultaneous isolated operations with 0 cross-tenant data leakage.",
+      },
+      {
+        value: "238 QPS · 2.4 ms P50",
+        label: "16-thread mixed read/write/traversal/vector storm",
+        conditions:
+          "v0.72.0 · 16 threads simultaneously running point lookups, 2-hop graph walks, vector search, full-text search, and live writes with 0 errors.",
+      },
+      {
+        value: "200 QPS",
+        label: "16-thread concurrent vector search (384d)",
+        conditions:
+          "v0.72.0 · 1,600 concurrent vector searches across 16 threads (single-query 4.52 ms P50 / 6.09 ms P95 / 7.63 ms P99).",
+      },
+      {
+        value: "353 pages/s",
+        label: "DocIntel 8-worker parallel document parsing",
+        conditions:
+          "v0.72.0 · 35.34 docs/s (10-page enterprise filings) + 70.7 tables/s across 8 concurrent CPU workers (13.2 ms parse P50).",
+      },
+      {
+        value: "25,596 docs/hr",
+        label: "Coupled DocIntel -> Hyper Graph atomic commits",
+        conditions:
+          "v0.72.0 · 7.11 full 10-page documents/s (442.4 nodes/s + 619.4 edges/s + tables + chunks) committed atomically (141.8 ms P50, 0.65 ms P50 table row lookup).",
+      },
+    ],
+  },
+  {
     title: "Latency - single user, full HTTP stack",
     blurb:
       "Apples-to-apples against a dedicated vector database: one user, one worker, 1024-dimensional embeddings, over the full HTTP stack - with the graph engine, write-ahead log, AES-256-GCM encryption, and RBAC all running in the same process at the same time.",
