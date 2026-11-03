@@ -36,7 +36,6 @@ const companyLinks = [
   { label: "About", href: "/about/" },
   { label: "Careers", href: "/careers/" },
   { label: "Support", href: "/support/" },
-  { label: "Licensing", href: "/pricing/" },
   { label: "Contact Us", href: "mailto:sales@purple8.ai?subject=Purple8%20Inquiry" },
 ];
 

@@ -31,7 +31,6 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: Metadata
   { path: "/features", priority: 0.9, changeFrequency: "weekly" },
   { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
   { path: "/benchmarks", priority: 0.8, changeFrequency: "weekly" },
-  { path: "/pricing", priority: 0.9, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.7, changeFrequency: "weekly" },
   { path: "/blog/quantum-ai-classical-computing", priority: 0.8, changeFrequency: "monthly" },
   { path: "/case-studies", priority: 0.7, changeFrequency: "weekly" },

@@ -573,13 +573,11 @@ export default function QuickstartPage() {
               }
             />
             <p className="mt-3 text-sm text-gray-400">
-              Extracted entities land in your graph automatically. Community
-              edition covers 500 documents/mo on a single worker; paid tiers add
-              throughput and managed connectors (SharePoint, Confluence, S3).{" "}
-              <Link href="/#pricing" className="text-violet-400 underline">
-                See DocIntel plans
-              </Link>
-              .
+              Extracted entities land in your graph automatically. Contact{" "}
+              <a href="mailto:sales@purple8.ai?subject=DocIntel%20Licensing" className="text-violet-400 underline">
+                sales@purple8.ai
+              </a>{" "}
+              for Commercial and Enterprise self-hosted connectors (SharePoint, Confluence, S3).
             </p>
           </div>
         </section>
@@ -587,16 +585,20 @@ export default function QuickstartPage() {
         {/* Footer links */}
         <div className="flex flex-col items-center gap-4 border-t border-gray-800 pt-8 text-center">
           <p className="text-sm text-gray-400">
-            Don&rsquo;t have a license yet?{" "}
-            <Link href="/register/" className="text-purple-400 underline">
-              Get one free in one click
+            Evaluate in the Cloud Sandbox:{" "}
+            <Link href="/try/graph/" className="text-purple-400 underline">
+              Try Hyper Graph
+            </Link>{" "}
+            ·{" "}
+            <Link href="/try/docintel/" className="text-purple-400 underline">
+              Try DocIntel
             </Link>
           </p>
           <p className="text-sm text-gray-400">
-            Ready to scale beyond the free tier?{" "}
-            <Link href="/#pricing" className="text-purple-400 underline">
-              See paid plans
-            </Link>
+            Ready for VPC, On-Premise, Air-Gapped, or Cloud Marketplace licensing?{" "}
+            <a href="mailto:sales@purple8.ai?subject=Purple8%20Licensing" className="text-purple-400 underline">
+              Contact Us (sales@purple8.ai)
+            </a>
           </p>
           <p className="text-xs text-gray-600">
             Lost your key?{" "}

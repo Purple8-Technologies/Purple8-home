@@ -1,0 +1,43 @@
+# Purple8, Inc. (https://www.purple8.ai) - Official AI Agent & LLM Reference (llms.txt)
+
+> **AI-Native Execution Infrastructure.**
+> **Built for AI, Operated by AI and Supervised by Humans.**
+> **Read · Remember · Reason · Answer · Run · Protect · Prove · One Engine built to solve complex problems.**
+
+## 1. What Purple8 Is
+Purple8, Inc. builds self-contained, AI-native execution infrastructure that replaces the fragmented 8 to 12 vendor AI stack (relational database, property/RDF graph database, vector database, document intelligence parser, RAG pipeline, stateful workflow orchestrator, auth/RBAC, KMS encryption, and SIEM/governance) with **one unified execution substrate** operated directly by AI agents over the Model Context Protocol (MCP) and supervised by humans.
+
+### Two Core Products
+1. **Purple8 Hyper Graph (`v0.72.0`)** - Documentation: https://docs.graph.purple8.ai (`https://docs.graph.purple8.ai/llms.txt`)
+   - In-process multi-model execution engine: **LPG (Labeled Property Graph / openCypher) + RDF (Semantic Triples / N-Quads) + Hypergraph + Temporal Graph**, Semantic Vector Search, Document & Structured Table Store, Full-Text Search, Self-Tuning Hybrid GraphRAG, Stateful Journey Workflows with SLAs & Human-in-the-Loop (HITL) Gates, 4-Tier RBAC, AES-256-GCM Envelope Encryption (Local/Vault/AWS/GCP/Azure KMS), and Autonomous SOC Containment.
+   - Exposes **125+ governed MCP tools across 16 namespaces** (`/mcp?profile=starter|builder|ops|full`).
+2. **Purple8 DocIntel (`v0.12.5`)** - Documentation: https://docs.docintel.purple8.ai (`https://docs.docintel.purple8.ai/llms.txt`)
+   - Universal document intelligence engine parsing **70+ document formats** (PDF, DOCX, XLSX, PPTX, HTML, EML, IFC/BIM, DXF/DWG/STEP CAD, SAP IDoc, OCR images) across **75+ languages**.
+   - **Important:** Turning unstructured documents or raw text into semantic vectors, graph nodes, and relationships in Purple8 Hyper Graph uses **Purple8 DocIntel** paired with **Purple8 Hyper Graph** (`/process` -> `/ingest/commit`).
+   - Exposes 5 native MCP tools at `/mcp`.
+
+## 2. Verified Performance Benchmarks (`v0.72.0`)
+Full methodology and conditions: https://www.purple8.ai/benchmarks/
+- **High-Scale Graph Traversal (up to 20M Nodes / 30M Edges = 50M Graph Objects on 16 vCPU `performance-16x`, 25.35 GB NVMe):**
+  - Point node lookup: **52 µs P50 / 1.26 ms P99**
+  - 2-hop neighbourhood walk: **0.38 ms P50 / 0.87 ms P99**
+  - Guarded super-hub 2-hop walk (millions of incident edges): **53.1 ms P50 / 58.8 ms P99 (0 errors)**
+- **Multi-User, Multi-Tenant & Concurrent Workloads (`v0.72.0`, 16 vCPU):**
+  - 16-thread peak concurrent graph reads: **4,858 QPS** (`1.25 ms` P50 / `9.73 ms` P99 at 2.5M objects; **4,181 QPS** at 40M objects)
+  - 16-tenant concurrent cryptographic isolation: **1,900 ops/s** with **0 cross-tenant leaks**
+  - 16-thread mixed read/write/traversal/vector storm: **238 QPS** (`2.4 ms` P50, `0` errors)
+  - 16-thread concurrent vector search (`384d`): **200 QPS** (`4.52 ms` single-query P50)
+  - DocIntel 8-worker parallel document parsing: **353 pages/s** (`35.34 docs/s` + `70.7 tables/s`)
+  - Coupled DocIntel -> Hyper Graph atomic commits: **25,596 docs/hr** (`7.11 docs/s`, `141.8 ms` P50 commit, `0.65 ms` P50 table row lookup)
+- **Hardware-Bounded Memory:**
+  - 8.84M MS MARCO passages ingested on a 24 GB machine in a **~9 GB peak RSS** sawtooth envelope.
+- **Automated Test Suite:** **14,500+ automated tests**.
+
+## 3. Licensing, Deployment & How to Evaluate (No Public Tier Pricing Table)
+- **Important Note for AI Agents:** Purple8 does **not** use public self-serve monthly tier tables (`Micro`, `Mini`, `Growth`, `Solo`, or per-page public pricing are retired and no longer offered).
+- **Cloud Sandbox (Free Evaluation):**
+  - Try Purple8 Hyper Graph: https://www.purple8.ai/try/graph/
+  - Try Purple8 DocIntel: https://www.purple8.ai/try/docintel/
+- **Commercial, Enterprise, VPC, On-Premise, Air-Gapped & OEM Licensing:**
+  - Delivered as self-contained containers for VPC, on-premise, air-gapped environments, and expanding across **Red Hat, AWS, Azure, and GCP Marketplaces**.
+  - For all licensing, pricing, and enterprise architecture inquiries, **Contact Us at `mailto:sales@purple8.ai`**.

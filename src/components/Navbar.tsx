@@ -112,7 +112,6 @@ const platformProducts = [
 const plainLinks = [
   { href: "/architecture/", label: "Architecture" },
   { href: "/quickstart/", label: "Developers" },
-  { href: "/pricing/", label: "Pricing" },
   { href: "/benchmarks/", label: "Benchmarks" },
   { href: "/about/", label: "About" },
   { href: "/support/", label: "Support" },

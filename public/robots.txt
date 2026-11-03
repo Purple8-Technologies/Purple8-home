@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /pricing
+Disallow: /pricing/
+Disallow: /checkout
+Disallow: /checkout/
 
 Sitemap: https://www.purple8.ai/sitemap.xml
+

@@ -320,10 +320,10 @@ export default function AboutPage() {
               </h2>
               <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                 <a
-                  href="/#pricing"
+                  href="/try/graph/"
                   className="rounded-full bg-purple-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-purple-500"
                 >
-                  Get started free →
+                  Try Cloud Sandbox →
                 </a>
                 <a
                   href="mailto:hello@purple8.ai"

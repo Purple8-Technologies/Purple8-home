@@ -44,18 +44,16 @@ export default function TermsPage() {
 
       <h2>3. Licences, editions &amp; the software</h2>
       <p>
-        Purple8 offers free and paid editions of its software. What each edition
-        includes - capacity, features, and support - is described on our pricing
-        page and may change over time. Your right to use the software is granted
+        Purple8 offers Cloud Sandbox evaluation and Commercial / Enterprise licenses of its software. What each license
+        includes - capacity, features, and support - is specified in your commercial order or Enterprise Agreement. Your right to use the software is granted
         under the <a href="/legal/eula">EULA</a>; these Terms cover the
-        commercial relationship (ordering, billing, and website use) around it.
+        commercial relationship around it.
       </p>
 
       <h2>4. Fees, billing &amp; renewal</h2>
       <ul>
         <li>
-          Paid plans are billed in advance on a monthly or annual basis through
-          our payment provider (Stripe).
+          Commercial and Enterprise licenses are billed on an annual or multi-year basis as specified in your order form or Cloud Marketplace agreement (Red Hat, AWS, Azure, GCP).
         </li>
         <li>
           Unless stated otherwise, subscriptions renew automatically for the same
