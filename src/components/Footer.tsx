@@ -1,6 +1,6 @@
 import Purple8Logo from "@/components/Purple8Logo";
-import NvidiaInceptionBadge, { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/NvidiaInceptionBadge";
-import RedHatPartnerBadge, { REDHAT_LEGAL_ATTRIBUTION } from "@/components/RedHatPartnerBadge";
+import { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/NvidiaInceptionBadge";
+import { REDHAT_LEGAL_ATTRIBUTION } from "@/components/RedHatPartnerBadge";
 
 const productLinks = [
   { label: "Purple8 Hyper Graph", href: "/products/hyper-graph/" },
@@ -61,10 +61,6 @@ export default function Footer() {
             <p className="mt-4 text-xs text-[var(--p8-muted,#a1a1aa)]">
               Purple8 Inc. is a member of the NVIDIA Inception program and a Red Hat Technology Partner
             </p>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <NvidiaInceptionBadge className="h-11" variant="auto" />
-              <RedHatPartnerBadge className="h-11" variant="auto" />
-            </div>
           </div>
 
           {/* Products */}
