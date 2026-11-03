@@ -3,11 +3,8 @@ import NvidiaInceptionBadge, { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/Nvi
 import RedHatPartnerBadge, { REDHAT_LEGAL_ATTRIBUTION } from "@/components/RedHatPartnerBadge";
 
 const productLinks = [
-  { label: "Purple8 Hyper Graph", href: "/products/purple8/", comingSoon: false },
-  { label: "DocIntel", href: "/products/docintel/", comingSoon: false },
-  { label: "Focus", href: "/focus/", comingSoon: false },
-  { label: "Nexus", href: "/products/nexus/", comingSoon: false },
-  { label: "Architect", href: "/products/architect/", comingSoon: false },
+  { label: "Purple8 Hyper Graph", href: "/products/hyper-graph/", comingSoon: false },
+  { label: "Purple8 DocIntel", href: "/products/docintel/", comingSoon: false },
 ];
 
 const companyLinks = [

@@ -936,29 +936,28 @@ export default function ArchitecturePage() {
                   Try it yourself, free
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-zinc-400">
-                  The Developer edition is free, runs on your own machine, and requires no
-                  external services. One command and you have a complete AI backend.
+                  Evaluate immediately in the Cloud Sandbox or deploy a self-contained container in your own VPC, on-premise, or air-gapped environment with zero external service dependencies.
                 </p>
                 <div className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/50 px-5 py-3 font-mono text-sm text-purple-300">
-                  pip install purple8-graph
+                  docker pull ghcr.io/purple8-technologies/purple8-graph:latest
                 </div>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a
-                    href="/quickstart/"
+                    href="/try/graph/"
                     className="rounded-full bg-purple-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500 text-center"
                   >
-                    Quick start guide
+                    Try Cloud Sandbox
                   </a>
                   <a
-                    href="/products/purple8/"
+                    href="mailto:sales@purple8.ai?subject=Purple8%20Architecture%20Inquiry"
                     className="group inline-flex items-center justify-center gap-1.5 rounded-full border border-zinc-800 px-8 py-3 text-sm font-semibold text-zinc-300 transition-colors hover:border-purple-700 hover:text-white"
                   >
-                    Product overview
+                    Contact Us
                     <span className="transition-transform group-hover:translate-x-0.5">→</span>
                   </a>
                 </div>
                 <p className="mt-4 text-xs text-zinc-600">
-                  Free forever · No credit card · Runs on your own hardware
+                  Built for AI, Operated by AI and Supervised by Humans
                 </p>
               </div>
 

@@ -84,13 +84,6 @@ const solutions = [
     color: "text-violet-300",
   },
   {
-    href: "/products/purple8/ai-architect/",
-    name: "AI Architect Intelligence",
-    desc: "Project graph · RIBA lifecycle · Phase 8 algorithms · BIM",
-    icon: "🏛️",
-    color: "text-teal-300",
-  },
-  {
     href: "/products/purple8/equity-research-management/",
     name: "Equity Research Management",
     desc: "Data lineage · HITL approval · publishing · semantic portal · audit",
@@ -101,54 +94,26 @@ const solutions = [
 
 const platformProducts = [
   {
-    href: "/products/purple8/",
+    href: "/products/hyper-graph/",
     name: "Purple8 Hyper Graph",
-    desc: "Multi-model embedded backend — graph, vector, RAG, workflows, auth",
+    desc: "AI-Native Execution Infrastructure — graph, vector, RAG, workflows, auth & SOC",
     color: "text-purple-400",
     dot: "bg-purple-500",
   },
   {
     href: "/products/docintel/",
-    name: "DocIntel",
-    desc: "70-format document intelligence — parse, extract, emit to Purple8",
+    name: "Purple8 DocIntel",
+    desc: "70+ format document intelligence — parse, extract & commit to Hyper Graph",
     color: "text-violet-400",
     dot: "bg-violet-500",
   },
 ];
 
-const appProducts = [
-  {
-    href: "/focus/",
-    name: "Focus",
-    desc: "On-device cognitive capacity agent for deep work",
-    color: "text-purple-300",
-    dot: "bg-purple-400",
-    badge: "Personal · $5/mo",
-  },
-  {
-    href: "/products/nexus/",
-    name: "Nexus",
-    desc: "AI-powered enterprise Knowledge Management System",
-    color: "text-blue-400",
-    dot: "bg-blue-500",
-    badge: "Enterprise KMS",
-  },
-  {
-    href: "/products/architect/",
-    name: "Architect",
-    desc: "Design intelligence for AEC teams — BIM, structural, MEP",
-    color: "text-teal-400",
-    dot: "bg-teal-500",
-    badge: "AEC & Engineering",
-  },
-];
-
 const plainLinks = [
-  { href: "/features/", label: "Features" },
-  { href: "/industries/", label: "Industries" },
   { href: "/architecture/", label: "Architecture" },
-  { href: "/benchmarks/", label: "Benchmarks" },
+  { href: "/quickstart/", label: "Developers" },
   { href: "/pricing/", label: "Pricing" },
+  { href: "/benchmarks/", label: "Benchmarks" },
   { href: "/about/", label: "About" },
   { href: "/support/", label: "Support" },
 ];
@@ -163,8 +128,7 @@ export default function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  const productsActive =
-    pathname.startsWith("/products/") || pathname.startsWith("/focus/");
+  const productsActive = pathname.startsWith("/products/");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -296,28 +260,6 @@ export default function Navbar() {
                         <span className={`text-sm font-medium ${p.color}`}>{p.name}</span>
                       </Link>
                     ))}
-
-                    {/* Divider */}
-                    <div className="my-2 border-t border-purple-900/30" />
-
-                    {/* Apps section */}
-                    <p className="px-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">
-                      Applications
-                    </p>
-                    {appProducts.map((p) => (
-                      <Link
-                        key={p.href}
-                        href={p.href}
-                        onClick={() => setDropdownOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2 transition-colors hover:bg-purple-500/10"
-                      >
-                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${p.dot}`} />
-                        <span className={`text-sm font-medium ${p.color}`}>{p.name}</span>
-                        {p.badge && (
-                          <span className="ml-auto text-[10px] text-zinc-600">{p.badge.split(" · ")[0]}</span>
-                        )}
-                      </Link>
-                    ))}
                   </div>
                 )}
               </div>
@@ -348,10 +290,10 @@ export default function Navbar() {
             {/* CTA */}
             <div className="hidden md:flex items-center gap-3">
               <a
-                href="/#calculator"
+                href="mailto:sales@purple8.ai?subject=Purple8%20Inquiry"
                 className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500 shadow-lg shadow-purple-900/30"
               >
-                Get Started
+                Contact Us
               </a>
             </div>
 
@@ -378,7 +320,7 @@ export default function Navbar() {
         {open && (
           <div id="mobile-menu" className="md:hidden border-t border-purple-900/30 py-4 flex flex-col gap-1 pb-6 px-4">
             {/* Platform */}
-            <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">Platform</p>
+            <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">Products</p>
             {platformProducts.map((p) => (
               <Link
                 key={p.href}
@@ -387,19 +329,6 @@ export default function Navbar() {
                 className={`rounded-lg px-2 py-2 text-sm font-medium ${p.color}`}
               >
                 {p.name}
-              </Link>
-            ))}
-            {/* Apps */}
-            <p className="mt-2 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-600">Applications</p>
-            {appProducts.map((p) => (
-              <Link
-                key={p.href}
-                href={p.href}
-                onClick={() => setOpen(false)}
-                className={`rounded-lg px-2 py-2 text-sm font-medium ${p.color}`}
-              >
-                {p.name}
-                {p.badge && <span className="ml-2 text-xs text-zinc-500">{p.badge}</span>}
               </Link>
             ))}
             {/* Solutions */}
@@ -432,11 +361,11 @@ export default function Navbar() {
               })}
             </div>
             <a
-              href="/#calculator"
+              href="mailto:sales@purple8.ai?subject=Purple8%20Inquiry"
               onClick={() => setOpen(false)}
               className="mt-3 rounded-full bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white text-center"
             >
-              Get Started
+              Contact Us
             </a>
           </div>
         )}

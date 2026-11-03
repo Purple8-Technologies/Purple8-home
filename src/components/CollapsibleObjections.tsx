@@ -25,7 +25,7 @@ const objections = [
   },
   {
     q: "\"Our cloud provider already offers managed Postgres, managed Pinecone, managed everything. Why not just use those?\"",
-    a: "Managed services solve the provisioning problem, not the integration problem. You still write the glue code between your managed vector store, your managed graph database, your managed workflow engine, and your managed auth service. Every one of those boundaries is a network call, a potential schema mismatch, and a separate monthly invoice. Purple8 removes the boundaries, not just the provisioning. A single pip install or docker run replaces the entire managed stack and runs identically on your laptop, on any cloud, and in an air-gapped environment.",
+    a: "Managed services solve the provisioning problem, not the integration problem. You still write the glue code between your managed vector store, your managed graph database, your managed workflow engine, and your managed auth service. Every one of those boundaries is a network call, a potential schema mismatch, and a separate monthly invoice. Purple8 removes the boundaries, not just the provisioning. A single container deployment replaces the entire managed stack and runs identically on your laptop, on any cloud, and in an air-gapped environment.",
   },
   {
     q: "\"How do we know Purple8 will still exist in three years?\"",

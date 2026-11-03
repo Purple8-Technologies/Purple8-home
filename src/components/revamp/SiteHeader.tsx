@@ -27,8 +27,8 @@ const PRODUCTS = [
 const NAV = [
   { href: "/architecture/", name: "Architecture" },
   { href: "/quickstart/", name: "Developers" },
-  { href: "/pricing/", name: "Pricing" },
   { href: "/benchmarks/", name: "Benchmarks" },
+  { href: "mailto:sales@purple8.ai?subject=Purple8%20Inquiry", name: "Contact Us" },
 ];
 
 function useRootTheme(): [Theme, () => void] {
@@ -110,8 +110,8 @@ export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }
           </div>
           <Link href="/architecture/" className={link}>Architecture</Link>
           <Link href="/quickstart/" className={link}>Developers</Link>
-          <Link href="/pricing/" className={link}>Pricing</Link>
           <Link href="/benchmarks/" className={link}>Benchmarks</Link>
+          <a href="mailto:sales@purple8.ai?subject=Purple8%20Inquiry" className={link}>Contact Us</a>
         </div>
 
         <div className="flex items-center gap-3">

@@ -1,32 +1,25 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { ClassicShell } from "@/components/revamp/BrandShell";
 import Pricing from "@/components/Pricing";
-import TierCalculator from "@/components/TierCalculator";
 import FadeIn from "@/components/FadeIn";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Pricing",
+  title: "Licensing & Deployment",
   description:
-    "Start free with the Developer edition. For commercial self-hosted deployments, we offer one simple tier: Enterprise / Custom — tailored to your infrastructure, capacity, and SLA.",
+    "Evaluate Purple8 Hyper Graph and Purple8 DocIntel in the Cloud Sandbox, or contact us for Commercial, Enterprise, VPC, Air-Gapped, and Cloud Marketplace licensing (Red Hat, AWS, Azure, GCP).",
   path: "/pricing",
 });
 
 export default function PricingPage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="pt-16">
-        <h1 className="sr-only">Pricing — Purple8</h1>
+    <ClassicShell>
+      <main id="main-content" className="pt-8">
+        <h1 className="sr-only">Licensing &amp; Deployment — Purple8</h1>
         <FadeIn direction="up" delay={0}>
           <Pricing />
         </FadeIn>
-        <FadeIn direction="up" delay={0}>
-          <TierCalculator />
-        </FadeIn>
       </main>
-      <Footer />
-    </>
+    </ClassicShell>
   );
 }

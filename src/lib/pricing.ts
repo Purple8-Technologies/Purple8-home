@@ -48,20 +48,20 @@ export interface GraphTier {
 export const GRAPH_TIERS: GraphTier[] = [
   {
     id: "developer",
-    name: "Developer (Self-Hosted Free)",
+    name: "Cloud Sandbox & Evaluation",
     priceMonthly: 0,
     priceAnnual: 0,
     nodes: 50_000,
-    nodesLabel: "50K",
+    nodesLabel: "Evaluation Sandbox",
     agents: 1,
     family: "free",
     tagline:
-      "The full engine on your machine — every RAG pipeline, every MCP tool, every algorithm, and the full Journey Engine (workflows, HITL, SLA). Free for development, prototyping, and evaluation. No credit card, no expiry.",
-    cta: "Download free",
+      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox — connect Claude, Cursor, or Copilot over MCP (?profile=starter), run hybrid GraphRAG, and test stateful Journey workflows with HITL gates.",
+    cta: "Try Cloud Sandbox",
   },
   {
     id: "enterprise",
-    name: "Enterprise / Custom (Self-Hosted)",
+    name: "Commercial & Enterprise License",
     priceMonthly: null,
     priceAnnual: null,
     nodes: Number.POSITIVE_INFINITY,
@@ -69,26 +69,22 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: null,
     family: "enterprise",
     tagline:
-      "One commercial self-hosted tier tailored to your deployment — unlimited nodes & MCP agents, SSO/OIDC, RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, sharding, Supergraph federation, SOC vertical, and SLA-backed support.",
-    cta: "Talk to sales",
+      "Annual software licensing for VPC, on-premise, air-gapped, and OEM deployments — unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and SLA-backed support. Available directly and via Red Hat, AWS, Azure & GCP Marketplaces.",
+    cta: "Contact Us",
     highlight: true,
-    badge: "Commercial Self-Hosted",
+    badge: "VPC · On-Prem · Cloud Marketplaces",
   },
 ];
 
 /** Format a USD price for display. */
 export function priceLabel(
   tier: GraphTier,
-  cycle: BillingCycle,
+  _cycle: BillingCycle,
 ): { amount: string; suffix: string; note?: string } {
-  const value = cycle === "annual" ? tier.priceAnnual : tier.priceMonthly;
-  if (value === null) return { amount: "Custom", suffix: "", note: "Tailored to your infrastructure & SLA" };
-  if (value === 0) return { amount: "$0", suffix: "", note: "Free for dev & prototyping" };
-  return {
-    amount: `$${value.toLocaleString()}`,
-    suffix: "/mo",
-    note: cycle === "annual" ? "billed annually · 10 months for 12" : undefined,
-  };
+  if (tier.id === "developer") {
+    return { amount: "Cloud Sandbox", suffix: "", note: "Evaluate in browser & over MCP" };
+  }
+  return { amount: "Contact Us", suffix: "", note: "Tailored to your infrastructure, capacity & SLA" };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -148,39 +144,38 @@ export function docIntelCloudBill(pages: number): number {
 export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "beta",
-    name: "Community (self-hosted)",
-    price: "$0",
-    quota: "500 docs/mo",
-    seats: "1 worker",
+    name: "Cloud Sandbox",
+    price: "Sandbox",
+    quota: "Evaluation",
+    seats: "Browser + MCP (/mcp)",
     tagline:
-      "Free forever. Full extraction pipeline — GLiNER NER, LLM relationship extraction, webhook connector, Tesseract + P8OCR. No credit card, no expiry.",
-    cta: "Self-host for free",
-    ctaHref: "/quickstart/#add-docintel",
+      "Test Purple8 DocIntel in your browser or connect your AI agent over MCP. Parse 70+ formats across 75+ languages with two-pass entity & relationship extraction.",
+    cta: "Try DocIntel Sandbox",
+    ctaHref: "/try/docintel/",
   },
   {
     id: "enterprise",
-    name: "Enterprise / Custom (self-hosted)",
-    price: "Custom",
-    quota: "Unlimited docs",
+    name: "Commercial & Enterprise (Self-Hosted / VPC)",
+    price: "Contact Us",
+    quota: "Custom / Unlimited",
     seats: "Unlimited workers",
     tagline:
-      "One commercial self-hosted tier in your VPC or air-gapped network. SharePoint, Confluence, and S3 connectors, custom ontologies, BYO LLM, and SLA-backed support.",
-    cta: "Talk to sales",
-    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20inquiry",
-    badge: "Commercial Self-Hosted",
+      "Deploy DocIntel in your own VPC, on-premise, or air-gapped network. Auto-commits entities, relationships, and chunks into Purple8 Hyper Graph to create vectors, graph nodes, and edges. Includes SharePoint, Confluence & S3 connectors, custom ontologies, BYO LLM, and SLA support.",
+    cta: "Contact Us",
+    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20Inquiry",
+    badge: "VPC · On-Prem · Air-Gapped",
+    highlight: true,
   },
   {
     id: "cloud",
-    name: "Cloud Graduated",
-    price: `$${DOCINTEL_CLOUD_BANDS[0].flatUsd}`,
-    priceUnit: "/mo + per page",
-    quota: "No page limit",
-    seats: "Hosted by Purple8",
+    name: "Managed Cloud & Marketplaces",
+    price: "Contact Us",
+    quota: "Custom volume",
+    seats: "Hosted or Marketplace",
     tagline:
-      "Hosted DocIntel. Pay the monthly access fee upfront, then pay for pages processed. The lower rate applies only to pages above the first band. No installation or Graph database required.",
-    cta: "View Cloud billing",
-    ctaHref: `/checkout/create-session?plan=${DOCINTEL_CLOUD_PLAN}`,
-    highlight: true,
+      "Managed DocIntel deployment or procurement via Red Hat, AWS, Azure, and GCP Marketplaces—tailored to your document volume and compliance requirements.",
+    cta: "Contact Us",
+    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Cloud%20%26%20Marketplace%20Inquiry",
   },
 ];
 

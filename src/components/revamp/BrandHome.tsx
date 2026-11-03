@@ -105,6 +105,13 @@ export default function BrandHome() {
             <span className="p8-beat text-[var(--p8-accent)]" style={{ animationDelay: "1.9s" }}>Real Impact.</span>
           </p>
 
+          <p className="mt-4 text-sm font-semibold tracking-wide text-[var(--p8-accent)] sm:text-base">
+            Built for AI, Operated by AI and Supervised by Humans.
+          </p>
+          <p className="mt-1.5 max-w-2xl text-xs tracking-wider text-[var(--p8-muted)] sm:text-sm">
+            Read · Remember · Reason · Answer · Run · Protect · Prove · One Engine built to solve complex problems.
+          </p>
+
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link href="/try/docintel/" className="rounded-full bg-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:opacity-90">
               Try DocIntel
@@ -112,6 +119,9 @@ export default function BrandHome() {
             <Link href="/try/graph/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
               Try Hyper Graph
             </Link>
+            <a href="mailto:sales@purple8.ai?subject=Purple8%20Inquiry" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold text-[var(--p8-fg)] hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
+              Contact Us
+            </a>
           </div>
 
           <div className="mt-12 flex flex-col items-center gap-3">

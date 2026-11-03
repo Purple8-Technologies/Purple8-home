@@ -13,25 +13,16 @@
 			"path": "../../../purple8-command-center"
 		},
 		{
-			"path": "../../../Purple8-KMS"
-		},
-		{
-			"path": "../../../Purple8-platform"
+			"path": "../../../purple8-company"
 		},
 		{
 			"path": "../../../Purple8- AI Architect"
 		},
 		{
-			"path": "../../../Purple8-chat"
+			"path": "../../../purple8-focus-agent"
 		},
 		{
-			"path": "../../../Purple8-intranet"
-		},
-		{
-			"path": "../../../purple8-aml-demo"
-		},
-		{
-			"path": "../../../purple8-sentinel"
+			"path": "../../../../../geoharvestai"
 		}
 	],
 	"settings": {}

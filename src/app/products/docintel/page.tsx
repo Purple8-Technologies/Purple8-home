@@ -7,7 +7,6 @@ import Differentiators from "@/components/revamp/Differentiators";
 import DocIntelFlow from "@/components/revamp/DocIntelFlow";
 import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
-import { DOCINTEL_CLOUD_BANDS, docIntelCloudBill } from "@/lib/pricing";
 
 export const metadata: Metadata = pageMetadata({
   title: "Purple8 DocIntel: any document, structured knowledge",
@@ -96,26 +95,18 @@ export default function DocIntelPage() {
       <Proofs proofs={proofs} />
 
       <section className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
-        <h2 className="text-3xl font-bold tracking-tight">Start free. Activate Cloud or Enterprise Self-Hosted when ready.</h2>
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Licensing &amp; Deployment</p>
+        <h2 className="mt-3 text-3xl font-bold tracking-tight">Evaluate in the Cloud Sandbox. License for Cloud, VPC, or Air-Gapped Production.</h2>
         <p className="mt-5 text-lg text-[var(--p8-muted)]">
-          <strong className="text-[var(--p8-fg)]">Cloud Graduated:</strong> ${DOCINTEL_CLOUD_BANDS[0].flatUsd}/month for access, plus ${DOCINTEL_CLOUD_BANDS[0].perPageUsd}/page
-          {" "}for the first {DOCINTEL_CLOUD_BANDS[0].upTo?.toLocaleString("en-US")} pages each month;
-          {" "}${DOCINTEL_CLOUD_BANDS[1].perPageUsd}/page above that.
-        </p>
-        <p className="mt-3 text-sm text-[var(--p8-muted)]">
-          Access is paid upfront; page usage is billed in arrears. The access fee is not usage credit.
-          {" "}For example, 10,000 pages costs ${docIntelCloudBill(10_000).toLocaleString("en-US")} before tax.
-          One subscription covers all your projects. No prepaid purchase is required or offered.
-        </p>
-        <p className="mt-4 text-sm text-[var(--p8-muted)]">
-          <strong className="text-[var(--p8-fg)]">Self-Hosted:</strong> Free Community edition (500 docs/month) for evaluation, or one commercial self-hosted tier — <strong className="text-[var(--p8-fg)]">Enterprise / Custom</strong> — for unlimited in-network processing.
+          Test DocIntel immediately in the interactive Cloud Sandbox or connect your AI agent directly over MCP (<code className="text-sm">/mcp</code>).
+          When turning unstructured documents or text into semantic vectors, graph nodes, and relationships in <strong className="text-[var(--p8-fg)]">Purple8 Hyper Graph</strong>—or running standalone document extraction at enterprise scale—contact us for Commercial, Enterprise, or Cloud Marketplace licensing (<strong className="text-[var(--p8-fg)]">Red Hat, AWS, Azure &amp; GCP</strong>).
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-          <DocIntelWorkspaceLink view="billing" className="inline-block rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
-            View Cloud billing
+          <DocIntelWorkspaceLink view="playground" className="inline-block rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
+            Try DocIntel Sandbox
           </DocIntelWorkspaceLink>
-          <a href="mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20%2F%20Custom" className="inline-block rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
-            Self-Hosted Enterprise / Custom
+          <a href="mailto:sales@purple8.ai?subject=Purple8%20DocIntel%20Licensing%20Inquiry" className="inline-block rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
+            Contact Us →
           </a>
         </div>
       </section>

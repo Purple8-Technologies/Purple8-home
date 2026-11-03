@@ -5,9 +5,9 @@ import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Purple8 Hyper Graph — AI-Native Embedded Backend",
+  title: "Purple8 Hyper Graph — AI-Native Execution Infrastructure",
   description:
-    `Graph + vector + document + full-text + agentic process automation in one process. AI agents orchestrate end-to-end workflows via ${F.mcpTools} MCP tools. Replaces 20+ services. Self-hosted. pip install purple8-hyper-graph.`,
+    `Graph + vector + document + full-text + agentic process automation in one process. AI agents orchestrate end-to-end workflows via ${F.mcpTools} MCP tools. Built for AI, Operated by AI and Supervised by Humans.`,
   path: "/products/purple8",
 });
 
@@ -17,19 +17,19 @@ const jsonLd = {
   name: "Purple8 Hyper Graph",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Linux, macOS, Windows, Docker",
-  description: "AI-native embedded multi-model database — graph, vector, document store, full-text search, workflow engine, RAG, auth, and encryption in a single process. MCP-native with 82 agent tools.",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD", description: "pip install purple8-hyper-graph" },
+  description: "AI-native multi-model execution engine — graph, vector, document store, full-text search, workflow engine, RAG, auth, encryption, and autonomous SOC in a single container.",
+  offers: { "@type": "Offer", priceCurrency: "USD", description: "Contact sales@purple8.ai for licensing" },
   url: "https://www.purple8.ai/products/purple8/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
-  featureList: ["Property graph engine", "HNSW vector search", "Hybrid RAG", "Journey Engine workflow orchestration", "AES-256-GCM encryption", `MCP server with ${F.mcpTools} tools`, "Quantum-inspired optimisation (QUBO, VRP, scheduling)", "Multi-tenant storage", "REST API"],
+  featureList: ["Property graph engine", "Vector search", "Hybrid RAG", "Journey Engine workflow orchestration", "AES-256-GCM encryption", `MCP server with ${F.mcpTools} tools`, "Quantum-inspired optimisation (QUBO, VRP, scheduling)", "Multi-tenant storage", "REST API"],
 };
 
 const capabilities = [
-  { icon: "🕸️", label: "Property Graph", desc: "openCypher query engine. Nodes, edges, properties — full graph traversal." },
-  { icon: "🔍", label: "Vector Search", desc: "HNSW index built in. Hybrid BM25+vector RAG out of the box." },
-  { icon: "📄", label: "Document Store", desc: "Store and retrieve structured documents with full-text search." },
+  { icon: "🕸️", label: "Property & Hyper Graph", desc: "openCypher query engine. Nodes, edges, properties — sub-millisecond multi-hop traversal." },
+  { icon: "🔍", label: "Semantic & Hybrid Search", desc: "Native vector + full-text + graph hybrid RAG out of the box." },
+  { icon: "📄", label: "Document Store", desc: "Store and retrieve structured documents with full-text search. Pair with DocIntel to extract vectors, nodes & relations." },
   { icon: "🔄", label: "Journey Engine", desc: "Multi-stage workflow orchestration with HITL gates and SLA enforcement." },
-  { icon: "🤖", label: "82 MCP Tools", desc: "AI agents connect directly. Claude, Cursor, Copilot, ChatGPT — all supported." },
+  { icon: "🤖", label: `${F.mcpTools} MCP Tools`, desc: "AI agents connect directly. Claude, Cursor, Copilot, ChatGPT — all supported." },
   { icon: "⚛️", label: "Quantum-Inspired AI", desc: "QUBO optimisation, VRP, portfolio selection, tensor networks — callable by agents via MCP." },
   { icon: "🔐", label: "Auth & Encryption", desc: "JWT + API-key RBAC. AES-256-GCM envelope encryption at rest." },
   { icon: "🏢", label: "Multi-Tenancy", desc: "Shared-key or dedicated DB path per tenant — no schema per tenant." },
@@ -74,21 +74,20 @@ export default function HyperGraphPage() {
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
-                href="/register/"
+                href="/try/graph/"
                 className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500"
               >
-                Start free
+                Try Cloud Sandbox
               </a>
               <a
-                href="/quickstart/"
+                href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Inquiry"
                 className="text-base font-semibold text-zinc-300 transition-colors hover:text-white"
               >
-                Quickstart guide →
+                Contact Us →
               </a>
             </div>
             <p className="mt-4 text-sm text-zinc-500">
-              <code className="rounded bg-zinc-900 px-2 py-0.5 text-purple-300">pip install purple8-hyper-graph</code>
-              {" "}· Docker image available
+              Built for AI, Operated by AI and Supervised by Humans · Container &amp; Cloud Sandbox
             </p>
           </div>
         </section>

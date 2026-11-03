@@ -34,10 +34,13 @@ export default function HyperGraphPage() {
           Infrastructure that enables AI systems to autonomously build, execute and operate applications, with native intelligence, adaptive computing and human-supervised governance.
         </p>
         <p className="mx-auto mt-4 text-base font-semibold tracking-wide text-[var(--p8-accent)]">
-          Built for AI. Operated by AI. Supervised by Humans.
+          Built for AI, Operated by AI and Supervised by Humans.
+        </p>
+        <p className="mx-auto mt-2 text-xs font-medium tracking-wider text-[var(--p8-muted)] sm:text-sm">
+          Read · Remember · Reason · Answer · Run · Protect · Prove · One Engine built to solve complex problems.
         </p>
         <p className="mx-auto mt-3 max-w-2xl text-sm text-[var(--p8-muted)]">
-          One in-process engine replacing your database, vector store, knowledge graph, workflow orchestrator, and security layer.
+          One in-process engine replacing your database, vector store, knowledge graph, workflow orchestrator, and security layer. Pair with <a href="/products/docintel/" className="font-semibold text-[var(--p8-accent)] hover:underline">Purple8 DocIntel</a> to turn unstructured documents and text into semantic vectors, graph nodes, and relationships.
         </p>
         <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
           <a href="/try/graph/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
@@ -58,20 +61,20 @@ export default function HyperGraphPage() {
       <Differentiators />
       <Numbers />
 
-      {/* Self-hosted pricing philosophy */}
+      {/* Licensing philosophy */}
       <section className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
-        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Self-Hosted Licensing</p>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight">Start free. One commercial self-hosted tier: Enterprise / Custom.</h2>
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Licensing &amp; Deployment</p>
+        <h2 className="mt-3 text-3xl font-bold tracking-tight">Evaluate in the Cloud Sandbox. License for VPC, On-Premise &amp; Air-Gapped Production.</h2>
         <p className="mt-5 text-lg text-[var(--p8-muted)]">
-          Build and prototype locally for free with the Developer edition (up to 50K nodes, all {features.length > 0 ? "120+ MCP tools" : "MCP tools"}, RAG pipelines, and Journey workflows).
-          When you deploy to production in your own VPC, on-premise, or air-gapped infrastructure, there is only one commercial self-hosted tier: <strong className="text-[var(--p8-fg)]">Enterprise / Custom</strong>, tailored to your capacity, HA, and compliance needs.
+          Start immediately in the free Cloud Sandbox with all {features.length > 0 ? "125+ MCP tools" : "MCP tools"}, hybrid GraphRAG pipelines, and Journey workflows.
+          For commercial, enterprise, multi-cluster HA, or OEM deployments across your own VPC, on-premise, or air-gapped infrastructure—available directly and expanding across <strong className="text-[var(--p8-fg)]">Red Hat, AWS, Azure &amp; GCP Marketplaces</strong>—contact our team.
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href="/register/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
-            Download Developer Free
+          <a href="/try/graph/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
+            Try Cloud Sandbox
           </a>
-          <a href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Enterprise%20%2F%20Custom%20inquiry" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
-            Talk to sales: Enterprise / Custom
+          <a href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Licensing%20Inquiry" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
+            Contact Us →
           </a>
         </div>
       </section>

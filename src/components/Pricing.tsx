@@ -2,14 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { CC_BASE_URL } from "@/lib/cc";
 import {
   GRAPH_TIERS,
   DOCINTEL_TIERS,
-  DOCINTEL_CLOUD_BANDS,
-  docIntelCloudBill,
   priceLabel,
-  type GraphTierId,
   type BillingCycle,
 } from "@/lib/pricing";
 import { FACTS as F } from "@/lib/facts";
@@ -128,33 +124,9 @@ function Cell({ value, highlight }: { value: boolean | string; highlight: boolea
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Pricing() {
-  const [billing, setBilling] = useState<BillingCycle>("monthly");
+  const [billing] = useState<BillingCycle>("annual");
   const [product, setProduct] = useState<ProductTab>("graph");
   const [tableOpen, setTableOpen] = useState(false);
-  const [loadingPlan, setLoadingPlan] = useState<GraphTierId | null>(null);
-
-  async function handleCheckout(planId: GraphTierId) {
-    if (loadingPlan) return;
-    setLoadingPlan(planId);
-    try {
-      const res = await fetch(`${CC_BASE_URL}/billing/checkout/create-session`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan: planId, billing }),
-      });
-      if (!res.ok) throw new Error(await res.text());
-      const data = await res.json();
-      const checkoutUrl = data?.checkout_url ?? data?.redirect_url;
-      if (!checkoutUrl || typeof checkoutUrl !== "string") {
-        throw new Error("Checkout URL missing from billing service response.");
-      }
-      window.location.href = checkoutUrl;
-    } catch {
-      window.location.href = `mailto:sales@purple8.ai?subject=Checkout%20issue%20(${planId})`;
-    } finally {
-      setLoadingPlan(null);
-    }
-  }
 
   return (
     <section id="pricing" className="py-24 sm:py-32">
@@ -162,28 +134,26 @@ export default function Pricing() {
         {/* ── Header ── */}
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
-            Pricing
+            Licensing &amp; Deployment
           </p>
           <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            Start free. One commercial self-hosted tier: Enterprise / Custom.
+            Evaluate in the Cloud Sandbox. License for VPC, On-Premise &amp; Marketplaces.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
             {product === "docintel" ? (
-              "Choose Community (free) or Enterprise / Custom for self-hosting, or Cloud Graduated for managed document processing."
+              "Evaluate Purple8 DocIntel in our interactive Cloud Sandbox or over MCP, and contact us for Commercial, Enterprise, VPC, Air-Gapped, or Cloud Marketplace licensing."
             ) : (
-              <>Self-hosted — runs in your own infrastructure, nothing leaves your
-            environment. Build and prototype for free with the{" "}
-            <span className="text-zinc-300">Developer edition</span>, and move to{" "}
-            <span className="text-zinc-300">Enterprise / Custom</span> when you
-            deploy in production.</>
+              <>Built for AI, Operated by AI and Supervised by Humans. Start immediately in the{" "}
+            <span className="text-zinc-300">Cloud Sandbox</span>, and contact our team for{" "}
+            <span className="text-zinc-300">Commercial, Enterprise, or OEM licensing</span> across VPC, on-premise, air-gapped, and Cloud Marketplaces (<span className="text-zinc-300">Red Hat, AWS, Azure &amp; GCP</span>).</>
             )}
           </p>
 
           {/* Product tabs */}
           <div className="mt-8 inline-flex items-center gap-1 rounded-full border border-zinc-800 bg-zinc-900/60 p-1">
             {([
-              { id: "graph", label: "Purple8" },
-              { id: "docintel", label: "DocIntel" },
+              { id: "graph", label: "Purple8 Hyper Graph" },
+              { id: "docintel", label: "Purple8 DocIntel" },
             ] as { id: ProductTab; label: string }[]).map((tab) => (
               <button
                 key={tab.id}
@@ -228,8 +198,8 @@ export default function Pricing() {
                     {p.note && <p className="mt-0.5 text-xs text-zinc-400">{p.note}</p>}
 
                     <p className="mt-2 text-xs font-medium text-purple-400">
-                      {tier.nodesLabel} nodes ·{" "}
-                      {tier.agents === null ? "Unlimited agents" : `${tier.agents} MCP agent${tier.agents > 1 ? "s" : ""}`}
+                      {tier.nodesLabel} ·{" "}
+                      {tier.agents === null ? "Unlimited MCP agents" : "Interactive Browser + MCP"}
                     </p>
 
                     <p className="mt-3 flex-1 text-xs leading-relaxed text-zinc-400">
@@ -238,30 +208,18 @@ export default function Pricing() {
 
                     {tier.id === "developer" ? (
                       <Link
-                        href="/register/"
+                        href="/try/graph/"
                         className="mt-6 block rounded-full border border-purple-800/60 px-4 py-2.5 text-center text-sm font-semibold text-purple-300 transition-colors hover:border-purple-600 hover:text-white"
                       >
                         {tier.cta}
                       </Link>
-                    ) : tier.id === "enterprise" ? (
+                    ) : (
                       <a
-                        href="mailto:sales@purple8.ai?subject=Enterprise%20license%20inquiry"
+                        href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Licensing%20Inquiry"
                         className="mt-6 block rounded-full bg-purple-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-purple-500"
                       >
                         {tier.cta}
                       </a>
-                    ) : (
-                      <button
-                        onClick={() => handleCheckout(tier.id)}
-                        disabled={loadingPlan !== null}
-                        className={`mt-6 w-full rounded-full px-4 py-2 text-center text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
-                          tier.highlight
-                            ? "bg-purple-600 text-white hover:bg-purple-500"
-                            : "border border-purple-800/60 text-purple-300 hover:border-purple-600 hover:text-white"
-                        }`}
-                      >
-                        {loadingPlan === tier.id ? "Redirecting…" : tier.cta}
-                      </button>
                     )}
                   </div>
                 );
@@ -271,17 +229,14 @@ export default function Pricing() {
             {/* Reinforce the core message */}
             <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-4 text-center">
               <p className="text-sm text-zinc-300">
-                <span className="font-semibold text-purple-300">No artificial middle tiers for self-hosted.</span>{" "}
-                Prototype locally for free with Developer, or deploy in production with Enterprise / Custom tailored to your hardware, cluster topology, and SLA.
+                <span className="font-semibold text-purple-300">Tailored to your architecture &amp; compliance requirements.</span>{" "}
+                Whether deploying a single commercial cluster, a multi-market regulated Enterprise ELA, or embedding Purple8 as an OEM partner, contact our team for a custom deployment proposal.
               </p>
             </div>
 
             <p className="mt-6 text-center text-xs text-zinc-400">
-              Not sure which one?{" "}
-              <a href="#calculator" className="text-purple-400 hover:text-purple-300">
-                Use the tier finder ↑
-              </a>{" "}
-              · Enterprise / Custom is available directly and via Red Hat, AWS, GCP &amp; Azure Marketplace.
+              Available via direct enterprise license and expanding across{" "}
+              <span className="text-purple-400">Red Hat, AWS, Azure &amp; GCP Marketplaces</span>.
             </p>
           </>
         ) : (
@@ -306,9 +261,6 @@ export default function Pricing() {
 
                   <div className="mt-4 flex items-baseline gap-1">
                     <span className="text-3xl font-extrabold text-white">{tier.price}</span>
-                    {tier.price !== "Custom" && tier.price !== "$0" && (
-                      <span className="text-sm text-zinc-400">{tier.priceUnit ?? "/mo"}</span>
-                    )}
                   </div>
 
                   <p className="mt-2 text-xs font-medium text-purple-400">
@@ -342,43 +294,12 @@ export default function Pricing() {
               ))}
             </div>
 
-            {/* DocIntel Cloud bands — mirrors the Stripe price (lib/pricing.ts) */}
-            <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-5">
-              <p className="text-center text-sm font-semibold text-purple-300">
-                Cloud pricing — monthly access plus graduated page usage
+            <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-purple-900/40 bg-purple-950/20 px-6 py-5 text-center">
+              <p className="text-sm font-semibold text-purple-300">
+                Turning Unstructured Documents into Vectors, Graph Nodes &amp; Relationships
               </p>
-              <table className="mx-auto mt-4 w-full max-w-xl text-xs">
-                <thead>
-                  <tr className="text-zinc-400">
-                    <th className="py-1 text-left font-medium">Pages / month</th>
-                    <th className="py-1 text-right font-medium">Access fee</th>
-                    <th className="py-1 text-right font-medium">Per page</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {DOCINTEL_CLOUD_BANDS.map((b, i) => {
-                    const from = i === 0 ? 1 : (DOCINTEL_CLOUD_BANDS[i - 1].upTo ?? 0) + 1;
-                    return (
-                      <tr key={from} className="border-t border-zinc-800/60 text-zinc-300">
-                        <td className="py-1.5">
-                          {b.upTo === null
-                            ? `${from.toLocaleString("en-US")}+`
-                            : `${from.toLocaleString("en-US")} – ${b.upTo.toLocaleString("en-US")}`}
-                        </td>
-                        <td className="py-1.5 text-right">${b.flatUsd}</td>
-                        <td className="py-1.5 text-right">${b.perPageUsd}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <p className="mt-3 text-center text-xs text-zinc-400">
-                Example: 10,000 pages = ${docIntelCloudBill(10_000).toLocaleString("en-US")} ·
-                50,000 pages = ${docIntelCloudBill(50_000).toLocaleString("en-US")}. Billed monthly
-                usage in arrears; the access fee is paid upfront. Prices exclude tax.
-              </p>
-              <p className="mt-3 text-center text-xs text-zinc-400">
-                The separate $0.03/page prepaid option is not available for activation yet.
+              <p className="mt-2 text-xs leading-relaxed text-zinc-300">
+                Pair <strong className="text-white">Purple8 DocIntel</strong> with <strong className="text-white">Purple8 Hyper Graph</strong> to automatically parse 70+ document formats across 75+ languages, extract domain entities and relationships, and commit them directly into Hyper Graph as semantic vectors and connected graph topology. Contact us to size a deployment for your team.
               </p>
             </div>
           </>

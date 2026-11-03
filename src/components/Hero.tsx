@@ -42,16 +42,16 @@ export default function Hero() {
 
           <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <a
-              href="/register/"
+              href="/try/graph/"
               className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500"
             >
-              Start free — Developer edition
+              Try Cloud Sandbox
             </a>
             <a
-              href="#calculator"
+              href="mailto:sales@purple8.ai?subject=Purple8%20Inquiry"
               className="group inline-flex items-center gap-1.5 text-base font-semibold text-zinc-300 transition-colors hover:text-white"
             >
-              Find your tier
+              Contact Us
               <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </a>
           </div>

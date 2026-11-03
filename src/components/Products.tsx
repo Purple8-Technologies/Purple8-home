@@ -117,10 +117,9 @@ export default function Products({
               <p className="mt-1 text-sm text-zinc-400">A category of one</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                A unified AI-native backend — storage, vector search, document store,
-                full-text, workflow orchestration, RAG, auth, and encryption in a single
-                process. No JVM. No external services. Docker image and pip wheel
-                available.
+                A unified AI-native execution engine — storage, vector search, document store,
+                full-text, workflow orchestration, RAG, auth, encryption, and autonomous SOC in a single
+                container. Built for AI, Operated by AI and Supervised by Humans.
               </p>
 
               {/* Capability badges */}
@@ -138,11 +137,11 @@ export default function Products({
               <FeatureList items={hyperItems} />
 
               <div className="mt-8 flex items-center gap-4">
-                <a href="/register/" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
-                  Start Free (Developer)
+                <a href="/try/graph/" className="rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500">
+                  Try Cloud Sandbox
                 </a>
-                <a href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Enterprise%20%2F%20Custom" className="text-sm font-semibold text-purple-400 hover:text-purple-300">
-                  Self-Hosted Enterprise / Custom →
+                <a href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Licensing%20Inquiry" className="text-sm font-semibold text-purple-400 hover:text-purple-300">
+                  Contact Us →
                 </a>
               </div>
             </div>

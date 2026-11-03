@@ -53,14 +53,20 @@ const CURL_MCP = `curl -X POST http://localhost:8100/mcp \\
     }
   }'`;
 
-const CLAUDE_CODE_CMD = `claude mcp add purple8 --transport http http://localhost:8100/mcp \\
+const CLAUDE_CODE_CMD = `claude mcp add purple8 --transport http "http://localhost:8100/mcp?profile=starter" \\
   --header "X-API-Key: YOUR_API_KEY"`;
 
 const CLAUDE_DESKTOP_CFG = `{
   "mcpServers": {
     "purple8-graph": {
-      "command": "purple8-hyper-graph",
-      "args": ["mcp-server", "--url", "http://localhost:8100", "--api-key", "YOUR_API_KEY"]
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "http://localhost:8100/mcp?profile=starter",
+        "--header",
+        "X-API-Key:YOUR_API_KEY"
+      ]
     }
   }
 }`;
@@ -68,7 +74,7 @@ const CLAUDE_DESKTOP_CFG = `{
 const CURSOR_CFG = `{
   "mcpServers": {
     "purple8-graph": {
-      "url": "http://localhost:8100/mcp",
+      "url": "http://localhost:8100/mcp?profile=starter",
       "headers": { "X-API-Key": "YOUR_API_KEY" }
     }
   }
@@ -78,15 +84,15 @@ const VSCODE_CFG = `{
   "servers": {
     "purple8-graph": {
       "type": "http",
-      "url": "http://localhost:8100/mcp",
+      "url": "http://localhost:8100/mcp?profile=starter",
       "headers": { "X-API-Key": "YOUR_API_KEY" }
     }
   }
 }`;
 
 const CODEX_CFG = `[mcp_servers.purple8]
-command = "purple8-hyper-graph"
-args = ["mcp-server", "--url", "http://localhost:8100", "--api-key", "YOUR_API_KEY"]`;
+url = "http://localhost:8100/mcp?profile=starter"
+http_headers = { "X-API-Key" = "YOUR_API_KEY" }`;
 
 function CommandBlock({ code }: { code: string }) {
   return (
@@ -419,13 +425,11 @@ export default function QuickstartPage() {
                 Option C — Claude Desktop
               </p>
               <p className="text-sm text-gray-400 mb-3">
-                Claude Desktop&rsquo;s{" "}
-                <code className="text-purple-200">claude_desktop_config.json</code>{" "}
-                only launches local commands, so use the bundled stdio bridge
-                (<code className="text-purple-200">pip install &apos;purple8-hyper-graph[mcp]&apos;</code>)
-                and restart Claude Desktop. For a hosted instance, use{" "}
+                Connect Claude Desktop to your running container or Cloud Sandbox using{" "}
+                <code className="text-purple-200">mcp-remote</code> in{" "}
+                <code className="text-purple-200">claude_desktop_config.json</code>, or use{" "}
                 <strong className="text-gray-400">Settings → Connectors → Add custom connector</strong>{" "}
-                with your <code className="text-purple-200">https://&lt;host&gt;/mcp</code> URL instead.
+                with your <code className="text-purple-200">https://&lt;host&gt;/mcp?profile=starter</code> URL.
               </p>
               <div className="mb-2 rounded-md bg-[#0d0d16] border border-gray-800 px-3 py-2 text-xs text-gray-500">
                 <span className="font-semibold text-gray-400">macOS: </span>
