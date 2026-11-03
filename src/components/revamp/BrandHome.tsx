@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
-import NvidiaInceptionBadge, { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/NvidiaInceptionBadge";
-import RedHatPartnerBadge, { REDHAT_LEGAL_ATTRIBUTION } from "@/components/RedHatPartnerBadge";
+import NvidiaInceptionBadge from "@/components/NvidiaInceptionBadge";
+import RedHatPartnerBadge from "@/components/RedHatPartnerBadge";
 import SiteHeader from "@/components/revamp/SiteHeader";
+import Footer from "@/components/Footer";
 
 type Theme = "day" | "night";
 
@@ -137,11 +138,7 @@ export default function BrandHome() {
       </main>
 
 
-      <footer className="border-t border-[var(--p8-border)] px-4 py-8 text-center text-xs text-[var(--p8-muted)]">
-        <p>© 2026 Purple8 Inc. All rights reserved.</p>
-        <p className="mt-1.5 text-[11px] opacity-80">{NVIDIA_LEGAL_ATTRIBUTION}</p>
-        <p className="mt-1 text-[11px] opacity-80">{REDHAT_LEGAL_ATTRIBUTION}</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

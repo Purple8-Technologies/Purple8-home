@@ -3,89 +3,82 @@ import NvidiaInceptionBadge, { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/Nvi
 import RedHatPartnerBadge, { REDHAT_LEGAL_ATTRIBUTION } from "@/components/RedHatPartnerBadge";
 
 const productLinks = [
-  { label: "Purple8 Hyper Graph", href: "/products/hyper-graph/", comingSoon: false },
-  { label: "Purple8 DocIntel", href: "/products/docintel/", comingSoon: false },
+  { label: "Purple8 Hyper Graph", href: "/products/hyper-graph/" },
+  { label: "Purple8 DocIntel", href: "/products/docintel/" },
+  { label: "Architecture", href: "/architecture/" },
+  { label: "Features", href: "/features/" },
+  { label: "Industries", href: "/industries/" },
+  { label: "Benchmarks", href: "/benchmarks/" },
 ];
 
-const companyLinks = [
-  { label: "About", href: "/about" },
-  { label: "Careers", href: "/careers" },
-  { label: "Support", href: "/support" },
-  { label: "Contact", href: "mailto:hello@purple8.ai" },
+const solutionLinks = [
+  { label: "Agentic Process Automation", href: "/products/purple8/agentic-process-automation/" },
+  { label: "Workflow Orchestration", href: "/products/purple8/workflow-orchestration/" },
+  { label: "GraphRAG & RAG Pipeline", href: "/products/purple8/rag-pipeline/" },
+  { label: "Multi-Agent Systems", href: "/products/purple8/multi-agent-systems/" },
+  { label: "Financial Crime Intelligence", href: "/products/purple8/financial-crime-intelligence/" },
+  { label: "M&A Due Diligence", href: "/products/purple8/ma-due-diligence/" },
+  { label: "Medical Research", href: "/products/purple8/medical-research/" },
+  { label: "Quantum-Inspired Optimisation", href: "/products/purple8/quantum-optimisation/" },
+  { label: "All Solutions →", href: "/solutions/" },
 ];
 
 const resourceLinks = [
-  { label: "Blog", href: "/blog" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Demo video", href: null, comingSoon: true },
-  { label: "Quickstart", href: "/quickstart" },
+  { label: "Hyper Graph Docs ↗", href: "https://docs.graph.purple8.ai", external: true },
+  { label: "DocIntel Docs ↗", href: "https://docs.docintel.purple8.ai", external: true },
+  { label: "Developers & Quickstart", href: "/quickstart/" },
+  { label: "Case Studies", href: "/case-studies/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Changelog", href: "/changelog/" },
+];
+
+const companyLinks = [
+  { label: "About", href: "/about/" },
+  { label: "Careers", href: "/careers/" },
+  { label: "Support", href: "/support/" },
+  { label: "Licensing", href: "/pricing/" },
+  { label: "Contact Us", href: "mailto:sales@purple8.ai?subject=Purple8%20Inquiry" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-purple-900/30 bg-[#0a0a0f]/70">
+    <footer className="border-t border-[var(--p8-border,#2e1065)] bg-[var(--p8-surface,#0a0a0f)] text-[var(--p8-fg,#f4f4f5)]">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand */}
           <div className="lg:col-span-2">
             <a href="/" className="flex items-center gap-2.5">
               <Purple8Logo className="h-8 w-16" />
-              <span className="text-sm font-semibold tracking-tight text-white">
-                Purple<span className="text-purple-400">8</span>
+              <span className="text-sm font-semibold tracking-tight">
+                Purple<span className="text-[var(--p8-accent,#a855f7)]">8</span>
               </span>
             </a>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-zinc-400">
-              AI infrastructure software for enterprises and developers — deploy
-              anywhere, no external dependencies.
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-[var(--p8-muted,#a1a1aa)]">
+              AI-Native Execution Infrastructure. Built for AI, Operated by AI and Supervised by Humans.
             </p>
-            <p className="mt-4 text-xs text-zinc-400">
-              Purple8 Inc. · NVIDIA Inception program member &amp; Red Hat Technology Partner
+            <p className="mt-2 max-w-xs text-xs text-[var(--p8-muted,#a1a1aa)]">
+              Read · Remember · Reason · Answer · Run · Protect · Prove
+            </p>
+            <p className="mt-4 text-xs text-[var(--p8-muted,#a1a1aa)]">
+              Purple8 Inc. is a member of the NVIDIA Inception program and a Red Hat Technology Partner
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <NvidiaInceptionBadge className="h-11" variant="dark" />
-              <RedHatPartnerBadge className="h-11" variant="dark" />
+              <NvidiaInceptionBadge className="h-11" variant="auto" />
+              <RedHatPartnerBadge className="h-11" variant="auto" />
             </div>
           </div>
 
           {/* Products */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-              Products
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-[var(--p8-muted,#a1a1aa)]">
+              Products &amp; Platform
             </h4>
             <ul className="mt-4 space-y-2.5">
               {productLinks.map((l) => (
                 <li key={l.label}>
-                  {l.comingSoon || !l.href ? (
-                    <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
-                      {l.label}
-                      <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
-                        Coming soon
-                      </span>
-                    </span>
-                  ) : (
-                    <a
-                      href={l.href}
-                      className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
-                    >
-                      {l.label}
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-              Company
-            </h4>
-            <ul className="mt-4 space-y-2.5">
-              {companyLinks.map((l) => (
-                <li key={l.label}>
                   <a
                     href={l.href}
-                    className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
+                    className="text-sm text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
                   >
                     {l.label}
                   </a>
@@ -94,29 +87,60 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Solutions */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-              Resources
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-[var(--p8-muted,#a1a1aa)]">
+              Solutions
+            </h4>
+            <ul className="mt-4 space-y-2.5">
+              {solutionLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    className="text-sm text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Docs & Resources */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-[var(--p8-muted,#a1a1aa)]">
+              Docs &amp; Resources
             </h4>
             <ul className="mt-4 space-y-2.5">
               {resourceLinks.map((l) => (
                 <li key={l.label}>
-                  {l.comingSoon || !l.href ? (
-                    <span className="inline-flex items-center gap-2 text-sm text-zinc-400">
-                      {l.label}
-                      <span className="rounded-full border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400">
-                        Coming soon
-                      </span>
-                    </span>
-                  ) : (
-                    <a
-                      href={l.href}
-                      className="text-sm text-zinc-400 transition-colors hover:text-purple-400"
-                    >
-                      {l.label}
-                    </a>
-                  )}
+                  <a
+                    href={l.href}
+                    target={l.external ? "_blank" : undefined}
+                    rel={l.external ? "noopener noreferrer" : undefined}
+                    className="text-sm text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-[var(--p8-muted,#a1a1aa)]">
+              Company
+            </h4>
+            <ul className="mt-4 space-y-2.5">
+              {companyLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    className="text-sm text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
+                  >
+                    {l.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -124,31 +148,42 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-zinc-900 pt-8 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[var(--p8-border,#27272a)] pt-8 sm:flex-row">
           <div>
-            <p className="text-xs text-zinc-400">
-              © {new Date().getFullYear()} Purple8 Inc. All rights
-              reserved.
+            <p className="text-xs text-[var(--p8-muted,#a1a1aa)]">
+              © {new Date().getFullYear()} Purple8 Inc. All rights reserved.
             </p>
-            <p className="mt-1 text-[11px] text-zinc-500">
+            <p className="mt-1 text-[11px] text-[var(--p8-muted,#a1a1aa)] opacity-80">
               {NVIDIA_LEGAL_ATTRIBUTION}
             </p>
-            <p className="mt-0.5 text-[11px] text-zinc-500">
+            <p className="mt-0.5 text-[11px] text-[var(--p8-muted,#a1a1aa)] opacity-80">
               {REDHAT_LEGAL_ATTRIBUTION}
             </p>
           </div>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-6">
             <a
-              href="/legal/privacy"
-              className="text-xs text-zinc-400 transition-colors hover:text-purple-400"
+              href="/legal/privacy/"
+              className="text-xs text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
             >
               Privacy Policy
             </a>
             <a
-              href="/legal/terms"
-              className="text-xs text-zinc-400 transition-colors hover:text-purple-400"
+              href="/legal/terms/"
+              className="text-xs text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
             >
               Terms of Service
+            </a>
+            <a
+              href="/legal/eula/"
+              className="text-xs text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
+            >
+              EULA
+            </a>
+            <a
+              href="/legal/developer-agreement/"
+              className="text-xs text-[var(--p8-muted,#a1a1aa)] transition-colors hover:text-[var(--p8-accent,#a855f7)]"
+            >
+              Developer Agreement
             </a>
           </div>
         </div>

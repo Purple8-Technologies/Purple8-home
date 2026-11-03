@@ -21,11 +21,11 @@ const jsonLd = {
   offers: { "@type": "Offer", priceCurrency: "USD", description: "Contact sales@purple8.ai for licensing" },
   url: "https://www.purple8.ai/products/purple8/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
-  featureList: ["Property graph engine", "Vector search", "Hybrid RAG", "Journey Engine workflow orchestration", "AES-256-GCM encryption", `MCP server with ${F.mcpTools} tools`, "Quantum-inspired optimisation (QUBO, VRP, scheduling)", "Multi-tenant storage", "REST API"],
+  featureList: ["LPG (Property Graph) & RDF semantic triple engine", "Vector search", "Hybrid RAG", "Journey Engine workflow orchestration", "AES-256-GCM encryption", `MCP server with ${F.mcpTools} tools`, "Quantum-inspired optimisation (QUBO, VRP, scheduling)", "Multi-tenant storage", "REST API"],
 };
 
 const capabilities = [
-  { icon: "🕸️", label: "Property & Hyper Graph", desc: "openCypher query engine. Nodes, edges, properties — sub-millisecond multi-hop traversal." },
+  { icon: "🕸️", label: "LPG, RDF & Hyper Graph", desc: "Supports both Labeled Property Graph (LPG / openCypher) and RDF semantic triples / N-Quads with reification — sub-millisecond multi-hop traversal." },
   { icon: "🔍", label: "Semantic & Hybrid Search", desc: "Native vector + full-text + graph hybrid RAG out of the box." },
   { icon: "📄", label: "Document Store", desc: "Store and retrieve structured documents with full-text search. Pair with DocIntel to extract vectors, nodes & relations." },
   { icon: "🔄", label: "Journey Engine", desc: "Multi-stage workflow orchestration with HITL gates and SLA enforcement." },
@@ -78,6 +78,14 @@ export default function HyperGraphPage() {
                 className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500"
               >
                 Try Cloud Sandbox
+              </a>
+              <a
+                href="https://docs.graph.purple8.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-purple-700/60 px-6 py-3.5 text-base font-semibold text-purple-300 transition-colors hover:border-purple-500 hover:text-white"
+              >
+                Hyper Graph Docs ↗
               </a>
               <a
                 href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Inquiry"

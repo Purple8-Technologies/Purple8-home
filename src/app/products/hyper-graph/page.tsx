@@ -15,12 +15,12 @@ export const metadata: Metadata = pageMetadata({
 
 
 const features = [
-  { group: "Store and search", items: ["Graph, document and vector store", "Vector, full-text and hybrid search", "Graph RAG with self-tuning retrieval"] },
+  { group: "Store and search", items: ["LPG (Property), RDF (Semantic/N-Quads) & Hypergraph store", "openCypher & semantic triple queries + sub-ms multi-hop traversal", "Vector, full-text, hybrid search & self-tuning GraphRAG"] },
   { group: "Intelligence", items: ["Ranking, communities, centrality", "Paths and link prediction", "Optimisation engines"] },
   { group: "Workflow", items: ["Journeys with deadlines and SLAs", "Human approval gates", "Immutable audit trail"] },
   { group: "Security", items: ["Encryption at rest (AES-256-GCM)", "Roles, API keys, record-level access", "Multi-tenancy and PII masking"] },
   { group: "Operations", items: ["One process, one port", "Write-ahead log and crash recovery", "Cloud, on-premise or air-gapped"] },
-  { group: "Interfaces", items: ["MCP server for AI agents", "REST and GraphQL APIs", "Python SDK"] },
+  { group: "Interfaces", items: ["MCP server for AI agents", "REST and GraphQL APIs", "Python & TypeScript SDKs"] },
 ];
 
 export default function HyperGraphPage() {
@@ -45,6 +45,9 @@ export default function HyperGraphPage() {
         <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
           <a href="/try/graph/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
             Try Hyper Graph
+          </a>
+          <a href="https://docs.graph.purple8.ai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
+            Hyper Graph Docs ↗
           </a>
           <a href="#start" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
             All ways to start
