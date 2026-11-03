@@ -26,7 +26,7 @@ export default function CareersPage() {
             Build the backend that replaces the stack.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-zinc-400">
-            Purple8 is an embedded, AI-native backend — storage, vector search,
+            Purple8 is an embedded, AI-native backend - storage, vector search,
             RAG, workflows, auth, and encryption in a single process. We&apos;re a
             small, senior team shipping toward launch with a &ldquo;zero
             gaps&rdquo; quality bar. If you want deep ownership of a real systems

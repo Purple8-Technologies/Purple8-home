@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Scenario Simulation & What-If Analysis — Purple8 Hyper Graph",
+  title: "Scenario Simulation & What-If Analysis - Purple8 Hyper Graph",
   description:
-    "Run what-if simulations on any system modelled as a graph — supply chains, clinical pathways, financial portfolios, infrastructure networks. Clone, shock, optimise, compare. No separate simulation engine required.",
+    "Run what-if simulations on any system modelled as a graph - supply chains, clinical pathways, financial portfolios, infrastructure networks. Clone, shock, optimise, compare. No separate simulation engine required.",
   path: "/products/purple8/scenario-simulation",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Scenario Simulation & What-If Analysis — Purple8 Hyper Graph",
+  name: "Scenario Simulation & What-If Analysis - Purple8 Hyper Graph",
   description:
     "Purple8 Hyper Graph enables scenario simulation by combining graph cloning (multi-tenant isolation), graph algorithms (flow, centrality, shortest path), and quantum-inspired optimisation (VRP, scheduling, portfolio). Model a system, apply shocks, run solvers, compare outcomes.",
   url: "https://www.purple8.ai/products/purple8/scenario-simulation/",
@@ -35,7 +35,7 @@ const jsonLd = {
         name: "How does Purple8 enable scenario simulation?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Purple8 combines three capabilities: (1) multi-tenant graph isolation — clone your live graph into a simulation namespace with zero data copying; (2) graph algorithms — run max-flow, betweenness centrality, bridge detection, shortest path, and PageRank on the modified graph to measure the impact of changes; (3) quantum-inspired optimisation — re-solve VRP, scheduling, or portfolio allocation on the shocked graph to find new optima. Compare results across scenarios side by side.",
+          text: "Purple8 combines three capabilities: (1) multi-tenant graph isolation - clone your live graph into a simulation namespace with zero data copying; (2) graph algorithms - run max-flow, betweenness centrality, bridge detection, shortest path, and PageRank on the modified graph to measure the impact of changes; (3) quantum-inspired optimisation - re-solve VRP, scheduling, or portfolio allocation on the shocked graph to find new optima. Compare results across scenarios side by side.",
         },
       },
       {
@@ -51,7 +51,7 @@ const jsonLd = {
         name: "How does scenario cloning work?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Purple8's multi-tenant architecture (tenancy.py) isolates data by tenant prefix or dedicated DB path. To create a simulation scenario, you clone the live graph into a new tenant namespace, apply your hypothetical changes (remove nodes, modify edge weights, add new entities), then run your analysis. The live graph is untouched. Multiple scenarios can run in parallel — each in its own isolated namespace.",
+          text: "Purple8's multi-tenant architecture (tenancy.py) isolates data by tenant prefix or dedicated DB path. To create a simulation scenario, you clone the live graph into a new tenant namespace, apply your hypothetical changes (remove nodes, modify edge weights, add new entities), then run your analysis. The live graph is untouched. Multiple scenarios can run in parallel - each in its own isolated namespace.",
         },
       },
       {
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "What is the difference between simulation and what-if analysis in Purple8?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "What-if analysis applies a single change and measures the outcome — remove supplier X, what does flow analysis show? Simulation runs multiple scenarios in parallel, compares outcomes across them, and uses quantum-inspired optimisation to find the best response to each shock. The combination answers not just 'what happens if?' but 'what should we do if?'",
+          text: "What-if analysis applies a single change and measures the outcome - remove supplier X, what does flow analysis show? Simulation runs multiple scenarios in parallel, compares outcomes across them, and uses quantum-inspired optimisation to find the best response to each shock. The combination answers not just 'what happens if?' but 'what should we do if?'",
         },
       },
     ],
@@ -75,7 +75,7 @@ const howItWorks = [
   {
     step: "02",
     title: "Clone into a simulation namespace",
-    detail: "Multi-tenant isolation creates a snapshot of your live graph in a new namespace. Zero data copying — the clone is ready instantly. Run multiple scenarios in parallel, each isolated.",
+    detail: "Multi-tenant isolation creates a snapshot of your live graph in a new namespace. Zero data copying - the clone is ready instantly. Run multiple scenarios in parallel, each isolated.",
   },
   {
     step: "03",
@@ -108,7 +108,7 @@ const useCases = [
   {
     icon: "📊",
     title: "Portfolio stress testing",
-    desc: "Apply interest rate or sector shocks to your portfolio graph. Binary portfolio optimisation (quantum.portfolio) finds the optimal reallocation under the new constraints — not just sensitivity analysis, but actionable rebalancing.",
+    desc: "Apply interest rate or sector shocks to your portfolio graph. Binary portfolio optimisation (quantum.portfolio) finds the optimal reallocation under the new constraints - not just sensitivity analysis, but actionable rebalancing.",
   },
   {
     icon: "⚡",
@@ -118,7 +118,7 @@ const useCases = [
   {
     icon: "🏙️",
     title: "Urban planning & traffic modelling",
-    desc: "Model road networks as a graph. Close a road (remove an edge), run shortest-path and max-flow. MEP flow analysis from the AEC vertical shows how congestion redistributes — without simulation software.",
+    desc: "Model road networks as a graph. Close a road (remove an edge), run shortest-path and max-flow. MEP flow analysis from the AEC vertical shows how congestion redistributes - without simulation software.",
   },
   {
     icon: "💡",
@@ -128,11 +128,11 @@ const useCases = [
 ];
 
 const capabilities = [
-  { label: "Graph cloning", detail: "Multi-tenant namespace isolation — instant snapshot, zero copy" },
-  { label: "Max-flow / min-cut", detail: "Edmonds-Karp — measures capacity and bottlenecks under any topology" },
-  { label: "Bridge detection", detail: "Tarjan DFS — finds every single point of failure before it fails" },
+  { label: "Graph cloning", detail: "Multi-tenant namespace isolation - instant snapshot, zero copy" },
+  { label: "Max-flow / min-cut", detail: "Edmonds-Karp - measures capacity and bottlenecks under any topology" },
+  { label: "Bridge detection", detail: "Tarjan DFS - finds every single point of failure before it fails" },
   { label: "Betweenness centrality", detail: "Which nodes bear the most load? Who becomes critical after a shock?" },
-  { label: "Shortest path", detail: "Dijkstra weighted — re-route analysis after node/edge removal" },
+  { label: "Shortest path", detail: "Dijkstra weighted - re-route analysis after node/edge removal" },
   { label: "quantum.vrp", detail: "Re-optimise routing under new capacity and constraint landscape" },
   { label: "quantum.scheduling", detail: "Re-solve job/resource allocation under surge or shortage" },
   { label: "quantum.portfolio", detail: "Rebalance binary allocations under rate or sector shocks" },
@@ -278,7 +278,7 @@ export default function ScenarioSimulationPage() {
               </Link>
               <Link href="/products/purple8/opinion-engine/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-purple-700/50">
                 <p className="text-sm font-semibold text-purple-300 group-hover:text-purple-200">💡 Opinion Engine →</p>
-                <p className="mt-1 text-xs text-zinc-500">Simulate opinion propagation — what if this influencer changes position?</p>
+                <p className="mt-1 text-xs text-zinc-500">Simulate opinion propagation - what if this influencer changes position?</p>
               </Link>
               <Link href="/products/purple8/multi-agent-systems/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-purple-700/50">
                 <p className="text-sm font-semibold text-purple-300 group-hover:text-purple-200">🤖 Multi-Agent Systems →</p>

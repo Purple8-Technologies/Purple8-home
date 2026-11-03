@@ -1,5 +1,5 @@
 /**
- * pricing.ts — Single source of truth for Purple8 pricing + the tier calculator.
+ * pricing.ts - Single source of truth for Purple8 pricing + the tier calculator.
  *
  * Mirrors the simplified self-hosted model:
  *   - Developer (Free): full local engine up to 50K nodes for dev, testing & evaluation.
@@ -13,7 +13,7 @@
  */
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Purple8 (flagship) tiers — Self-Hosted: Developer (Free) + Enterprise / Custom
+// Purple8 (flagship) tiers - Self-Hosted: Developer (Free) + Enterprise / Custom
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type GraphTierId =
@@ -31,7 +31,7 @@ export interface GraphTier {
   priceMonthly: number | null;
   /** Annual monthly-equivalent in USD. null = custom. */
   priceAnnual: number | null;
-  /** Node capacity ceiling — used by the calculator to map an estimate → tier. */
+  /** Node capacity ceiling - used by the calculator to map an estimate → tier. */
   nodes: number;
   /** Human label for the capacity, e.g. "50K" or "Custom / Unlimited". */
   nodesLabel: string;
@@ -56,7 +56,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: 1,
     family: "free",
     tagline:
-      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox — connect Claude, Cursor, or Copilot over MCP (?profile=starter), run hybrid GraphRAG, and test stateful Journey workflows with HITL gates.",
+      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox - connect Claude, Cursor, or Copilot over MCP (?profile=starter), run hybrid GraphRAG, and test stateful Journey workflows with HITL gates.",
     cta: "Try Cloud Sandbox",
   },
   {
@@ -69,7 +69,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: null,
     family: "enterprise",
     tagline:
-      "Annual software licensing for VPC, on-premise, air-gapped, and OEM deployments — unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and SLA-backed support. Available directly and via Red Hat, AWS, Azure & GCP Marketplaces.",
+      "Annual software licensing for VPC, on-premise, air-gapped, and OEM deployments - unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and SLA-backed support. Available directly and via Red Hat, AWS, Azure & GCP Marketplaces.",
     cta: "Contact Us",
     highlight: true,
     badge: "VPC · On-Prem · Cloud Marketplaces",
@@ -109,7 +109,7 @@ export interface DocIntelTier {
 export const DOCINTEL_CLOUD_PLAN = "docintel-graduated";
 
 /**
- * DocIntel Cloud monthly bands — mirrors the Stripe price with lookup key
+ * DocIntel Cloud monthly bands - mirrors the Stripe price with lookup key
  * `docintel_graduated_access_monthly_v1` (access fee) and
  * `docintel_graduated_pages_monthly_v1` (graduated metered pages).
  * Stripe is the source of truth; update this table when the price changes.
@@ -173,7 +173,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     quota: "Custom volume",
     seats: "Hosted or Marketplace",
     tagline:
-      "Managed DocIntel deployment or procurement via Red Hat, AWS, Azure, and GCP Marketplaces—tailored to your document volume and compliance requirements.",
+      "Managed DocIntel deployment or procurement via Red Hat, AWS, Azure, and GCP Marketplaces - tailored to your document volume and compliance requirements.",
     cta: "Contact Us",
     ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Cloud%20%26%20Marketplace%20Inquiry",
   },
@@ -201,7 +201,7 @@ export function checkoutPlan(value: string): string | null {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Tier calculator — "what are you building?" → recommended tier
+// Tier calculator - "what are you building?" → recommended tier
 //
 // Users think in apps and customers, NOT nodes. We translate:
 //   estimatedNodes = baseNodes + totalUsers * nodesPerUser

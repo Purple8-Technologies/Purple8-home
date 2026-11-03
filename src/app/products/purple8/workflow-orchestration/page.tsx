@@ -5,18 +5,18 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Workflow Orchestration — Purple8 Hyper Graph",
+  title: "Workflow Orchestration - Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph ships workflow orchestration out of the box — stateful multi-stage pipelines, SLA enforcement, human-in-the-loop gates, event-driven triggers, and a full audit trail. No Airflow, no Temporal, no LangGraph. Just one process.",
+    "Purple8 Hyper Graph ships workflow orchestration out of the box - stateful multi-stage pipelines, SLA enforcement, human-in-the-loop gates, event-driven triggers, and a full audit trail. No Airflow, no Temporal, no LangGraph. Just one process.",
   path: "/products/purple8/workflow-orchestration",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Workflow Orchestration — Purple8 Hyper Graph",
+  name: "Workflow Orchestration - Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph provides production-grade workflow orchestration in-process: stateful stage machines, SLA monitoring, human-in-the-loop approval gates, CDC event triggers, and an immutable audit trail — all through journey.* MCP tools.",
+    "Purple8 Hyper Graph provides production-grade workflow orchestration in-process: stateful stage machines, SLA monitoring, human-in-the-loop approval gates, CDC event triggers, and an immutable audit trail - all through journey.* MCP tools.",
   url: "https://www.purple8.ai/products/purple8/workflow-orchestration/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
@@ -35,7 +35,7 @@ const jsonLd = {
         name: "How does workflow orchestration work in Purple8?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Purple8's Journey Engine is the workflow orchestration layer. You define a workflow as a set of stages with SLA policies and optional human-approval gates. Each workflow instance is stored as a graph node; every state transition becomes an immutable graph edge. AI agents or application code advance instances through stages by calling journey.* MCP tools — no DAG files, no YAML config, no separate scheduler process.",
+          text: "Purple8's Journey Engine is the workflow orchestration layer. You define a workflow as a set of stages with SLA policies and optional human-approval gates. Each workflow instance is stored as a graph node; every state transition becomes an immutable graph edge. AI agents or application code advance instances through stages by calling journey.* MCP tools - no DAG files, no YAML config, no separate scheduler process.",
         },
       },
       {
@@ -43,7 +43,7 @@ const jsonLd = {
         name: "What does Purple8 replace in a typical workflow stack?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Purple8 replaces Airflow, Temporal, LangGraph, LangChain, LangSmith, and a separate audit/tracing service — all at once, in a single process. The graph IS the workflow state machine, the audit trail, and the observability layer simultaneously.",
+          text: "Purple8 replaces Airflow, Temporal, LangGraph, LangChain, LangSmith, and a separate audit/tracing service - all at once, in a single process. The graph IS the workflow state machine, the audit trail, and the observability layer simultaneously.",
         },
       },
       {
@@ -51,7 +51,7 @@ const jsonLd = {
         name: "Can workflows trigger on data changes (CDC)?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Purple8 has a built-in Change Data Capture event bus. When a node or edge is created or updated in the graph, subscribers receive the event and can start or advance workflow instances automatically — without polling.",
+          text: "Yes. Purple8 has a built-in Change Data Capture event bus. When a node or edge is created or updated in the graph, subscribers receive the event and can start or advance workflow instances automatically - without polling.",
         },
       },
       {
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "How are SLA breaches handled?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Each stage in a Journey definition can have a SLAPolicy specifying a deadline and escalation action. The SLAMonitor background thread checks running instances continuously. When a breach occurs, a SLA_BREACHED edge is written to the graph — immutably — and the escalation action fires. journey.sla_alerts surfaces all active breaches to agents or dashboards.",
+          text: "Each stage in a Journey definition can have a SLAPolicy specifying a deadline and escalation action. The SLAMonitor background thread checks running instances continuously. When a breach occurs, a SLA_BREACHED edge is written to the graph - immutably - and the escalation action fires. journey.sla_alerts surfaces all active breaches to agents or dashboards.",
         },
       },
       {
@@ -67,7 +67,7 @@ const jsonLd = {
         name: "Can human approvals be required at specific workflow stages?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes — HITL (Human-In-The-Loop) gates are first-class in Journey Engine. A stage marked as requiring approval pauses the instance until journey.resolve_hitl is called by an authorised user. The approver's identity, decision, and timestamp are written as immutable graph edges. journey.list_hitl surfaces all pending decisions.",
+          text: "Yes - HITL (Human-In-The-Loop) gates are first-class in Journey Engine. A stage marked as requiring approval pauses the instance until journey.resolve_hitl is called by an authorised user. The approver's identity, decision, and timestamp are written as immutable graph edges. journey.list_hitl surfaces all pending decisions.",
         },
       },
     ],
@@ -92,9 +92,9 @@ const vsCompetitors = [
     col: "border-zinc-800",
     pill: "bg-zinc-800 text-zinc-400",
     points: [
-      "DAG files in Python — developers must code every flow",
+      "DAG files in Python - developers must code every flow",
       "Scheduler is a separate process to operate",
-      "No graph memory — context is flat key-value",
+      "No graph memory - context is flat key-value",
       "HITL requires custom sensors or external triggers",
       "Audit trail in separate logs; not queryable",
     ],
@@ -107,7 +107,7 @@ const vsCompetitors = [
       "Separate server cluster to deploy and operate",
       "Workflow code in dedicated Worker processes",
       "No native knowledge graph or vector search",
-      "HITL via signals — requires custom handling",
+      "HITL via signals - requires custom handling",
       "High operational complexity for small teams",
     ],
   },
@@ -116,11 +116,11 @@ const vsCompetitors = [
     col: "border-zinc-800",
     pill: "bg-zinc-800 text-zinc-400",
     points: [
-      "In-memory state machine — no durable persistence by default",
+      "In-memory state machine - no durable persistence by default",
       "No SLA enforcement or breach detection",
       "No HITL gate primitive",
       "Audit requires LangSmith (separate service, cost)",
-      "Graph is code, not data — hard to query or observe",
+      "Graph is code, not data - hard to query or observe",
     ],
   },
   {
@@ -128,11 +128,11 @@ const vsCompetitors = [
     col: "border-purple-700/60",
     pill: "bg-purple-900/40 text-purple-300",
     points: [
-      "No DAGs, no YAML — define in plain language via MCP",
-      "In-process — zero extra services to operate",
+      "No DAGs, no YAML - define in plain language via MCP",
+      "In-process - zero extra services to operate",
       "Full knowledge graph memory on every workflow instance",
       "HITL gates are first-class primitives",
-      "Audit trail IS the graph — always on, always queryable",
+      "Audit trail IS the graph - always on, always queryable",
     ],
   },
 ];
@@ -141,7 +141,7 @@ const useCases = [
   {
     icon: "🏦",
     title: "Loan origination",
-    desc: "Multi-stage underwriting with automated risk scoring, compliance checks, and mandatory human review before approval — full audit trail for regulators.",
+    desc: "Multi-stage underwriting with automated risk scoring, compliance checks, and mandatory human review before approval - full audit trail for regulators.",
   },
   {
     icon: "🧾",
@@ -161,7 +161,7 @@ const useCases = [
   {
     icon: "🤝",
     title: "Supplier onboarding",
-    desc: "Document collection, KYC verification, risk scoring, commercial term review, contract signing — each stage gated, SLA-tracked, fully auditable.",
+    desc: "Document collection, KYC verification, risk scoring, commercial term review, contract signing - each stage gated, SLA-tracked, fully auditable.",
   },
   {
     icon: "📋",
@@ -171,11 +171,11 @@ const useCases = [
 ];
 
 const storageModel = [
-  { shape: "Node", label: "JourneyDefinition", desc: "The workflow template — stages, SLA policies, HITL config" },
-  { shape: "Node", label: "JourneyInstance", desc: "One running workflow — current stage, start time, entity reference" },
-  { shape: "Edge", label: "ADVANCED_TO", desc: "Each stage transition — who/what triggered it, when" },
-  { shape: "Edge", label: "SLA_BREACHED", desc: "Written on breach — stage, deadline, time over — never deleted" },
-  { shape: "Edge", label: "HITL_RESOLVED", desc: "Human decision — approver identity, outcome, timestamp" },
+  { shape: "Node", label: "JourneyDefinition", desc: "The workflow template - stages, SLA policies, HITL config" },
+  { shape: "Node", label: "JourneyInstance", desc: "One running workflow - current stage, start time, entity reference" },
+  { shape: "Edge", label: "ADVANCED_TO", desc: "Each stage transition - who/what triggered it, when" },
+  { shape: "Edge", label: "SLA_BREACHED", desc: "Written on breach - stage, deadline, time over - never deleted" },
+  { shape: "Edge", label: "HITL_RESOLVED", desc: "Human decision - approver identity, outcome, timestamp" },
 ];
 
 export default function WorkflowOrchestrationPage() {
@@ -241,7 +241,7 @@ export default function WorkflowOrchestrationPage() {
               <h2 className="mt-3 text-3xl font-bold text-white">The graph IS the state machine</h2>
               <p className="mt-4 text-zinc-400 max-w-xl mx-auto">
                 Every workflow concept maps to a graph primitive. There is no separate
-                workflow database — the same store that holds your knowledge graph holds
+                workflow database - the same store that holds your knowledge graph holds
                 your process state, and both are queryable together.
               </p>
             </div>
@@ -269,7 +269,7 @@ export default function WorkflowOrchestrationPage() {
               <h2 className="mt-3 text-3xl font-bold text-white">9 MCP tools. Agents run the whole pipeline.</h2>
               <p className="mt-3 text-zinc-500 text-sm max-w-lg mx-auto">
                 An AI agent can define a workflow, start instances, advance stages, handle
-                SLA breaches, surface HITL decisions, and retrieve the full audit trail —
+                SLA breaches, surface HITL decisions, and retrieve the full audit trail -
                 entirely through natural language tool calls.
               </p>
             </div>
@@ -356,7 +356,7 @@ export default function WorkflowOrchestrationPage() {
               </Link>
               <Link href="/products/purple8/quantum-optimisation/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-violet-700/50">
                 <p className="text-sm font-semibold text-violet-300 group-hover:text-violet-200">⚛️ Quantum-Inspired Optimisation →</p>
-                <p className="mt-1 text-xs text-zinc-500">Combine workflows with combinatorial optimisation — routing, scheduling, allocation</p>
+                <p className="mt-1 text-xs text-zinc-500">Combine workflows with combinatorial optimisation - routing, scheduling, allocation</p>
               </Link>
             </div>
           </div>

@@ -5,18 +5,18 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Quantum-Inspired Optimisation — Purple8 Hyper Graph",
+  title: "Quantum-Inspired Optimisation - Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph ships quantum-inspired optimisation out of the box — QUBO, simulated annealing, VRP, portfolio selection, job scheduling, and tensor networks — callable by AI agents via 13 MCP tools. No quantum hardware required.",
+    "Purple8 Hyper Graph ships quantum-inspired optimisation out of the box - QUBO, simulated annealing, VRP, portfolio selection, job scheduling, and tensor networks - callable by AI agents via 13 MCP tools. No quantum hardware required.",
   path: "/products/purple8/quantum-optimisation",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Quantum-Inspired Optimisation — Purple8 Hyper Graph",
+  name: "Quantum-Inspired Optimisation - Purple8 Hyper Graph",
   description:
-    "Quantum-inspired optimisation for AI agents: QUBO formulation, simulated annealing, VRP, portfolio selection, job scheduling, tensor networks — 13 MCP tools, CPU-only, built into Purple8 Hyper Graph.",
+    "Quantum-inspired optimisation for AI agents: QUBO formulation, simulated annealing, VRP, portfolio selection, job scheduling, tensor networks - 13 MCP tools, CPU-only, built into Purple8 Hyper Graph.",
   url: "https://www.purple8.ai/products/purple8/quantum-optimisation/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
@@ -35,7 +35,7 @@ const jsonLd = {
         name: "What is quantum-inspired optimisation?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Quantum-inspired optimisation borrows mathematical structures from quantum physics — QUBO formulation, simulated annealing, tensor networks — and runs them on classical CPUs. It solves combinatorial optimisation problems (VRP, job scheduling, portfolio selection) that are NP-hard and where neural networks and gradient-based methods perform poorly. No quantum computer is required.",
+          text: "Quantum-inspired optimisation borrows mathematical structures from quantum physics - QUBO formulation, simulated annealing, tensor networks - and runs them on classical CPUs. It solves combinatorial optimisation problems (VRP, job scheduling, portfolio selection) that are NP-hard and where neural networks and gradient-based methods perform poorly. No quantum computer is required.",
         },
       },
       {
@@ -43,7 +43,7 @@ const jsonLd = {
         name: "How is this different from real quantum computing?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Real quantum computing uses physical qubits — particles manipulated via quantum mechanics. Quantum-inspired optimisation uses the mathematical structure (QUBO, annealing, tensor networks) without quantum hardware. It runs today, on ordinary CPUs, and produces good-quality solutions to NP-hard problems in seconds.",
+          text: "Real quantum computing uses physical qubits - particles manipulated via quantum mechanics. Quantum-inspired optimisation uses the mathematical structure (QUBO, annealing, tensor networks) without quantum hardware. It runs today, on ordinary CPUs, and produces good-quality solutions to NP-hard problems in seconds.",
         },
       },
       {
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "How do AI agents use the quantum tools in Purple8?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Via 13 MCP tools in the quantum.* namespace — quantum.vrp, quantum.portfolio, quantum.scheduling, quantum.optimize, quantum.anneal, and more. An agent describes the problem in natural language, retrieves structured data from the graph, formulates the QUBO, calls the solver, and interprets the result. The solver runs in-process, in the same Python runtime as the rest of Purple8.",
+          text: "Via 13 MCP tools in the quantum.* namespace - quantum.vrp, quantum.portfolio, quantum.scheduling, quantum.optimize, quantum.anneal, and more. An agent describes the problem in natural language, retrieves structured data from the graph, formulates the QUBO, calls the solver, and interprets the result. The solver runs in-process, in the same Python runtime as the rest of Purple8.",
         },
       },
     ],
@@ -69,7 +69,7 @@ const jsonLd = {
 const tools = [
   { name: "quantum.optimize", desc: "Auto-selects the best solver based on problem size and density" },
   { name: "quantum.anneal", desc: "Generic QUBO via simulated annealing with greedy descent refinement" },
-  { name: "quantum.tabu", desc: "QUBO via tabu search — memory-based local search" },
+  { name: "quantum.tabu", desc: "QUBO via tabu search - memory-based local search" },
   { name: "quantum.vrp", desc: "Vehicle Routing Problem with capacity and time window constraints" },
   { name: "quantum.portfolio", desc: "Binary portfolio optimisation under return, risk, and sector limits" },
   { name: "quantum.scheduling", desc: "Job scheduling across machines with precedence and resource constraints" },
@@ -83,12 +83,12 @@ const tools = [
 ];
 
 const useCases = [
-  { icon: "🚚", title: "Last-mile delivery routing", desc: "Route 200+ vehicles across a city with capacity limits and customer time windows. QUBO + simulated annealing finds solutions within 2–5% of optimal in seconds — on a CPU." },
+  { icon: "🚚", title: "Last-mile delivery routing", desc: "Route 200+ vehicles across a city with capacity limits and customer time windows. QUBO + simulated annealing finds solutions within 2–5% of optimal in seconds - on a CPU." },
   { icon: "📊", title: "Portfolio construction", desc: "Select a binary portfolio of assets under expected return targets, risk tolerance, and sector concentration limits. Exact solvers can't scale; quantum-inspired can." },
   { icon: "🏭", title: "Manufacturing job scheduling", desc: "Assign 500 jobs to 40 machines with setup times, precedence constraints, and shift boundaries. Minimise makespan and tardiness simultaneously." },
   { icon: "👷", title: "Staff rostering", desc: "Assign shifts to workers respecting qualifications, preferences, union rules, and legal constraints. QUBO encodes every constraint as a penalty term." },
   { icon: "🏗️", title: "Space allocation (AEC)", desc: "Allocate rooms, floors, and zones to departments under adjacency, separation, and area constraints. Graph-colouring + constraint propagation via the AEC vertical." },
-  { icon: "⚡", title: "Energy dispatch optimisation", desc: "Decide which generators to switch on/off at each interval to meet demand at minimum cost, with binary on/off decisions per asset — a natural QUBO formulation." },
+  { icon: "⚡", title: "Energy dispatch optimisation", desc: "Decide which generators to switch on/off at each interval to meet demand at minimum cost, with binary on/off decisions per asset - a natural QUBO formulation." },
 ];
 
 export default function QuantumOptimisationPage() {
@@ -126,8 +126,8 @@ export default function QuantumOptimisationPage() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
-              Solve NP-hard combinatorial problems — vehicle routing, job scheduling,
-              portfolio selection — that classical AI cannot handle. Runs on ordinary CPUs
+              Solve NP-hard combinatorial problems - vehicle routing, job scheduling,
+              portfolio selection - that classical AI cannot handle. Runs on ordinary CPUs
               via 13 MCP tools. No quantum computer. No special hardware. Built into Purple8
               Hyper Graph.
             </p>
@@ -159,7 +159,7 @@ export default function QuantumOptimisationPage() {
                   accent: "border-zinc-800",
                   pill: "bg-zinc-800 text-zinc-400",
                   points: [
-                    "Requires physical qubits — fragile, expensive hardware",
+                    "Requires physical qubits - fragile, expensive hardware",
                     "Best machines: thousands of noisy qubits in 2026",
                     "Limited practical business applications today",
                     "Cloud queue time; not real-time",
@@ -171,10 +171,10 @@ export default function QuantumOptimisationPage() {
                   accent: "border-violet-700/60",
                   pill: "bg-violet-900/40 text-violet-300",
                   points: [
-                    "Runs on CPU — same machine as the rest of Purple8",
+                    "Runs on CPU - same machine as the rest of Purple8",
                     "Borrows mathematical structure: QUBO, annealing, tensor networks",
                     "Solves VRP, scheduling, portfolio in seconds, today",
-                    "13 MCP tools — callable by any AI agent",
+                    "13 MCP tools - callable by any AI agent",
                     "No quantum hardware, no subscriptions, no queue",
                   ],
                 },

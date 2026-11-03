@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Features",
   description:
-    "One process. One port. Zero external dependencies. Explore what Purple8 replaces — vector database, graph database, orchestration, OCR, auth, and more — collapsed into a single embedded backend.",
+    "One process. One port. Zero external dependencies. Explore what Purple8 replaces - vector database, graph database, orchestration, OCR, auth, and more - collapsed into a single embedded backend.",
   path: "/features",
 });
 

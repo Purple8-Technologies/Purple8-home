@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Autonomous M&A Due Diligence — Purple8 Hyper Graph",
+  title: "Autonomous M&A Due Diligence - Purple8 Hyper Graph",
   description:
     "Purple8 Hyper Graph runs M&A due diligence as a multi-agent workflow: ingest the data room, build a relational knowledge graph of the target, run legal, financial, technical, and regulatory review in parallel, stress-test scenarios, and produce a board-ready output with a regulator-auditable trail.",
   path: "/products/purple8/ma-due-diligence",
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Autonomous M&A Due Diligence — Purple8 Hyper Graph",
+  name: "Autonomous M&A Due Diligence - Purple8 Hyper Graph",
   description:
     "Purple8 runs the entire M&A due diligence process as a coordinated agent workflow: document ingestion, knowledge graph construction, parallel specialist review, scenario stress-testing, deal structure optimisation, and staged human approval. All in a single platform with a tamper-evident audit trail.",
   url: "https://www.purple8.ai/products/purple8/ma-due-diligence/",
@@ -35,7 +35,7 @@ const jsonLd = {
         name: "What does Purple8 actually do in M&A due diligence?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Purple8 ingests the entire data room via DocIntel (contracts, financials, cap tables, IP filings, employment agreements, regulatory correspondence, technical documentation) and builds a relational knowledge graph of the target company. A multi-agent swarm then runs legal, financial, technical, HR, and regulatory review simultaneously — each agent writing findings as typed graph edges. The result is a cross-linked knowledge structure that reveals relationships and risks that siloed document review misses entirely.",
+          text: "Purple8 ingests the entire data room via DocIntel (contracts, financials, cap tables, IP filings, employment agreements, regulatory correspondence, technical documentation) and builds a relational knowledge graph of the target company. A multi-agent swarm then runs legal, financial, technical, HR, and regulatory review simultaneously - each agent writing findings as typed graph edges. The result is a cross-linked knowledge structure that reveals relationships and risks that siloed document review misses entirely.",
         },
       },
       {
@@ -43,7 +43,7 @@ const jsonLd = {
         name: "How does this replace the current advisory process?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "It doesn't replace the advisory firm — it changes what their team spends time on. The agents handle document ingestion, entity extraction, clause identification, cross-reference detection, and first-pass risk flagging. The advisors spend their time on the findings that matter: the edge cases, the negotiation strategy, the client relationship. A team that currently runs 5 deals a year can run 20 with the same headcount.",
+          text: "It doesn't replace the advisory firm - it changes what their team spends time on. The agents handle document ingestion, entity extraction, clause identification, cross-reference detection, and first-pass risk flagging. The advisors spend their time on the findings that matter: the edge cases, the negotiation strategy, the client relationship. A team that currently runs 5 deals a year can run 20 with the same headcount.",
         },
       },
       {
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "Can change-of-control clauses be detected automatically?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. DocIntel extracts contract obligations and the legal agent traverses the graph to find all agreements with change-of-control triggers, consent requirements, or acceleration clauses. Because they are stored as typed edges in the knowledge graph — not buried in document text — they can be queried across the entire contract portfolio simultaneously. The agent surfaces every affected agreement in one pass.",
+          text: "Yes. DocIntel extracts contract obligations and the legal agent traverses the graph to find all agreements with change-of-control triggers, consent requirements, or acceleration clauses. Because they are stored as typed edges in the knowledge graph - not buried in document text - they can be queried across the entire contract portfolio simultaneously. The agent surfaces every affected agreement in one pass.",
         },
       },
       {

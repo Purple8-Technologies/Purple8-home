@@ -19,7 +19,7 @@ interface FormData {
 
 const CC_BASE = CC_BASE_URL;
 
-// Screenshot limits — must mirror the server (public.py) validation.
+// Screenshot limits - must mirror the server (public.py) validation.
 const MAX_ATTACHMENTS = 3;
 const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024; // 4 MB
 const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"];
@@ -27,7 +27,7 @@ const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp
 interface Attachment {
   filename: string;
   content_type: string;
-  data_b64: string; // full data: URL — server strips the prefix
+  data_b64: string; // full data: URL - server strips the prefix
   previewUrl: string;
   sizeBytes: number;
 }
@@ -135,7 +135,7 @@ export default function SupportTicket() {
     };
 
     if (!CC_BASE) {
-      // Should never happen — CC_BASE_URL always resolves to a live CC URL.
+      // Should never happen - CC_BASE_URL always resolves to a live CC URL.
       // Surface a real error rather than silently faking a submission.
       setStatus("error");
       setErrorMsg("Support is temporarily unavailable. Please email support@purple8.ai.");
@@ -154,7 +154,7 @@ export default function SupportTicket() {
       setStatus("success");
     } catch (err) {
       setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Something went wrong — please try again.");
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong - please try again.");
     }
   }
 
@@ -172,7 +172,7 @@ export default function SupportTicket() {
         )}
         <p className="text-sm text-slate-400">
           We&apos;ve sent a confirmation to <strong className="text-slate-300">{form.email}</strong>.
-          {" "}Our agent is already looking into it — you&apos;ll hear back soon.
+          {" "}Our agent is already looking into it - you&apos;ll hear back soon.
         </p>
         <button
           onClick={() => { setStatus("idle"); setTicketId(""); setAttachments([]); }}
@@ -281,7 +281,7 @@ export default function SupportTicket() {
       {/* Screenshots */}
       <div>
         <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-widest">
-          Screenshots <span className="normal-case text-slate-600">(optional — up to {MAX_ATTACHMENTS}, PNG/JPEG/GIF/WEBP, 4 MB each)</span>
+          Screenshots <span className="normal-case text-slate-600">(optional - up to {MAX_ATTACHMENTS}, PNG/JPEG/GIF/WEBP, 4 MB each)</span>
         </label>
         {attachments.length > 0 && (
           <div className="mb-3 flex flex-wrap gap-3">

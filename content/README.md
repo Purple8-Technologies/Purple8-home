@@ -1,6 +1,6 @@
-# Content — repo-authored blog & case studies
+# Content - repo-authored blog & case studies
 
-The repo is the CMS. There is no admin login, no database, and no server — the
+The repo is the CMS. There is no admin login, no database, and no server - the
 Purple8.ai site is a static export served from GitHub Pages. To publish, you add
 a Markdown file here and merge it. The build regenerates the pages.
 
@@ -20,12 +20,12 @@ a Markdown file here and merge it. The build regenerates the pages.
 ```yaml
 ---
 title: "Your headline"
-description: "One-sentence summary — shown on cards and in search results."
+description: "One-sentence summary - shown on cards and in search results."
 date: "2026-07-16"          # ISO YYYY-MM-DD
 author: "Your Name"          # optional
 tags: ["engineering", "rag"] # optional
 cover: "/blog/cover.png"     # optional, from /public
-draft: false                 # optional — true keeps it off the live site
+draft: false                 # optional - true keeps it off the live site
 # Case studies may also set:
 customer: "Acme Corp"        # optional
 industry: "Fintech"          # optional

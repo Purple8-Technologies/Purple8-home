@@ -6,7 +6,7 @@ Canonical: https://www.purple8.ai/.well-known/security.txt
 Policy: https://www.purple8.ai/security
 Acknowledgments: https://www.purple8.ai/security#acknowledgments
 
-# Purple8, Inc. — Responsible Disclosure
+# Purple8, Inc. - Responsible Disclosure
 #
 # We welcome security researchers reporting vulnerabilities in:
 #   - purple8.ai and all subdomains

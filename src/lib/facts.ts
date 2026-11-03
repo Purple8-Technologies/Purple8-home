@@ -1,4 +1,4 @@
-// CANONICAL PUBLIC FACTS — the only place a public number is written.
+// CANONICAL PUBLIC FACTS - the only place a public number is written.
 //
 // Every page and component imports from here. Never type a figure into a page.
 // Update a value here and it changes everywhere on the site.

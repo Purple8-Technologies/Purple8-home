@@ -304,7 +304,7 @@ export default function ArchitecturePage() {
               service with its own infrastructure, team, and on-call rotation.
             </p>
 
-            {/* Category cards — each shows the category + all mainstream logos */}
+            {/* Category cards - each shows the category + all mainstream logos */}
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
               {/* Relational / Document databases */}
@@ -746,7 +746,7 @@ export default function ArchitecturePage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15M14.25 3.104c.251.023.501.05.75.082M19.8 15l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.607L5 14.5m14.8.5-1.57.393M5 14.5l-1.57.393" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">AI Evaluation — built into the fabric</h3>
+                  <h3 className="text-xl font-bold text-white">AI Evaluation - built into the fabric</h3>
                 </div>
                 <p className="mt-5 text-sm leading-relaxed text-zinc-400">
                   In every other architecture, AI evaluation is a separate service you connect to
@@ -754,8 +754,8 @@ export default function ArchitecturePage() {
                   ingestion, and query a system that&apos;s always one step behind your live application.
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                  In Purple8, every AI action — every RAG retrieval, every agent tool call, every
-                  model decision, every workflow transition — is written as an immutable edge in the
+                  In Purple8, every AI action - every RAG retrieval, every agent tool call, every
+                  model decision, every workflow transition - is written as an immutable edge in the
                   same graph your application queries. Evaluation isn&apos;t downstream. It&apos;s
                   co-resident with your data.
                 </p>
@@ -785,7 +785,7 @@ export default function ArchitecturePage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Autonomous SOC Agent — not a log forwarder</h3>
+                  <h3 className="text-xl font-bold text-white">Autonomous SOC Agent - not a log forwarder</h3>
                 </div>
                 <p className="mt-5 text-sm leading-relaxed text-zinc-400">
                   Traditional SIEMs (Splunk, Microsoft Sentinel, Datadog Security) work by collecting
@@ -870,7 +870,7 @@ export default function ArchitecturePage() {
               Service resiliency
             </p>
             <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-              Zero-downtime deployments — Blue/Green for Consolidith
+              Zero-downtime deployments - Blue/Green for Consolidith
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
               Blue/green on a microservices stack means coordinating rolling updates across a dozen
@@ -890,7 +890,7 @@ export default function ArchitecturePage() {
               The hard questions
             </p>
             <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-              The objections — answered directly
+              The objections - answered directly
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
               Technical buyers arrive with reasonable scepticism. Here&apos;s how Consolidith holds
@@ -971,7 +971,7 @@ export default function ArchitecturePage() {
                 </h3>
                 <p className="mt-2 mb-6 text-sm leading-relaxed text-zinc-500">
                   A Purple8 engineer will walk you through a deployment tailored to your
-                  stack, data scale, and use case. No slides — live code, your questions.
+                  stack, data scale, and use case. No slides - live code, your questions.
                 </p>
                 <DemoRequestForm />
               </div>

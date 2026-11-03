@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-// Canvas animation loader — ssr:false lives in a Client Component wrapper so
+// Canvas animation loader - ssr:false lives in a Client Component wrapper so
 // ParticleNetwork JS is never included in the initial Server Component bundle.
 import ParticleNetworkLoader from "@/components/ParticleNetworkLoader";
 
@@ -25,11 +25,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.purple8.ai"),  title: {
-    default: "Purple8 — AI-Native Infrastructure",
+    default: "Purple8 - AI-Native Infrastructure",
     template: "%s | Purple8",
   },
   description:
-    "Purple8 Technologies builds AI-native infrastructure: Purple8 (unified graph, vector, document & full-text engine — an entire backend in one process) and DocIntel (70-format document intelligence). One process. Zero external dependencies.",
+    "Purple8 Technologies builds AI-native infrastructure: Purple8 (unified graph, vector, document & full-text engine - an entire backend in one process) and DocIntel (70-format document intelligence). One process. Zero external dependencies.",
   keywords: [
     "AI infrastructure",
     "agentic process automation",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "Purple8 — AI-Native Infrastructure",
+    title: "Purple8 - AI-Native Infrastructure",
     description:
       "Unified graph + vector + document engine with Journey Engine, native MCP tools, and 70-format document intelligence. Built AI-native from the ground up.",
     url: "https://www.purple8.ai",
@@ -70,13 +70,13 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         type: "image/png",
-        alt: "Purple8 — Your entire backend. One process.",
+        alt: "Purple8 - Your entire backend. One process.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Purple8 — AI-Native Infrastructure",
+    title: "Purple8 - AI-Native Infrastructure",
     description:
       "Unified graph + vector + document engine with Journey Engine, native MCP tools, and 70-format document intelligence.",
     creator: "@purple8ai",
@@ -109,7 +109,7 @@ export default function RootLayout({
         {/*
           Security meta headers for GitHub Pages static export.
           Note: X-Frame-Options and frame-ancestors ONLY work as HTTP response
-          headers — browsers ignore them in <meta> tags. X-Content-Type-Options,
+          headers - browsers ignore them in <meta> tags. X-Content-Type-Options,
           Referrer-Policy, and Permissions-Policy are also HTTP-header-only.
           The only directive that has any effect via <meta> is Content-Security-Policy
           (excluding frame-ancestors, which is ignored in meta). These are kept
@@ -140,12 +140,12 @@ export default function RootLayout({
             // listed so the register page works regardless of which CC_BASE_URL
             // was baked at build time, and during any DNS / cert transition period.
             "connect-src 'self' https://plausible.io https://cc.purple8.ai https://purple8-command-center.fly.dev",
-            // frame-ancestors is intentionally omitted — it is silently ignored
+            // frame-ancestors is intentionally omitted - it is silently ignored
             // in <meta> CSP (browsers warn about this). Enforce via HTTP header.
           ].join("; ")}
         />
         {/*
-          Plausible Analytics — privacy-first, cookieless, GDPR-compliant.
+          Plausible Analytics - privacy-first, cookieless, GDPR-compliant.
           No consent banner required (no cookies, no personal data, no
           cross-site tracking). Chosen over Google Analytics to stay
           consistent with Purple8's privacy + sustainability identity.

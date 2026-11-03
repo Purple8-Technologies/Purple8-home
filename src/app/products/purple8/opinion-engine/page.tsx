@@ -5,18 +5,18 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Opinion Engine — Belief Graphs & Stance Detection — Purple8 Hyper Graph",
+  title: "Opinion Engine - Belief Graphs & Stance Detection - Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph models who believes what, why, and how strongly — across documents, organisations, and people. Track opinion propagation, detect consensus vs controversy, and surface influence networks using graph algorithms and temporal analysis.",
+    "Purple8 Hyper Graph models who believes what, why, and how strongly - across documents, organisations, and people. Track opinion propagation, detect consensus vs controversy, and surface influence networks using graph algorithms and temporal analysis.",
   path: "/products/purple8/opinion-engine",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Opinion Engine — Belief Graphs & Stance Detection — Purple8 Hyper Graph",
+  name: "Opinion Engine - Belief Graphs & Stance Detection - Purple8 Hyper Graph",
   description:
-    "Model beliefs, stances, and influence as a typed graph. Nodes are entities — people, organisations, documents, claims. Edges are SUPPORTS, CONTRADICTS, INFLUENCES, CITES. Temporal PageRank shows which opinions are gaining influence. Community detection finds belief clusters.",
+    "Model beliefs, stances, and influence as a typed graph. Nodes are entities - people, organisations, documents, claims. Edges are SUPPORTS, CONTRADICTS, INFLUENCES, CITES. Temporal PageRank shows which opinions are gaining influence. Community detection finds belief clusters.",
   url: "https://www.purple8.ai/products/purple8/opinion-engine/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
@@ -35,7 +35,7 @@ const jsonLd = {
         name: "What is an opinion engine?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "An opinion engine models who believes what, how strongly, and why — across a population of entities (people, organisations, documents, claims). Rather than counting keyword mentions, it builds a typed graph of beliefs and their relationships, then applies graph algorithms (PageRank, community detection, betweenness centrality) to understand how opinions form, spread, and conflict.",
+          text: "An opinion engine models who believes what, how strongly, and why - across a population of entities (people, organisations, documents, claims). Rather than counting keyword mentions, it builds a typed graph of beliefs and their relationships, then applies graph algorithms (PageRank, community detection, betweenness centrality) to understand how opinions form, spread, and conflict.",
         },
       },
       {
@@ -51,7 +51,7 @@ const jsonLd = {
         name: "What is the difference between sentiment analysis and an opinion engine?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sentiment analysis classifies tone (positive/negative/neutral) at the text level. An opinion engine models the structure of belief — who holds which position, which claims support or contradict each other, which entities are influencing others, and how opinion networks evolve over time. It answers 'what does this stakeholder group believe about X and who convinced them?' — not just 'is this tweet positive?'",
+          text: "Sentiment analysis classifies tone (positive/negative/neutral) at the text level. An opinion engine models the structure of belief - who holds which position, which claims support or contradict each other, which entities are influencing others, and how opinion networks evolve over time. It answers 'what does this stakeholder group believe about X and who convinced them?' - not just 'is this tweet positive?'",
         },
       },
       {
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "Can the opinion engine track how views change over time?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. All edges carry timestamps, and Purple8's temporal PageRank applies time-decay to edge weights — recent influences count more than old ones. You can snapshot the graph at any point and compare belief networks across time periods to see which claims gained traction, which influence paths emerged, and which positions were abandoned.",
+          text: "Yes. All edges carry timestamps, and Purple8's temporal PageRank applies time-decay to edge weights - recent influences count more than old ones. You can snapshot the graph at any point and compare belief networks across time periods to see which claims gained traction, which influence paths emerged, and which positions were abandoned.",
         },
       },
     ],
@@ -67,20 +67,20 @@ const jsonLd = {
 };
 
 const graphModel = [
-  { shape: "Node", label: "Claim", color: "text-purple-300", desc: "A specific assertion — 'Drug X is effective for condition Y'" },
+  { shape: "Node", label: "Claim", color: "text-purple-300", desc: "A specific assertion - 'Drug X is effective for condition Y'" },
   { shape: "Node", label: "Person / Organisation", color: "text-purple-300", desc: "An entity that holds, expresses, or influences beliefs" },
-  { shape: "Node", label: "Document", color: "text-purple-300", desc: "Source of the claim — paper, article, filing, transcript" },
+  { shape: "Node", label: "Document", color: "text-purple-300", desc: "Source of the claim - paper, article, filing, transcript" },
   { shape: "Edge", label: "SUPPORTS", color: "text-zinc-300", desc: "Entity or document endorses a claim, with confidence weight" },
   { shape: "Edge", label: "CONTRADICTS", color: "text-zinc-300", desc: "Entity or document disputes a claim, with confidence weight" },
-  { shape: "Edge", label: "INFLUENCES", color: "text-zinc-300", desc: "One entity shapes another's position — timestamped" },
+  { shape: "Edge", label: "INFLUENCES", color: "text-zinc-300", desc: "One entity shapes another's position - timestamped" },
   { shape: "Edge", label: "CITES", color: "text-zinc-300", desc: "Document references another document as evidence" },
-  { shape: "Edge", label: "AUTHORED_BY", color: "text-zinc-300", desc: "Claim provenance — who said it, in which document, when" },
+  { shape: "Edge", label: "AUTHORED_BY", color: "text-zinc-300", desc: "Claim provenance - who said it, in which document, when" },
 ];
 
 const algorithms = [
   { algo: "Temporal PageRank", icon: "📈", desc: "Which claims are gaining influence right now? Time-decayed edge weights surface rising vs fading opinions." },
   { algo: "Community Detection", icon: "🔵", desc: "Which belief clusters exist? Who agrees with whom? Reveals faction structure across stakeholders." },
-  { algo: "Betweenness Centrality", icon: "🌉", desc: "Who are the opinion brokers — entities that bridge different belief clusters and drive consensus or division?" },
+  { algo: "Betweenness Centrality", icon: "🌉", desc: "Who are the opinion brokers - entities that bridge different belief clusters and drive consensus or division?" },
   { algo: "Link Prediction", icon: "🔗", desc: "Which entities are likely to align or diverge in future? Predict coalition formation before it happens." },
   { algo: "GraphRAG", icon: "🔍", desc: "Ask natural language questions over the entire belief graph: 'What does the scientific consensus say about X?'" },
   { algo: "Shortest Path", icon: "🛤️", desc: "How did opinion A reach entity B? Trace the influence chain step by step through the graph." },
@@ -95,7 +95,7 @@ const useCases = [
   {
     icon: "💼",
     title: "M&A sentiment intelligence",
-    desc: "Map the target company's board, investor base, and key customer positions. Identify who supports the deal, who will resist, and which advisors are most influential — before the first approach.",
+    desc: "Map the target company's board, investor base, and key customer positions. Identify who supports the deal, who will resist, and which advisors are most influential - before the first approach.",
   },
   {
     icon: "📰",
@@ -105,7 +105,7 @@ const useCases = [
   {
     icon: "⚖️",
     title: "Legal discovery & position analysis",
-    desc: "Map which documents support, contradict, or are silent on each contested claim. Betweenness centrality identifies the pivotal documents — the ones that connect opposing positions.",
+    desc: "Map which documents support, contradict, or are silent on each contested claim. Betweenness centrality identifies the pivotal documents - the ones that connect opposing positions.",
   },
   {
     icon: "🔬",
@@ -179,7 +179,7 @@ export default function OpinionEnginePage() {
               <h2 className="mt-3 text-3xl font-bold text-white">Opinions as data, not text.</h2>
               <p className="mt-4 text-zinc-400 max-w-xl mx-auto text-sm">
                 DocIntel extracts entities and relationships from documents automatically.
-                The graph engine stores them as typed nodes and edges — queryable, traversable, analysable.
+                The graph engine stores them as typed nodes and edges - queryable, traversable, analysable.
               </p>
             </div>
             <div className="space-y-3">
@@ -261,7 +261,7 @@ export default function OpinionEnginePage() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <Link href="/products/purple8/scenario-simulation/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-purple-700/50">
                 <p className="text-sm font-semibold text-purple-300 group-hover:text-purple-200">🔮 Scenario Simulation →</p>
-                <p className="mt-1 text-xs text-zinc-500">Run what-if simulations on the belief graph — what if this influential voice changes position?</p>
+                <p className="mt-1 text-xs text-zinc-500">Run what-if simulations on the belief graph - what if this influential voice changes position?</p>
               </Link>
               <Link href="/products/purple8/rag-pipeline/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-purple-700/50">
                 <p className="text-sm font-semibold text-purple-300 group-hover:text-purple-200">🔍 RAG Pipeline →</p>

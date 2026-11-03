@@ -73,7 +73,7 @@ export default function BlueGreenSection() {
   return (
     <div className="mt-10 space-y-3">
 
-      {/* Panel 1 — Deployment comparison */}
+      {/* Panel 1 - Deployment comparison */}
       <Panel title="Deployment comparison" badge="microservices vs. consolidith" defaultOpen>
         <div className="grid gap-6 lg:grid-cols-2">
 
@@ -120,8 +120,8 @@ export default function BlueGreenSection() {
               <p className="text-sm font-semibold text-purple-400 uppercase tracking-widest">Consolidith blue/green</p>
             </div>
             <p className="text-xs text-zinc-500 mb-4 leading-relaxed">
-              One binary. One deployment slot. The entire stack — graph, vector, workflow,
-              auth, encryption — updates together with a single swap.
+              One binary. One deployment slot. The entire stack - graph, vector, workflow,
+              auth, encryption - updates together with a single swap.
             </p>
             <div className="space-y-3">
               {[
@@ -150,7 +150,7 @@ export default function BlueGreenSection() {
         </div>
       </Panel>
 
-      {/* Panel 2 — HA topology */}
+      {/* Panel 2 - HA topology */}
       <Panel title="High-availability topology" badge="3 replicas · replication-ready">
         <p className="text-xs text-zinc-500 mb-8 max-w-2xl leading-relaxed">
           Three replicas provide full HA for a Consolidith deployment. Compare that to the
@@ -178,9 +178,9 @@ export default function BlueGreenSection() {
           {/* Replica nodes */}
           <div className="flex w-full max-w-3xl gap-4 justify-between">
             {[
-              { label: "Replica A", tag: "blue — current", accent: "border-blue-700/60 bg-blue-950/20", dot: "bg-blue-500", tagColour: "text-blue-300/70" },
+              { label: "Replica A", tag: "blue - current", accent: "border-blue-700/60 bg-blue-950/20", dot: "bg-blue-500", tagColour: "text-blue-300/70" },
               { label: "Replica B", tag: "primary read", accent: "border-purple-700/50 bg-purple-950/25", dot: "bg-purple-500", tagColour: "text-purple-300/70" },
-              { label: "Replica C", tag: "green — new", accent: "border-emerald-700/60 bg-emerald-950/20", dot: "bg-emerald-500", tagColour: "text-emerald-300/70" },
+              { label: "Replica C", tag: "green - new", accent: "border-emerald-700/60 bg-emerald-950/20", dot: "bg-emerald-500", tagColour: "text-emerald-300/70" },
             ].map((n) => (
               <div key={n.label} className={`flex-1 rounded-xl border ${n.accent} p-4`}>
                 <div className="flex items-center gap-2 mb-3">
@@ -220,13 +220,13 @@ export default function BlueGreenSection() {
         </div>
       </Panel>
 
-      {/* Panel 3 — At a glance */}
+      {/* Panel 3 - At a glance */}
       <Panel title="At a glance" badge="key metrics">
         <div className="grid gap-4 sm:grid-cols-3">
           {[
             { label: "Instances for HA", micro: "36+ (3 × 12 services)", p8: "3 replicas" },
             { label: "Rolling update steps", micro: "12 independent rollouts", p8: "1 binary swap" },
-            { label: "Version skew risk", micro: "Every service boundary", p8: "None — one release unit" },
+            { label: "Version skew risk", micro: "Every service boundary", p8: "None - one release unit" },
           ].map((r) => (
             <div key={r.label} className="rounded-xl border border-purple-900/25 bg-[#11111b] px-5 py-4">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 mb-2">{r.label}</p>

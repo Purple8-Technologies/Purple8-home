@@ -11,7 +11,7 @@ export const dynamic = "force-static";
 /**
  * Indexable marketing/content routes. Transactional & registration routes
  * (/register, /activate, /beta, /download, /checkout/*) are intentionally
- * excluded — they are marked noindex (see issue #8) and must not appear here.
+ * excluded - they are marked noindex (see issue #8) and must not appear here.
  */
 const STATIC_ROUTES: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },

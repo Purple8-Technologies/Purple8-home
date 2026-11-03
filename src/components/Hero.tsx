@@ -21,7 +21,7 @@ export default function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
             </span>
-            Now live — Developer edition free, no credit card
+            Now live - Developer edition free, no credit card
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[4.5rem] xl:leading-[1.08]">
@@ -33,9 +33,9 @@ export default function Hero() {
           </h1>
 
           <p className="mt-7 max-w-xl text-lg leading-relaxed text-zinc-400">
-            Purple8 is the AI-native backend that replaces 20+ services — database,
+            Purple8 is the AI-native backend that replaces 20+ services - database,
             vector search, graph, RAG, document intelligence, agentic process automation,
-            auth, and encryption — with one embedded engine. AI agents automate
+            auth, and encryption - with one embedded engine. AI agents automate
             end-to-end workflows out of the box. You build the frontend;
             Purple8 is everything behind it.
           </p>
@@ -73,7 +73,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right column — terminal */}
+        {/* Right column - terminal */}
         <div className="w-full flex-1 lg:max-w-[620px]">
           <CodeTerminal />
         </div>

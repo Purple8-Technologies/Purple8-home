@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Changelog",
   description:
-    "What's new in Purple8 Hyper Graph — bug fixes, new features, and improvements shipped to the developer tier.",
+    "What's new in Purple8 Hyper Graph - bug fixes, new features, and improvements shipped to the developer tier.",
   path: "/changelog",
 });
 

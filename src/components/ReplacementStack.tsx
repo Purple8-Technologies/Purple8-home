@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * ReplacementStack — "What You Cancel", now with a live collapse.
+ * ReplacementStack - "What You Cancel", now with a live collapse.
  *
  * The real grid of replacement boxes IS the animation: click "Watch it
  * collapse" and they implode toward the centre, replaced by a single Purple8
@@ -209,7 +209,7 @@ export default function ReplacementStack() {
 
   const toggle = () => setCollapsed((c) => !c);
 
-  // One box per service — the tally is simply how many we list.
+  // One box per service - the tally is simply how many we list.
   const serviceCount = replacements.length;
 
   return (
@@ -222,7 +222,7 @@ export default function ReplacementStack() {
           </h2>
           <p className="mt-4 text-lg text-zinc-400 max-w-2xl mx-auto">
             The modern AI stack is a sprawl of databases, vector stores,
-            orchestration, auth, and observability — each its own service, its
+            orchestration, auth, and observability - each its own service, its
             own bill, its own failure mode. Two products, Purple8 and DocIntel,
             replace all of it.
           </p>
@@ -237,7 +237,7 @@ export default function ReplacementStack() {
 
         {/* Collapse stage */}
         <div className="relative">
-          {/* Real replacement grid — this IS the animation */}
+          {/* Real replacement grid - this IS the animation */}
           <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-[1100ms] ease-in-out"
             style={{
@@ -275,7 +275,7 @@ export default function ReplacementStack() {
             ))}
           </div>
 
-          {/* Purple8 core — fades/scales in as the grid implodes */}
+          {/* Purple8 core - fades/scales in as the grid implodes */}
           <div
             className="pointer-events-none absolute inset-0 flex items-center justify-center transition-all duration-700 ease-out"
             style={{
@@ -298,14 +298,14 @@ export default function ReplacementStack() {
           </div>
         </div>
 
-        {/* Footprint — the fact, stated plainly */}
+        {/* Footprint - the fact, stated plainly */}
         <div className="mt-20">
           <h3 className="text-center text-2xl md:text-3xl font-bold text-white">
             You start 9–15 GB ahead.
           </h3>
           <p className="mt-3 text-center text-sm text-zinc-400 max-w-2xl mx-auto">
             Before a single record is stored, a 29-service stack has already
-            reserved most of a machine — just to stand up. Purple8&apos;s entire
+            reserved most of a machine - just to stand up. Purple8&apos;s entire
             runtime comes up in about 350&nbsp;MiB. The rest of the box goes to
             your work, not to the plumbing between services.
           </p>
@@ -350,13 +350,13 @@ export default function ReplacementStack() {
               <p className="mt-5 text-xs leading-relaxed text-purple-200/60">
                 One process, one thread pool, one cache. No wire between
                 services, no duplicated caches, no cross-service pools. Data is
-                streamed from disk on demand behind a bounded working window —
+                streamed from disk on demand behind a bounded working window -
                 so the footprint is set by the machine, not the corpus.
               </p>
             </div>
           </div>
 
-          {/* The four-layer tax — what the 9–15 GB is made of */}
+          {/* The four-layer tax - what the 9–15 GB is made of */}
           <div className="mt-10 max-w-4xl mx-auto">
             <p className="text-center text-xs font-semibold uppercase tracking-widest text-zinc-400">
               What that overhead is made of
@@ -368,8 +368,8 @@ export default function ReplacementStack() {
                 </div>
                 <div className="mt-1 text-xs text-zinc-400">~1.45 GB</div>
                 <p className="mt-2 text-xs leading-relaxed text-zinc-400">
-                  29 separate runtimes — interpreter, heap, idle worker threads
-                  — each loaded before storing a single row.
+                  29 separate runtimes - interpreter, heap, idle worker threads
+                  - each loaded before storing a single row.
                 </p>
               </div>
               <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
@@ -389,8 +389,8 @@ export default function ReplacementStack() {
                 </div>
                 <div className="mt-1 text-xs text-zinc-400">~4–8 GB</div>
                 <p className="mt-2 text-xs leading-relaxed text-zinc-400">
-                  The same document sits in three to five caches at once — rows,
-                  nodes, index segments, vectors — plus the CDC fabric that
+                  The same document sits in three to five caches at once - rows,
+                  nodes, index segments, vectors - plus the CDC fabric that
                   keeps them in sync.
                 </p>
               </div>
@@ -401,26 +401,26 @@ export default function ReplacementStack() {
                 <div className="mt-1 text-xs text-zinc-400">~2–4 GB</div>
                 <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                   Every service runs its own pool, and every caller holds a pool
-                  to it — pre-opened connections that scale with the square of
+                  to it - pre-opened connections that scale with the square of
                   the service count.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Principle statement — the hero */}
+          {/* Principle statement - the hero */}
           <div className="mt-12 max-w-3xl mx-auto rounded-2xl border border-purple-500/30 bg-gradient-to-b from-purple-600/10 to-transparent p-8 md:p-10">
             <p className="text-base md:text-lg leading-relaxed text-zinc-200">
               This isn&apos;t about being slightly better at each service. The
               9–15&nbsp;GB and 28 services sitting between them are overhead
-              engineering teams carry forever — on every node, at idle. We
+              engineering teams carry forever - on every node, at idle. We
               removed them{" "}
               <span className="text-purple-300 font-semibold">
                 by construction, not by optimisation
               </span>
               . What&apos;s left is technology that&apos;s cleaner for the
               environment, simpler to use, faster to build with, and better on
-              ROI — so teams keep their focus on{" "}
+              ROI - so teams keep their focus on{" "}
               <span className="text-white font-semibold">their</span>{" "}
               customers&apos; value, while the whole stack comes out end-to-end
               cost-optimized as a consequence. And because the footprint is
@@ -439,7 +439,7 @@ export default function ReplacementStack() {
               </div>
               <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 28 fewer idle runtimes, no cross-service chatter, no duplicated
-                caches — less energy and water per unit of work, because the
+                caches - less energy and water per unit of work, because the
                 overhead is architecturally absent, not tuned away.
               </p>
             </div>
@@ -449,7 +449,7 @@ export default function ReplacementStack() {
               </div>
               <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 One process, one runbook, one thing to secure, one metrics
-                endpoint — instead of a 29-service mesh to orchestrate and
+                endpoint - instead of a 29-service mesh to orchestrate and
                 babysit.
               </p>
             </div>
@@ -458,7 +458,7 @@ export default function ReplacementStack() {
                 Faster to build with
               </div>
               <p className="mt-2 text-xs leading-relaxed text-zinc-400">
-                The backend is already one thing — no stitching 20+ services
+                The backend is already one thing - no stitching 20+ services
                 together before you ship. Teams build the frontend and deliver
                 customer value sooner.
               </p>
@@ -469,7 +469,7 @@ export default function ReplacementStack() {
               </div>
               <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 One bounded node instead of twenty. Spend goes to outcomes, not
-                idle infrastructure — and the saving compounds with every
+                idle infrastructure - and the saving compounds with every
                 tenant you add.
               </p>
             </div>
@@ -477,7 +477,7 @@ export default function ReplacementStack() {
 
           <p className="mt-8 text-center text-xs text-zinc-400">
             We stay focused on our customers&apos; value, so they can stay
-            focused on theirs — and the whole stack comes out end-to-end
+            focused on theirs - and the whole stack comes out end-to-end
             cost-optimized as a result.
           </p>
         </div>

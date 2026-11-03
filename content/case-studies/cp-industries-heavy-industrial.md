@@ -1,17 +1,17 @@
 ---
 title: "From rotary piercing mill to real-time operational intelligence"
-description: "How Purple8's single-binary engine can replace CP Industries' fragmented plant-floor data stack — sub-millisecond telemetry ingestion, automated ASME/DOT compliance, and AI-driven routing optimisation, all without a single external service."
+description: "How Purple8's single-binary engine can replace CP Industries' fragmented plant-floor data stack - sub-millisecond telemetry ingestion, automated ASME/DOT compliance, and AI-driven routing optimisation, all without a single external service."
 date: "2026-07-30"
 customer: "CP Industries"
 industry: "Heavy Industrial Manufacturing"
-result: "One process replacing five: telemetry, compliance, routing, document parsing, and predictive maintenance — unified"
+result: "One process replacing five: telemetry, compliance, routing, document parsing, and predictive maintenance - unified"
 tags: ["manufacturing", "aec", "compliance", "predictive-maintenance", "rag"]
 draft: true
 ---
 
 ## Who CP Industries is
 
-Christy Park Industries — operating globally as **CP Industries** — is a
+Christy Park Industries - operating globally as **CP Industries** - is a
 heavy-industrial manufacturer headquartered in McKeesport, Pennsylvania.
 Founded in 1897 as a seamless tube mill, they are among the world's leading
 producers of large-diameter, seamless steel high-pressure containment vessels
@@ -20,11 +20,11 @@ and gas cylinders.
 Their pressure vessels operate in some of the most demanding environments on
 Earth:
 
-- **Aerospace & Defense** — ground-support storage at NASA launch sites;
+- **Aerospace & Defense** - ground-support storage at NASA launch sites;
   high-pressure flasks for the U.S. Navy.
-- **Energy & Transportation** — DOT-approved cylinders for tube trailers
+- **Energy & Transportation** - DOT-approved cylinders for tube trailers
   hauling compressed industrial gases across North America.
-- **Industrial & Chemical** — large-scale storage for CNG, hydrogen, and
+- **Industrial & Chemical** - large-scale storage for CNG, hydrogen, and
   petrochemical processing.
 
 Every vessel CP Industries ships must survive ASME Section VIII, DOT 3AA/3T,
@@ -55,8 +55,8 @@ Every cylinder produced generates:
 - Serialised certificates of conformance for DOT, ASME, NASA, and Navy
 
 These documents arrive in PDF, XLSX, XML, and proprietary mill formats.
-Matching them to the correct serial-numbered vessel — and confirming all
-required documents are present before a shipment is released — is largely a
+Matching them to the correct serial-numbered vessel - and confirming all
+required documents are present before a shipment is released - is largely a
 manual, error-prone process that creates bottlenecks on every government
 contract.
 
@@ -72,7 +72,7 @@ extended cycle times, and utilisation imbalance across the plant floor.
 
 ---
 
-## What Purple8 does — concretely
+## What Purple8 does - concretely
 
 Purple8 is a single-binary, in-process database that combines graph storage,
 vector search, full-text retrieval, document intelligence, and a workflow
@@ -84,7 +84,7 @@ compliance microservice. One `docker run`.
 Purple8 Hyper Graph ingests high-frequency time-
 series data from mill sensors directly into the graph. The bounded memory management
 keeps peak memory usage hardware-limited regardless of how many data points
-accumulate — the same hardware that handles 2 million readings handles 20
+accumulate - the same hardware that handles 2 million readings handles 20
 million without re-provisioning.
 
 Once in the graph, Purple8's **Journey Engine** models each cylinder's
@@ -98,11 +98,11 @@ production lifecycle as a stateful workflow:
 Every stage carries `SLAPolicy` thresholds. If furnace temperature telemetry
 deviates beyond a configurable band during Annealing, the Journey Engine flags
 the cylinder instance, triggers a Human-In-The-Loop (HITL) review, and emits
-a graph edge `SLA_BREACHED` — immutably, before the part advances. Plant
+a graph edge `SLA_BREACHED` - immutably, before the part advances. Plant
 engineers see a real-time alert, not a post-mortem failure report.
 
 The **AEC structural module** (`aec/structural.py`) and **MEP flow analysis**
-(`aec/mep.py`) — originally built for building information modelling — map
+(`aec/mep.py`) - originally built for building information modelling - map
 directly onto mill equipment topology: critical machine relationships (which
 piercing mill feeds which draw bench), max-flow capacity constraints across
 production lines, and bridge-detection to identify single points of failure
@@ -111,7 +111,7 @@ that would cascade a line stoppage.
 ### Automated ASME and DOT compliance processing
 
 **Purple8 DocIntel** (port 8200) parses every document format CP Industries
-produces — PDF test reports, XLSX material certs, XML mill data — and
+produces - PDF test reports, XLSX material certs, XML mill data - and
 extracts structured entities (heat number, pressure rating, cylinder serial,
 inspection result, certifying engineer) with no template configuration
 required.
@@ -137,7 +137,7 @@ natural-language questions across the full document corpus:
 > January 2025 and confirm their hydrostatic test pressures."*
 
 The answer is retrieved from graph nodes and original source documents in one
-round-trip — no SQL, no Elasticsearch cluster, no separate document management
+round-trip - no SQL, no Elasticsearch cluster, no separate document management
 system.
 
 ### Predictive routing optimisation
@@ -148,7 +148,7 @@ layer for production routing:
 - **Shortest path (Dijkstra)** across the station graph gives the minimum-
   handling route for a cylinder of a given OD and wall thickness.
 - **Betweenness centrality** identifies which stations are current bottlenecks
-  — the nodes every route passes through — so plant managers can target
+  - the nodes every route passes through - so plant managers can target
   capacity investment accurately.
 - **Community detection (Louvain)** clusters product families with similar
   routing profiles, enabling schedule batching that reduces furnace setups and
@@ -159,7 +159,7 @@ layer for production routing:
   currently allows.
 
 The **cost-based query planner** selects the cheapest strategy for each
-routing query automatically — a `PROPERTY_INDEX_SCAN` for serial-number
+routing query automatically - a `PROPERTY_INDEX_SCAN` for serial-number
 lookup, a `TRAVERSAL` for station-graph navigation, a `HYBRID` search for
 "find similar cylinders with the same failure pattern." No query tuning needed.
 
@@ -169,11 +169,11 @@ lookup, a `TRAVERSAL` for station-graph navigation, a `HYBRID` search for
 
 | Today at CP Industries | With Purple8 |
 |---|---|
-| Isolated SCADA historians | One Purple8 graph — all telemetry co-located with product records |
+| Isolated SCADA historians | One Purple8 graph - all telemetry co-located with product records |
 | Manual MTR / cert matching | DocIntel auto-extraction + graph compliance queries |
 | Spreadsheet-based routing decisions | Graph algorithms (shortest path, centrality, Louvain) |
-| Paper/email HITL review for anomalies | Journey Engine HITL gates — tracked, audited, immutable |
-| Separate compliance DB per contract | Multi-tenant namespacing — one engine, isolated per programme |
+| Paper/email HITL review for anomalies | Journey Engine HITL gates - tracked, audited, immutable |
+| Separate compliance DB per contract | Multi-tenant namespacing - one engine, isolated per programme |
 | No predictive maintenance layer | SLA monitors + anomaly edges fire before failures cascade |
 
 One process. One port. Zero new infrastructure services to operate.
@@ -187,14 +187,14 @@ industrial plant network with air-gapped segments, strict change-control
 windows, and OT/IT separation requirements. Purple8's single-binary model
 (`pip install` or `docker run`) means:
 
-- **One approval, one deployment** — not eight services, eight change tickets,
+- **One approval, one deployment** - not eight services, eight change tickets,
   eight runbooks.
-- **On-premises or private cloud** — no data leaves the facility. AES-256-GCM
+- **On-premises or private cloud** - no data leaves the facility. AES-256-GCM
   envelope encryption is on by default from the first `GraphEngine()` call.
-- **Bounded resource footprint** — `CortexAutoConfig` solves the right memory
+- **Bounded resource footprint** - `CortexAutoConfig` solves the right memory
   geometry for whatever hardware the plant network provides. The engine runs on
   a 16 GB industrial server the same way it runs on a 128 GB cloud VM.
-- **MCP-native** — an AI agent (Claude, Copilot, or an internal assistant
+- **MCP-native** - an AI agent (Claude, Copilot, or an internal assistant
   model) can query compliance status, trigger routing recalculations, and
   resolve HITL holds entirely through natural language, without writing
   application code.
@@ -205,7 +205,7 @@ windows, and OT/IT separation requirements. Purple8's single-binary model
 
 CP Industries has been manufacturing to zero-defect standards since 1897. The
 operational intelligence layer around their plant has not kept pace with the
-precision of the vessels they build. Purple8 closes that gap — not by adding
+precision of the vessels they build. Purple8 closes that gap - not by adding
 complexity, but by consolidating what already exists into a single,
 AI-native operational backbone.
 

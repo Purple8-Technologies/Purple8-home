@@ -2,7 +2,7 @@
 import { FACTS as F } from "@/lib/facts";
 
 /**
- * FeaturesManifesto — Option D
+ * FeaturesManifesto - Option D
  *
  * Large typographic "8" anchors each row. No cards, no grid, no icons.
  * The number sits huge and low-opacity in the background; the claim
@@ -16,12 +16,12 @@ const EIGHT = [
   {
     claim: "One process. No orchestration tax.",
     proof:
-      "Storage, search, workflow, RAG, auth, and encryption — single binary, single port. Replaces 20+ services before you write a line of code.",
+      "Storage, search, workflow, RAG, auth, and encryption - single binary, single port. Replaces 20+ services before you write a line of code.",
   },
   {
     claim: "AI agents operate it natively.",
     proof:
-      `A first-class agent interface with ${F.mcpTools} tools, RBAC-enforced. Claude, Cursor, and Copilot connect directly — no wrapper, no glue code.`,
+      `A first-class agent interface with ${F.mcpTools} tools, RBAC-enforced. Claude, Cursor, and Copilot connect directly - no wrapper, no glue code.`,
   },
   {
     claim: "Three RAG modes. Self-tuning.",
@@ -31,12 +31,12 @@ const EIGHT = [
   {
     claim: "Agentic process automation. Built in.",
     proof:
-      `Stateful workflows, SLA enforcement, human-approval gates, and an immutable audit trail — all in the same process. AI agents orchestrate end-to-end business processes through ${F.mcpTools} MCP tools, with no DAG files, no separate orchestration service, no tracing backend. Replaces LangChain, LangGraph, LangSmith, and Airflow.`,
+      `Stateful workflows, SLA enforcement, human-approval gates, and an immutable audit trail - all in the same process. AI agents orchestrate end-to-end business processes through ${F.mcpTools} MCP tools, with no DAG files, no separate orchestration service, no tracing backend. Replaces LangChain, LangGraph, LangSmith, and Airflow.`,
   },
   {
     claim: "Memory bounded by hardware, not data.",
     proof:
-      "Purple8 fits its ingest footprint to the RAM you give it — peak memory tracks your hardware, not your corpus size. Validated: 8.84 million passages ingested on a 24 GB machine with peak memory holding around 9 GB. The same corpus runs on a small machine or a large one; you trade time for memory, never correctness.",
+      "Purple8 fits its ingest footprint to the RAM you give it - peak memory tracks your hardware, not your corpus size. Validated: 8.84 million passages ingested on a 24 GB machine with peak memory holding around 9 GB. The same corpus runs on a small machine or a large one; you trade time for memory, never correctness.",
   },
   {
     claim: "Documents become knowledge, automatically.",
@@ -46,12 +46,12 @@ const EIGHT = [
   {
     claim: "AI-native. Without burning the planet.",
     proof:
-      "One process instead of 20+ services means fewer servers, less idle compute, and no cross-service network waste. The architecture is the efficiency argument — not a benchmark number.",
+      "One process instead of 20+ services means fewer servers, less idle compute, and no cross-service network waste. The architecture is the efficiency argument - not a benchmark number.",
   },
   {
     claim: "You own it. Completely.",
     proof:
-      "Self-hosted. Ships as a Docker image or pip wheel — runs anywhere Python or containers run. Your data never leaves your infrastructure: no content egress, no vendor access. Optional anonymized version telemetry (no PII, no customer data) is opt-out with one env var. Air-gap capable.",
+      "Self-hosted. Ships as a Docker image or pip wheel - runs anywhere Python or containers run. Your data never leaves your infrastructure: no content egress, no vendor access. Optional anonymized version telemetry (no PII, no customer data) is opt-out with one env var. Air-gap capable.",
   },
 ];
 

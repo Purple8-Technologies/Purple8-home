@@ -31,7 +31,7 @@ export default function StartPaths({ product, sandboxHref }: Props) {
           : "Deploy in your own VPC, on-premise, or air-gapped environment with annual commercial or enterprise licensing.",
       note: "Commercial · Enterprise · Air-Gapped",
       cta: "Contact Us",
-      href: mailto(`Purple8 ${product} — Licensing Inquiry`),
+      href: mailto(`Purple8 ${product} - Licensing Inquiry`),
       primary: false,
     },
     {
@@ -39,7 +39,7 @@ export default function StartPaths({ product, sandboxHref }: Props) {
       line: "Available via direct enterprise license and expanding across Red Hat, AWS, Azure, and GCP Marketplaces.",
       note: "Red Hat · AWS · Azure · GCP",
       cta: "Contact Us",
-      href: mailto(`Purple8 ${product} — Cloud & Marketplace Inquiry`),
+      href: mailto(`Purple8 ${product} - Cloud & Marketplace Inquiry`),
       primary: false,
     },
   ];

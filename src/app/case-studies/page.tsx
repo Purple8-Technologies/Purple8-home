@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Case Studies",
   description:
-    "How teams replace a multi-service stack with a single Purple8 process — real workloads, real numbers.",
+    "How teams replace a multi-service stack with a single Purple8 process - real workloads, real numbers.",
   path: "/case-studies",
 });
 
@@ -28,12 +28,12 @@ export default function CaseStudiesIndexPage() {
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-zinc-400">
             How teams collapse a multi-service backend into a single Purple8
-            process — and what it does for their infrastructure.
+            process - and what it does for their infrastructure.
           </p>
 
           {studies.length === 0 ? (
             <p className="mt-16 text-zinc-500">
-              No case studies yet — check back soon.
+              No case studies yet - check back soon.
             </p>
           ) : (
             <div className="mt-16 space-y-4">

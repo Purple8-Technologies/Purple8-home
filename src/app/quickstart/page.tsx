@@ -6,14 +6,14 @@ import { ClassicShell } from "@/components/revamp/BrandShell";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Install Purple8 — Docker Quickstart",
+  title: "Install Purple8 - Docker Quickstart",
   description:
     "Install Purple8 Hyper Graph in one command. The one-click script installs Docker if needed, pulls the Developer image, starts the container, and opens the admin console. Manual Docker steps included.",
   path: "/quickstart",
 });
 
 /**
- * Developer / Docker install page — the destination for "Full quickstart →" on
+ * Developer / Docker install page - the destination for "Full quickstart →" on
  * the activation success screen and in the license-delivery email
  * (_DEVELOPER_QUICKSTART_URL in purple8-command-center).
  *
@@ -31,7 +31,7 @@ const RUN_CMD = `docker run -d \\
   -v purple8-data:/data \\
   ghcr.io/purple8-technologies/purple8-graph:developer`;
 
-// DocIntel — free Community edition (no license key). Needs an LLM key for the
+// DocIntel - free Community edition (no license key). Needs an LLM key for the
 // extraction pipeline, and points its emit callback at your Purple8 graph.
 const DOCINTEL_RUN_CMD = `docker run -d \\
   --name purple8-docintel \\
@@ -124,13 +124,13 @@ export default function QuickstartPage() {
             Back to purple8.ai
           </a>
           <p className="text-sm font-medium uppercase tracking-wide text-purple-400">
-            Developer Edition — Free
+            Developer Edition - Free
           </p>
           <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
             Install Purple8
           </h1>
           <p className="mt-3 text-gray-400">
-            Purple8 Hyper Graph is your entire backend in one container — graph,
+            Purple8 Hyper Graph is your entire backend in one container - graph,
             vector, document &amp; full-text storage, a built-in RAG pipeline, a
             {F.mcpTools}-tool MCP server, workflows, auth, and encryption. No external
             services. The free Developer edition runs it all locally.
@@ -148,7 +148,7 @@ export default function QuickstartPage() {
           <p className="mt-3 text-sm text-gray-400">
             One command does everything: it installs Docker if you don&rsquo;t
             have it, pulls the image, starts the container, and opens the console.
-            Safe to re-run — it never deletes your data.
+            Safe to re-run - it never deletes your data.
           </p>
 
           <div className="mt-5">
@@ -165,7 +165,7 @@ export default function QuickstartPage() {
             <CommandBlock code={INSTALL_PS1} />
           </div>
 
-          {/* What the script does — flow diagram */}
+          {/* What the script does - flow diagram */}
           <div className="mt-7">
             <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
               What the script does
@@ -240,7 +240,7 @@ export default function QuickstartPage() {
             >
               View install.ps1
             </a>
-            . The script only pulls the public image — nothing phones home.
+            . The script only pulls the public image - nothing phones home.
           </p>
         </section>
 
@@ -249,7 +249,7 @@ export default function QuickstartPage() {
           <h2 className="text-xl font-semibold text-white">One container, your whole backend</h2>
           <p className="mt-2 text-sm text-gray-400">
             Everything below runs inside the single <code className="text-purple-200">purple8</code>{" "}
-            container on port <code className="text-purple-200">8100</code> — replacing the stack
+            container on port <code className="text-purple-200">8100</code> - replacing the stack
             you&rsquo;d normally wire together yourself.
           </p>
           <div className="mt-5 overflow-x-auto rounded-2xl border border-gray-800 bg-[#0c0c14] p-5">
@@ -350,7 +350,7 @@ export default function QuickstartPage() {
           </p>
         </section>
 
-        {/* ── Step 4 — MCP / agent connection ── */}
+        {/* ── Step 4 - MCP / agent connection ── */}
         <section id="connect-agent" className="mb-12 scroll-mt-24">
           <h3 className="text-base font-semibold text-white">
             <span className="mr-2 text-purple-400">4.</span> Connect an AI agent or coding tool
@@ -358,14 +358,14 @@ export default function QuickstartPage() {
           <p className="mt-2 text-sm text-gray-400">
             Purple8 exposes an MCP server at{" "}
             <code className="text-purple-200">http://localhost:8100/mcp</code>.
-            No separate SDK or plugin needed — any MCP-capable client connects
+            No separate SDK or plugin needed - any MCP-capable client connects
             with that URL and an API key. You can also call the {F.mcpTools} tools directly
             from your browser without any client at all.
           </p>
 
           {/* Get an API key callout */}
           <div className="mt-4 rounded-xl border border-purple-900/40 bg-purple-950/20 px-4 py-3 text-sm text-gray-400">
-            <span className="font-semibold text-purple-300">Get your API key first —</span>{" "}
+            <span className="font-semibold text-purple-300">Get your API key first -</span>{" "}
             open the admin console at{" "}
             <code className="text-purple-200">http://localhost:8100/lcnc/api-keys</code>,
             create a key, and copy it. Paste it in place of{" "}
@@ -375,14 +375,14 @@ export default function QuickstartPage() {
           {/* Sub-sections */}
           <div className="mt-8 space-y-8">
 
-            {/* 4a — Try it directly in the browser */}
+            {/* 4a - Try it directly in the browser */}
             <div>
               <p className="text-sm font-semibold text-white mb-1">
-                Option A — Try it directly in your browser
+                Option A - Try it directly in your browser
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 The MCP Console is built into every Purple8 container. Open it,
-                pick any of the {F.mcpTools} tools, fill in the arguments, and run — no
+                pick any of the {F.mcpTools} tools, fill in the arguments, and run - no
                 client installation, no code.
               </p>
               <div className="rounded-xl border border-purple-700/40 bg-[#0d0d16] px-4 py-3 text-sm">
@@ -402,10 +402,10 @@ export default function QuickstartPage() {
               </p>
             </div>
 
-            {/* 4b — Claude Code */}
+            {/* 4b - Claude Code */}
             <div>
               <p className="text-sm font-semibold text-white mb-1">
-                Option B — Claude Code (CLI)
+                Option B - Claude Code (CLI)
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 One command registers Purple8 as an MCP server in your Claude
@@ -419,10 +419,10 @@ export default function QuickstartPage() {
               </p>
             </div>
 
-            {/* 4c — Claude Desktop */}
+            {/* 4c - Claude Desktop */}
             <div>
               <p className="text-sm font-semibold text-white mb-1">
-                Option C — Claude Desktop
+                Option C - Claude Desktop
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 Connect Claude Desktop to your running container or Cloud Sandbox using{" "}
@@ -441,10 +441,10 @@ export default function QuickstartPage() {
               <CommandBlock code={CLAUDE_DESKTOP_CFG} />
             </div>
 
-            {/* 4d — Cursor */}
+            {/* 4d - Cursor */}
             <div>
               <p className="text-sm font-semibold text-white mb-1">
-                Option D — Cursor
+                Option D - Cursor
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 Add to your Cursor MCP config file (
@@ -454,10 +454,10 @@ export default function QuickstartPage() {
               <CommandBlock code={CURSOR_CFG} />
             </div>
 
-            {/* 4e — VS Code (GitHub Copilot) */}
+            {/* 4e - VS Code (GitHub Copilot) */}
             <div>
               <p className="text-sm font-semibold text-white mb-1">
-                Option E — VS Code / GitHub Copilot
+                Option E - VS Code / GitHub Copilot
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 Add to your VS Code{" "}
@@ -474,10 +474,10 @@ export default function QuickstartPage() {
               </p>
             </div>
 
-            {/* 4f — OpenAI Codex */}
+            {/* 4f - OpenAI Codex */}
             <div>
               <p className="text-sm font-semibold text-white mb-1">
-                Option F — OpenAI Codex
+                Option F - OpenAI Codex
               </p>
               <p className="text-sm text-gray-400 mb-3">
                 Codex reads MCP servers from{" "}
@@ -518,12 +518,12 @@ export default function QuickstartPage() {
           <div className="mt-4 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
             <div>• Graph + vector + document + full-text engine</div>
             <div>• Built-in RAG pipeline (hybrid retrieval)</div>
-            <div>• MCP server — {F.mcpTools} tools</div>
+            <div>• MCP server - {F.mcpTools} tools</div>
             <div>• Journey Engine (workflows, SLA, HITL, audit)</div>
             <div>• LCNC admin console</div>
             <div>• AES-256-GCM encryption at rest</div>
             <div>• 50K nodes, 1 MCP agent (free tier)</div>
-            <div>• Perpetual license — no expiry</div>
+            <div>• Perpetual license - no expiry</div>
           </div>
         </section>
 
@@ -534,14 +534,14 @@ export default function QuickstartPage() {
               Optional
             </span>
             <h2 className="text-lg font-semibold text-white">
-              Add Purple8 DocIntel — turn any document into graph knowledge
+              Add Purple8 DocIntel - turn any document into graph knowledge
             </h2>
           </div>
           <p className="mt-3 text-sm text-gray-400">
             DocIntel is a separate microservice that parses {F.docFormats} formats (PDF,
             Office, HTML, images, CAD &amp; BIM), extracts entities and
             relationships, and emits them straight into your Purple8 graph. The{" "}
-            <span className="text-violet-300">Community edition is free</span> —
+            <span className="text-violet-300">Community edition is free</span> -
             no license key, no expiry. It only needs an LLM API key for the
             extraction pipeline.
           </p>

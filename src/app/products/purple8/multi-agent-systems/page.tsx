@@ -5,18 +5,18 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Multi-Agent Systems & AI Agent Swarms — Purple8 Hyper Graph",
+  title: "Multi-Agent Systems & AI Agent Swarms - Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph is the shared-memory substrate for multi-agent AI systems. Agent swarms read and write the same persistent knowledge graph, coordinate via CDC events, and are governed by per-agent RBAC — all in one process.",
+    "Purple8 Hyper Graph is the shared-memory substrate for multi-agent AI systems. Agent swarms read and write the same persistent knowledge graph, coordinate via CDC events, and are governed by per-agent RBAC - all in one process.",
   path: "/products/purple8/multi-agent-systems",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Multi-Agent Systems & AI Agent Swarms — Purple8 Hyper Graph",
+  name: "Multi-Agent Systems & AI Agent Swarms - Purple8 Hyper Graph",
   description:
-    "Purple8 provides the persistent shared memory, coordination primitives, and RBAC governance that AI agent swarms need. Multiple agents — researcher, analyst, writer, reviewer — all operate on the same knowledge graph, with full auditability.",
+    "Purple8 provides the persistent shared memory, coordination primitives, and RBAC governance that AI agent swarms need. Multiple agents - researcher, analyst, writer, reviewer - all operate on the same knowledge graph, with full auditability.",
   url: "https://www.purple8.ai/products/purple8/multi-agent-systems/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
@@ -35,7 +35,7 @@ const jsonLd = {
         name: "What is the main problem with multi-agent systems today?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Most multi-agent frameworks (AutoGen, CrewAI, LangGraph) treat memory as a side effect — agents pass messages and state lives in RAM, lost between runs and invisible to other agents. This means Agent B cannot see what Agent A discovered unless you explicitly code the handoff. Purple8 solves this by making the knowledge graph the shared memory: every agent reads and writes the same persistent store, so every discovery is immediately available to the swarm.",
+          text: "Most multi-agent frameworks (AutoGen, CrewAI, LangGraph) treat memory as a side effect - agents pass messages and state lives in RAM, lost between runs and invisible to other agents. This means Agent B cannot see what Agent A discovered unless you explicitly code the handoff. Purple8 solves this by making the knowledge graph the shared memory: every agent reads and writes the same persistent store, so every discovery is immediately available to the swarm.",
         },
       },
       {
@@ -51,7 +51,7 @@ const jsonLd = {
         name: "How is access controlled across agents in a swarm?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Each agent authenticates with its own API key and is assigned a role (viewer/editor/admin/super_admin). RBAC is enforced per MCP tool call — a researcher agent can add nodes and edges but cannot delete them; a reviewer agent can read but not write. This is enforced at the graph engine level, not in application code, so it cannot be bypassed.",
+          text: "Each agent authenticates with its own API key and is assigned a role (viewer/editor/admin/super_admin). RBAC is enforced per MCP tool call - a researcher agent can add nodes and edges but cannot delete them; a reviewer agent can read but not write. This is enforced at the graph engine level, not in application code, so it cannot be bypassed.",
         },
       },
       {
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "Can I audit what each agent did in a swarm run?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Every node and edge written to Purple8 carries the agent identity, timestamp, and operation type. The graph is the audit trail — you can query 'show me every node written by Agent A in the last 24 hours' or traverse the provenance chain from any finding back to the source document and the agent that extracted it.",
+          text: "Yes. Every node and edge written to Purple8 carries the agent identity, timestamp, and operation type. The graph is the audit trail - you can query 'show me every node written by Agent A in the last 24 hours' or traverse the provenance chain from any finding back to the source document and the agent that extracted it.",
         },
       },
     ],
@@ -71,7 +71,7 @@ const swarmPatterns = [
     icon: "🔬",
     title: "Research synthesis swarm",
     agents: ["Ingestion agent → DocIntel → graph", "Extraction agent → entities + relationships", "Analysis agent → cross-document patterns via GraphRAG", "Writer agent → synthesis report from graph context"],
-    value: "Agent 4 sees Agent 1's work the moment it lands — no handoff code.",
+    value: "Agent 4 sees Agent 1's work the moment it lands - no handoff code.",
   },
   {
     icon: "⚖️",
@@ -83,7 +83,7 @@ const swarmPatterns = [
     icon: "🛡️",
     title: "Threat hunting swarm",
     agents: ["N scanner agents (parallel) → each scans a segment", "Correlation agent → detects cross-segment patterns", "SOC agent → elevates threats, triggers containment", "Analyst → HITL gate on containment decisions"],
-    value: "Scanner agents write findings concurrently. Correlation agent reacts via CDC — no polling.",
+    value: "Scanner agents write findings concurrently. Correlation agent reacts via CDC - no polling.",
   },
   {
     icon: "🏗️",
@@ -101,7 +101,7 @@ const swarmPatterns = [
     icon: "📋",
     title: "Compliance audit swarm",
     agents: ["Document ingestion agent → policies, contracts, logs", "Extraction agent → obligations + deadlines graph", "Monitoring agent → checks compliance state continuously", "Escalation agent → triggers HITL on breaches", "Auditor → immutable trail of every finding"],
-    value: "The audit trail IS the graph — regulators can query it directly.",
+    value: "The audit trail IS the graph - regulators can query it directly.",
   },
 ];
 
@@ -109,7 +109,7 @@ const primitives = [
   {
     icon: "🗄️",
     title: "Shared persistent memory",
-    desc: "All agents read and write the same graph engine. Agent B's discovery is visible to Agent C the moment it's written — no message passing, no explicit handoff code.",
+    desc: "All agents read and write the same graph engine. Agent B's discovery is visible to Agent C the moment it's written - no message passing, no explicit handoff code.",
   },
   {
     icon: "📡",
@@ -119,7 +119,7 @@ const primitives = [
   {
     icon: "🔐",
     title: "Per-agent RBAC",
-    desc: "Each agent has its own API key and role. Researcher: editor. Reviewer: viewer. Coordinator: admin. Enforced at the engine level — not in application code.",
+    desc: "Each agent has its own API key and role. Researcher: editor. Reviewer: viewer. Coordinator: admin. Enforced at the engine level - not in application code.",
   },
   {
     icon: "🔍",
@@ -280,7 +280,7 @@ export default function MultiAgentSystemsPage() {
               </Link>
               <Link href="/products/purple8/opinion-engine/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-purple-700/50">
                 <p className="text-sm font-semibold text-purple-300 group-hover:text-purple-200">💡 Opinion Engine →</p>
-                <p className="mt-1 text-xs text-zinc-500">Model what the swarm believes — consensus, conflict, confidence</p>
+                <p className="mt-1 text-xs text-zinc-500">Model what the swarm believes - consensus, conflict, confidence</p>
               </Link>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Purple8 Hyper Graph — AI-Native Execution Infrastructure",
+  title: "Purple8 Hyper Graph - AI-Native Execution Infrastructure",
   description:
     `Graph + vector + document + full-text + agentic process automation in one process. AI agents orchestrate end-to-end workflows via ${F.mcpTools} MCP tools. Built for AI, Operated by AI and Supervised by Humans.`,
   path: "/products/purple8",
@@ -17,7 +17,7 @@ const jsonLd = {
   name: "Purple8 Hyper Graph",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Linux, macOS, Windows, Docker",
-  description: "AI-native multi-model execution engine — graph, vector, document store, full-text search, workflow engine, RAG, auth, encryption, and autonomous SOC in a single container.",
+  description: "AI-native multi-model execution engine - graph, vector, document store, full-text search, workflow engine, RAG, auth, encryption, and autonomous SOC in a single container.",
   offers: { "@type": "Offer", priceCurrency: "USD", description: "Contact sales@purple8.ai for licensing" },
   url: "https://www.purple8.ai/products/purple8/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
@@ -25,14 +25,14 @@ const jsonLd = {
 };
 
 const capabilities = [
-  { icon: "🕸️", label: "LPG, RDF & Hyper Graph", desc: "Supports both Labeled Property Graph (LPG / openCypher) and RDF semantic triples / N-Quads with reification — sub-millisecond multi-hop traversal." },
+  { icon: "🕸️", label: "LPG, RDF & Hyper Graph", desc: "Supports both Labeled Property Graph (LPG / openCypher) and RDF semantic triples / N-Quads with reification - sub-millisecond multi-hop traversal." },
   { icon: "🔍", label: "Semantic & Hybrid Search", desc: "Native vector + full-text + graph hybrid RAG out of the box." },
   { icon: "📄", label: "Document Store", desc: "Store and retrieve structured documents with full-text search. Pair with DocIntel to extract vectors, nodes & relations." },
   { icon: "🔄", label: "Journey Engine", desc: "Multi-stage workflow orchestration with HITL gates and SLA enforcement." },
-  { icon: "🤖", label: `${F.mcpTools} MCP Tools`, desc: "AI agents connect directly. Claude, Cursor, Copilot, ChatGPT — all supported." },
-  { icon: "⚛️", label: "Quantum-Inspired AI", desc: "QUBO optimisation, VRP, portfolio selection, tensor networks — callable by agents via MCP." },
+  { icon: "🤖", label: `${F.mcpTools} MCP Tools`, desc: "AI agents connect directly. Claude, Cursor, Copilot, ChatGPT - all supported." },
+  { icon: "⚛️", label: "Quantum-Inspired AI", desc: "QUBO optimisation, VRP, portfolio selection, tensor networks - callable by agents via MCP." },
   { icon: "🔐", label: "Auth & Encryption", desc: "JWT + API-key RBAC. AES-256-GCM envelope encryption at rest." },
-  { icon: "🏢", label: "Multi-Tenancy", desc: "Shared-key or dedicated DB path per tenant — no schema per tenant." },
+  { icon: "🏢", label: "Multi-Tenancy", desc: "Shared-key or dedicated DB path per tenant - no schema per tenant." },
   { icon: "📊", label: "Analytics", desc: "PageRank, community detection, betweenness centrality, link prediction." },
 ];
 
@@ -59,7 +59,7 @@ export default function HyperGraphPage() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
               </span>
-              Developer edition — free, no credit card
+              Developer edition - free, no credit card
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Your entire backend.{" "}
@@ -70,7 +70,7 @@ export default function HyperGraphPage() {
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
               Purple8 Hyper Graph is an embedded multi-model database purpose-built for
               AI applications. Graph + vector + document + full-text + workflows +
-              {F.mcpTools} MCP tools — in a single process, with zero external dependencies.
+              {F.mcpTools} MCP tools - in a single process, with zero external dependencies.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a

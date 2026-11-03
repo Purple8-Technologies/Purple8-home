@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "Purple8 is the infrastructure layer AI apps are finally built on. One embedded backend for data, retrieval, workflow orchestration, and agent execution — replacing the fragmented stack of 29 separately billed services.",
+    "Purple8 is the infrastructure layer AI apps are finally built on. One embedded backend for data, retrieval, workflow orchestration, and agent execution - replacing the fragmented stack of 29 separately billed services.",
   path: "/about",
 });
 
@@ -18,19 +18,19 @@ const STATS = [
   { value: "1", label: "deployment", sub: "replaces 29 separately billed services" },
 ];
 
-// ── Slide 3 — the four beliefs ───────────────────────────────────────────────
+// ── Slide 3 - the four beliefs ───────────────────────────────────────────────
 const PILLARS = [
   {
     eyebrow: "What we proved",
-    body: "Consolidation is not a trade-off. Purple8 outperforms fragmented stacks on memory, latency, and operational simplicity — simultaneously.",
+    body: "Consolidation is not a trade-off. Purple8 outperforms fragmented stacks on memory, latency, and operational simplicity - simultaneously.",
   },
   {
     eyebrow: "What we rejected",
-    body: 'The idea that "enterprise-grade" means complex. One process. One port. Zero external dependencies. That is the most defensible security architecture. We didn\'t add to the stack — we collapsed it.',
+    body: 'The idea that "enterprise-grade" means complex. One process. One port. Zero external dependencies. That is the most defensible security architecture. We didn\'t add to the stack - we collapsed it.',
   },
   {
     eyebrow: "What we built for",
-    body: "Anyone with an idea and a server — not just those with a hyperscaler contract.",
+    body: "Anyone with an idea and a server - not just those with a hyperscaler contract.",
   },
   {
     eyebrow: "What we believe",
@@ -38,7 +38,7 @@ const PILLARS = [
   },
 ];
 
-// ── Slide 2 — the fragmented stack ───────────────────────────────────────────
+// ── Slide 2 - the fragmented stack ───────────────────────────────────────────
 const FRAGMENTS = [
   "vector database",
   "graph database",
@@ -55,7 +55,7 @@ export default function AboutPage() {
         {/* ── Hero ── */}
         <section className="relative overflow-hidden px-4 pt-32 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            {/* Left — headline */}
+            {/* Left - headline */}
             <div>
               <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">
                 About Purple8
@@ -79,7 +79,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* Right — stat panel */}
+            {/* Right - stat panel */}
             <div className="rounded-3xl border border-purple-900/40 bg-gradient-to-b from-purple-900/25 to-[#11111b] p-8 sm:p-10">
               <div className="divide-y divide-purple-900/30">
                 {STATS.map((s) => (
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 <p className="mt-3 text-base leading-relaxed text-zinc-300">
                   Building a production AI workflow today means assembling a
                   vector database, a graph database, an orchestration layer, a
-                  document parser, and an auth service — then writing glue code
+                  document parser, and an auth service - then writing glue code
                   to hold it all together.
                 </p>
               </div>
@@ -119,7 +119,7 @@ export default function AboutPage() {
                 </p>
                 <p className="mt-3 text-base leading-relaxed text-zinc-200">
                   Purple8 is all of that in a single binary. Deploy once. Own
-                  everything. Your hardware, your data — no vendor bill for each
+                  everything. Your hardware, your data - no vendor bill for each
                   piece. Purple8 gives AI agents high-leverage execution over
                   enterprise data and workflows, with built-in governance,
                   isolation, and observability.
@@ -179,7 +179,7 @@ export default function AboutPage() {
                 The origin
               </p>
               <div className="mt-8 grid gap-8 lg:grid-cols-2">
-                {/* Left — narrative */}
+                {/* Left - narrative */}
                 <div className="rounded-3xl border border-zinc-800 bg-[#11111b] p-8 sm:p-10">
                   <div className="text-4xl leading-none text-purple-500">“</div>
                   <h2 className="mt-2 text-3xl font-bold text-white">
@@ -197,12 +197,12 @@ export default function AboutPage() {
                     operational overhead.
                   </p>
                   <p className="mt-4 font-semibold italic text-purple-300">
-                    We decided to build differently. Not by adding to the stack —
+                    We decided to build differently. Not by adding to the stack -
                     but by collapsing it.
                   </p>
                 </div>
 
-                {/* Right — four pillars */}
+                {/* Right - four pillars */}
                 <div className="grid gap-4 sm:grid-cols-2">
                   {PILLARS.map((p) => (
                     <div
@@ -234,18 +234,18 @@ export default function AboutPage() {
                 <div className="rounded-3xl border border-purple-900/50 bg-[#11111b] p-8">
                   <div className="text-6xl font-extrabold text-purple-400">P</div>
                   <h3 className="mt-4 text-lg font-bold text-white">
-                    Purple — Abundant Possibility
+                    Purple - Abundant Possibility
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-zinc-400">
                     For centuries, purple represented those who dared to build
-                    something that didn&apos;t exist yet — technology that opens
+                    something that didn&apos;t exist yet - technology that opens
                     possibility rather than gatekeeping it.
                   </p>
                 </div>
                 <div className="rounded-3xl border border-purple-900/50 bg-[#11111b] p-8">
                   <div className="text-6xl font-extrabold text-purple-400">8</div>
                   <h3 className="mt-4 text-lg font-bold text-white">
-                    8 — Infinite Scale
+                    8 - Infinite Scale
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-zinc-400">
                     Turn it on its side: ∞. Infinite reach. A system that does
@@ -289,7 +289,7 @@ export default function AboutPage() {
                     infrastructure programmes at HSBC across risk operations,
                     enterprise intelligence, and large-scale delivery. He knows
                     exactly what it costs to build production-grade AI inside a
-                    real institution — fragmented vendors, compliance overhead,
+                    real institution - fragmented vendors, compliance overhead,
                     infrastructure that takes months to assemble and breaks at
                     3am.
                   </p>

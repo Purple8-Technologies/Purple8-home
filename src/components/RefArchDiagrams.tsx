@@ -197,7 +197,7 @@ function ExtBox({
 /* ─── Reusable logo rows for LLM providers ───────────────────────────── */
 function LLMProviderBox() {
   return (
-    <ExtBox title="LLM Provider" subtitle="Your choice — model-agnostic">
+    <ExtBox title="LLM Provider" subtitle="Your choice - model-agnostic">
       <OpenAIIcon className="h-4 w-4" />
       <SiIcon path={siAnthropic.path} hex={siAnthropic.hex} title="Anthropic" className="h-4 w-4" />
       <SiIcon path={siGooglegemini.path} hex={siGooglegemini.hex} title="Gemini" className="h-4 w-4" />
@@ -273,7 +273,7 @@ function EnvBadge({ label, icon }: { label: string; icon: React.ReactNode }) {
   );
 }
 
-/* ─── Scenario card wrapper — collapsible accordion ─────────────────── */
+/* ─── Scenario card wrapper - collapsible accordion ─────────────────── */
 function ScenarioCard({
   number,
   title,
@@ -311,7 +311,7 @@ function ScenarioCard({
             </h3>
             <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-zinc-500">{description}</p>
 
-            {/* Teaser badges — shown only when collapsed */}
+            {/* Teaser badges - shown only when collapsed */}
             {!open && (
               <p className="mt-2 text-[11px] text-zinc-600 italic">{teaser}</p>
             )}
@@ -352,12 +352,12 @@ function ScenarioCard({
   );
 }
 
-/* ─── SCENARIO 1 — Start simple ──────────────────────────────────────── */
+/* ─── SCENARIO 1 - Start simple ──────────────────────────────────────── */
 function Scenario1() {
   return (
     <ScenarioCard
       number="01"
-      title="The core pattern — you build the frontend, Purple8 is everything else"
+      title="The core pattern - you build the frontend, Purple8 is everything else"
       description="The minimum viable AI backend. One process, no external services. Works identically on a developer laptop and in production."
       teaser="Frontend → Purple8 (Graph + Vector + RAG + Auth + MCP) → LLM provider"
       defaultOpen={true}
@@ -382,7 +382,7 @@ function Scenario1() {
       <div className="w-full max-w-lg">
         <P8Box
           name="Purple8"
-          subtitle="Your complete AI backend — one process"
+          subtitle="Your complete AI backend - one process"
           caps={["Graph + Vector + RAG", "Journey Engine", "Auth + RBAC", "Encryption", "AI Evaluation", "SOC Agent", `MCP · ${F.mcpTools} tools`]}
         />
       </div>
@@ -398,12 +398,12 @@ function Scenario1() {
   );
 }
 
-/* ─── SCENARIO 2 — Document-intensive workloads ──────────────────────── */
+/* ─── SCENARIO 2 - Document-intensive workloads ──────────────────────── */
 function Scenario2() {
   return (
     <ScenarioCard
       number="02"
-      title="Document-intensive workloads — parse, extract, and reason over any content"
+      title="Document-intensive workloads - parse, extract, and reason over any content"
       description="Adds DocIntel to the pipeline for organisations with dense document corpora: contracts, BIM files, financial reports, research papers. 70 formats in, structured knowledge graph out."
       teaser="70 formats → DocIntel (parse + extract) → Purple8 graph → Frontend + AI agents"
       envBadges={
@@ -461,12 +461,12 @@ function Scenario2() {
   );
 }
 
-/* ─── SCENARIO 3 — AI Agent as the developer ─────────────────────────── */
+/* ─── SCENARIO 3 - AI Agent as the developer ─────────────────────────── */
 function Scenario3() {
   return (
     <ScenarioCard
       number="03"
-      title="AI agent as the developer — natural language is the only interface"
+      title="AI agent as the developer - natural language is the only interface"
       description={`No application code written by humans. An AI agent uses ${F.mcpTools} MCP tools to build, operate, and evolve the entire backend. End users interact via the built-in admin portal or a thin frontend.`}
       teaser={`AI agent → ${F.mcpTools} MCP tools → Purple8 + DocIntel + Admin portal → End users`}
       envBadges={
@@ -479,7 +479,7 @@ function Scenario3() {
       <div className="w-full max-w-md">
         <ExtBox
           title="AI Agent"
-          subtitle={`Operates the entire backend via ${F.mcpTools} MCP tools — no human writing backend code`}
+          subtitle={`Operates the entire backend via ${F.mcpTools} MCP tools - no human writing backend code`}
           accent="amber"
         >
           <SiIcon path={siClaude.path} hex={siClaude.hex} title="Claude" className="h-5 w-5" />
@@ -514,7 +514,7 @@ function Scenario3() {
           caps={["Parse", "Extract", "Emit"]}
           violet
         />
-        <ExtBox title="Admin Portal (LCNC)" subtitle="Built-in — no separate CMS" accent="teal">
+        <ExtBox title="Admin Portal (LCNC)" subtitle="Built-in - no separate CMS" accent="teal">
           <UsersIcon className="h-5 w-5 text-teal-400" />
         </ExtBox>
       </div>
@@ -536,12 +536,12 @@ function Scenario3() {
   );
 }
 
-/* ─── SCENARIO 4 — Production HA ─────────────────────────────────────── */
+/* ─── SCENARIO 4 - Production HA ─────────────────────────────────────── */
 function Scenario4() {
   return (
     <ScenarioCard
       number="04"
-      title="Production HA — horizontally scaled, cloud or on-premises Kubernetes"
+      title="Production HA - horizontally scaled, cloud or on-premises Kubernetes"
       description="High-availability topology for production workloads. Three Purple8 query nodes behind a load balancer, a DocIntel cluster for parallel document processing, deployed on any container platform."
       teaser="Load balancer → 3 Purple8 nodes + DocIntel cluster → shared persistent storage · Docker / Kubernetes"
       envBadges={
@@ -639,7 +639,7 @@ export default function RefArchDiagrams() {
           Building with Purple8
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
-          Four deployment patterns for architects — from a solo developer&apos;s first
+          Four deployment patterns for architects - from a solo developer&apos;s first
           app to a production Kubernetes cluster. Every scenario runs the same binary;
           only the topology changes.
         </p>

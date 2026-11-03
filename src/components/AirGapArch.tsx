@@ -127,9 +127,9 @@ const llmModels = [
     vram: "24 GB",
     cmd: "ollama pull qwen3:30b",
     link: "https://ollama.com/library/qwen3",
-    role: "High-quality RAG, agentic workflows — near-70B quality at 32B memory cost",
+    role: "High-quality RAG, agentic workflows - near-70B quality at 32B memory cost",
     flags: ["tools", "thinking"],
-    note: "MoE: only 3B parameters activated per token — substantially faster inference than a 30B dense model",
+    note: "MoE: only 3B parameters activated per token - substantially faster inference than a 30B dense model",
   },
   {
     tier: "Flagship (max)",
@@ -169,7 +169,7 @@ const llmModels = [
     vram: "CPU only",
     cmd: "ollama pull nomic-embed-text",
     link: "https://ollama.com/library/nomic-embed-text",
-    role: "All vector embeddings for Purple8 Graph HNSW index — 8192 token context",
+    role: "All vector embeddings for Purple8 Graph HNSW index - 8192 token context",
     flags: ["embedding"],
     note: "For multilingual corpora swap to qwen3-embedding:4b (~2.6 GB)",
   },
@@ -191,13 +191,13 @@ const infraTiers = [
     accent: "text-zinc-300",
     minRam: "16 GB system RAM",
     minCpu: "8+ cores (any architecture)",
-    minGpu: "None required — CPU-only or Apple MPS",
+    minGpu: "None required - CPU-only or Apple MPS",
     minStorage: "256 GB NVMe",
     llm: "qwen3:8b (CPU / MPS)",
     rss: "~5–9 GB peak",
     corpus: "≤ 500K documents",
     nodes: "1 process",
-    notes: "Full Purple8 + DocIntel + Ollama on a developer laptop. No GPU required. Validated on Apple Silicon 24 GB with 8.84M MS MARCO nodes — see BENCHMARK.md.",
+    notes: "Full Purple8 + DocIntel + Ollama on a developer laptop. No GPU required. Validated on Apple Silicon 24 GB with 8.84M MS MARCO nodes - see BENCHMARK.md.",
     tip: "If you have ≥ 24 GB RAM you can run qwen3:14b comfortably on CPU and get significantly better extraction quality.",
   },
   {
@@ -207,7 +207,7 @@ const infraTiers = [
     accent: "text-purple-300",
     minRam: "64 GB system RAM",
     minCpu: "16+ cores (x86 or ARM server)",
-    minGpu: "≥ 24 GB VRAM — any current-gen GPU meeting this threshold",
+    minGpu: "≥ 24 GB VRAM - any current-gen GPU meeting this threshold",
     minStorage: "2 TB NVMe (RAID-1 recommended)",
     llm: "qwen3:30b (MoE) or deepseek-r1:32b on GPU",
     rss: "~12–18 GB",
@@ -229,7 +229,7 @@ const infraTiers = [
     rss: "~20 GB/node",
     corpus: "20M+ documents",
     nodes: "3 Purple8 app nodes · 1 Ollama inference node · 1 DocIntel node",
-    notes: "Replication across 3 Purple8 nodes. Ollama inference runs on an isolated GPU node reachable over internal LAN — still fully air-gapped, no public egress.",
+    notes: "Replication across 3 Purple8 nodes. Ollama inference runs on an isolated GPU node reachable over internal LAN - still fully air-gapped, no public egress.",
     tip: "80 GB VRAM is the minimum for llama3.3:70b at Q4. If your GPU node has less VRAM, drop to qwen3:30b (MoE, ~19 GB) which fits in 24 GB and performs comparably on most tasks.",
   },
 ];
@@ -240,7 +240,7 @@ const eliminated = [
   { item: "Azure Document Intelligence", why: "DocIntel handles 70 formats in-process" },
   { item: "AWS Bedrock / SageMaker", why: "All model inference runs on your hardware" },
   { item: "Pinecone / Weaviate / Qdrant cloud", why: "Purple8 Graph has HNSW vector search built in" },
-  { item: "LangSmith / Arize / W&B", why: "Every RAG call, agent action, and AI decision is a queryable graph edge — forever" },
+  { item: "LangSmith / Arize / W&B", why: "Every RAG call, agent action, and AI decision is a queryable graph edge - forever" },
   { item: "Auth0 / Keycloak / Okta", why: "JWT + API-key + 4-tier RBAC built into Purple8" },
   { item: "HashiCorp Vault cloud / AWS KMS", why: "AES-256-GCM envelope encryption + key management built in" },
   { item: "Splunk / Microsoft Sentinel / Datadog Security", why: "Purple8 SOC vertical: threat detection and containment in-process" },
@@ -280,7 +280,7 @@ export default function AirGapArch() {
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
           A complete, highly capable AI backend that never touches the public internet.
           Document ingestion, entity extraction, RAG, graph reasoning, workflow orchestration,
-          and threat detection — all running on hardware you control, with no egress required.
+          and threat detection - all running on hardware you control, with no egress required.
         </p>
 
         {/* Stack badge */}
@@ -306,7 +306,7 @@ export default function AirGapArch() {
           <Accordion
             title="System topology"
             badge="Architecture diagram"
-            teaser="Request flow end-to-end — nothing leaves the air-gap boundary"
+            teaser="Request flow end-to-end - nothing leaves the air-gap boundary"
             defaultOpen={true}
           >
             <div className="mt-5 overflow-x-auto">
@@ -321,7 +321,7 @@ export default function AirGapArch() {
                 <rect x="10" y="10" width="800" height="400" rx="14" ry="14"
                   fill="none" stroke="#7c3aed" strokeWidth="1.5" strokeDasharray="6 3" />
                 <text x="24" y="30" fill="#a78bfa" fontSize="11" fontFamily="monospace" fontWeight="600">
-                  Air-Gap Boundary — Zero Egress
+                  Air-Gap Boundary - Zero Egress
                 </text>
                 <text x="24" y="43" fill="#6d28d9" fontSize="9" fontFamily="monospace">
                   No outbound connections · No cloud APIs · No telemetry
@@ -420,9 +420,9 @@ export default function AirGapArch() {
             {/* Legend */}
             <div className="mt-4 flex flex-wrap gap-4 text-xs text-zinc-500">
               {[
-                { col: "border-purple-600", label: "Purple8 Hyper Graph — primary engine" },
-                { col: "border-green-700", label: "Purple8 DocIntel — document pipeline" },
-                { col: "border-orange-600", label: "Ollama — local LLM inference" },
+                { col: "border-purple-600", label: "Purple8 Hyper Graph - primary engine" },
+                { col: "border-green-700", label: "Purple8 DocIntel - document pipeline" },
+                { col: "border-orange-600", label: "Ollama - local LLM inference" },
                 { col: "border-blue-700", label: "Storage + search layer" },
               ].map((l) => (
                 <span key={l.label} className="flex items-center gap-1.5">
@@ -437,7 +437,7 @@ export default function AirGapArch() {
           <Accordion
             title="LLM model selection"
             badge="8 models"
-            teaser="Current Ollama models — qwen3, deepseek-r1, gemma4, nomic-embed-text"
+            teaser="Current Ollama models - qwen3, deepseek-r1, gemma4, nomic-embed-text"
             defaultOpen={true}
           >
             <p className="mt-4 text-sm text-zinc-500">
@@ -548,17 +548,17 @@ export default function AirGapArch() {
 
           {/* ── 4. Env config ── */}
           <Accordion
-            title="Wiring it together — environment configuration"
+            title="Wiring it together - environment configuration"
             badge="6 env vars"
             teaser="The minimal config to connect Purple8 Graph ↔ DocIntel ↔ Ollama"
           >
             <p className="mt-4 text-sm text-zinc-500 mb-4">
               Six environment variables wire the entire stack. Set these before starting each service.
-              All values are local — no external hostnames, no cloud endpoints.
+              All values are local - no external hostnames, no cloud endpoints.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <p className="text-xs font-semibold text-purple-400 mb-2 uppercase tracking-wider">Purple8 Hyper Graph — <code className="normal-case font-mono">.env</code></p>
+                <p className="text-xs font-semibold text-purple-400 mb-2 uppercase tracking-wider">Purple8 Hyper Graph - <code className="normal-case font-mono">.env</code></p>
                 <pre className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-5 py-4 text-xs text-purple-300 font-mono overflow-x-auto leading-relaxed">
 {`# Point LLM calls at local Ollama
 LLM_PROVIDER=ollama
@@ -578,7 +578,7 @@ JWT_SECRET=<your-secret>`}
                 </pre>
               </div>
               <div>
-                <p className="text-xs font-semibold text-green-400 mb-2 uppercase tracking-wider">Purple8 DocIntel — <code className="normal-case font-mono">.env</code></p>
+                <p className="text-xs font-semibold text-green-400 mb-2 uppercase tracking-wider">Purple8 DocIntel - <code className="normal-case font-mono">.env</code></p>
                 <pre className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-5 py-4 text-xs text-green-300 font-mono overflow-x-auto leading-relaxed">
 {`# Same local Ollama for extraction + vision
 LLM__PROVIDER=ollama
@@ -597,7 +597,7 @@ GRAPH__BASE_URL=http://localhost:8100
 GRAPH__API_KEY=<your-p8g-api-key>
 GRAPH__AUTO_COMMIT=true
 
-# No internet — set explicitly
+# No internet - set explicitly
 SERVER__API_KEY=<your-docintel-key>
 LICENSE__ENFORCE=false`}
                 </pre>
@@ -622,7 +622,7 @@ OLLAMA_HOST=0.0.0.0:11434 ollama serve`}
 
           {/* ── 5. Docker Compose ── */}
           <Accordion
-            title="Docker Compose — full air-gapped stack"
+            title="Docker Compose - full air-gapped stack"
             badge="Single file"
             teaser="One docker compose up and the entire stack is running"
           >
@@ -641,7 +641,7 @@ networks:
 
 services:
 
-  # ── Ollama — local LLM inference ──────────────────────────────────────
+  # ── Ollama - local LLM inference ──────────────────────────────────────
   ollama:
     image: ollama/ollama:latest
     container_name: p8-ollama
@@ -717,16 +717,16 @@ volumes:
             </p>
           </Accordion>
 
-          {/* ── 6. Deployment patterns — Fly.io & DigitalOcean ── */}
+          {/* ── 6. Deployment patterns - Fly.io & DigitalOcean ── */}
           <Accordion
-            title="Deployment patterns — Fly.io &amp; DigitalOcean"
+            title="Deployment patterns - Fly.io &amp; DigitalOcean"
             badge="Smaller deployments"
             teaser="Single-machine and managed-VM patterns for teams without infra teams"
           >
             <p className="mt-4 text-sm text-zinc-500 mb-5">
               Because Purple8 is a single binary with no sidecar services, it maps cleanly onto
               Fly.io machines and DigitalOcean Droplets. These patterns cover the
-              Developer and Single-server tiers — one process, one volume, full stack.
+              Developer and Single-server tiers - one process, one volume, full stack.
             </p>
 
             {/* Two-column layout */}
@@ -747,9 +747,9 @@ volumes:
                   {[
                     { k: "Machine type", v: "performance-2x (4 vCPU, 8 GB RAM) or performance-4x (8 vCPU, 16 GB RAM)" },
                     { k: "GPU (optional)", v: "a100-40gb or l40s via fly.toml gpu_kind" },
-                    { k: "Volume", v: "Fly persistent volume — 50–500 GB for data + WAL" },
+                    { k: "Volume", v: "Fly persistent volume - 50–500 GB for data + WAL" },
                     { k: "Ollama", v: "Second Fly Machine on same private network (fly.internal)" },
-                    { k: "Network", v: "Private 6PN mesh — Purple8 ↔ Ollama never leave Fly infra" },
+                    { k: "Network", v: "Private 6PN mesh - Purple8 ↔ Ollama never leave Fly infra" },
                     { k: "Deploy cmd", v: "fly deploy" },
                   ].map((r) => (
                     <div key={r.k} className="flex gap-2">
@@ -759,7 +759,7 @@ volumes:
                   ))}
                 </div>
 
-                <p className="text-[10px] font-semibold text-violet-400 mb-1.5 uppercase tracking-wider">fly.toml — Purple8 Graph</p>
+                <p className="text-[10px] font-semibold text-violet-400 mb-1.5 uppercase tracking-wider">fly.toml - Purple8 Graph</p>
                 <pre className="rounded-lg border border-zinc-800 bg-zinc-900/60 px-4 py-3 text-[11px] text-violet-200 font-mono overflow-x-auto leading-relaxed">
 {`app = "purple8-graph"
 primary_region = "lhr"   # or iad, sin, syd
@@ -788,7 +788,7 @@ primary_region = "lhr"   # or iad, sin, syd
   destination = "/data/p8g"`}
                 </pre>
 
-                <p className="text-[10px] font-semibold text-violet-400 mb-1.5 mt-4 uppercase tracking-wider">fly.toml — Ollama (GPU machine)</p>
+                <p className="text-[10px] font-semibold text-violet-400 mb-1.5 mt-4 uppercase tracking-wider">fly.toml - Ollama (GPU machine)</p>
                 <pre className="rounded-lg border border-zinc-800 bg-zinc-900/60 px-4 py-3 text-[11px] text-violet-200 font-mono overflow-x-auto leading-relaxed">
 {`app = "p8-ollama"
 primary_region = "lhr"
@@ -799,7 +799,7 @@ primary_region = "lhr"
 [env]
   OLLAMA_HOST = "0.0.0.0:11434"
 
-# No public http_service — only reachable via 6PN mesh
+# No public http_service - only reachable via 6PN mesh
 [[services]]
   internal_port = 11434
   protocol      = "tcp"
@@ -817,7 +817,7 @@ primary_region = "lhr"
 
                 <p className="mt-3 text-xs text-zinc-600">
                   Pull models once with <code className="font-mono text-zinc-400">fly ssh console -a p8-ollama -C &quot;ollama pull qwen3:8b&quot;</code>.
-                  The Fly 6PN private network keeps all traffic internal — no egress charges between machines.
+                  The Fly 6PN private network keeps all traffic internal - no egress charges between machines.
                 </p>
               </div>
 
@@ -836,8 +836,8 @@ primary_region = "lhr"
                   {[
                     { k: "Droplet size", v: "m-4vcpu-32gb ($192/mo) or m-8vcpu-64gb ($384/mo)" },
                     { k: "GPU Droplet", v: "H100x1 via GPU Droplets (lga1 region) for 32B+ models" },
-                    { k: "Storage", v: "DO Block Storage volume — 100–500 GB, attached to Droplet" },
-                    { k: "Network", v: "VPC private network — all services on 10.x.x.x, no public exposure" },
+                    { k: "Storage", v: "DO Block Storage volume - 100–500 GB, attached to Droplet" },
+                    { k: "Network", v: "VPC private network - all services on 10.x.x.x, no public exposure" },
                     { k: "Deploy", v: "docker compose up -d via cloud-init or doctl compute ssh" },
                     { k: "Backups", v: "DO automated Droplet snapshots + Block Storage backups" },
                   ].map((r) => (
@@ -851,7 +851,7 @@ primary_region = "lhr"
                 <p className="text-[10px] font-semibold text-blue-400 mb-1.5 uppercase tracking-wider">cloud-init user-data (one-command bootstrap)</p>
                 <pre className="rounded-lg border border-zinc-800 bg-zinc-900/60 px-4 py-3 text-[11px] text-blue-200 font-mono overflow-x-auto leading-relaxed">
 {`#!/bin/bash
-# Paste as DO Droplet user-data — bootstraps full stack on first boot
+# Paste as DO Droplet user-data - bootstraps full stack on first boot
 
 # 1. Install Docker + compose
 curl -fsSL https://get.docker.com | sh
@@ -882,9 +882,9 @@ EOF
 cd /opt/purple8 && docker compose up -d`}
                 </pre>
 
-                <p className="text-[10px] font-semibold text-blue-400 mb-1.5 mt-4 uppercase tracking-wider">docker-compose.yml — single Droplet</p>
+                <p className="text-[10px] font-semibold text-blue-400 mb-1.5 mt-4 uppercase tracking-wider">docker-compose.yml - single Droplet</p>
                 <pre className="rounded-lg border border-zinc-800 bg-zinc-900/60 px-4 py-3 text-[11px] text-blue-200 font-mono overflow-x-auto leading-relaxed">
-{`# All services on DO private VPC — nothing exposed publicly
+{`# All services on DO private VPC - nothing exposed publicly
 # except Purple8 Graph :8100 behind DO Load Balancer (optional)
 networks:
   p8net:
@@ -953,9 +953,9 @@ volumes:
             {/* Comparison callout */}
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               {[
-                { label: "Fly.io strength", val: "Auto-stop/start machines — pay only when traffic flows. 6PN mesh = free internal bandwidth. Ideal for bursty workloads.", colour: "border-violet-800/40 text-violet-300" },
+                { label: "Fly.io strength", val: "Auto-stop/start machines - pay only when traffic flows. 6PN mesh = free internal bandwidth. Ideal for bursty workloads.", colour: "border-violet-800/40 text-violet-300" },
                 { label: "DigitalOcean strength", val: "Predictable flat-rate pricing. Block Storage gives NVMe-backed persistence. Managed Kubernetes available if you grow to HA later.", colour: "border-blue-800/40 text-blue-300" },
-                { label: "Both vs. hyperscalers", val: "No egress surprise bills. No 200-service IAM maze. Simple SSH access. Purple8 fits in one VM — that's the whole point.", colour: "border-zinc-700 text-zinc-400" },
+                { label: "Both vs. hyperscalers", val: "No egress surprise bills. No 200-service IAM maze. Simple SSH access. Purple8 fits in one VM - that's the whole point.", colour: "border-zinc-700 text-zinc-400" },
               ].map((c) => (
                 <div key={c.label} className={`rounded-lg border ${c.colour.split(" ")[0]} bg-zinc-900/30 p-3`}>
                   <p className={`text-xs font-semibold mb-1 ${c.colour.split(" ")[1]}`}>{c.label}</p>

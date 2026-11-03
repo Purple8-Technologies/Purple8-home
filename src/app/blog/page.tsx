@@ -32,7 +32,7 @@ export default function BlogIndexPage() {
           </p>
 
           {posts.length === 0 ? (
-            <p className="mt-16 text-zinc-500">No posts yet — check back soon.</p>
+            <p className="mt-16 text-zinc-500">No posts yet - check back soon.</p>
           ) : (
             <div className="mt-16 grid gap-6 sm:grid-cols-2">
               {posts.map((post) => (

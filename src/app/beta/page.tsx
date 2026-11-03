@@ -17,7 +17,7 @@ export default function BetaPage() {
       <div className="max-w-md">
         <h1 className="text-xl font-bold text-white">Redirecting to registration…</h1>
         <p className="mt-3 text-sm text-zinc-500">
-          The public beta is retired — the Purple8 Developer edition is now free
+          The public beta is retired - the Purple8 Developer edition is now free
           and fully self-serve.
         </p>
         <Link

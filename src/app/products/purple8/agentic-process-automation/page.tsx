@@ -6,18 +6,18 @@ import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Agentic Process Automation — Purple8 Hyper Graph",
+  title: "Agentic Process Automation - Purple8 Hyper Graph",
   description:
-    `Purple8 Hyper Graph is the AI-native backend for agentic process automation. Journey Engine, ${F.mcpTools} MCP tools, graph memory, SLA enforcement, and human-in-the-loop gates — all built in. No Airflow, no LangGraph, no custom glue code.`,
+    `Purple8 Hyper Graph is the AI-native backend for agentic process automation. Journey Engine, ${F.mcpTools} MCP tools, graph memory, SLA enforcement, and human-in-the-loop gates - all built in. No Airflow, no LangGraph, no custom glue code.`,
   path: "/products/purple8/agentic-process-automation",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Agentic Process Automation — Purple8 Hyper Graph",
+  name: "Agentic Process Automation - Purple8 Hyper Graph",
   description:
-    `Purple8 Hyper Graph provides out-of-the-box agentic process automation: AI agents orchestrate multi-stage workflows, enforce SLAs, handle human-in-the-loop approvals, and maintain an immutable audit trail — all through ${F.mcpTools} MCP tools, with no custom orchestration code.`,
+    `Purple8 Hyper Graph provides out-of-the-box agentic process automation: AI agents orchestrate multi-stage workflows, enforce SLAs, handle human-in-the-loop approvals, and maintain an immutable audit trail - all through ${F.mcpTools} MCP tools, with no custom orchestration code.`,
   url: "https://www.purple8.ai/products/purple8/agentic-process-automation/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
@@ -36,7 +36,7 @@ const jsonLd = {
         name: "What is agentic process automation?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Agentic process automation (APA) is the use of AI agents — rather than humans or rigid scripts — to orchestrate, execute, and adapt multi-step business processes end-to-end. Unlike traditional RPA (which records mouse clicks) or BPM (which follows fixed flowcharts), agentic automation reasons about context, handles exceptions autonomously, and learns from each run.",
+          text: "Agentic process automation (APA) is the use of AI agents - rather than humans or rigid scripts - to orchestrate, execute, and adapt multi-step business processes end-to-end. Unlike traditional RPA (which records mouse clicks) or BPM (which follows fixed flowcharts), agentic automation reasons about context, handles exceptions autonomously, and learns from each run.",
         },
       },
       {
@@ -44,7 +44,7 @@ const jsonLd = {
         name: "How does Purple8 support agentic process automation?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Purple8's Journey Engine provides the stateful workflow layer AI agents need: multi-stage process definitions, SLA enforcement, human-in-the-loop approval gates, and an immutable audit trail — all stored in the graph and accessible to agents through ${F.mcpTools} MCP tools. An agent can start a process instance, advance it through stages, handle exceptions, and surface decisions for human review entirely through natural language tool calls.`,
+          text: `Purple8's Journey Engine provides the stateful workflow layer AI agents need: multi-stage process definitions, SLA enforcement, human-in-the-loop approval gates, and an immutable audit trail - all stored in the graph and accessible to agents through ${F.mcpTools} MCP tools. An agent can start a process instance, advance it through stages, handle exceptions, and surface decisions for human review entirely through natural language tool calls.`,
         },
       },
       {
@@ -52,7 +52,7 @@ const jsonLd = {
         name: "What is the difference between agentic automation and RPA?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "RPA automates fixed sequences of UI actions and breaks when screens change. Agentic automation uses AI agents that reason about intent, retrieve context from a knowledge graph, adapt to new inputs, and make decisions — without being programmed for every edge case. Purple8 provides the persistent memory, workflow state, and tool interface that make agentic automation reliable in production.",
+          text: "RPA automates fixed sequences of UI actions and breaks when screens change. Agentic automation uses AI agents that reason about intent, retrieve context from a knowledge graph, adapt to new inputs, and make decisions - without being programmed for every edge case. Purple8 provides the persistent memory, workflow state, and tool interface that make agentic automation reliable in production.",
         },
       },
       {
@@ -60,7 +60,7 @@ const jsonLd = {
         name: "Does agentic automation require a separate workflow engine?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Not with Purple8. The Journey Engine is built into the same process as the graph database, vector search, RAG pipeline, and authentication layer. There is no Airflow, no Temporal, no LangGraph — agents call journey.* MCP tools directly and the workflow runs in-process.",
+          text: "Not with Purple8. The Journey Engine is built into the same process as the graph database, vector search, RAG pipeline, and authentication layer. There is no Airflow, no Temporal, no LangGraph - agents call journey.* MCP tools directly and the workflow runs in-process.",
         },
       },
       {
@@ -79,7 +79,7 @@ const useCases = [
   {
     icon: "📋",
     title: "Loan origination & compliance",
-    desc: "An agent ingests the application, extracts entities via DocIntel, traverses the customer's relationship graph to assess risk, advances through underwriting stages, gates on human review, and maintains a full audit trail — without application code.",
+    desc: "An agent ingests the application, extracts entities via DocIntel, traverses the customer's relationship graph to assess risk, advances through underwriting stages, gates on human review, and maintains a full audit trail - without application code.",
   },
   {
     icon: "🏥",
@@ -104,7 +104,7 @@ const useCases = [
   {
     icon: "🤝",
     title: "Customer onboarding",
-    desc: "KYC document ingestion, entity extraction, risk scoring via graph traversal, staged approval with HITL gates, and automated account provisioning — end-to-end, agent-driven.",
+    desc: "KYC document ingestion, entity extraction, risk scoring via graph traversal, staged approval with HITL gates, and automated account provisioning - end-to-end, agent-driven.",
   },
 ];
 
@@ -117,7 +117,7 @@ const howItWorks = [
   {
     step: "02",
     title: "Agent starts an instance",
-    detail: "journey.start creates a workflow instance stored as a graph node. Every state transition becomes an edge — the graph IS the process state machine.",
+    detail: "journey.start creates a workflow instance stored as a graph node. Every state transition becomes an edge - the graph IS the process state machine.",
   },
   {
     step: "03",
@@ -208,19 +208,19 @@ export default function AgenticProcessAutomationPage() {
                   label: "RPA",
                   colour: "border-zinc-800",
                   pill: "bg-zinc-800 text-zinc-400",
-                  points: ["Records UI clicks — breaks when screens change", "No reasoning — fixed scripts only", "No memory between runs", "Fails silently on exceptions"],
+                  points: ["Records UI clicks - breaks when screens change", "No reasoning - fixed scripts only", "No memory between runs", "Fails silently on exceptions"],
                 },
                 {
                   label: "Traditional BPM",
                   colour: "border-zinc-800",
                   pill: "bg-zinc-800 text-zinc-400",
-                  points: ["Fixed flowcharts — every path pre-defined", "Requires developers to model every exception", "Audit trail in a separate log system", "Separate orchestration service to operate"],
+                  points: ["Fixed flowcharts - every path pre-defined", "Requires developers to model every exception", "Audit trail in a separate log system", "Separate orchestration service to operate"],
                 },
                 {
                   label: "Purple8 Agentic Automation",
                   colour: "border-purple-700/60",
                   pill: "bg-purple-900/40 text-purple-300",
-                  points: ["Agent reasons about intent and context", "Handles exceptions without pre-programming", "Knowledge graph memory persists across runs", "SLA enforcement and HITL built in", "Audit trail is the graph — immutable, always on"],
+                  points: ["Agent reasons about intent and context", "Handles exceptions without pre-programming", "Knowledge graph memory persists across runs", "SLA enforcement and HITL built in", "Audit trail is the graph - immutable, always on"],
                 },
               ].map((col) => (
                 <div key={col.label} className={`rounded-2xl border ${col.colour} bg-white/[0.02] p-6`}>
@@ -290,7 +290,7 @@ export default function AgenticProcessAutomationPage() {
             </div>
             <div className="mt-6">
               <span className="rounded-full border border-purple-700/60 bg-purple-950/40 px-6 py-2.5 text-base font-semibold text-purple-200">
-                Purple8 Hyper Graph — all of the above, in one process
+                Purple8 Hyper Graph - all of the above, in one process
               </span>
             </div>
           </div>
@@ -321,11 +321,11 @@ export default function AgenticProcessAutomationPage() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Link href="/products/purple8/workflow-orchestration/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-purple-700/50">
                 <p className="text-sm font-semibold text-purple-300 group-hover:text-purple-200">🔄 Workflow Orchestration →</p>
-                <p className="mt-1 text-xs text-zinc-500">Stateful pipelines, SLA enforcement, CDC triggers — replaces Airflow and Temporal</p>
+                <p className="mt-1 text-xs text-zinc-500">Stateful pipelines, SLA enforcement, CDC triggers - replaces Airflow and Temporal</p>
               </Link>
               <Link href="/products/purple8/quantum-optimisation/" className="group rounded-xl border border-white/8 bg-white/[0.02] px-6 py-5 transition-colors hover:border-violet-700/50">
                 <p className="text-sm font-semibold text-violet-300 group-hover:text-violet-200">⚛️ Quantum-Inspired Optimisation →</p>
-                <p className="mt-1 text-xs text-zinc-500">NP-hard combinatorial problems — VRP, scheduling, portfolio — callable by agents</p>
+                <p className="mt-1 text-xs text-zinc-500">NP-hard combinatorial problems - VRP, scheduling, portfolio - callable by agents</p>
               </Link>
             </div>
           </div>

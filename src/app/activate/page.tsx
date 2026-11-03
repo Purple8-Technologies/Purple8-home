@@ -19,7 +19,7 @@ interface ActivateResponse {
 }
 
 /**
- * Free Developer edition — activation (step 2 of 2).
+ * Free Developer edition - activation (step 2 of 2).
  *
  * Reads the single-use magic-link token from the URL, exchanges it for the
  * license via /public/developer/activate, and shows the key + Docker pull
@@ -166,7 +166,7 @@ function Activate() {
           </div>
           <p className="mt-2 text-sm text-gray-400">
             Then open{" "}
-            <code className="text-purple-200">http://localhost:8100/lcnc</code> — the admin console is live.{" "}
+            <code className="text-purple-200">http://localhost:8100/lcnc</code> - the admin console is live.{" "}
             <a
               href={data?.quickstart_url}
               target="_blank"

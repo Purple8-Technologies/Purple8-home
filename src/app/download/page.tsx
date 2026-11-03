@@ -16,7 +16,7 @@ export default function DownloadPage() {
       <div className="max-w-md">
         <h1 className="text-xl font-bold text-white">Redirecting to registration…</h1>
         <p className="mt-3 text-sm text-zinc-500">
-          Purple8 is free and self-serve — register to get your Developer
+          Purple8 is free and self-serve - register to get your Developer
           license, then follow the quickstart.
         </p>
         <div className="mt-6 flex items-center justify-center gap-3">

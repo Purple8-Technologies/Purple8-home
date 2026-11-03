@@ -59,7 +59,7 @@ export default function Purple8Logo({
         <g>
           {/* Comet = particle train riding the loop (SMIL animateMotion).
               Each particle follows the exact curve, lagging the head a little
-              more and getting smaller/fainter — a true tapering tail. The
+              more and getting smaller/fainter - a true tapering tail. The
               head is a radial-gradient coma with a white-hot nucleus. */}
           <defs>
             <radialGradient id={`${uid}-coma`}>

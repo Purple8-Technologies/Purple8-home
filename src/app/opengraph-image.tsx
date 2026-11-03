@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 // `output: "export"` because this route has no dynamic params. This wires
 // og:image; Twitter's crawler falls back to og:image for summary_large_image.
 
-export const alt = "Purple8 — Your entire backend. One process.";
+export const alt = "Purple8 - Your entire backend. One process.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -61,7 +61,7 @@ export default function OpengraphImage() {
               maxWidth: 980,
             }}
           >
-            Graph · vector · RAG · document intelligence · workflows — in one
+            Graph · vector · RAG · document intelligence · workflows - in one
             embedded engine. You build the frontend.
           </div>
         </div>

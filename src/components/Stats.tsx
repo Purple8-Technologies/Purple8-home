@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useInView } from "@/hooks/useInView";
 
 // useLayoutEffect on the client (runs before paint), useEffect on the server
-// (never runs during SSR) — lets us reset to 0 for the animation without a
+// (never runs during SSR) - lets us reset to 0 for the animation without a
 // visible flash and without a hydration warning.
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;

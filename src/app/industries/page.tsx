@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Industries",
   description:
-    "How teams across architecture, finance, science, and the public sector build production AI on Purple8 — one embedded backend replacing the fragmented stack.",
+    "How teams across architecture, finance, science, and the public sector build production AI on Purple8 - one embedded backend replacing the fragmented stack.",
   path: "/industries",
 });
 

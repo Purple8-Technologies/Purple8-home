@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Fashion Trend Intelligence — Purple8 Hyper Graph",
+  title: "Fashion Trend Intelligence - Purple8 Hyper Graph",
   description:
     "Purple8 Hyper Graph solves the $500B dead stock problem. Map how trends travel through influencer and community graphs, connect signals to SKUs before the production window closes, and stop guessing which styles will sell.",
   path: "/products/purple8/fashion-intelligence",
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Fashion Trend Intelligence — Purple8 Hyper Graph",
+  name: "Fashion Trend Intelligence - Purple8 Hyper Graph",
   description:
     "The fashion industry produces 100 billion garments a year. 30 to 40 percent are never sold. Not because brands lack data, but because the signals are disconnected. Purple8 maps how trends travel through influencer and community graphs, connects them to SKUs and supplier lead times, and closes the gap between signal and production decision.",
   url: "https://www.purple8.ai/products/purple8/fashion-intelligence/",
@@ -295,12 +295,12 @@ export default function FashionIntelligencePage() {
               </div>
               <div className="space-y-3">
                 {[
-                  { label: "MICRO_COMMUNITY", detail: "Tokyo resale subculture — price spike +340%" },
+                  { label: "MICRO_COMMUNITY", detail: "Tokyo resale subculture - price spike +340%" },
                   { label: "\u2193 3 weeks", detail: "TikTok creators in the community post" },
-                  { label: "INFLUENCER_GRAPH", detail: "3 tier-2 accounts — 2.4M combined reach" },
-                  { label: "\u2193 5 weeks", detail: "Editorial pickup — Dazed, i-D, Highsnobiety" },
-                  { label: "MASS_SEARCH", detail: "Google Trends: +890% — trend peaks" },
-                  { label: "PRODUCTION_WINDOW", detail: "Lead time: 9 weeks — brand can still act" },
+                  { label: "INFLUENCER_GRAPH", detail: "3 tier-2 accounts - 2.4M combined reach" },
+                  { label: "\u2193 5 weeks", detail: "Editorial pickup - Dazed, i-D, Highsnobiety" },
+                  { label: "MASS_SEARCH", detail: "Google Trends: +890% - trend peaks" },
+                  { label: "PRODUCTION_WINDOW", detail: "Lead time: 9 weeks - brand can still act" },
                 ].map((row) => (
                   <div key={row.label} className="flex items-start gap-4 rounded-xl border border-white/8 bg-white/[0.02] px-5 py-3">
                     <code className="shrink-0 text-xs font-mono text-purple-400 mt-0.5 w-40">{row.label}</code>

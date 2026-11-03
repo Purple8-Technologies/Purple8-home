@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Register",
   description:
-    "Create your free Purple8 Developer account. Accept the EULA and receive a single-use magic link — no waitlist, no human approval.",
+    "Create your free Purple8 Developer account. Accept the EULA and receive a single-use magic link - no waitlist, no human approval.",
   path: "/register",
   noindex: true,
 });

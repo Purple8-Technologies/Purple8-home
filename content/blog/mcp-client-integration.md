@@ -6,15 +6,15 @@ author: "Purple8 Team"
 tags: ["mcp", "agents", "integration", "guide"]
 ---
 
-Purple8 exposes its entire backend — graph, vector, RAG, workflow engine,
-ingestion, memory — as **MCP tools**. Any MCP-compatible AI client can discover
+Purple8 exposes its entire backend - graph, vector, RAG, workflow engine,
+ingestion, memory - as **MCP tools**. Any MCP-compatible AI client can discover
 and call them. You do not write application code to give an agent this power;
 you point the client at Purple8 and the agent has the whole backend.
 
 This post is the practical, copy-paste reference for wiring in the major
 clients.
 
-## Two transports — pick one
+## Two transports - pick one
 
 Purple8 speaks MCP over two transports, and every client below supports at
 least one:
@@ -34,7 +34,7 @@ Rule of thumb: if your client can add a **remote/URL** MCP server, use the
 SDK (`pip install 'purple8-hyper-graph[mcp]'`) and use the stdio bridge.
 
 Both transports enforce the same tool-level permissions and use the same **API
-key** — the one generated inside your Purple8 instance. That key is not your
+key** - the one generated inside your Purple8 instance. That key is not your
 license and not a user password.
 
 ## Get an API key
@@ -50,7 +50,7 @@ curl -X POST https://<host>/auth/api-keys \
   -d '{"name":"claude-desktop","permissions":["read","write"]}'
 ```
 
-Scope each key to the minimum the agent needs — the MCP server additionally
+Scope each key to the minimum the agent needs - the MCP server additionally
 gates every tool by role.
 
 ## Verify before configuring
@@ -83,7 +83,7 @@ Claude Desktop launches local servers, so use the stdio bridge. Edit
 
 If `purple8-hyper-graph` is not on your global PATH, use the absolute path to
 the binary in your virtualenv. Recent builds also support remote Custom
-Connectors — if yours does, add a connector at `https://<host>/mcp` with an
+Connectors - if yours does, add a connector at `https://<host>/mcp` with an
 `X-API-Key` header instead.
 
 ## Claude Code (CLI)
@@ -109,7 +109,7 @@ Check it with `claude mcp list`.
 
 Claude Web connects to remote servers only. In **Settings → Connectors → Add
 custom connector**, set the URL to `https://<host>/mcp` and add the header
-`X-API-Key: YOUR_API_KEY`. Claude Web needs a publicly reachable **HTTPS** URL —
+`X-API-Key: YOUR_API_KEY`. Claude Web needs a publicly reachable **HTTPS** URL -
 a `localhost` instance will not work, so deploy first or expose it through a
 tunnel.
 
@@ -170,11 +170,11 @@ MCP shows a green dot and the tool count when it connects.
 
 The same two shapes cover the rest:
 
-- **Windsurf** — `~/.codeium/windsurf/mcp_config.json`, same schema as Cursor.
-- **Cline / Roo Code** — configure through the extension's MCP Servers panel
+- **Windsurf** - `~/.codeium/windsurf/mcp_config.json`, same schema as Cursor.
+- **Cline / Roo Code** - configure through the extension's MCP Servers panel
   (`cline_mcp_settings.json`).
-- **Continue** — add an `mcpServers` entry to `~/.continue/config.yaml`.
-- **Any other client** — remote-capable clients point at
+- **Continue** - add an `mcpServers` entry to `~/.continue/config.yaml`.
+- **Any other client** - remote-capable clients point at
   `https://<host>/mcp` with the `X-API-Key` header; stdio-only clients
   launch `purple8-hyper-graph mcp-server --url <API_URL> --api-key <KEY>`.
 
@@ -194,10 +194,10 @@ connection snippet in the admin console's MCP page at `https://<host>/lcnc/mcp`.
 
 - A `401` on connect means a wrong or expired key, or the header name is not
   exactly `X-API-Key`.
-- An empty tool list means the key has no role — give it at least read access.
+- An empty tool list means the key has no role - give it at least read access.
 - "Server exited" on stdio usually means `purple8-hyper-graph` is not on PATH;
   use the absolute virtualenv path.
-- Claude Web can't reach `localhost` — it needs a public HTTPS URL.
+- Claude Web can't reach `localhost` - it needs a public HTTPS URL.
 - Long agent sessions dropping mid-stream usually means a load-balancer idle
   timeout set below your session length (the AWS ALB default is 60 s, so raise
   it to 300 s or more).

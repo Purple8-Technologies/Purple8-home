@@ -13,13 +13,13 @@ export default function EulaPage() {
   return (
     <LegalDoc
       title="End User License Agreement"
-      subtitle="Enterprise Platform & Commercial Redistribution License — applies to all Purple8 software, including Purple8 Hyper Graph and Purple8 DocIntel."
+      subtitle="Enterprise Platform & Commercial Redistribution License - applies to all Purple8 software, including Purple8 Hyper Graph and Purple8 DocIntel."
       effective="July 13, 2026"
       version="1.1"
     >
       <blockquote>
         <strong>
-          IMPORTANT — READ CAREFULLY BEFORE INSTALLING, DOWNLOADING, OR USING
+          IMPORTANT - READ CAREFULLY BEFORE INSTALLING, DOWNLOADING, OR USING
           THIS SOFTWARE.
         </strong>{" "}
         By clicking &ldquo;I Agree&rdquo;, installing, downloading, copying,
@@ -96,9 +96,9 @@ export default function EulaPage() {
       </p>
       <p>
         <strong>1.9 &ldquo;Entitlements&rdquo;</strong> means the capacity and
-        feature limits associated with your License Tier — including permitted
+        feature limits associated with your License Tier - including permitted
         Node counts, data capacity (e.g. maximum nodes/edges or documents
-        processed), seats, agents, and feature availability — as published at{" "}
+        processed), seats, agents, and feature availability - as published at{" "}
         <a href="/#pricing">purple8.ai pricing</a> and encoded in your License
         Key.
       </p>
@@ -140,7 +140,7 @@ export default function EulaPage() {
         Key. The families below govern the <em>permitted use</em> of each tier.
       </p>
       <p>
-        <strong>3.1 Free Family — Developer &amp; Community (Free).</strong>{" "}
+        <strong>3.1 Free Family - Developer &amp; Community (Free).</strong>{" "}
         The free tiers of Purple8 (the &ldquo;Developer&rdquo; edition) and
         DocIntel (the &ldquo;Community&rdquo; edition). Permitted for
         development, testing, evaluation, internal prototyping, open-source
@@ -154,7 +154,7 @@ export default function EulaPage() {
         to a paid tier.
       </p>
       <p>
-        <strong>3.2 Production Family (Paid).</strong> The entry paid tiers —
+        <strong>3.2 Production Family (Paid).</strong> The entry paid tiers -
         for Purple8, the production capacity tiers (e.g.{" "}
         <em>Micro, Mini, Growth, Starter</em>); for DocIntel, the metered paid
         tier (e.g. <em>Solo</em>). Permitted for commercial Applications serving
@@ -165,7 +165,7 @@ export default function EulaPage() {
         requires the Enterprise family.
       </p>
       <p>
-        <strong>3.3 Pro Family (Paid).</strong> The advanced paid tier — for
+        <strong>3.3 Pro Family (Paid).</strong> The advanced paid tier - for
         Purple8, the <em>Pro</em> tier; for DocIntel, the <em>Self-Hosted</em>{" "}
         tier. Includes all Production family rights, plus the advanced security,
         compliance, and capability entitlements published for that tier (which
@@ -176,7 +176,7 @@ export default function EulaPage() {
         capabilities.
       </p>
       <p>
-        <strong>3.4 Enterprise Family (Negotiated — Signed Contract).</strong>{" "}
+        <strong>3.4 Enterprise Family (Negotiated - Signed Contract).</strong>{" "}
         Includes all Pro family rights, plus: on-premises deployment at client
         facilities; white-label distribution to clients; custom capacity
         allotments and volume pricing; Service Level Agreements; dedicated
@@ -260,13 +260,13 @@ export default function EulaPage() {
         Administration Regulations and OFAC sanctions.
       </p>
       <p>
-        <strong>6.2 No-Compete — Platform Replication Prohibition.</strong> You
+        <strong>6.2 No-Compete - Platform Replication Prohibition.</strong> You
         may not use the Software, its APIs, SDKs, or any knowledge gained from
         its use to build a product substantially similar to, or a direct
         substitute for, a Purple8 platform offered to third-party developers as
-        infrastructure — including graph databases, vector databases, AI-native
+        infrastructure - including graph databases, vector databases, AI-native
         backends, RAG pipelines, document-intelligence services, or workflow
-        orchestration platforms — nor to create a &ldquo;thin wrapper&rdquo; that
+        orchestration platforms - nor to create a &ldquo;thin wrapper&rdquo; that
         re-exposes Purple8&rsquo;s API, MCP tools, or infrastructure without
         substantial independent Application value.
       </p>
@@ -315,8 +315,8 @@ export default function EulaPage() {
       </p>
       <p>
         <strong>8.3 Automated Telemetry.</strong> The Software may collect and
-        transmit non-personally-identifiable telemetry — Node counts, feature
-        usage, and version information — for license compliance and product
+        transmit non-personally-identifiable telemetry - Node counts, feature
+        usage, and version information - for license compliance and product
         improvement. You may disable telemetry by setting{" "}
         <code>PURPLE8_TELEMETRY_DISABLE=1</code>; disabling telemetry does not
         relieve you of your obligations under Section 8.1. For questions,

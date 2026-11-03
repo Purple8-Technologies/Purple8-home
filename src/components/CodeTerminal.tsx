@@ -17,7 +17,7 @@ interface CodeLine {
 }
 
 // An AI agent building an entire supplier-risk backend through Purple8's MCP
-// server — no human writes application code, the agent just calls tools.
+// server - no human writes application code, the agent just calls tools.
 const LINES: CodeLine[] = [
   { text: "You  ▸  Stand up a supplier-risk backend from these contracts.", type: "prompt" },
   { text: "", type: "blank" },
@@ -58,18 +58,18 @@ interface DisplayLine {
 export default function CodeTerminal() {
   const [displayed, setDisplayed] = useState<DisplayLine[]>([]);
   const [cursor, setCursor] = useState(true);
-  // A single ref holds the active timer — cleanup always cancels exactly one ID.
+  // A single ref holds the active timer - cleanup always cancels exactly one ID.
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const runningRef = useRef(true); // guard against stale closures after unmount
 
-  // Blinking cursor — independent interval, never restarts
+  // Blinking cursor - independent interval, never restarts
   useEffect(() => {
     const id = setInterval(() => setCursor((c) => !c), 530);
     return () => clearInterval(id);
   }, []);
 
-  // Typewriter engine — restarts itself via recursive schedule
+  // Typewriter engine - restarts itself via recursive schedule
   useEffect(() => {
     runningRef.current = true;
 
@@ -140,7 +140,7 @@ export default function CodeTerminal() {
       runningRef.current = false;
       if (timerRef.current !== null) clearTimeout(timerRef.current);
     };
-  }, []); // run once — the loop is self-sustaining
+  }, []); // run once - the loop is self-sustaining
 
   // Scroll to bottom only when a full line is committed (not every char)
   const prevLineCount = useRef(0);

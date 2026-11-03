@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Financial Crime Intelligence — Purple8 Hyper Graph",
+  title: "Financial Crime Intelligence - Purple8 Hyper Graph",
   description:
     "Purple8 Hyper Graph covers AML, transaction screening, fraud detection, KYC, beneficial ownership, elder financial abuse, and market surveillance in a single graph-native platform. No rules engine. No siloed tools. One graph.",
   path: "/products/purple8/financial-crime-intelligence",
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Financial Crime Intelligence — Purple8 Hyper Graph",
+  name: "Financial Crime Intelligence - Purple8 Hyper Graph",
   description:
     "Purple8 is not an AML product. It is a graph intelligence backend. AML, fraud, transaction screening, KYC, elder financial abuse, and market surveillance are things it does natively, without external dependencies, and without data leaving your infrastructure.",
   url: "https://www.purple8.ai/products/purple8/financial-crime-intelligence/",
@@ -293,7 +293,7 @@ export default function FinancialCrimeIntelligencePage() {
                   { label: "ACCOUNT → SHELL_CO", detail: "Transfer to BVI entity" },
                   { label: "SHELL_CO → OFFSHORE_ACCT", detail: "Wire to Cayman LP" },
                   { label: "OFFSHORE_ACCT → SDN_ENTITY", detail: "2-hop from OFAC sanctioned person" },
-                  { label: "SDN_ENTITY → VOLKOV_N", detail: "Nikolai Volkov — OFAC SDN list" },
+                  { label: "SDN_ENTITY → VOLKOV_N", detail: "Nikolai Volkov - OFAC SDN list" },
                 ].map((row, i) => (
                   <div key={row.label} className="flex items-start gap-4 rounded-xl border border-white/8 bg-white/[0.02] px-5 py-3">
                     <span className="shrink-0 text-xs font-mono text-zinc-600 mt-0.5 w-5">{i + 1}</span>

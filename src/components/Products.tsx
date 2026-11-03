@@ -1,28 +1,28 @@
 import { FACTS as F } from "@/lib/facts";
 const hyperGraphFeatures = [
-  "Write only the frontend — storage, search, RAG, workflows, auth, and encryption are all Purple8",
-  "Storage, vector search, document store, and full-text — one embedded engine, one process, one port",
-  "Native hybrid search with a cost-based query planner — no separate search service",
+  "Write only the frontend - storage, search, RAG, workflows, auth, and encryption are all Purple8",
+  "Storage, vector search, document store, and full-text - one embedded engine, one process, one port",
+  "Native hybrid search with a cost-based query planner - no separate search service",
   "Three built-in RAG modes: flat vector, graph-augmented, and hybrid retrieval",
-  "Autonomous RAG tuning — the system profiles your corpus and persists optimal retrieval configuration",
+  "Autonomous RAG tuning - the system profiles your corpus and persists optimal retrieval configuration",
   "Stateful workflow engine: multi-stage pipelines, SLA monitoring, human-approval gates, AI step persistence",
-  `${F.mcpTools}-tool MCP agent interface — RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent`,
+  `${F.mcpTools}-tool MCP agent interface - RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent`,
   "Cross-instance federated queries with human approval gates",
   "AES-256-GCM envelope encryption via Local, Vault, AWS, GCP, or Azure key management",
-  "Per-tenant storage isolation enforced at the storage layer — not row filtering. Each tenant gets cryptographically separate data partitions with autonomous threat detection.",
-  "Browser-based admin console — zero npm, zero config",
+  "Per-tenant storage isolation enforced at the storage layer - not row filtering. Each tenant gets cryptographically separate data partitions with autonomous threat detection.",
+  "Browser-based admin console - zero npm, zero config",
 ];
 
 const docIntelFeatures = [
-  "PDF, DOCX, XLSX, PPTX, HTML, EML, EPUB, TXT/CSV — all standard enterprise formats",
-  "IFC/IFCZIP, DXF, DWG, STEP, STL, OBJ, GLTF/GLB, G-code — full CAD & BIM native",
+  "PDF, DOCX, XLSX, PPTX, HTML, EML, EPUB, TXT/CSV - all standard enterprise formats",
+  "IFC/IFCZIP, DXF, DWG, STEP, STL, OBJ, GLTF/GLB, G-code - full CAD & BIM native",
   "SAP IDocs, financial XML, structured config formats",
-  "Proprietary NER model — two-pass hybrid: named entity extraction + LLM relationship mapping",
-  "Five OCR engines including a self-hosted option — documents never leave your infrastructure",
+  "Proprietary NER model - two-pass hybrid: named entity extraction + LLM relationship mapping",
+  "Five OCR engines including a self-hosted option - documents never leave your infrastructure",
   "Self-hosted OCR with proprietary preprocessing, layout detection, and table reconstruction",
-  "75+ language detection — entity names extracted in their native script",
+  "75+ language detection - entity names extracted in their native script",
   "Five domain extraction profiles: AEC · Contract · Financial · Scientific · General",
-  "Connectors: SharePoint, Confluence, AWS S3, and generic webhook — batch and push modes",
+  "Connectors: SharePoint, Confluence, AWS S3, and generic webhook - batch and push modes",
   "Emits structured knowledge directly into Purple8; sends optimized embedding hints automatically",
 ];
 
@@ -91,10 +91,10 @@ export default function Products({
           )}
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
             <span className="text-zinc-300">Purple8</span> is the backend your app
-            runs on — storage, search, RAG, workflows, auth, and encryption in one
+            runs on - storage, search, RAG, workflows, auth, and encryption in one
             process. <span className="text-zinc-300">DocIntel</span> turns any
             document into queryable knowledge inside it. Together they replace 20+
-            services — you build only the frontend.
+            services - you build only the frontend.
           </p>
         </div>
 
@@ -117,7 +117,7 @@ export default function Products({
               <p className="mt-1 text-sm text-zinc-400">A category of one</p>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                A unified AI-native execution engine — storage, vector search, document store,
+                A unified AI-native execution engine - storage, vector search, document store,
                 full-text, workflow orchestration, RAG, auth, encryption, and autonomous SOC in a single
                 container. Built for AI, Operated by AI and Supervised by Humans.
               </p>
@@ -165,7 +165,7 @@ export default function Products({
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
                 A stateless document intelligence microservice that parses 70+ enterprise
-                document formats — including CAD, BIM, sketches, and audio — through a
+                document formats - including CAD, BIM, sketches, and audio - through a
                 proprietary extraction model and LLM-assisted relationship mapping. Emits
                 structured knowledge directly into Purple8.
               </p>

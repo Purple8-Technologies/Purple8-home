@@ -1,6 +1,6 @@
 ---
-title: "The AI agent is the developer — building a production loan backend without writing a line of code"
-description: "A step-by-step walkthrough of Claude building a complete multi-stage loan application backend — graph storage, vector RAG, workflow engine, SLA enforcement, and audit trail — entirely through Purple8's MCP tools. No code written."
+title: "The AI agent is the developer - building a production loan backend without writing a line of code"
+description: "A step-by-step walkthrough of Claude building a complete multi-stage loan application backend - graph storage, vector RAG, workflow engine, SLA enforcement, and audit trail - entirely through Purple8's MCP tools. No code written."
 date: "2026-07-22"
 author: "Purple8 Team"
 tags: ["mcp", "agents", "journey-engine", "rag", "no-code"]
@@ -20,8 +20,8 @@ We did not write a single line of application code. This is what happened.
 ## Why this is even possible
 
 Most databases expose a query interface. Most workflow engines expose an API.
-Purple8 exposes **110+ MCP tools** — `graph.*`, `journey.*`, `rag.*`, `data.*`,
-`memory.*` — that map directly to backend operations. An AI agent with access
+Purple8 exposes **110+ MCP tools** - `graph.*`, `journey.*`, `rag.*`, `data.*`,
+`memory.*` - that map directly to backend operations. An AI agent with access
 to those tools can design a schema, build a workflow, ingest documents, and
 start handling requests, all through natural language.
 
@@ -37,7 +37,7 @@ build it.
 
 ## The session, step by step
 
-### Step 1 — Define the workflow
+### Step 1 - Define the workflow
 
 Claude called `journey.define` with a six-stage loan lifecycle:
 
@@ -53,9 +53,9 @@ stage without a human officer approving it via `journey.resolve_hitl`.
 
 One tool call. The workflow is live and accepting instances.
 
-### Step 2 — Ingest the policy knowledge base
+### Step 2 - Ingest the policy knowledge base
 
-Claude called `data.ingest_file` three times — one for each lending policy
+Claude called `data.ingest_file` three times - one for each lending policy
 document (credit risk framework, AML guidelines, underwriting manual). Each
 document was chunked, embedded, and stored in the graph as nodes with
 `REFERENCES` edges back to the originating document.
@@ -71,14 +71,14 @@ rag.hybrid_query: "What is the maximum LTV ratio for a first-time buyer?"
 No vector database configured separately. No embedding pipeline set up. The
 documents went in, the knowledge is queryable.
 
-### Step 3 — Start the first loan application
+### Step 3 - Start the first loan application
 
 Claude called `journey.start` with a borrower entity and immediately had a
 live workflow instance. The instance is a graph node. Its current stage, its
-history, and its associated borrower data are all graph edges — queryable,
+history, and its associated borrower data are all graph edges - queryable,
 traversable, auditable.
 
-### Step 4 — Advance through the stages
+### Step 4 - Advance through the stages
 
 Claude advanced the instance through document verification and credit
 assessment by calling `journey.advance` with structured payloads representing
@@ -90,7 +90,7 @@ decision. Claude surfaced the pending task with `journey.list_hitl` and
 demonstrated the approval flow with `journey.resolve_hitl`. The instance
 advanced to the approval decision stage.
 
-### Step 5 — Query the audit trail
+### Step 5 - Query the audit trail
 
 ```
 journey.audit: instance_id="loan-001"
@@ -104,7 +104,7 @@ journey.audit: instance_id="loan-001"
   ]
 ```
 
-Every transition, every HITL decision, every SLA breach — stored as graph
+Every transition, every HITL decision, every SLA breach - stored as graph
 edges. Immutable. No separate logging infrastructure. No LangSmith. No
 Airflow run history. The graph *is* the audit trail.
 
@@ -116,16 +116,16 @@ This is the list that matters:
 
 | What you'd normally provision | What Claude used instead |
 |---|---|
-| PostgreSQL for application state | `graph.*` — nodes and edges |
-| Pinecone / pgvector for policy RAG | `rag.*` — already in the graph |
-| LangGraph for the workflow state machine | `journey.*` — Journey Engine |
-| LangSmith for tracing | `journey.audit` — immutable graph edges |
-| Airflow for SLA scheduling | `SLAMonitor` — built into Journey Engine |
-| Auth0 for HITL user identity | Purple8 RBAC — enforced per tool |
-| A developer to write any of this | Claude — via 110+ MCP tools |
+| PostgreSQL for application state | `graph.*` - nodes and edges |
+| Pinecone / pgvector for policy RAG | `rag.*` - already in the graph |
+| LangGraph for the workflow state machine | `journey.*` - Journey Engine |
+| LangSmith for tracing | `journey.audit` - immutable graph edges |
+| Airflow for SLA scheduling | `SLAMonitor` - built into Journey Engine |
+| Auth0 for HITL user identity | Purple8 RBAC - enforced per tool |
+| A developer to write any of this | Claude - via 110+ MCP tools |
 
-The frontend still needs to be built — a loan officer UI, a borrower portal.
-But the entire backend: data layer, search, workflow, audit, SLA, RAG — Claude
+The frontend still needs to be built - a loan officer UI, a borrower portal.
+But the entire backend: data layer, search, workflow, audit, SLA, RAG - Claude
 built it in one session, on a running instance, with zero code.
 
 ---
@@ -155,7 +155,7 @@ because the backend was designed to be MCP-native from day one.
 You need a running Purple8 instance and an MCP-compatible client (Claude
 Desktop, Cursor, or any client that supports the MCP protocol).
 
-1. Start Purple8 — [Docker quickstart →](/quickstart)
+1. Start Purple8 - [Docker quickstart →](/quickstart)
 2. Generate an API key in `/lcnc/api-keys`
 3. [Connect your MCP client →](/blog/mcp-client-integration)
 4. Load the loan template:
@@ -169,8 +169,8 @@ templates in Purple8. It comes with the six stages, SLA policies, and HITL
 gate pre-configured. From there, Claude can start instances, ingest your
 actual policy documents, and have a working backend in under ten minutes.
 
-The five templates — loan application, customer onboarding, support
-escalation, compliance review, supplier approval — are a starting point, not a
+The five templates - loan application, customer onboarding, support
+escalation, compliance review, supplier approval - are a starting point, not a
 ceiling. Any workflow that can be expressed as stages with transitions,
 approvals, and SLAs can be defined through `journey.define`. The agent handles
 the rest.
@@ -179,4 +179,4 @@ the rest.
 
 *Purple8 Hyper Graph is an embedded multi-model database purpose-built for AI
 applications. One process. One port. Graph, vector, RAG, workflow, and full-text
-— no external dependencies. [Get the Developer edition free →](/register)*
+- no external dependencies. [Get the Developer edition free →](/register)*

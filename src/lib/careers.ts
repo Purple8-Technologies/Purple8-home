@@ -1,4 +1,4 @@
-// Careers — open roles.
+// Careers - open roles.
 //
 // Source of truth for the /careers list and /careers/[slug] detail pages.
 // Seeded from the internal hiring plan (go-live August 2026): redundancy on
@@ -33,7 +33,7 @@ export const roles: Role[] = [
     tagline:
       "Own the storage core of an in-process, multi-model database engine.",
     about:
-      "Purple8 is an embedded multi-model database (graph + vector + document + full-text) that runs in-process — one binary, one port, zero external services. The storage engine is the heart of the product: a high-throughput write path with a write-ahead log, strong durability guarantees, and a memory model engineered for large corpora on modest hardware. It's the most important — and most concentrated — part of the system, and you'd own it.",
+      "Purple8 is an embedded multi-model database (graph + vector + document + full-text) that runs in-process - one binary, one port, zero external services. The storage engine is the heart of the product: a high-throughput write path with a write-ahead log, strong durability guarantees, and a memory model engineered for large corpora on modest hardware. It's the most important - and most concentrated - part of the system, and you'd own it.",
     responsibilities: [
       "Own the storage engine and write-ahead log end to end.",
       "Advance the engine's memory-management and resource-efficiency work.",
@@ -44,7 +44,7 @@ export const roles: Role[] = [
       "Systems programming in Rust, and comfort at the Rust/Python boundary.",
       "Database internals: write-ahead logging, durability, memory management.",
       "Comfort profiling and reasoning about memory and allocation behavior.",
-      "A correctness-first mindset — a very high quality bar for shipping.",
+      "A correctness-first mindset - a very high quality bar for shipping.",
     ],
     niceToHave: [
       "Vector search / ANN (e.g. HNSW) familiarity.",
@@ -61,7 +61,7 @@ export const roles: Role[] = [
     type: "Full-time",
     level: "Senior",
     tagline:
-      "Make retrieval fast and smart — query planning and graph-aware vector search.",
+      "Make retrieval fast and smart - query planning and graph-aware vector search.",
     about:
       "Purple8's query layer combines a cost-based planner with graph-aware vector retrieval so that hybrid search stays both accurate and efficient at scale. You'll own the planner, the graph algorithm suite, and the vector integration that make retrieval work.",
     responsibilities: [
@@ -89,9 +89,9 @@ export const roles: Role[] = [
     type: "Full-time",
     level: "Senior",
     tagline:
-      "The RAG pipeline and document intelligence are the product — own them.",
+      "The RAG pipeline and document intelligence are the product - own them.",
     about:
-      "Purple8 ships three built-in RAG modes (flat vector, graph-augmented, hybrid) with autonomous corpus profiling and tuning, plus DocIntel — a document-intelligence service that turns 70+ formats into queryable knowledge via a two-pass extraction pipeline. You'll own retrieval quality, extraction accuracy, and the AI hooks in the workflow engine.",
+      "Purple8 ships three built-in RAG modes (flat vector, graph-augmented, hybrid) with autonomous corpus profiling and tuning, plus DocIntel - a document-intelligence service that turns 70+ formats into queryable knowledge via a two-pass extraction pipeline. You'll own retrieval quality, extraction accuracy, and the AI hooks in the workflow engine.",
     responsibilities: [
       "Own the hybrid RAG retrieval path and its self-tuning/profiling.",
       "Improve entity + relationship extraction across domain profiles.",
@@ -99,7 +99,7 @@ export const roles: Role[] = [
       "Integrate LLM providers behind a clean, optional-by-default abstraction.",
     ],
     requirements: [
-      "Hands-on RAG engineering — chunking, embeddings, reranking, fusion.",
+      "Hands-on RAG engineering - chunking, embeddings, reranking, fusion.",
       "Practical NER / information-extraction experience.",
       "Rigor about evaluation: F1, MRR, token/recall trade-offs.",
     ],
@@ -117,9 +117,9 @@ export const roles: Role[] = [
     type: "Full-time",
     level: "Senior",
     tagline:
-      "Own the release supply chain — multi-arch builds, signing, SBOM, and CI.",
+      "Own the release supply chain - multi-arch builds, signing, SBOM, and CI.",
     about:
-      "Purple8 ships as a hardened Docker image and a compiled pip wheel. This role owns the entire release supply chain — reproducible multi-arch builds, artifact signing and SBOMs, CI, and deployment — so shipping stays fast and trustworthy as the team grows. (Today the founder does this; it does not scale.)",
+      "Purple8 ships as a hardened Docker image and a compiled pip wheel. This role owns the entire release supply chain - reproducible multi-arch builds, artifact signing and SBOMs, CI, and deployment - so shipping stays fast and trustworthy as the team grows. (Today the founder does this; it does not scale.)",
     responsibilities: [
       "Own Docker / Nuitka multi-arch builds and the compiled-wheel pipeline.",
       "Stand up signing (cosign), SBOMs, and dependency scanning.",
@@ -147,7 +147,7 @@ export const roles: Role[] = [
     tagline:
       "In an MCP-native product, the AI agent is the developer. Make that experience exceptional.",
     about:
-      "Purple8's go-to-market thesis is that a capable AI agent can build and operate a complete backend through natural language — the MCP tools are the API. This role is the highest-leverage one for that thesis: own tool ergonomics, quickstarts, SDK examples, and onboarding so that a developer (or their agent) goes from zero to production fast.",
+      "Purple8's go-to-market thesis is that a capable AI agent can build and operate a complete backend through natural language - the MCP tools are the API. This role is the highest-leverage one for that thesis: own tool ergonomics, quickstarts, SDK examples, and onboarding so that a developer (or their agent) goes from zero to production fast.",
     responsibilities: [
       "Own the MCP tool ergonomics and namespaced tool surface from the user's side.",
       "Write quickstarts, SDK examples, and end-to-end sample apps.",

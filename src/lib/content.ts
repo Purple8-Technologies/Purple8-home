@@ -3,20 +3,20 @@
 // The repo IS the CMS. To publish a blog post or case study, a team member
 // adds a Markdown file with front-matter under `content/<collection>/` and
 // opens a PR (or commits directly). On merge, the GitHub Pages build
-// regenerates the static routes — no database, no admin server, no login flow.
+// regenerates the static routes - no database, no admin server, no login flow.
 //
 // Front-matter schema (YAML):
 //   title:       string   (required)
-//   description: string   (required — used for cards + SEO)
-//   date:        string   (required — ISO YYYY-MM-DD)
+//   description: string   (required - used for cards + SEO)
+//   date:        string   (required - ISO YYYY-MM-DD)
 //   author:      string   (optional)
 //   tags:        string[] (optional)
-//   cover:       string   (optional — absolute or /public path)
-//   draft:       boolean  (optional — true hides from the site)
+//   cover:       string   (optional - absolute or /public path)
+//   draft:       boolean  (optional - true hides from the site)
 //   For case studies additionally:
 //   customer:    string   (optional)
 //   industry:    string   (optional)
-//   result:      string   (optional — headline outcome)
+//   result:      string   (optional - headline outcome)
 
 import fs from "node:fs";
 import path from "node:path";

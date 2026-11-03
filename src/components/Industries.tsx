@@ -54,7 +54,7 @@ const industries = [
   {
     name: "Healthcare & Life Sciences",
     description:
-      "Build patient, protocol, and research knowledge graphs that reason over clinical documents, trial data, and literature. Self-hosted, air-gap-ready deployment with envelope encryption and per-tenant isolation keeps PHI on your infrastructure — DocIntel extracts entities from records, labs, and papers without data ever leaving your network.",
+      "Build patient, protocol, and research knowledge graphs that reason over clinical documents, trial data, and literature. Self-hosted, air-gap-ready deployment with envelope encryption and per-tenant isolation keeps PHI on your infrastructure - DocIntel extracts entities from records, labs, and papers without data ever leaving your network.",
     useCases: ["Clinical knowledge graphs", "Trial & protocol mapping", "Literature & evidence synthesis", "PHI-safe on-prem extraction", "Pharmacovigilance signals"],
     icon: (
       <path
@@ -67,7 +67,7 @@ const industries = [
   {
     name: "Public Sector & Government",
     description:
-      "Consolidate case files, policy documents, and citizen services into a single auditable backend. Immutable graph-native audit trails, HITL approval gates, and fully self-hosted deployment satisfy sovereignty and records-retention mandates — no cloud dependency, no data egress.",
+      "Consolidate case files, policy documents, and citizen services into a single auditable backend. Immutable graph-native audit trails, HITL approval gates, and fully self-hosted deployment satisfy sovereignty and records-retention mandates - no cloud dependency, no data egress.",
     useCases: ["Case & records management", "Policy & regulation graphs", "Citizen-service workflows", "Immutable audit trail", "Data-sovereign deployment"],
     icon: (
       <path
@@ -80,7 +80,7 @@ const industries = [
   {
     name: "Security Operations",
     description:
-      "Purple8's built-in SOC vertical runs autonomous threat detection, containment, and audit trails entirely on-prem — no SIEM data egress. Threat classes, containment levels, and an immutable graph-native audit trail come built in, not bolted on.",
+      "Purple8's built-in SOC vertical runs autonomous threat detection, containment, and audit trails entirely on-prem - no SIEM data egress. Threat classes, containment levels, and an immutable graph-native audit trail come built in, not bolted on.",
     useCases: ["Insider-threat detection", "Tenant boundary enforcement", "Graph-native audit log", "Automated containment"],
     icon: (
       <path
@@ -106,8 +106,8 @@ export default function Industries() {
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
             Purple8 is purpose-built for domains where AI applications must reason
-            over complex, real-world data — connected entities, documents, and
-            workflows — not just retrieve text chunks.
+            over complex, real-world data - connected entities, documents, and
+            workflows - not just retrieve text chunks.
           </p>
         </div>
 
@@ -157,7 +157,7 @@ export default function Industries() {
             </div>
           ))}
 
-          {/* Teaser — fills the grid + invites other verticals */}
+          {/* Teaser - fills the grid + invites other verticals */}
           <a
             href="/#products"
             className="group relative flex flex-col justify-center overflow-hidden rounded-2xl border border-dashed border-zinc-800 bg-transparent p-7 transition-all duration-300 hover:border-purple-700/50 hover:bg-[#11111b]"

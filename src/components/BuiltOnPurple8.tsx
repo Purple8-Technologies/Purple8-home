@@ -8,7 +8,7 @@ export default function BuiltOnPurple8() {
           <div className="pointer-events-none absolute -bottom-32 -right-32 h-64 w-64 rounded-full bg-violet-800/10 blur-3xl" />
 
           <div className="relative flex flex-col items-start gap-10 lg:flex-row lg:items-center lg:gap-16">
-            {/* Left — copy */}
+            {/* Left - copy */}
             <div className="flex-1">
               <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-sm font-medium text-purple-300">
                 <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-purple-400" />
@@ -24,8 +24,8 @@ export default function BuiltOnPurple8() {
               </h2>
 
               <p className="mt-4 max-w-lg text-base leading-relaxed text-zinc-400">
-                Purple8&apos;s backend operations and customer portal — the entire
-                commercial backend — runs on a single{" "}
+                Purple8&apos;s backend operations and customer portal - the entire
+                commercial backend - runs on a single{" "}
                 <code className="rounded bg-zinc-900 px-1.5 py-0.5 text-xs text-purple-300">
                   Purple8
                 </code>{" "}
@@ -38,7 +38,7 @@ export default function BuiltOnPurple8() {
               </p>
             </div>
 
-            {/* Right — architecture card */}
+            {/* Right - architecture card */}
             <div className="w-full shrink-0 lg:w-80">
               <div className="rounded-xl border border-zinc-800 bg-zinc-950/80 p-5 font-mono text-xs leading-relaxed">
                 <p className="mb-3 text-zinc-400">{`# Purple8 Command Center`}</p>

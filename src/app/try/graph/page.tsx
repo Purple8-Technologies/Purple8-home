@@ -13,7 +13,7 @@ const dataPoints = [
 ];
 
 /**
- * Hosted Hyper Graph sandbox — self-serve key request.
+ * Hosted Hyper Graph sandbox - self-serve key request.
  *
  * The key is only ever emailed (never shown here), so receiving it proves the
  * person owns the inbox. The response is the same for new, existing and
@@ -84,8 +84,8 @@ export default function TryHyperGraphPage() {
         </h1>
         <p className="mt-3 text-gray-400">
           Connect your AI agent (Claude, Cursor, VS Code) over MCP and build your backend
-          by talking to it — graph, vector search, RAG and workflows in one place. Free,
-          no install, no credit card — 30 days.
+          by talking to it - graph, vector search, RAG and workflows in one place. Free,
+          no install, no credit card - 30 days.
         </p>
 
         <div className="mt-8 rounded-2xl border border-purple-900/40 border-l-4 border-l-purple-500 bg-[#11111b] p-6">
@@ -101,7 +101,7 @@ export default function TryHyperGraphPage() {
             <p className="mt-4 text-gray-300">
               We emailed{" "}
               <span className="text-purple-300">{email.toLowerCase()}</span>. If a place
-              is free, it contains your sandbox key — open the sandbox and paste it. If
+              is free, it contains your sandbox key - open the sandbox and paste it. If
               demand is high, you&apos;re on the waitlist and we&apos;ll send your key as
               soon as a place opens.
             </p>

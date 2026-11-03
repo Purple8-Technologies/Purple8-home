@@ -45,7 +45,7 @@ export default function TermsPage() {
       <h2>3. Licences, editions &amp; the software</h2>
       <p>
         Purple8 offers free and paid editions of its software. What each edition
-        includes — capacity, features, and support — is described on our pricing
+        includes - capacity, features, and support - is described on our pricing
         page and may change over time. Your right to use the software is granted
         under the <a href="/legal/eula">EULA</a>; these Terms cover the
         commercial relationship (ordering, billing, and website use) around it.

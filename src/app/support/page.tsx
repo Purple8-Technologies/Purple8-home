@@ -34,7 +34,7 @@ export default function SupportPage() {
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-3">
 
-          {/* Sidebar — quick links */}
+          {/* Sidebar - quick links */}
           <aside className="lg:col-span-1 order-2 lg:order-1">
             <div className="space-y-6 text-sm">
               <div>

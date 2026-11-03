@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# Purple8 Developer edition — one-click installer.
+# Purple8 Developer edition - one-click installer.
 #
 #   curl -fsSL https://www.purple8.ai/install.sh | bash
 #
 # What this does, in order:
 #   1. Detects your OS + CPU architecture.
 #   2. Checks that Docker is installed. If it is missing, it prints the official
-#      Docker install link and exits — install Docker Desktop (macOS/Windows) or
+#      Docker install link and exits - install Docker Desktop (macOS/Windows) or
 #      Docker Engine (Linux) yourself, then re-run this script. We do NOT
 #      auto-download Docker: the installer is large, needs a GUI licence step,
 #      and silent background downloads were hanging installs.
@@ -18,7 +18,7 @@
 #   7. Opens the admin console at http://localhost:8100/lcnc
 #
 # The script is safe to re-run: it recreates the container and never deletes
-# your data volume. Nothing here phones home — it only pulls the public image.
+# your data volume. Nothing here phones home - it only pulls the public image.
 #
 # Windows users: run the PowerShell installer instead:
 #   irm https://www.purple8.ai/install.ps1 | iex
@@ -63,7 +63,7 @@ banner() {
   ██      ██    ██ ██   ██ ██      ██      ██      ██   ██
   ██       ██████  ██   ██ ██      ███████ ███████ ██   ██
 ART
-  printf "%s  Developer edition — one-click installer%s\n" "$RESET$DIM" "$RESET"
+  printf "%s  Developer edition - one-click installer%s\n" "$RESET$DIM" "$RESET"
 }
 
 # ─── 1. Detect platform ───────────────────────────────────────────────────────
@@ -122,10 +122,10 @@ ensure_docker() {
 # fresh Linux install the new 'docker' group membership isn't active yet, so an
 # unprivileged `docker info` fails even though the daemon is up. Rather than
 # time out, fall back to `sudo docker` for this session only. macOS (Docker
-# Desktop) never needs this — the socket is owned by the user.
+# Desktop) never needs this - the socket is owned by the user.
 resolve_docker_cmd() {
   [ "$PLATFORM" = "linux" ] || return 0
-  # Direct access works (existing install, or group already active) — done.
+  # Direct access works (existing install, or group already active) - done.
   if docker info >/dev/null 2>&1; then
     DOCKER="docker"
     return 0
@@ -133,7 +133,7 @@ resolve_docker_cmd() {
   # No direct access. If the daemon is reachable via sudo, use sudo this run.
   if sudo -n docker info >/dev/null 2>&1 || sudo docker info >/dev/null 2>&1; then
     DOCKER="sudo docker"
-    warn "Using 'sudo docker' for this install — the new 'docker' group membership"
+    warn "Using 'sudo docker' for this install - the new 'docker' group membership"
     warn "activates after you log out and back in (or run: newgrp docker)."
     return 0
   fi
@@ -162,12 +162,12 @@ wait_for_daemon() {
 }
 
 # ─── 3. License key ───────────────────────────────────────────────────────────
-# A Developer JWT (RS256/RSA-4096) can run 800-1000+ chars — long enough to hit
+# A Developer JWT (RS256/RSA-4096) can run 800-1000+ chars - long enough to hit
 # the terminal's canonical-mode line limit, which is what made pasting "hang"
 # (the paste half-lands, the shell keeps waiting for a newline that never
 # cleanly arrives). read_key_raw() fixes this the simple way: turn OFF
 # canonical mode (no line-length limit) and read one char at a time until
-# Enter. Echo stays ON — you see exactly what you typed/pasted, which is also
+# Enter. Echo stays ON - you see exactly what you typed/pasted, which is also
 # just simpler than pretending a license key is a secret that needs masking.
 read_key_raw() {
   REPLY_KEY=""
@@ -213,13 +213,13 @@ get_license() {
     read_key_raw
     PURPLE8_LICENSE_JWT="${REPLY_KEY}"
   else
-    # No tty (fully non-interactive) — nothing to read; run unlicensed.
+    # No tty (fully non-interactive) - nothing to read; run unlicensed.
     PURPLE8_LICENSE_JWT=""
   fi
   # Strip any stray whitespace/newlines a paste may have introduced.
   PURPLE8_LICENSE_JWT="$(printf '%s' "${PURPLE8_LICENSE_JWT:-}" | tr -d '[:space:]')"
   if [ -z "${PURPLE8_LICENSE_JWT:-}" ]; then
-    warn "No key entered — starting without a license. Add one later by re-running this script."
+    warn "No key entered - starting without a license. Add one later by re-running this script."
     PURPLE8_LICENSE_JWT=""
   else
     # Sanity check: a JWT has exactly two dots. Warn (don't block) if it looks off.
@@ -227,7 +227,7 @@ get_license() {
     dots="$(printf '%s' "$PURPLE8_LICENSE_JWT" | tr -cd '.' | wc -c | tr -d ' ')"
     if [ "$dots" != "2" ]; then
       warn "That doesn't look like a complete JWT (expected 2 dots, got ${dots})."
-      warn "Continuing anyway — if licensing fails, re-run with PURPLE8_LICENSE_JWT set."
+      warn "Continuing anyway - if licensing fails, re-run with PURPLE8_LICENSE_JWT set."
     fi
     ok "License key captured (${#PURPLE8_LICENSE_JWT} chars)."
   fi
@@ -240,10 +240,10 @@ get_license() {
 # Honours pre-set env vars for fully non-interactive installs.
 #
 # IMPORTANT: this script deliberately KEEPS the data volume across re-installs
-# (see deploy()), and the server's bootstrap is idempotent — it ONLY creates an
+# (see deploy()), and the server's bootstrap is idempotent - it ONLY creates an
 # admin when ZERO users exist yet. So if you have ever run this installer
 # before against the same volume, an admin already exists, and typing a new
-# email/password here would be silently ignored by the server — which looked
+# email/password here would be silently ignored by the server - which looked
 # exactly like "my new login doesn't work". We now detect that case up front
 # and skip the misleading prompt entirely.
 get_admin() {
@@ -256,7 +256,7 @@ get_admin() {
     P8G_ADMIN_EMAIL=""; P8G_ADMIN_PASSWORD=""
     warn "An existing '${VOLUME}' data volume was found from a previous install."
     info "If you already created an admin account before, use THOSE credentials"
-    info "to log in at ${CONSOLE_URL} — entering new ones here would be ignored"
+    info "to log in at ${CONSOLE_URL} - entering new ones here would be ignored"
     info "(the server only auto-creates an admin on a completely empty database)."
     info ""
     info "Forgot your password? Reset it without needing email:"
@@ -268,9 +268,9 @@ get_admin() {
   info "Create your admin login now, or press Enter to skip and set it up in the"
   info "browser at ${CONSOLE_URL} on first launch."
   if [ ! -r /dev/tty ]; then
-    # No tty — skip; the LCNC setup wizard will handle it.
+    # No tty - skip; the LCNC setup wizard will handle it.
     P8G_ADMIN_EMAIL=""; P8G_ADMIN_PASSWORD=""
-    warn "Non-interactive run — skipping. Create your admin at ${CONSOLE_URL}."
+    warn "Non-interactive run - skipping. Create your admin at ${CONSOLE_URL}."
     return
   fi
   printf "\n  Admin email (or press Enter to skip): "
@@ -278,23 +278,23 @@ get_admin() {
   P8G_ADMIN_EMAIL="$(printf '%s' "${P8G_ADMIN_EMAIL:-}" | tr -d '[:space:]')"
   if [ -z "${P8G_ADMIN_EMAIL:-}" ]; then
     P8G_ADMIN_PASSWORD=""
-    info "Skipped — create your admin at ${CONSOLE_URL} on first launch."
+    info "Skipped - create your admin at ${CONSOLE_URL} on first launch."
     return
   fi
   # Read the password in plain sight (no stty -echo). This is a local,
-  # single-user install script — hiding the password just hid whether typing
+  # single-user install script - hiding the password just hid whether typing
   # was even registering, which is what made it look "broken". The server
   # enforces a strict policy on first-boot admin creation
   # (auth.py:validate_password_strength): 12+ chars AND upper AND lower AND
   # digit AND special. If the password fails ANY rule, the container silently
-  # skips admin creation and you can't log in — so we validate the SAME rules
+  # skips admin creation and you can't log in - so we validate the SAME rules
   # here and refuse to continue until it would actually be accepted.
-  info "(Your password will be shown as you type — this is a local install.)"
+  info "(Your password will be shown as you type - this is a local install.)"
   while :; do
     printf "  Admin password (min 12 chars, incl. upper, lower, digit & symbol): "
     IFS= read -r P8G_ADMIN_PASSWORD </dev/tty || P8G_ADMIN_PASSWORD=""
     if [ "${#P8G_ADMIN_PASSWORD}" -lt 12 ]; then
-      warn "Too short — please use at least 12 characters."
+      warn "Too short - please use at least 12 characters."
       continue
     fi
     case "$P8G_ADMIN_PASSWORD" in *[A-Z]*) : ;; *) warn "Must include an uppercase letter."; continue ;; esac
@@ -304,7 +304,7 @@ get_admin() {
     printf "  Confirm password: "
     IFS= read -r _pw_confirm </dev/tty || _pw_confirm=""
     if [ "$P8G_ADMIN_PASSWORD" != "$_pw_confirm" ]; then
-      warn "Passwords did not match — try again."
+      warn "Passwords did not match - try again."
       continue
     fi
     break

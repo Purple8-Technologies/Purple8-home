@@ -1,6 +1,6 @@
 ---
-title: "Quantum AI on classical hardware — what it is, who it helps, and why it matters for AI"
-description: "Quantum computing gets all the headlines. But quantum-inspired AI is running in production today, on ordinary CPUs, solving problems that classical AI cannot — without a single qubit."
+title: "Quantum AI on classical hardware - what it is, who it helps, and why it matters for AI"
+description: "Quantum computing gets all the headlines. But quantum-inspired AI is running in production today, on ordinary CPUs, solving problems that classical AI cannot - without a single qubit."
 date: "2026-08-06"
 author: "Purple8 Team"
 tags: ["quantum", "optimisation", "ai", "classical-computing", "explainer"]
@@ -14,11 +14,11 @@ This is about the second one.
 
 ## What is quantum computing? (The real thing)
 
-Quantum computing uses physical qubits — particles that can exist in a superposition of 0 and 1 simultaneously. By manipulating quantum interference and entanglement, quantum computers can explore exponentially many states at once.
+Quantum computing uses physical qubits - particles that can exist in a superposition of 0 and 1 simultaneously. By manipulating quantum interference and entanglement, quantum computers can explore exponentially many states at once.
 
 The promise is enormous. Breaking certain cryptographic schemes. Simulating molecular chemistry. Solving specific optimisation problems at scales that would take classical computers longer than the age of the universe.
 
-The reality in 2026: quantum computers are real, but fragile. The best machines have a few thousand physical qubits, but decoherence — noise from the environment — limits useful computation to microseconds. Error correction is expensive. The most advanced quantum hardware still cannot outperform classical computers on most practical business problems.
+The reality in 2026: quantum computers are real, but fragile. The best machines have a few thousand physical qubits, but decoherence - noise from the environment - limits useful computation to microseconds. Error correction is expensive. The most advanced quantum hardware still cannot outperform classical computers on most practical business problems.
 
 **Quantum computing is coming. It is not here yet for most enterprise AI use cases.**
 
@@ -26,12 +26,12 @@ The reality in 2026: quantum computers are real, but fragile. The best machines 
 
 ## What is quantum-inspired AI? (What runs today)
 
-Quantum-inspired algorithms borrow the *mathematical structure* of quantum mechanics — not the hardware. They implement ideas like:
+Quantum-inspired algorithms borrow the *mathematical structure* of quantum mechanics - not the hardware. They implement ideas like:
 
-- **Simulated annealing** — inspired by quantum tunnelling. Instead of always moving downhill (like gradient descent), the algorithm occasionally jumps over energy barriers, escaping local optima that trap classical optimisers.
-- **Tensor networks** — a mathematical framework from quantum physics for representing high-dimensional states efficiently. Used in quantum computing to simulate quantum systems; used in AI for compact representations of complex distributions.
-- **Variational quantum eigensolvers (VQE)** — a hybrid algorithm originally designed for quantum hardware, re-implemented in software to find minimum-energy states for combinatorial problems.
-- **QUBO (Quadratic Unconstrained Binary Optimisation)** — a universal formulation for combinatorial optimisation that maps naturally to quantum annealing hardware *and* to classical solvers like simulated annealing and tabu search.
+- **Simulated annealing** - inspired by quantum tunnelling. Instead of always moving downhill (like gradient descent), the algorithm occasionally jumps over energy barriers, escaping local optima that trap classical optimisers.
+- **Tensor networks** - a mathematical framework from quantum physics for representing high-dimensional states efficiently. Used in quantum computing to simulate quantum systems; used in AI for compact representations of complex distributions.
+- **Variational quantum eigensolvers (VQE)** - a hybrid algorithm originally designed for quantum hardware, re-implemented in software to find minimum-energy states for combinatorial problems.
+- **QUBO (Quadratic Unconstrained Binary Optimisation)** - a universal formulation for combinatorial optimisation that maps naturally to quantum annealing hardware *and* to classical solvers like simulated annealing and tabu search.
 
 These run on ordinary CPUs. No specialised hardware. No cloud quantum provider subscription. No queue time waiting for a qubit.
 
@@ -39,20 +39,20 @@ These run on ordinary CPUs. No specialised hardware. No cloud quantum provider s
 
 ## Why does this matter? The class of problems AI cannot solve
 
-Standard AI — neural networks, LLMs, gradient-based learning — is extraordinarily powerful at pattern recognition, generation, and sequence modelling. But there is a class of problem it handles poorly:
+Standard AI - neural networks, LLMs, gradient-based learning - is extraordinarily powerful at pattern recognition, generation, and sequence modelling. But there is a class of problem it handles poorly:
 
 **Combinatorial optimisation under hard constraints.**
 
 Examples:
 
-- *Schedule 50 surgeries across 8 operating theatres, 120 staff with shift constraints, and 30 specialist equipment items — minimise patient waiting time.*
-- *Route 200 delivery vehicles across a city, respecting time windows, vehicle capacities, and driver hours — minimise total distance.*
+- *Schedule 50 surgeries across 8 operating theatres, 120 staff with shift constraints, and 30 specialist equipment items - minimise patient waiting time.*
+- *Route 200 delivery vehicles across a city, respecting time windows, vehicle capacities, and driver hours - minimise total distance.*
 - *Allocate a portfolio of 500 assets to maximise expected return for a given risk tolerance, with sector concentration limits.*
 - *Assign 1,000 workers to 800 shifts, respecting qualifications, preferences, union rules, and legal constraints.*
 
-These are **NP-hard problems**. No algorithm solves them optimally at scale in polynomial time. Classical approaches — brute force, integer programming, genetic algorithms — either run out of time or get stuck in local optima.
+These are **NP-hard problems**. No algorithm solves them optimally at scale in polynomial time. Classical approaches - brute force, integer programming, genetic algorithms - either run out of time or get stuck in local optima.
 
-Neural networks don't help much here either. They're good at approximating functions from data. But combinatorial optimisation has no "training data" — the search space is discrete, the constraints are hard, and the objective changes per instance.
+Neural networks don't help much here either. They're good at approximating functions from data. But combinatorial optimisation has no "training data" - the search space is discrete, the constraints are hard, and the objective changes per instance.
 
 **This is exactly where quantum-inspired methods shine.**
 
@@ -62,13 +62,13 @@ Neural networks don't help much here either. They're good at approximating funct
 
 Take vehicle routing as an example. You have *n* delivery stops, *k* vehicles, and you want to minimise total distance. This is the Vehicle Routing Problem (VRP), one of the most studied NP-hard problems.
 
-**Step 1 — Encode as QUBO.** Map the problem into a quadratic binary matrix *Q*, where each binary variable represents a decision (does vehicle 3 visit stop 17 at time slot 2?). Constraint violations become penalty terms in the objective.
+**Step 1 - Encode as QUBO.** Map the problem into a quadratic binary matrix *Q*, where each binary variable represents a decision (does vehicle 3 visit stop 17 at time slot 2?). Constraint violations become penalty terms in the objective.
 
-**Step 2 — Run simulated annealing.** Start from a random binary assignment. At high "temperature", accept worse solutions with some probability (allowing escape from local optima — the quantum tunnelling analogy). Gradually cool. At low temperature, converge on a good solution.
+**Step 2 - Run simulated annealing.** Start from a random binary assignment. At high "temperature", accept worse solutions with some probability (allowing escape from local optima - the quantum tunnelling analogy). Gradually cool. At low temperature, converge on a good solution.
 
-**Step 3 — Refine with greedy descent.** A fast deterministic pass over the solution, fixing any remaining improvements. Typically reduces residual energy by 2–15%.
+**Step 3 - Refine with greedy descent.** A fast deterministic pass over the solution, fixing any remaining improvements. Typically reduces residual energy by 2–15%.
 
-The result is not necessarily the *optimal* solution (no polynomial algorithm guarantees that). But it finds solutions within a few percent of optimal, in seconds, on a CPU — and it does so in a principled, repeatable way.
+The result is not necessarily the *optimal* solution (no polynomial algorithm guarantees that). But it finds solutions within a few percent of optimal, in seconds, on a CPU - and it does so in a principled, repeatable way.
 
 ---
 
@@ -98,7 +98,7 @@ The arrival of AI agents changes the equation significantly. An agent can now:
 3. **Call the quantum-inspired solver** as a tool (`quantum.scheduling`, `quantum.vrp`)
 4. **Interpret the result** and present it as an actionable plan
 
-This is not possible with a pure LLM — you cannot ask GPT-4o to optimally route 200 vehicles. It will hallucinate a plausible-sounding answer that doesn't satisfy the constraints. But an agent that calls a real solver — and gets a real, verifiable result — can.
+This is not possible with a pure LLM - you cannot ask GPT-4o to optimally route 200 vehicles. It will hallucinate a plausible-sounding answer that doesn't satisfy the constraints. But an agent that calls a real solver - and gets a real, verifiable result - can.
 
 **The quantum-inspired solver is what makes the agent's answer correct rather than plausible.**
 
@@ -126,7 +126,7 @@ Purple8 Hyper Graph includes a production-ready quantum-inspired optimisation en
 
 Everything runs on CPU. No quantum hardware. No cloud subscription. No special dependencies beyond numpy.
 
-An agent with editor-role access can call any of these tools directly. The solver runs in-process, in the same Python runtime as the graph engine and RAG pipeline — no network hop, no serialisation overhead.
+An agent with editor-role access can call any of these tools directly. The solver runs in-process, in the same Python runtime as the graph engine and RAG pipeline - no network hop, no serialisation overhead.
 
 ---
 
@@ -144,9 +144,9 @@ quantum.vrp {
 }
 ```
 
-Returns an optimised route assignment in ~2 seconds. The agent then calls `journey.start` for each vehicle's route, creating trackable workflow instances with SLA gates — so if a vehicle falls behind, the HITL system alerts a dispatcher.
+Returns an optimised route assignment in ~2 seconds. The agent then calls `journey.start` for each vehicle's route, creating trackable workflow instances with SLA gates - so if a vehicle falls behind, the HITL system alerts a dispatcher.
 
-The entire loop — problem formulation, optimisation, workflow creation, monitoring — is agentic. No human writes application code.
+The entire loop - problem formulation, optimisation, workflow creation, monitoring - is agentic. No human writes application code.
 
 ---
 
@@ -166,10 +166,10 @@ Quantum-inspired AI is powerful, but be clear about what it is and is not:
 
 ## What comes next
 
-As quantum hardware matures, the QUBO formulations that quantum-inspired solvers use today will map directly to real quantum annealers (D-Wave, IonQ, IBM). The agent code that calls `quantum.optimize` today will be able to route to real quantum hardware tomorrow — without the application changing.
+As quantum hardware matures, the QUBO formulations that quantum-inspired solvers use today will map directly to real quantum annealers (D-Wave, IonQ, IBM). The agent code that calls `quantum.optimize` today will be able to route to real quantum hardware tomorrow - without the application changing.
 
 That is the real promise of quantum-inspired AI: it solves real problems now, and positions you to use real quantum hardware the moment it becomes practical.
 
 ---
 
-*Purple8 Hyper Graph ships the quantum-inspired optimisation engine as part of the core product — no separate install, no additional cost. Start with `pip install purple8-hyper-graph` and call `quantum.optimize` from any MCP-compatible agent.*
+*Purple8 Hyper Graph ships the quantum-inspired optimisation engine as part of the core product - no separate install, no additional cost. Start with `pip install purple8-hyper-graph` and call `quantum.optimize` from any MCP-compatible agent.*

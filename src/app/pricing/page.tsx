@@ -15,7 +15,7 @@ export default function PricingPage() {
   return (
     <ClassicShell>
       <main id="main-content" className="pt-8">
-        <h1 className="sr-only">Licensing &amp; Deployment — Purple8</h1>
+        <h1 className="sr-only">Licensing &amp; Deployment - Purple8</h1>
         <FadeIn direction="up" delay={0}>
           <Pricing />
         </FadeIn>

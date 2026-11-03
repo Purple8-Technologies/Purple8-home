@@ -71,7 +71,7 @@ export default function DeveloperAgreementPage() {
       <h2>4. Feedback</h2>
       <p>
         In exchange for the free Developer edition, we ask that you provide{" "}
-        <strong>occasional feedback</strong> — bug reports, feature suggestions,
+        <strong>occasional feedback</strong> - bug reports, feature suggestions,
         and your experience using the product. Feedback is voluntary and there is
         no fixed obligation, but it is the consideration we value in place of a
         fee. By submitting feedback, suggestions, bug reports, or ideas
@@ -82,7 +82,7 @@ export default function DeveloperAgreementPage() {
 
       <h2>5. Telemetry &amp; Data</h2>
       <p>
-        The Developer edition may transmit anonymized telemetry to Purple8 — for
+        The Developer edition may transmit anonymized telemetry to Purple8 - for
         example a machine-ID hash, version, platform, approximate node/edge or
         document counts, and uptime. No personally identifiable information or
         your customer data is transmitted for this purpose. You may opt out by
@@ -127,7 +127,7 @@ export default function DeveloperAgreementPage() {
         This Agreement begins when you accept it and continues until terminated.
         You may terminate at any time by ceasing all use and destroying all
         copies. Purple8 may terminate or suspend your Developer license at any
-        time — including by revoking your license key — for any reason,
+        time - including by revoking your license key - for any reason,
         including breach of this Agreement or the EULA. Upon termination, all
         rights granted here immediately cease and you must delete all copies of
         the Developer edition in your possession. Sections 4, 5, 7, and this

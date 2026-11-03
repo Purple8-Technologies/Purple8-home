@@ -1,13 +1,13 @@
 "use client";
 
 /**
- * SystemFlow — "Your entire backend. One process." animated flow map.
+ * SystemFlow - "Your entire backend. One process." animated flow map.
  *
  * A live diagram of the AI-native architecture: your frontend and AI agents are
  * the only things you write; everything behind them is Purple8. Two entry
  * points (frontend via REST, agents via MCP) feed ONE in-process engine whose
  * subsystems (graph/query, Cortex storage, vector+full-text, Journey,
- * security/SOC) power four workload families — Search & RAG, Workflows & SLA,
+ * security/SOC) power four workload families - Search & RAG, Workflows & SLA,
  * Security & Audit, Analytics & Ops. RAG is deliberately just ONE workload, not
  * the hero: the story is "complete backend," not "RAG chatbot."
  *
@@ -15,7 +15,7 @@
  * separate services with network hops between them; here every hop is
  * in-process. The animated pulses never leave the central box.
  *
- * Pure SVG + CSS + a tiny React ticker — no external deps, safe for the static
+ * Pure SVG + CSS + a tiny React ticker - no external deps, safe for the static
  * export. SMIL <animateMotion> drives the pulses (supported in all evergreen
  * browsers).
  */
@@ -40,18 +40,18 @@ const NW = 190;
 const NH = 58;
 
 const NODES: Node[] = [
-  // Entry points — external clients only. Both are things YOU point at Purple8.
+  // Entry points - external clients only. Both are things YOU point at Purple8.
   { id: "apps", label: "Your Frontend", sub: "REST API", x: 40, y: 118, w: NW, h: NH, tone: "entry" },
   { id: "agents", label: "AI Agents", sub: "Claude · Copilot · GPT", x: 40, y: 384, w: NW, h: NH, tone: "entry" },
   // Core subsystems (inside the process box). MCP Server is Purple8's OWN
-  // agent-facing gateway — not an external actor.
+  // agent-facing gateway - not an external actor.
   { id: "mcp", label: "MCP Server", sub: `${F.mcpTools} tools · RBAC`, x: 410, y: 86, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "engine", label: "Graph + Query Engine", sub: "planner · 6 strategies", x: 410, y: 150, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "storage", label: "Persistent Storage", sub: "documents · durable log · bounded memory", x: 410, y: 214, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "index", label: "Vector + Full-Text", sub: "HNSW ANN · search", x: 410, y: 278, w: 240, h: 44, tone: "core", health: "ok" },
   { id: "journey", label: "Journey Engine", sub: "workflows · SLA · HITL", x: 410, y: 342, w: 240, h: 44, tone: "core", health: "warn" },
   { id: "security", label: "Security & SOC", sub: "AES-256 · RBAC · tenancy", x: 410, y: 406, w: 240, h: 44, tone: "core", health: "ok" },
-  // Outputs — workload families, each replacing a whole product category.
+  // Outputs - workload families, each replacing a whole product category.
   { id: "data", label: "Data & Graph API", sub: "CRUD · traversal · CDC", x: 810, y: 70, w: NW, h: NH, tone: "out" },
   { id: "search", label: "Search & RAG", sub: "vector + graph + text", x: 810, y: 148, w: NW, h: NH, tone: "out" },
   { id: "workflow", label: "Workflows & SLA", sub: "orchestration · HITL", x: 810, y: 226, w: NW, h: NH, tone: "out" },
@@ -74,7 +74,7 @@ const EDGES: Edge[] = [
   { from: "apps", to: "engine", dur: 2.6, delay: 0 },
   { from: "apps", to: "storage", dur: 3.0, delay: 0.6 },
   { from: "apps", to: "journey", dur: 3.3, delay: 1.4 },
-  // AI agents go through Purple8's OWN MCP server — the agent gateway.
+  // AI agents go through Purple8's OWN MCP server - the agent gateway.
   { from: "agents", to: "mcp", dur: 2.2, delay: 0.2 },
   // MCP then drives the same subsystems the frontend does.
   { from: "mcp", to: "engine", dur: 2.5, delay: 0.5 },
@@ -143,7 +143,7 @@ function Stat({ label, value, unit }: { label: string; value: string; unit?: str
 export default function SystemFlow() {
   const load = useTicker(1480, 90);
   const latency = useTicker(7, 2, 1);
-  const hops = 0; // in-process — always zero network hops
+  const hops = 0; // in-process - always zero network hops
 
   return (
     <section id="how-it-works" className="py-24 sm:py-28">
@@ -157,7 +157,7 @@ export default function SystemFlow() {
             Your entire backend. One process.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-zinc-400">
-            Your agents build the frontend — Purple8 is everything behind it. Database,
+            Your agents build the frontend - Purple8 is everything behind it. Database,
             graph, search, RAG, workflows, security, and audit all run{" "}
             <span className="text-purple-300">in one process</span>. Every hop the
             traditional stack makes over the network, Purple8 makes in memory.
@@ -184,7 +184,7 @@ export default function SystemFlow() {
           <svg
             viewBox="0 0 1000 560"
             role="img"
-            aria-label="Purple8 architecture flow map: your frontend (REST) and AI agents (via Purple8's MCP server) feed one in-process backend — graph engine, storage, vector and full-text, Journey Engine, security — that powers a data and graph API, search and RAG, workflows and SLA, security and audit, and analytics."
+            aria-label="Purple8 architecture flow map: your frontend (REST) and AI agents (via Purple8's MCP server) feed one in-process backend - graph engine, storage, vector and full-text, Journey Engine, security - that powers a data and graph API, search and RAG, workflows and SLA, security and audit, and analytics."
             className="mx-auto h-auto w-full min-w-[720px] max-w-5xl"
           >
             <defs>
@@ -294,7 +294,7 @@ export default function SystemFlow() {
           </svg>
         </div>
 
-        {/* Composite MCP — one endpoint, native + federated */}
+        {/* Composite MCP - one endpoint, native + federated */}
         <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-purple-900/40 bg-[#11111b] p-6 sm:p-7">
           <div className="flex flex-col gap-1 text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-purple-400">
@@ -304,7 +304,7 @@ export default function SystemFlow() {
               Agents connect <span className="text-white">once</span>. Purple8&apos;s
               MCP server exposes its 74 native tools{" "}
               <span className="text-white">and</span> re-exposes any external MCP
-              servers you register — one endpoint, one auth, one RBAC boundary.
+              servers you register - one endpoint, one auth, one RBAC boundary.
             </p>
           </div>
 

@@ -26,7 +26,7 @@ function band(amp: number, period: number, thick: number, phase: number, y0 = 30
   return `M${top.join(" L")} L${bot.reverse().join(" L")} Z`;
 }
 
-// Few, long, gentle layers — slow drift, all softly blurred.
+// Few, long, gentle layers - slow drift, all softly blurred.
 const WAVES = [
   { amp: 70, period: 1200, thick: 140, phase: 0.0, o: 0.10, dur: 48, rev: false },
   { amp: 55, period: 1200, thick: 110, phase: 1.6, o: 0.12, dur: 60, rev: true },

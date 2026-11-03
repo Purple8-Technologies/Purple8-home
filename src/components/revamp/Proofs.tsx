@@ -1,4 +1,4 @@
-// "By the numbers" — the proofs section. Shared by both product pages
+// "By the numbers" - the proofs section. Shared by both product pages
 // so layout, heading and link wording are identical; only the data differs.
 // Max three proofs; each must link to its evidence.
 

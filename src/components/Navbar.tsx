@@ -96,14 +96,14 @@ const platformProducts = [
   {
     href: "/products/hyper-graph/",
     name: "Purple8 Hyper Graph",
-    desc: "AI-Native Execution Infrastructure — graph, vector, RAG, workflows, auth & SOC",
+    desc: "AI-Native Execution Infrastructure - graph, vector, RAG, workflows, auth & SOC",
     color: "text-purple-400",
     dot: "bg-purple-500",
   },
   {
     href: "/products/docintel/",
     name: "Purple8 DocIntel",
-    desc: "70+ format document intelligence — parse, extract & commit to Hyper Graph",
+    desc: "70+ format document intelligence - parse, extract & commit to Hyper Graph",
     color: "text-violet-400",
     dot: "bg-violet-500",
   },
@@ -212,7 +212,7 @@ export default function Navbar() {
                       Platform
                     </p>
 
-                    {/* Purple8 Hyper Graph — hover to reveal capabilities */}
+                    {/* Purple8 Hyper Graph - hover to reveal capabilities */}
                     <div className="group/p8 relative">
                       <Link
                         href="/products/purple8/"
@@ -221,7 +221,7 @@ export default function Navbar() {
                       >
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" />
                         <span className="text-sm font-medium text-purple-400 flex-1">Purple8 Hyper Graph</span>
-                        {/* chevron — rotates when group hovered */}
+                        {/* chevron - rotates when group hovered */}
                         <svg
                           className="h-3 w-3 text-zinc-600 transition-transform duration-200 group-hover/p8:rotate-90"
                           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
@@ -230,7 +230,7 @@ export default function Navbar() {
                         </svg>
                       </Link>
 
-                      {/* Capabilities — hidden until hover on parent row */}
+                      {/* Capabilities - hidden until hover on parent row */}
                       <div className="grid grid-rows-[0fr] transition-all duration-200 group-hover/p8:grid-rows-[1fr]">
                         <div className="overflow-hidden">
                           {solutions.map((s) => (

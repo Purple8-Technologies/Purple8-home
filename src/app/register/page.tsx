@@ -8,7 +8,7 @@ const EULA_URL = "/legal/eula";
 const DEVELOPER_AGREEMENT_URL = "/legal/developer-agreement";
 
 /**
- * Free Developer edition — self-serve registration (step 1 of 2).
+ * Free Developer edition - self-serve registration (step 1 of 2).
  *
  * The account owner enters their email, accepts the EULA inline, and receives a
  * single-use magic link. Clicking the link (/activate) issues the license
@@ -127,7 +127,7 @@ export default function RegisterPage() {
               <>
                 We sent a confirmation link to{" "}
                 <span className="text-purple-300">{email.toLowerCase()}</span>. Click it
-                to activate your free Developer license instantly — it takes one click.
+                to activate your free Developer license instantly - it takes one click.
               </>
             )}
           </p>
@@ -192,10 +192,10 @@ export default function RegisterPage() {
           Back to purple8.ai
         </a>
         <h1 className="text-3xl font-bold text-white sm:text-4xl">
-          Get Purple8 — free for developers
+          Get Purple8 - free for developers
         </h1>
         <p className="mt-3 text-gray-400">
-          The full multi-model engine on your machine. No credit card, no waitlist —
+          The full multi-model engine on your machine. No credit card, no waitlist -
           confirm your email and your license is issued instantly.
         </p>
         <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-800/40 bg-purple-950/30 px-4 py-1.5 text-sm text-purple-200">
@@ -203,7 +203,7 @@ export default function RegisterPage() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
           </span>
-          Now live — confirm your email and your license is issued instantly.
+          Now live - confirm your email and your license is issued instantly.
         </p>
 
         <form

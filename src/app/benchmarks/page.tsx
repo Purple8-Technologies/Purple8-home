@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Benchmarks",
   description:
-    "Real, reproducible performance data for Purple8 — latency, throughput, and hardware-bounded memory. Every number carries its test conditions.",
+    "Real, reproducible performance data for Purple8 - latency, throughput, and hardware-bounded memory. Every number carries its test conditions.",
   path: "/benchmarks",
 });
 

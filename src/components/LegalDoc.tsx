@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
  * (Purple8 Hyper Graph, Purple8 DocIntel, and future products).
  *
  * Content is passed as plain semantic HTML (h2/h3/p/ul/table/…) and styled via
- * Tailwind child selectors — no typography plugin required.
+ * Tailwind child selectors - no typography plugin required.
  */
 export default function LegalDoc({
   title,

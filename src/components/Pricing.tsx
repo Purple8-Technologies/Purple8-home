@@ -12,9 +12,9 @@ import { FACTS as F } from "@/lib/facts";
 
 type ProductTab = "graph" | "docintel";
 
-// ─── Feature comparison — 2 Self-Hosted CAPABILITY columns ────────────────────
+// ─── Feature comparison - 2 Self-Hosted CAPABILITY columns ────────────────────
 // Self-hosted is simple: Developer (Free) for local building/prototyping, and
-// one commercial tier — Enterprise / Custom — for production deployments.
+// one commercial tier - Enterprise / Custom - for production deployments.
 
 interface FeatureRow {
   category?: string;
@@ -24,8 +24,8 @@ interface FeatureRow {
 }
 
 const FEATURE_ROWS: FeatureRow[] = [
-  // Core — every tier, including free Developer
-  { category: "Core engine — every tier", label: "Nodes, edges & graph traversal", developer: true, enterprise: true },
+  // Core - every tier, including free Developer
+  { category: "Core engine - every tier", label: "Nodes, edges & graph traversal", developer: true, enterprise: true },
   { label: "Full-text + vector / semantic search", developer: true, enterprise: true },
   { label: "ACID transactions", developer: true, enterprise: true },
   { label: "REST API + Python & TypeScript SDKs", developer: true, enterprise: true },
@@ -35,7 +35,7 @@ const FEATURE_ROWS: FeatureRow[] = [
   { label: "Journey Engine + SLA monitoring", developer: true, enterprise: true },
   { label: "Human-in-the-Loop (HITL) gates", developer: true, enterprise: true },
   // Enterprise / Custom (Self-Hosted Commercial)
-  { category: "Enterprise / Custom — Commercial Self-Hosted", label: "Node & edge capacity", developer: "Up to 50K nodes", enterprise: "Custom / Unlimited" },
+  { category: "Enterprise / Custom - Commercial Self-Hosted", label: "Node & edge capacity", developer: "Up to 50K nodes", enterprise: "Custom / Unlimited" },
   { label: "Advanced RAG (late & agentic chunking)", developer: false, enterprise: true },
   { label: "Managed KMS (Local · Vault · AWS · GCP · Azure)", developer: false, enterprise: true },
   { label: "Data lineage + local & cloud backup (S3 / GCS / Azure Blob)", developer: false, enterprise: true },
@@ -68,19 +68,19 @@ interface DocIntelFeatureRow {
 }
 
 const DOCINTEL_FEATURE_ROWS: DocIntelFeatureRow[] = [
-  { category: "Capacity", label: "Volume", beta: "500 docs / month", enterprise: "Custom / Unlimited", cloud: "No limit — billed per page" },
+  { category: "Capacity", label: "Volume", beta: "500 docs / month", enterprise: "Custom / Unlimited", cloud: "No limit - billed per page" },
   { category: "Parsing", label: "70+ document formats (PDF, DOCX, XLSX, PPTX, HTML…)", beta: true, enterprise: true, cloud: true },
   { label: "CAD / BIM (IFC, DXF, STEP)", beta: true, enterprise: true, cloud: true },
   { label: "SAP IDocs", beta: true, enterprise: true, cloud: true },
   { label: "Image + scanned PDF (OCR)", beta: "Tesseract + P8OCR", enterprise: "Tesseract + P8OCR", cloud: "Tesseract + P8OCR" },
-  { category: "Extraction", label: "GLiNER NER — Pass 1", beta: true, enterprise: true, cloud: true },
-  { label: "LLM relationship extraction — Pass 2", beta: "OpenAI only", enterprise: "Any local or cloud LLM", cloud: "Our default model or your own LLM" },
+  { category: "Extraction", label: "GLiNER NER - Pass 1", beta: true, enterprise: true, cloud: true },
+  { label: "LLM relationship extraction - Pass 2", beta: "OpenAI only", enterprise: "Any local or cloud LLM", cloud: "Our default model or your own LLM" },
   { label: "Domain profiles (AEC, contract, financial, scientific)", beta: true, enterprise: true, cloud: true },
   { label: "Custom extraction ontology", beta: true, enterprise: true, cloud: true },
   { category: "Connectors", label: "Webhook (inbound push)", beta: true, enterprise: true, cloud: true },
   { label: "SharePoint + Confluence sync", beta: false, enterprise: true, cloud: true },
   { label: "AWS S3 sync", beta: false, enterprise: true, cloud: true },
-  { category: "Updates & support", label: "Every new version — included", beta: true, enterprise: true, cloud: true },
+  { category: "Updates & support", label: "Every new version - included", beta: true, enterprise: true, cloud: true },
   { label: "SLA-backed enterprise support", beta: false, enterprise: true, cloud: true },
 ];
 

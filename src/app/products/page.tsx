@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Products",
   description:
-    "Purple8 Hyper Graph and Purple8 DocIntel — one embedded backend for data, retrieval, workflow orchestration, and agent execution, plus 70+ format document intelligence.",
+    "Purple8 Hyper Graph and Purple8 DocIntel - one embedded backend for data, retrieval, workflow orchestration, and agent execution, plus 70+ format document intelligence.",
   path: "/products",
 });
 

@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description:
-    "How Purple8, Inc. collects, uses, and protects information across purple8.ai and the Purple8 software. Purple8 is embedded software — your operational data stays on your infrastructure.",
+    "How Purple8, Inc. collects, uses, and protects information across purple8.ai and the Purple8 software. Purple8 is embedded software - your operational data stays on your infrastructure.",
   path: "/legal/privacy",
 });
 
@@ -19,8 +19,8 @@ export default function PrivacyPage() {
     >
       <blockquote>
         <strong>The short version.</strong> Purple8 is embedded, self-hosted
-        software. The data you ingest, index, and query — your documents, graphs,
-        vectors, and workflows — is processed inside your own deployment and is{" "}
+        software. The data you ingest, index, and query - your documents, graphs,
+        vectors, and workflows - is processed inside your own deployment and is{" "}
         <strong>never sent to Purple8</strong>. This policy covers the limited
         information we collect when you visit our website, register for an
         account, or purchase a licence.
@@ -41,14 +41,14 @@ export default function PrivacyPage() {
       <h2>2. The most important point: your operational data</h2>
       <p>
         Purple8 Hyper Graph and Purple8 DocIntel run <strong>in your own
-        environment</strong> — your hardware, your cloud, or your on-premises
+        environment</strong> - your hardware, your cloud, or your on-premises
         infrastructure. The content you process with the Software (documents,
         entities, embeddings, graph data, prompts, and query results) is stored
         and processed locally within your deployment. Purple8 does{" "}
         <strong>not</strong> receive, collect, store, or have access to that
         operational data. Where you configure a third-party model provider (for
         example, an LLM API), your data flows directly from your deployment to
-        that provider under their terms — not through Purple8.
+        that provider under their terms - not through Purple8.
       </p>
 
       <h2>3. Information we do collect</h2>
@@ -58,25 +58,25 @@ export default function PrivacyPage() {
       </p>
       <ul>
         <li>
-          <strong>Account &amp; registration data</strong> — name, work email,
+          <strong>Account &amp; registration data</strong> - name, work email,
           company, and the plan or edition you select.
         </li>
         <li>
-          <strong>Billing data</strong> — processed by our payment provider
+          <strong>Billing data</strong> - processed by our payment provider
           (Stripe). We receive confirmation of a transaction and limited billing
           metadata; we do not store full card numbers.
         </li>
         <li>
-          <strong>Licence &amp; activation data</strong> — the licence key
+          <strong>Licence &amp; activation data</strong> - the licence key
           issued to you and non-content metadata needed to validate it (such as
           tier and expiry).
         </li>
         <li>
-          <strong>Support &amp; communications</strong> — messages you send us
+          <strong>Support &amp; communications</strong> - messages you send us
           (support tickets, email, or waitlist sign-ups) and our replies.
         </li>
         <li>
-          <strong>Site usage data</strong> — basic, aggregated analytics and
+          <strong>Site usage data</strong> - basic, aggregated analytics and
           server logs (such as pages viewed and approximate region) used to keep
           the Site secure and improve it.
         </li>
@@ -114,14 +114,14 @@ export default function PrivacyPage() {
       </p>
       <ul>
         <li>
-          <strong>Payments</strong> — Stripe, for billing and fraud prevention.
+          <strong>Payments</strong> - Stripe, for billing and fraud prevention.
         </li>
         <li>
-          <strong>Infrastructure &amp; hosting</strong> — providers that host the
+          <strong>Infrastructure &amp; hosting</strong> - providers that host the
           Site and our email/support systems.
         </li>
         <li>
-          <strong>Legal</strong> — where required by law, regulation, legal
+          <strong>Legal</strong> - where required by law, regulation, legal
           process, or to protect our rights, users, or the public.
         </li>
       </ul>
@@ -155,7 +155,7 @@ export default function PrivacyPage() {
         We use technical and organisational measures appropriate to the limited
         data we hold. Because your operational data stays within your own
         deployment, you remain the controller of, and are responsible for
-        securing, that data — for which the Software provides encryption at rest,
+        securing, that data - for which the Software provides encryption at rest,
         RBAC, tenancy isolation, and audit controls.
       </p>
 

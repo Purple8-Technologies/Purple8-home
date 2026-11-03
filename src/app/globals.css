@@ -224,7 +224,7 @@ html[data-p8-theme="day"] .p8-themed .border-purple-700\/50 { border-color: #e9d
 html[data-p8-theme="day"] .p8-themed :is(.ring-purple-600\/50, .ring-purple-700\/50) { --tw-ring-color: #ddd6fe; }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   Brand pages (product pages) — same tokens as the revamp homepage
+   Brand pages (product pages) - same tokens as the revamp homepage
    (BrandHome). Driven by <html data-p8-theme>, set before paint in layout.
    Use only var(--p8-*) inside `.p8-brand`; no hard-coded colours.
    ═══════════════════════════════════════════════════════════════════════ */
@@ -241,7 +241,7 @@ html[data-p8-theme="night"] .p8-brand {
   --p8-surface:#11111a; --p8-subtle:#0e0e16; --p8-border:#2e1065; --p8-hover:#1e1036;
 }
 
-/* Day overrides — gray scale (quickstart) */
+/* Day overrides - gray scale (quickstart) */
 html[data-p8-theme="day"] .p8-themed .text-gray-300 { color: #3f3f46; }
 html[data-p8-theme="day"] .p8-themed .text-gray-400 { color: #52525b; }
 html[data-p8-theme="day"] .p8-themed .text-gray-500 { color: #71717a; }
@@ -249,7 +249,7 @@ html[data-p8-theme="day"] .p8-themed .text-gray-600 { color: #a1a1aa; }
 html[data-p8-theme="day"] .p8-themed .border-gray-700,
 html[data-p8-theme="day"] .p8-themed .border-gray-800 { border-color: #e4e4e7; }
 
-/* Day overrides — SystemFlow ("How Purple8 works") SVG */
+/* Day overrides - SystemFlow ("How Purple8 works") SVG */
 html[data-p8-theme="day"] .p8-themed svg [fill="#11111b"] { fill: #ffffff; }
 html[data-p8-theme="day"] .p8-themed svg :is([fill="#e4e4e7"], [fill="#f4f4f5"]) { fill: #18181b; }
 html[data-p8-theme="day"] .p8-themed svg [stroke="#3f3f46"] { stroke: #d4d4d8; }

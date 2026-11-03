@@ -23,7 +23,7 @@ export async function generateMetadata({
     return { title: "Role not found", robots: { index: false, follow: false } };
   }
   return pageMetadata({
-    title: `${role.title} — Careers`,
+    title: `${role.title} - Careers`,
     description: role.tagline,
     path: `/careers/${slug}`,
   });
@@ -66,7 +66,7 @@ export default async function RolePage({
   const role = getRole(slug);
   if (!role) notFound();
 
-  const subject = encodeURIComponent(`Purple8 — Application: ${role.title}`);
+  const subject = encodeURIComponent(`Purple8 - Application: ${role.title}`);
 
   return (
     <>
@@ -116,7 +116,7 @@ export default async function RolePage({
           <div className="mt-14 rounded-2xl border border-purple-900/40 bg-[#11111b] p-8 text-center">
             <h2 className="text-lg font-bold text-white">Interested?</h2>
             <p className="mt-2 text-sm text-zinc-400">
-              Send a short note and anything that shows how you work — code,
+              Send a short note and anything that shows how you work - code,
               writing, or a project you&apos;re proud of.
             </p>
             <a

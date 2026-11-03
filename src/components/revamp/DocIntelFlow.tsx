@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * DocIntelFlow — "How DocIntel works" animated pipeline.
+ * DocIntelFlow - "How DocIntel works" animated pipeline.
  *
  * Mirrors SystemFlow on the Hyper Graph page: sources on the left, one
  * stateless pipeline in the middle, graph outputs on the right. Pulses travel

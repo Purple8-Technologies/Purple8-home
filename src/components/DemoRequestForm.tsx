@@ -38,7 +38,7 @@ export default function DemoRequestForm() {
     setState("submitting");
     setErrorMsg("");
 
-    const subject = `Demo request — ${form.company} (${form.useCase || "General"})`;
+    const subject = `Demo request - ${form.company} (${form.useCase || "General"})`;
     const body = [
       `Name: ${form.name}`,
       `Company: ${form.company}`,
@@ -66,7 +66,7 @@ export default function DemoRequestForm() {
         }),
       });
 
-      // 2. Register as a lead (upsert — idempotent, won't duplicate)
+      // 2. Register as a lead (upsert - idempotent, won't duplicate)
       await fetch(`${CC_BASE_URL}/public/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

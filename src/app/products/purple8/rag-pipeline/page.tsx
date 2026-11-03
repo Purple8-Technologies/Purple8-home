@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "GraphRAG & Hybrid RAG Pipeline — Purple8 Hyper Graph",
+  title: "GraphRAG & Hybrid RAG Pipeline - Purple8 Hyper Graph",
   description:
-    "Purple8 Hyper Graph ships three RAG modes out of the box — flat vector, graph-augmented (GraphRAG), and hybrid retrieval — with self-tuning parameter optimisation. No Pinecone, no LangChain, no separate vector database.",
+    "Purple8 Hyper Graph ships three RAG modes out of the box - flat vector, graph-augmented (GraphRAG), and hybrid retrieval - with self-tuning parameter optimisation. No Pinecone, no LangChain, no separate vector database.",
   path: "/products/purple8/rag-pipeline",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "GraphRAG & Hybrid RAG Pipeline — Purple8 Hyper Graph",
+  name: "GraphRAG & Hybrid RAG Pipeline - Purple8 Hyper Graph",
   description:
     "Three RAG modes built in: flat vector search, graph-augmented retrieval (GraphRAG), and hybrid BM25+vector+graph. Self-tuning via rag.tune_collection. No external vector database, no LangChain, no separate retrieval service.",
   url: "https://www.purple8.ai/products/purple8/rag-pipeline/",
@@ -35,7 +35,7 @@ const jsonLd = {
         name: "What is GraphRAG and how is it different from standard RAG?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Standard RAG (flat vector) retrieves the top-k most similar chunks by embedding distance alone. GraphRAG augments this with graph traversal — after finding seed nodes via vector search, it expands outward through typed relationships (AUTHORED_BY, CITES, PART_OF, RELATED_TO) to pull in contextually connected content that wouldn't appear in a pure similarity search. This dramatically improves recall on multi-hop questions and relational queries.",
+          text: "Standard RAG (flat vector) retrieves the top-k most similar chunks by embedding distance alone. GraphRAG augments this with graph traversal - after finding seed nodes via vector search, it expands outward through typed relationships (AUTHORED_BY, CITES, PART_OF, RELATED_TO) to pull in contextually connected content that wouldn't appear in a pure similarity search. This dramatically improves recall on multi-hop questions and relational queries.",
         },
       },
       {
@@ -43,7 +43,7 @@ const jsonLd = {
         name: "What RAG modes does Purple8 support?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Three modes: (1) rag.query — flat vector search, fastest, best for direct factual retrieval; (2) rag.graph_query — graph-augmented, expands via typed edges, best for relational and multi-hop questions; (3) rag.hybrid_query — BM25 keyword + HNSW vector + graph traversal fused with a configurable alpha weight, best for mixed corpora. The system profiles your corpus topology and recommends the right mode automatically.",
+          text: "Three modes: (1) rag.query - flat vector search, fastest, best for direct factual retrieval; (2) rag.graph_query - graph-augmented, expands via typed edges, best for relational and multi-hop questions; (3) rag.hybrid_query - BM25 keyword + HNSW vector + graph traversal fused with a configurable alpha weight, best for mixed corpora. The system profiles your corpus topology and recommends the right mode automatically.",
         },
       },
       {
@@ -51,7 +51,7 @@ const jsonLd = {
         name: "What does rag.tune_collection do?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "rag.tune_collection runs an autonomous grid-search over fusion_alpha, expand_hops, seed_k, and vector_weight parameters. It uses token-F1 scoring against your expected answers to find the configuration that maximises retrieval quality on your specific corpus — then saves it as a named CollectionProfile so every subsequent query uses it automatically. No manual tuning required.",
+          text: "rag.tune_collection runs an autonomous grid-search over fusion_alpha, expand_hops, seed_k, and vector_weight parameters. It uses token-F1 scoring against your expected answers to find the configuration that maximises retrieval quality on your specific corpus - then saves it as a named CollectionProfile so every subsequent query uses it automatically. No manual tuning required.",
         },
       },
       {
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "Does Purple8 require a separate vector database?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "No. Purple8 Hyper Graph includes an HNSW vector index built directly into the engine. Embeddings are stored alongside graph nodes — the same store that holds your knowledge graph holds your vectors. There is no Pinecone, no Weaviate, no pgvector, no Qdrant. Vector search and graph traversal run in the same process, with no network hop between them.",
+          text: "No. Purple8 Hyper Graph includes an HNSW vector index built directly into the engine. Embeddings are stored alongside graph nodes - the same store that holds your knowledge graph holds your vectors. There is no Pinecone, no Weaviate, no pgvector, no Qdrant. Vector search and graph traversal run in the same process, with no network hop between them.",
         },
       },
       {
@@ -67,7 +67,7 @@ const jsonLd = {
         name: "How does graph-guided search improve performance at scale?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "At large corpus sizes, a naive vector search fans out across all index segments. Purple8's graph_guided_search pre-selects candidate segments via BFS over the graph structure, then passes only those segments to the HNSW search. On clustered corpora, this can eliminate the majority of segment fan-out entirely — the benefit grows with corpus size and graph connectivity.",
+          text: "At large corpus sizes, a naive vector search fans out across all index segments. Purple8's graph_guided_search pre-selects candidate segments via BFS over the graph structure, then passes only those segments to the HNSW search. On clustered corpora, this can eliminate the majority of segment fan-out entirely - the benefit grows with corpus size and graph connectivity.",
         },
       },
     ],
@@ -98,18 +98,18 @@ const ragModes = [
     label: "Hybrid",
     icon: "⚡",
     accent: "border-purple-600/60",
-    when: "Mixed corpora, when you don't know which mode to use — let the system decide",
+    when: "Mixed corpora, when you don't know which mode to use - let the system decide",
     how: "BM25 keyword + HNSW vector + graph traversal, fused with configurable alpha weight",
     best: "Enterprise knowledge bases, large mixed document corpora, production RAG",
   },
 ];
 
 const ragTools = [
-  { name: "rag.query", desc: "Flat vector retrieval — HNSW ANN, top-k by cosine similarity" },
-  { name: "rag.graph_query", desc: "Graph-augmented retrieval — vector seeds + BFS edge expansion" },
+  { name: "rag.query", desc: "Flat vector retrieval - HNSW ANN, top-k by cosine similarity" },
+  { name: "rag.graph_query", desc: "Graph-augmented retrieval - vector seeds + BFS edge expansion" },
   { name: "rag.hybrid_query", desc: "BM25 + vector + graph fusion with configurable alpha weight" },
   { name: "rag.profile_collection", desc: "Analyse corpus topology and return recommended retrieval settings" },
-  { name: "rag.tune_collection", desc: "Autonomous grid-search optimiser — finds best params, saves as profile" },
+  { name: "rag.tune_collection", desc: "Autonomous grid-search optimiser - finds best params, saves as profile" },
   { name: "rag.rerank", desc: "Cross-encoder reranking pass over retrieved results" },
 ];
 
@@ -119,11 +119,11 @@ const vsStandard = [
     col: "border-zinc-800",
     pill: "bg-zinc-800 text-zinc-400",
     points: [
-      "Retrieves by similarity only — misses relational context",
-      "Multi-hop questions fail — no graph traversal",
+      "Retrieves by similarity only - misses relational context",
+      "Multi-hop questions fail - no graph traversal",
       "Manual prompt engineering to compensate for retrieval gaps",
       "Separate vector DB to provision, scale, and pay for",
-      "No self-tuning — parameters set once and forgotten",
+      "No self-tuning - parameters set once and forgotten",
     ],
   },
   {
@@ -134,19 +134,19 @@ const vsStandard = [
       "Vector similarity AND graph traversal in one query",
       "Multi-hop questions answered via edge expansion",
       "rag.profile_collection recommends mode automatically",
-      "HNSW index built in — no separate vector service",
+      "HNSW index built in - no separate vector service",
       "rag.tune_collection optimises parameters autonomously",
     ],
   },
 ];
 
 const useCases = [
-  { icon: "⚖️", title: "Legal document Q&A", desc: "Query contracts, case law, and regulations across thousands of documents. Graph edges (CITES, AMENDS, SUPERSEDES) let agents answer 'which clause in contract A conflicts with precedent B?' — impossible with flat vector." },
-  { icon: "🔬", title: "Scientific literature synthesis", desc: "Ingest papers, extract entities and citations into the graph. GraphRAG traverses citation networks to find supporting, contradicting, and related findings — not just similar text." },
+  { icon: "⚖️", title: "Legal document Q&A", desc: "Query contracts, case law, and regulations across thousands of documents. Graph edges (CITES, AMENDS, SUPERSEDES) let agents answer 'which clause in contract A conflicts with precedent B?' - impossible with flat vector." },
+  { icon: "🔬", title: "Scientific literature synthesis", desc: "Ingest papers, extract entities and citations into the graph. GraphRAG traverses citation networks to find supporting, contradicting, and related findings - not just similar text." },
   { icon: "🏦", title: "Financial research", desc: "Analyst agents query earnings reports, news, and filings simultaneously. Graph edges between companies, products, and markets surface relationships that keyword or vector search misses." },
   { icon: "🏥", title: "Clinical knowledge retrieval", desc: "Drug interactions, contraindications, and treatment protocols connected as a knowledge graph. Multi-hop queries: 'what drugs interact with X in patients with condition Y?' answered in one pass." },
   { icon: "🛠️", title: "Enterprise support systems", desc: "Product documentation, support tickets, and resolved cases linked by product version, issue type, and resolution. Agents find solutions to novel issues by traversing similar-case graphs." },
-  { icon: "🏗️", title: "BIM & technical documentation", desc: "Building components, specifications, and standards connected in the AEC graph. Engineers query: 'what structural members are affected by this load change?' — graph traversal, not text search." },
+  { icon: "🏗️", title: "BIM & technical documentation", desc: "Building components, specifications, and standards connected in the AEC graph. Engineers query: 'what structural members are affected by this load change?' - graph traversal, not text search." },
 ];
 
 export default function RagPipelinePage() {

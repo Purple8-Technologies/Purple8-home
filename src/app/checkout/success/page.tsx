@@ -5,7 +5,7 @@
  * Polls Command Center for the fulfilled product and its credentials.
  *
  * URL params (set by Stripe on redirect):
- *   session_id — Stripe Checkout Session ID
+ *   session_id - Stripe Checkout Session ID
  */
 "use client";
 

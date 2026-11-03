@@ -70,7 +70,7 @@ export default function HyperGraphPage() {
         <h2 className="mt-3 text-3xl font-bold tracking-tight">Evaluate in the Cloud Sandbox. License for VPC, On-Premise &amp; Air-Gapped Production.</h2>
         <p className="mt-5 text-lg text-[var(--p8-muted)]">
           Start immediately in the free Cloud Sandbox with all {features.length > 0 ? "125+ MCP tools" : "MCP tools"}, hybrid GraphRAG pipelines, and Journey workflows.
-          For commercial, enterprise, multi-cluster HA, or OEM deployments across your own VPC, on-premise, or air-gapped infrastructure—available directly and expanding across <strong className="text-[var(--p8-fg)]">Red Hat, AWS, Azure &amp; GCP Marketplaces</strong>—contact our team.
+          For commercial, enterprise, multi-cluster HA, or OEM deployments across your own VPC, on-premise, or air-gapped infrastructure - available directly and expanding across <strong className="text-[var(--p8-fg)]">Red Hat, AWS, Azure &amp; GCP Marketplaces</strong> - contact our team.
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <a href="/try/graph/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">

@@ -10,7 +10,7 @@ export const SITE_ORIGIN = "https://www.purple8.ai";
 export const OG_IMAGE_URL = `${SITE_ORIGIN}/og.png`;
 
 export interface PageMetaOptions {
-  /** Bare page title WITHOUT the brand suffix — the layout template adds " | Purple8". */
+  /** Bare page title WITHOUT the brand suffix - the layout template adds " | Purple8". */
   title: string;
   description: string;
   /** Route path beginning with "/". Use "/" for the homepage. */
