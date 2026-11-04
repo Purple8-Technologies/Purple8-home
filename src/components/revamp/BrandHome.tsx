@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
 import NvidiaInceptionBadge from "@/components/NvidiaInceptionBadge";
-import RedHatPartnerBadge from "@/components/RedHatPartnerBadge";
 import SiteHeader, { useRootTheme } from "@/components/revamp/SiteHeader";
 import Footer from "@/components/Footer";
 
@@ -112,10 +111,9 @@ export default function BrandHome() {
           <div className="mt-12 flex flex-col items-center gap-3">
             <div className="flex flex-wrap items-center justify-center gap-4">
               <NvidiaInceptionBadge className="h-12" variant="auto" />
-              <RedHatPartnerBadge className="h-12" variant="auto" />
             </div>
             <span className="text-xs text-[var(--p8-muted)]">
-              Purple8 is a member of the NVIDIA Inception program and a Red Hat Technology Partner
+              Purple8 is a member of the NVIDIA Inception program
             </span>
           </div>
         </div>

@@ -102,7 +102,7 @@ export default function DocIntelPage() {
         <h2 className="mt-3 text-3xl font-bold tracking-tight">Evaluate in the Cloud Sandbox. License for Cloud, VPC, or Air-Gapped Production.</h2>
         <p className="mt-5 text-lg text-[var(--p8-muted)]">
           Test DocIntel immediately in the interactive Cloud Sandbox or connect your AI agent directly over MCP (<code className="text-sm">/mcp</code>).
-          When turning unstructured documents or text into semantic vectors, graph nodes, and relationships in <strong className="text-[var(--p8-fg)]">Purple8 Hyper Graph</strong> - or running standalone document extraction at enterprise scale - contact us for Commercial, Enterprise, or Cloud Marketplace licensing (<strong className="text-[var(--p8-fg)]">Red Hat, AWS, Azure &amp; GCP</strong>).
+          When turning unstructured documents or text into semantic vectors, graph nodes, and relationships in <strong className="text-[var(--p8-fg)]">Purple8 Hyper Graph</strong> - or running standalone document extraction at enterprise scale - contact us for Commercial or Enterprise licensing across <strong className="text-[var(--p8-fg)]">VPC, On-Premise, and Cloud</strong> deployments.
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <DocIntelWorkspaceLink view="playground" className="inline-block rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">

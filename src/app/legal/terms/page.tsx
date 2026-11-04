@@ -53,7 +53,7 @@ export default function TermsPage() {
       <h2>4. Fees, billing &amp; renewal</h2>
       <ul>
         <li>
-          Commercial and Enterprise licenses are billed on an annual or multi-year basis as specified in your order form or Cloud Marketplace agreement (Red Hat, AWS, Azure, GCP).
+          Commercial and Enterprise licenses are billed on an annual or multi-year basis as specified in your order form or applicable Cloud Marketplace agreement.
         </li>
         <li>
           Unless stated otherwise, subscriptions renew automatically for the same

@@ -35,11 +35,11 @@ export default function StartPaths({ product, sandboxHref }: Props) {
       primary: false,
     },
     {
-      name: "Cloud & Marketplaces",
-      line: "Available via direct enterprise license and expanding across Red Hat, AWS, Azure, and GCP Marketplaces.",
-      note: "Red Hat · AWS · Azure · GCP",
+      name: "Enterprise & OEM",
+      line: "Available via direct enterprise license for multi-cluster HA, sovereign cloud, and OEM deployments.",
+      note: "Multi-Cluster HA · Sovereign · OEM",
       cta: "Contact Us",
-      href: mailto(`Purple8 ${product} - Cloud & Marketplace Inquiry`),
+      href: mailto(`Purple8 ${product} - Enterprise Inquiry`),
       primary: false,
     },
   ];

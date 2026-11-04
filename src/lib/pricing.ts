@@ -69,7 +69,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: null,
     family: "enterprise",
     tagline:
-      "Annual software licensing for VPC, on-premise, air-gapped, and OEM deployments - unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and SLA-backed support. Available directly and via Red Hat, AWS, Azure & GCP Marketplaces.",
+      "Annual software licensing for VPC, on-premise, air-gapped, and OEM deployments - unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and SLA-backed support.",
     cta: "Contact Us",
     highlight: true,
     badge: "VPC · On-Prem · Cloud Marketplaces",
@@ -173,7 +173,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     quota: "Custom volume",
     seats: "Hosted or Marketplace",
     tagline:
-      "Managed DocIntel deployment or procurement via Red Hat, AWS, Azure, and GCP Marketplaces - tailored to your document volume and compliance requirements.",
+      "Managed or self-hosted DocIntel deployment across VPC, on-premise, or air-gapped infrastructure - tailored to your document volume and compliance requirements.",
     cta: "Contact Us",
     ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Cloud%20%26%20Marketplace%20Inquiry",
   },
