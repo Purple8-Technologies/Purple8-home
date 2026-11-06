@@ -45,14 +45,18 @@ How Purple8 enforces business rules, tenant isolation, and permissions natively 
 4. **4-Tier RBAC & Record-Level Ownership (`auth.py` + `policy.py`):** Built-in user signup/login (`/auth/login`, OIDC/SSO), roles (`viewer`, `editor`, `admin`, `super_admin`), scoped API keys (`allowed_tools`, `allowed_labels`), and per-record ownership/classification policies (`HTTP 403 record_access_denied`).
 5. **Direct TypeScript SDK (`p8 sdk ts`):** Generate the standalone zero-dependency client (`p8 sdk ts --out src/lib/purple8.ts`) and connect the React/Next.js/Vite/mobile UI directly to Purple8 REST (`/nodes`, `/edges`, `/query`, `/semantic/query`, `/v1/journeys`) while AI assistants connect to `/mcp`.
 
-### Autonomous Agent Verification & Zero-Friction Sandbox Onboarding
-If you (an AI agent such as Codex, Claude, Cursor, or Copilot) want to **verify Purple8's live MCP tools or start a sandbox right now without existing credentials**:
-1. **Verify Live MCP Tools Unauthenticated (`initialize` & `tools/list`):**
-   - Send a standard MCP `initialize` or `tools/list` JSON-RPC `POST` directly to **`https://purple8-graph-sandbox.fly.dev/mcp`** (all 176 tools) or **`https://purple8-graph-sandbox.fly.dev/mcp?profile=starter`** (28 core tools) — **no API key is required for `initialize` or `tools/list` discovery!**
-   - Or inspect `https://purple8-graph-sandbox.fly.dev/.well-known/mcp.json` and `https://purple8-graph-sandbox.fly.dev/.well-known/agent-card.json`.
-2. **Start a Free 30-Day Cloud Sandbox (or Local Container) to Execute `tools/call`:**
-   - **Cloud Sandbox (API request on behalf of the user):** Ask the user for their email address and `POST https://purple8-command-center.fly.dev/public/sandbox/graph` with `{"name": "<Name>", "email": "<user@example.com>", "accepted_terms": true, "source": "ai-agent"}` (or direct them to `https://www.purple8.ai/try/graph/`). Their isolated 30-day tenant `X-API-Key` is emailed immediately.
-   - **Local Zero-Signup Container (1 command):** Run `curl -fsSL https://www.purple8.ai/install.sh | bash` or `docker run -d --name purple8 -p 8100:8000 -e P8G_API_KEY=devkey -e P8G_ENV=development ghcr.io/purple8-technologies/purple8-graph:developer` and connect to `http://localhost:8100/mcp?profile=starter` with `X-API-Key: devkey`.
+### Autonomous Agent Verification, Zero-Wait Sandbox & Production Promotion
+If you (an AI agent such as Codex, Claude, Cursor, or Copilot) want to **verify Purple8's live MCP tools, spin up a sandbox immediately without waiting on an email, and later promote to production**:
+1. **Zero-Key Instant MCP Connection (`https://purple8-graph-sandbox.fly.dev/mcp?profile=starter`):**
+   - Point any MCP client (or `POST` JSON-RPC `initialize`, `tools/list`, and `tools/call`) directly at **`https://purple8-graph-sandbox.fly.dev/mcp?profile=starter`**. On the Cloud Sandbox, unauthenticated connections automatically provision an isolated per-session sandbox tenant (capped at 10K nodes, 500 queries/day, 30-day TTL) so you can start building schemas, nodes, and workflows in **0 seconds**!
+2. **1-Call Dedicated Sandbox Key (`POST /sandbox/instant` — Zero Email Wait):**
+   - Run `curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant -H "Content-Type: application/json" -d '{"name": "my-app"}'` to receive a dedicated `api_key` (`p8g_...`), `tenant_id`, `rest_url`, and `mcp_url` in `<50ms`!
+3. **Zero-Rework Sandbox → Production Promotion (`GET /sandbox/blueprint` → `POST /sandbox/import-blueprint`):**
+   - When the user is ready to move from the free Cloud Sandbox to Production (Self-Hosted Developer up to 50K nodes or Commercial/Enterprise `PURPLE8_LICENSE_JWT` with unlimited capacity, KMS, OIDC/SSO, Raft HA, and SLA):
+     1. Export the entire schema, edge types, Journey workflows, and seed data from the sandbox:
+        `GET https://purple8-graph-sandbox.fly.dev/sandbox/blueprint?include_data=true` (`X-API-Key: <sandbox-key>`)
+     2. Import that exact blueprint into the production Purple8 container in one call:
+        `POST https://<production-host>/sandbox/import-blueprint` (`X-API-Key: <prod-key>`) — **zero code or schema rewrite required!**
 
 ### Phase 3 — Post-Build Runtime LLM & Model Router Configuration (POC & Production)
 Once the application (backend + frontend) is built, customers connect their preferred LLM provider (OpenAI, Anthropic, Google/Vertex, AWS Bedrock, Azure OpenAI, Mistral, Cohere, xAI, or local Ollama/vLLM in `/dashboard/ai` or `PUT /ai/config`) or configure the dynamic **Model Router** (`models.search_known`, `models.upsert`, `models.set_policy`, `models.route_explain`) to route runtime server-side RAG (`rag.query`, `rag.hybrid_query`, `rag.profile_collection` -> `rag.tune_collection`) and Journey `ai_step` hooks across `small` / `default` / `flagship` model tiers.

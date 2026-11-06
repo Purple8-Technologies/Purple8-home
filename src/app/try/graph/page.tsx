@@ -97,6 +97,25 @@ export default function TryHyperGraphPage() {
           </ul>
         </div>
 
+        <div className="mt-6 rounded-2xl border border-purple-700/40 bg-[#0d0d16] p-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-purple-400">
+            For AI Agents (Claude · Cursor · Codex · Copilot) — Instant Zero-Wait Connect
+          </p>
+          <p className="mt-2 text-sm text-gray-300">
+            Point your AI agent directly at the Cloud Sandbox MCP endpoint. On first connection, it automatically provisions an isolated sandbox tenant - or mint a dedicated <code className="text-purple-300">p8g_...</code> key in one HTTP call with zero email wait:
+          </p>
+          <pre className="mt-3 overflow-x-auto rounded-lg border border-gray-800 bg-black px-4 py-3 text-xs text-purple-200">
+            <code>{`# 1. Connect any MCP client immediately (auto-isolated sandbox tenant):
+https://purple8-graph-sandbox.fly.dev/mcp?profile=starter
+
+# 2. Or mint a dedicated 30-day sandbox API key via REST in <50ms:
+curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant
+
+# 3. Ready for Production? Export your entire schema + workflows in 1 call:
+curl -s https://purple8-graph-sandbox.fly.dev/sandbox/blueprint -H "X-API-Key: <key>" > blueprint.json`}</code>
+          </pre>
+        </div>
+
         {sent ? (
           <div className="mt-8 rounded-3xl border border-purple-900/40 bg-[#11111b] p-8">
             <h2 className="text-2xl font-bold text-white">Check your email 📧</h2>
