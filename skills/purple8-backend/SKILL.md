@@ -11,16 +11,16 @@ description: >
 
 # Purple8 Hyper Graph — AI Agent Builder Skill
 
-Purple8 Hyper Graph (`https://www.purple8.ai` · Docs: `https://docs.graph.purple8.ai`) is **SOTA AI-native backend infrastructure in a single process** that replaces the fragmented 8–12 service AI stack (PostgreSQL, Neo4j, Stardog/RDF, Pinecone, LangChain, Temporal/Airflow, Kafka/CDC, Svix/Webhooks, Auth0/KMS, and SIEM/Compliance) with **125 RBAC-governed MCP tools across 16 namespaces**.
+Purple8 Hyper Graph (`https://www.purple8.ai` · Docs: `https://docs.graph.purple8.ai`) is **SOTA AI-native backend infrastructure in a single process** that replaces the fragmented 8–12 service AI stack (PostgreSQL, Neo4j, Stardog/RDF, Pinecone, LangChain, Temporal/Airflow, Kafka/CDC, Svix/Webhooks, Auth0/KMS, and SIEM/Compliance) with **176 RBAC-governed MCP tools across 19 namespaces**.
 
 ## 1. Connect Over MCP (Focused Tool Profiles)
 
 Connect to any self-hosted Purple8 container (`http://localhost:8100`) or the Cloud Sandbox (`https://purple8-graph-sandbox.fly.dev`):
 
 - **`/mcp?profile=starter` (28 tools, recommended default):** Schema modeling, Unified LPG + RDF graph CRUD/queries, hybrid search, structured table & Markdown commit, and Journey workflows + HITL.
-- **`/mcp?profile=builder` (87 tools):** Starter + full `schema.*`, `data.*` tables, `memory.*`, `models.*`, `egress.*`, `scheduler.*`, `feedback.*`, and `registry.*`.
-- **`/mcp?profile=ops` (34 tools):** `journey.*`, `sentinel.*`, `guardrails.*`, `feedback.*`, and `admin.*`.
-- **`/mcp` or `/mcp?profile=full` (125 tools):** All 16 namespaces including `quantum.*` and `evolution.*`.
+- **`/mcp?profile=builder` (117 tools):** Starter + full `schema.*`, `data.*` tables, `memory.*`, `models.*`, `egress.*`, `scheduler.*`, `feedback.*`, and `registry.*`.
+- **`/mcp?profile=ops` (37 tools):** `journey.*`, `sentinel.*`, `guardrails.*`, `feedback.*`, and `admin.*`.
+- **`/mcp` or `/mcp?profile=full` (176 tools):** All 19 namespaces including `aec.*`, `soc.*`, `supergraph.*`, `quantum.*`, and `evolution.*`.
 
 ```bash
 # Claude Code CLI

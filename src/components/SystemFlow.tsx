@@ -302,7 +302,7 @@ export default function SystemFlow() {
             </p>
             <p className="text-sm text-zinc-400">
               Agents connect <span className="text-white">once</span>. Purple8&apos;s
-              MCP server exposes its 74 native tools{" "}
+              MCP server exposes its {F.mcpTools} native tools{" "}
               <span className="text-white">and</span> re-exposes any external MCP
               servers you register - one endpoint, one auth, one RBAC boundary.
             </p>
@@ -312,7 +312,7 @@ export default function SystemFlow() {
             {/* Native namespaces */}
             <div className="rounded-xl border border-zinc-800 bg-[#0a0a0f] p-4">
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
-                Native namespaces
+                19 Native namespaces
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {[
@@ -320,8 +320,16 @@ export default function SystemFlow() {
                   "schema",
                   "journey",
                   "rag",
-                  "registry",
                   "data",
+                  "models",
+                  "aec",
+                  "soc",
+                  "supergraph",
+                  "quantum",
+                  "evolution",
+                  "sentinel",
+                  "guardrails",
+                  "registry",
                   "egress",
                   "feedback",
                   "scheduler",
