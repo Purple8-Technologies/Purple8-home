@@ -246,15 +246,42 @@ function CheckoutSuccessContent() {
                 <p className="mt-4 text-xs text-zinc-500">Keep this API key private.</p>
               </div>
             ) : (
-              <div className="mt-8 border-t border-zinc-800 pt-6 text-left">
-              <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
-                Next steps
-              </p>
-              <ol className="mt-3 space-y-2 text-sm text-zinc-400">
-                <li><span className="text-purple-400 font-medium">1.</span> Install {isDocIntel ? "DocIntel" : "Purple8"}: <a href="/quickstart/" className="text-purple-400 underline hover:text-purple-300">Quickstart →</a></li>
-                <li><span className="text-purple-400 font-medium">2.</span> Set <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">{isDocIntel ? "LICENSE_KEY" : "PURPLE8_LICENSE_JWT"}=&lt;key above&gt;</code></li>
-                <li><span className="text-purple-400 font-medium">3.</span> <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">docker compose up</code></li>
-              </ol>
+              <div className="mt-8 border-t border-zinc-800 pt-6 text-left space-y-5">
+                <div className="rounded-xl border border-purple-500/30 bg-purple-950/20 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-purple-300">
+                    Option A · Use on Purple8 Cloud immediately (Zero DevOps)
+                  </p>
+                  <p className="mt-2 text-xs text-zinc-400">
+                    Your key works immediately on Purple8 Cloud (both in the browser console and as your{" "}
+                    <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-[11px] text-purple-300">X-API-Key</code>{" "}
+                    for MCP agents). If you started in the Free Playground with the same email, your tenant quota upgrades automatically in place.
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-3">
+                    <a
+                      href={isDocIntel ? "/try/docintel/" : "/try/graph/"}
+                      className="inline-block rounded-full bg-purple-600 px-5 py-2 text-xs font-semibold text-white hover:bg-purple-500"
+                    >
+                      Open {isDocIntel ? "DocIntel" : "Purple8 Graph"} Cloud →
+                    </a>
+                    <a
+                      href="/quickstart/"
+                      className="inline-block rounded-full border border-zinc-700 px-5 py-2 text-xs font-semibold text-zinc-300 hover:border-purple-400"
+                    >
+                      Connect MCP Agent →
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+                    Option B · Run Self-Hosted (Docker / Kubernetes / BYOC)
+                  </p>
+                  <ol className="mt-3 space-y-2 text-sm text-zinc-400">
+                    <li><span className="text-purple-400 font-medium">1.</span> Install {isDocIntel ? "DocIntel" : "Purple8"}: <a href="/quickstart/" className="text-purple-400 underline hover:text-purple-300">Quickstart →</a></li>
+                    <li><span className="text-purple-400 font-medium">2.</span> Set <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">{isDocIntel ? "LICENSE_KEY" : "PURPLE8_LICENSE_JWT"}=&lt;key above&gt;</code></li>
+                    <li><span className="text-purple-400 font-medium">3.</span> <code className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs">docker compose up</code></li>
+                  </ol>
+                </div>
               </div>
             )}
           </>
