@@ -14,33 +14,62 @@ function mailto(subject: string) {
 }
 
 export default function StartPaths({ product, sandboxHref }: Props) {
-  const paths = [
-    {
-      name: "Cloud Sandbox & Local Dev",
-      line: "Evaluate immediately in your browser, connect your AI agent over MCP in 0 seconds, or run locally via Docker up to 50K nodes.",
-      note: "$0 Free · Instant MCP & Local Dev",
-      cta: `Try ${product}`,
-      href: sandboxHref,
-      primary: false,
-    },
-    {
-      name: "Purple8 Cloud SaaS (Managed HA)",
-      line:
-        "Built for indie developers, startups, and small businesses: fully managed Cloud SaaS with Full HA (RPO ≈ 0), automated backups, 500K nodes, 5 MCP agents, and bundled DocIntel - replacing a $450/mo 6-vendor stack.",
-      note: "$49/mo ($39/mo annual) · Indie & Small Teams",
-      cta: "Start Cloud SaaS →",
-      href: "/checkout/create-session/?plan=cloud-saas&billing=monthly",
-      primary: true,
-    },
-    {
-      name: "Enterprise VPC, On-Prem & Air-Gapped",
-      line: "Deploy inside your own AWS/Azure/GCP VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network with unlimited nodes & agents, SSO/OIDC, BYO KMS, SuperGraph, Autonomous SOC, and 24×7 SLAs.",
-      note: "Custom Annual License · Sovereign & Enterprise",
-      cta: "Contact Us",
-      href: mailto(`Purple8 ${product} - Enterprise Licensing Inquiry`),
-      primary: false,
-    },
-  ];
+  const isDocIntel = product === "DocIntel";
+  const paths = isDocIntel
+    ? [
+        {
+          name: "DocIntel Playground ($0)",
+          line: "Evaluate DocIntel immediately in your browser or connect your AI agent over MCP (/mcp, 13 tools).",
+          note: "$0 Free · Browser & MCP Sandbox",
+          cta: "Try DocIntel",
+          href: sandboxHref,
+          primary: false,
+        },
+        {
+          name: "DocIntel Cloud & Self-Hosted",
+          line:
+            "Start with DocIntel Builder ($79/mo for 10K docs/mo), Production ($299/mo unlimited docs + SharePoint/Confluence/S3 connectors), or Growth ($599/mo multi-tenant + SSO).",
+          note: "$79 · $299 · $599/mo (or Annual)",
+          cta: "View DocIntel Plans →",
+          href: "/pricing/#docintel",
+          primary: true,
+        },
+        {
+          name: "Enterprise / BYOC (VPC & Air-Gapped)",
+          line: "Deploy inside your own AWS/Azure/GCP VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network with custom domain adapters and 24×7 Severity-1 SLAs.",
+          note: "Custom Annual License · Sovereign & Enterprise",
+          cta: "Contact Us",
+          href: mailto("Purple8 DocIntel - Enterprise Licensing Inquiry"),
+          primary: false,
+        },
+      ]
+    : [
+        {
+          name: "Free Playground ($0)",
+          line: "Evaluate immediately in the Cloud Sandbox (10K nodes), connect your AI agent over MCP in 0 seconds, or run locally via Docker (50K nodes).",
+          note: "$0 Free · Unlimited MCP Connections",
+          cta: "Try Hyper Graph",
+          href: sandboxHref,
+          primary: false,
+        },
+        {
+          name: "Builder, Production & Growth",
+          line:
+            "Start with Builder ($39/mo · 250K nodes · BYO LLM), Production ($149/mo · 1M nodes · Daily Backups & HA), or Growth ($499/mo · 5M nodes · Multi-Tenant RBAC & SSO).",
+          note: "$39 · $149 · $499/mo (Cloud or Self-Hosted)",
+          cta: "View Plans & Subscribe →",
+          href: "/pricing/",
+          primary: true,
+        },
+        {
+          name: "Enterprise / BYOC (VPC & Air-Gapped)",
+          line: "Deploy inside your own AWS/Azure/GCP VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network with unlimited nodes, BYO KMS, SuperGraph, Autonomous SOC, and 24×7 SLAs.",
+          note: "Custom Annual License · Sovereign & Enterprise",
+          cta: "Contact Us",
+          href: mailto("Purple8 Hyper Graph - Enterprise Licensing Inquiry"),
+          primary: false,
+        },
+      ];
 
   return (
     <div className="grid gap-4 md:grid-cols-3">

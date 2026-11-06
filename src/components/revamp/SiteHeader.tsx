@@ -116,8 +116,8 @@ export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }
     <header className="relative z-20">
       <div className="bg-[var(--p8-button,var(--p8-accent))] py-1.5 text-center text-xs font-medium text-white">
         <Link href="/pricing/" className="hover:underline">
-          Purple8 Cloud SaaS (Full HA · $49/mo for Indie &amp; Small Teams) &amp; Instant Agent Sandbox:{" "}
-          <span className="font-semibold">Live Now →</span>
+          Purple8 Cloud &amp; Self-Hosted Plans (From $39/mo for Builders · Instant Free Sandbox):{" "}
+          <span className="font-semibold">View Pricing →</span>
         </Link>
       </div>
       <nav

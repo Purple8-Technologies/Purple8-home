@@ -18,7 +18,9 @@
 
 export type GraphTierId =
   | "developer"
-  | "cloud-saas"
+  | "builder"
+  | "production"
+  | "growth"
   | "enterprise";
 
 export type BillingCycle = "monthly" | "annual";
@@ -49,35 +51,63 @@ export interface GraphTier {
 export const GRAPH_TIERS: GraphTier[] = [
   {
     id: "developer",
-    name: "Cloud Sandbox & Local Dev",
+    name: "Free Playground",
     priceMonthly: 0,
     priceAnnual: 0,
     nodes: 50_000,
     nodesLabel: "10K Cloud / 50K Local",
-    agents: 1,
+    agents: null,
     family: "free",
     tagline:
-      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox (or locally via Docker up to 50K nodes) - connect Claude, Cursor, or Copilot over MCP (?profile=starter), run hybrid GraphRAG, and test stateful Journey workflows with HITL gates.",
+      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox (or locally via Docker up to 50K nodes) - all 176 MCP tools, unlimited MCP agent connections, LPG + RDF + Vector + Tables + Journey workflows.",
     cta: "Try Cloud Sandbox",
   },
   {
-    id: "cloud-saas",
-    name: "Purple8 Cloud SaaS (Managed HA)",
-    priceMonthly: 49,
-    priceAnnual: 39,
-    nodes: 500_000,
-    nodesLabel: "500K nodes",
-    agents: 5,
+    id: "builder",
+    name: "Builder",
+    priceMonthly: 39,
+    priceAnnual: 32,
+    nodes: 250_000,
+    nodesLabel: "250K nodes",
+    agents: null,
     family: "cloud",
     tagline:
-      "For indie developers, startups, and small businesses: fully managed Cloud SaaS with Full HA (SYNC RPO ≈ 0 + auto-failover), automated cloud backups, AES-256-GCM encryption, up to 500K nodes, 5 concurrent MCP/A2A agents, and bundled 70+ format DocIntel.",
-    cta: "Start Cloud SaaS →",
+      "For indie developers, AI startups, and small internal tools: Shared Purple8 Cloud (or Self-Hosted license), up to 250,000 nodes, unlimited MCP connections, BYO LLM key, and standard email support.",
+    cta: "Start Builder →",
+    badge: "Indie & Startups",
+  },
+  {
+    id: "production",
+    name: "Production",
+    priceMonthly: 149,
+    priceAnnual: 124,
+    nodes: 1_000_000,
+    nodesLabel: "1M nodes",
+    agents: null,
+    family: "cloud",
+    tagline:
+      "For customer-facing production applications: up to 1,000,000 nodes, automated daily cloud backups & restore, High Availability (SYNC replication), health/SLA monitoring, and production support.",
+    cta: "Start Production →",
     highlight: true,
-    badge: "Indie & Small Teams · Full HA",
+    badge: "Most Popular · HA & Backups",
+  },
+  {
+    id: "growth",
+    name: "Growth",
+    priceMonthly: 499,
+    priceAnnual: 415,
+    nodes: 5_000_000,
+    nodesLabel: "5M nodes",
+    agents: null,
+    family: "cloud",
+    tagline:
+      "For scaling SaaS products, multi-tenant apps, and agencies: up to 5,000,000 nodes, multi-tenant RBAC & team controls, OIDC / SSO, Cloud KMS integration, and priority support.",
+    cta: "Start Growth →",
+    badge: "Multi-Tenant & SSO",
   },
   {
     id: "enterprise",
-    name: "Enterprise VPC, On-Prem & Air-Gapped",
+    name: "Enterprise / BYOC",
     priceMonthly: null,
     priceAnnual: null,
     nodes: Number.POSITIVE_INFINITY,
@@ -85,7 +115,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: null,
     family: "enterprise",
     tagline:
-      "Annual software licensing for sovereign VPC, on-premise, Red Hat OpenShift (UBI9), air-gapped, and OEM deployments - unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and 24×7 SLA support.",
+      "Annual software licensing for sovereign VPC, on-premise, Red Hat OpenShift (UBI9), air-gapped, and OEM deployments - unlimited nodes (20M+/shard), OIDC/SAML SSO, Vault/AWS/GCP/Azure KMS, Raft HA, Supergraph, Autonomous SOC, Legal Holds, and 24×7 Severity-1 SLA.",
     cta: "Contact Us",
     badge: "VPC · On-Prem · Air-Gapped",
   },
@@ -97,14 +127,14 @@ export function priceLabel(
   cycle: BillingCycle,
 ): { amount: string; suffix: string; note?: string } {
   if (tier.id === "developer") {
-    return { amount: "$0", suffix: "", note: "Cloud Sandbox (30 days) & Local Dev (50K nodes)" };
+    return { amount: "$0", suffix: "", note: "Cloud Sandbox (10K) & Local Docker (50K)" };
   }
-  if (tier.id === "cloud-saas") {
+  if (typeof tier.priceMonthly === "number" && tier.priceMonthly > 0) {
     const amt = cycle === "annual" ? tier.priceAnnual : tier.priceMonthly;
     return {
       amount: `$${amt}`,
       suffix: "/mo",
-      note: cycle === "annual" ? "Billed annually ($468/yr) · Managed Full HA" : "Billed monthly · Managed Full HA",
+      note: cycle === "annual" ? `Billed annually ($${(tier.priceAnnual ?? 0) * 12}/yr)` : "Billed monthly",
     };
   }
   return { amount: "Contact Us", suffix: "", note: "Tailored to your VPC, capacity & SLA" };
@@ -115,9 +145,10 @@ export function priceLabel(
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface DocIntelTier {
-  id: "beta" | "enterprise" | "cloud";
+  id: "beta" | "docintel-builder" | "docintel-production" | "docintel-growth" | "enterprise" | "cloud";
   name: string;
   price: string;
+  priceAnnual?: string;
   priceUnit?: string;
   quota: string;
   seats: string;
@@ -168,7 +199,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "beta",
     name: "Cloud Sandbox",
-    price: "Sandbox",
+    price: "$0",
     quota: "Evaluation",
     seats: "Browser + MCP (/mcp)",
     tagline:
@@ -177,30 +208,67 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     ctaHref: "/try/docintel/",
   },
   {
+    id: "docintel-builder",
+    name: "DocIntel Builder",
+    price: "$79",
+    priceAnnual: "$65",
+    priceUnit: "/mo",
+    quota: "10,000 docs/mo",
+    seats: "2 parallel workers · 13 MCP tools",
+    tagline:
+      "For indie developers and startups: 10,000 documents/month, 2 workers, all 70+ formats & 75+ languages, OCR + table + LPG/RDF entity extraction, and BYO LLM.",
+    cta: "Start DocIntel Builder →",
+    ctaHref: "/checkout/create-session/?plan=docintel-builder&billing=monthly",
+    badge: "Indie & Startups",
+  },
+  {
+    id: "docintel-production",
+    name: "DocIntel Production",
+    price: "$299",
+    priceAnnual: "$249",
+    priceUnit: "/mo",
+    quota: "Unlimited docs",
+    seats: "Unlimited workers · All connectors",
+    tagline:
+      "For production document pipelines: unlimited documents & workers, SharePoint, Confluence, S3 & Webhook connectors, domain extraction profiles (AEC, Legal, Financial, Scientific), and production support.",
+    cta: "Start DocIntel Production →",
+    ctaHref: "/checkout/create-session/?plan=docintel-production&billing=monthly",
+    highlight: true,
+    badge: "Most Popular",
+  },
+  {
+    id: "docintel-growth",
+    name: "DocIntel Growth",
+    price: "$599",
+    priceAnnual: "$499",
+    priceUnit: "/mo",
+    quota: "Unlimited docs",
+    seats: "Multi-tenant · SSO & Custom Adapters",
+    tagline:
+      "For scaling organizations: unlimited documents & workers, OIDC/SAML SSO, custom domain ontologies & connectors, and priority engineering support.",
+    cta: "Start DocIntel Growth →",
+    ctaHref: "/checkout/create-session/?plan=docintel-growth&billing=monthly",
+    badge: "Multi-Tenant & SSO",
+  },
+  {
     id: "enterprise",
-    name: "Commercial & Enterprise (Self-Hosted / VPC)",
+    name: "Enterprise / BYOC (VPC & Air-Gapped)",
     price: "Contact Us",
     quota: "Custom / Unlimited",
     seats: "Unlimited workers",
     tagline:
-      "Deploy DocIntel in your own VPC, on-premise, or air-gapped network. Auto-commits entities, relationships, and chunks into Purple8 Hyper Graph to create vectors, graph nodes, and edges. Includes SharePoint, Confluence & S3 connectors, custom ontologies, BYO LLM, and SLA support.",
+      "Deploy DocIntel in your own VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network. Auto-commits entities, relationships, and chunks into Purple8 Hyper Graph with 24×7 Severity-1 SLA support.",
     cta: "Contact Us",
     ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20Inquiry",
     badge: "VPC · On-Prem · Air-Gapped",
-    highlight: true,
-  },
-  {
-    id: "cloud",
-    name: "Managed Cloud & Marketplaces",
-    price: "Contact Us",
-    quota: "Custom volume",
-    seats: "Hosted or Marketplace",
-    tagline:
-      "Managed or self-hosted DocIntel deployment across VPC, on-premise, or air-gapped infrastructure - tailored to your document volume and compliance requirements.",
-    cta: "Contact Us",
-    ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Cloud%20%26%20Marketplace%20Inquiry",
   },
 ];
+
+export const DOCINTEL_PURCHASABLE_PLANS: ReadonlySet<string> = new Set<string>([
+  "docintel-builder",
+  "docintel-production",
+  "docintel-growth",
+]);
 
 /**
  * Every plan ID that the pricing UI can POST to /checkout/create-session.
@@ -208,12 +276,14 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
  * can never drift from the offered tiers (see issue #3):
  *   - Graph tiers with a real positive price (excludes free Developer and
  *     contact-sales Enterprise).
- *   - DocIntel Cloud (metered, monthly only).
+ *   - DocIntel self-serve plans + DocIntel Cloud (metered, monthly only).
  */
 export const PURCHASABLE_PLAN_IDS: ReadonlySet<string> = new Set<string>([
   ...GRAPH_TIERS.filter(
     (t) => typeof t.priceMonthly === "number" && t.priceMonthly > 0,
   ).map((t) => t.id),
+  ...DOCINTEL_PURCHASABLE_PLANS,
+  "cloud-saas",
   DOCINTEL_CLOUD_PLAN,
 ]);
 

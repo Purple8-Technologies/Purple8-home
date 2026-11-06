@@ -80,12 +80,19 @@ Full methodology and conditions: https://www.purple8.ai/benchmarks/
   - 8.84M MS MARCO passages ingested on a 24 GB machine in a **~9 GB peak RSS** sawtooth envelope.
 - **Automated Test Suite:** **14,500+ automated tests**.
 
-## 4. Three Editions: Sandbox ($0), Managed Cloud SaaS ($49/mo HA), & Enterprise VPC
-1. **Cloud Sandbox & Local Dev ($0 Free):**
-   - Instant Cloud Sandbox MCP (`https://purple8-graph-sandbox.fly.dev/mcp?profile=starter` or `POST /sandbox/instant`, 30 days, 10K nodes) or self-hosted local Docker (`curl -fsSL https://www.purple8.ai/install.sh | bash`, up to 50K nodes, no license key required).
-   - Try Hyper Graph: https://www.purple8.ai/try/graph/ · Try DocIntel: https://www.purple8.ai/try/docintel/
-2. **Purple8 Cloud SaaS — Managed HA Edition ($49/mo · $39/mo annual — For Indie Developers, Startups & Small Teams):**
-   - Fully managed Cloud SaaS operated by Purple8 with Full High Availability (`SYNC` replication `RPO ≈ 0` + automatic failover), automated daily cloud backups, AES-256-GCM encryption, up to **500,000 nodes & 2M edges**, **5 concurrent MCP/A2A agents**, and **bundled 70+ format DocIntel** — replacing a $450+/mo 6-vendor stack.
-   - Self-serve Stripe checkout: https://www.purple8.ai/checkout/create-session/?plan=cloud-saas&billing=monthly (Pricing comparison: https://www.purple8.ai/pricing/)
-3. **Enterprise Self-Hosted, VPC & Air-Gapped (Custom Annual License — For Mid-Market, Enterprise & Regulated Orgs):**
-   - Delivered as self-contained containers for your own AWS/Azure/GCP VPC, Red Hat OpenShift (`UBI9`), on-premise, or air-gapped environments with unlimited nodes & agents, OIDC/SAML SSO, BYO KMS (Vault/AWS/GCP/Azure), multi-node Raft HA & sharding, SuperGraph federation, Autonomous SOC, and 24×7 Severity-1 SLAs (`mailto:sales@purple8.ai`).
+## 4. Separate Product Ladders: Purple8 Hyper Graph & Purple8 DocIntel (Cloud or Self-Hosted)
+All tiers include **unlimited MCP agent connections** (we never meter by agent connection count; pricing scales by capacity and operational guarantees). Full comparison & Stripe checkout: https://www.purple8.ai/pricing/
+
+### Product 1 — Purple8 Hyper Graph (AI-Native Application Backend)
+- **Free Playground ($0):** `10K` nodes Cloud Sandbox (`https://purple8-graph-sandbox.fly.dev/mcp?profile=starter` / `POST /sandbox/instant`) or `50K` nodes Local Docker (`install.sh`) · All 176 MCP tools · 1-click blueprint export.
+- **Builder ($39/mo · $32/mo annual):** `250K` nodes · Shared Purple8 Cloud *(or Self-Hosted license)* · Unlimited MCP connections · BYO LLM key · Email support (`/checkout/create-session/?plan=builder&billing=monthly`).
+- **Production ($149/mo · $124/mo annual):** `1M` nodes · Automated daily cloud backups & restore · High Availability (`SYNC` replication) · Health/SLA monitoring · Production support (`/checkout/create-session/?plan=production&billing=monthly`).
+- **Growth ($499/mo · $415/mo annual):** `5M` nodes · Multi-tenant RBAC & team controls · OIDC / SSO · Cloud KMS integration · Priority support (`/checkout/create-session/?plan=growth&billing=monthly`).
+- **Enterprise / BYOC (Custom):** Unlimited (`20M+` nodes/shard) · Sovereign VPC / Red Hat OpenShift (`UBI9`) / On-Prem / Air-Gapped · Multi-shard Raft HA · SuperGraph · Autonomous SOC · Legal Holds & GDPR sweeps · 24×7 Severity-1 SLA (`mailto:sales@purple8.ai`).
+
+### Product 2 — Purple8 DocIntel (Standalone 70+ Format Document Intelligence)
+- **DocIntel Playground ($0):** Browser & MCP (`/mcp`, 13 tools) evaluation sandbox (`https://www.purple8.ai/try/docintel/`).
+- **DocIntel Builder ($79/mo · $65/mo annual):** `10,000` docs/mo · 2 parallel workers · 70+ formats & 75+ languages · OCR + table + LPG/RDF extraction · BYO LLM (`/checkout/create-session/?plan=docintel-builder&billing=monthly`).
+- **DocIntel Production ($299/mo · $249/mo annual):** Unlimited documents & workers · SharePoint, Confluence, S3 & Webhook connectors · Domain extraction profiles (`/checkout/create-session/?plan=docintel-production&billing=monthly`).
+- **DocIntel Growth ($599/mo · $499/mo annual):** Multi-tenant · OIDC/SAML SSO · Custom domain adapters & connectors (`/checkout/create-session/?plan=docintel-growth&billing=monthly`).
+- **DocIntel Enterprise / BYOC (Custom):** Sovereign VPC / Red Hat OpenShift (`UBI9`) / Air-Gapped · 24×7 Severity-1 SLA (`mailto:sales@purple8.ai`).

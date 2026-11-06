@@ -56,16 +56,17 @@ test("exported product is standalone, accurate about retention, and routes licen
   assert.doesNotMatch(html, /DocIntel keeps no data|documents never leave your network|\$10 free credit|\$100\/month/);
 });
 
-test("licensing offers Cloud Sandbox, Cloud SaaS ($49/mo), and Enterprise VPC", () => {
+test("licensing offers separate Hyper Graph and DocIntel ladders wired to Stripe checkout", () => {
   assert.deepEqual(
     Array.from(exports.GRAPH_TIERS, (t) => t.id),
-    ["developer", "cloud-saas", "enterprise"],
+    ["developer", "builder", "production", "growth", "enterprise"],
   );
-  assert.equal(exports.checkoutPlan("cloud-saas"), "cloud-saas");
+  for (const plan of ["builder", "production", "growth", "docintel-builder", "docintel-production", "docintel-growth"]) {
+    assert.equal(exports.checkoutPlan(plan), plan);
+  }
   const hgHtml = readFileSync(new URL("out/products/hyper-graph/index.html", root), "utf8");
   assert.match(hgHtml, /Contact Us/);
-  assert.match(hgHtml, /Cloud Sandbox/);
-  assert.match(hgHtml, /Purple8 Cloud SaaS/);
+  assert.match(hgHtml, /Free Playground/);
   assert.doesNotMatch(hgHtml, /Pro and Enterprise|\$119\/mo/);
 });
 

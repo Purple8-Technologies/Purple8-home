@@ -172,10 +172,10 @@ curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant`}
               Open Cloud Sandbox →
             </Link>
             <Link
-              href="/checkout/create-session/?plan=cloud-saas&billing=monthly"
+              href="/pricing/"
               className="rounded-full border border-purple-500 px-5 py-2 text-xs font-semibold text-purple-300 hover:bg-purple-950/50"
             >
-              Upgrade to Cloud SaaS (Full HA · $49/mo) →
+              Upgrade to Builder ($39/mo) or Production ($149/mo HA) →
             </Link>
             <a
               href="/mcp-tools.json"
