@@ -16,30 +16,28 @@ function mailto(subject: string) {
 export default function StartPaths({ product, sandboxHref }: Props) {
   const paths = [
     {
-      name: "Cloud Sandbox",
-      line: "Evaluate immediately in your browser or connect your AI agent over MCP.",
-      note: product === "DocIntel" ? "Free sandbox · sign in to start" : "Free sandbox · 30 days",
+      name: "Cloud Sandbox & Local Dev",
+      line: "Evaluate immediately in your browser, connect your AI agent over MCP in 0 seconds, or run locally via Docker up to 50K nodes.",
+      note: "$0 Free · Instant MCP & Local Dev",
       cta: `Try ${product}`,
       href: sandboxHref,
-      primary: true,
-    },
-    {
-      name: "Self-Hosted & VPC",
-      line:
-        product === "DocIntel"
-          ? "Deploy in your own VPC, on-premise, or air-gapped environment with annual commercial or enterprise licensing."
-          : "Deploy in your own VPC, on-premise, or air-gapped environment with annual commercial or enterprise licensing.",
-      note: "Commercial · Enterprise · Air-Gapped",
-      cta: "Contact Us",
-      href: mailto(`Purple8 ${product} - Licensing Inquiry`),
       primary: false,
     },
     {
-      name: "Enterprise & OEM",
-      line: "Available via direct enterprise license for multi-cluster HA, sovereign cloud, and OEM deployments.",
-      note: "Multi-Cluster HA · Sovereign · OEM",
+      name: "Purple8 Cloud SaaS (Managed HA)",
+      line:
+        "Built for indie developers, startups, and small businesses: fully managed Cloud SaaS with Full HA (RPO ≈ 0), automated backups, 500K nodes, 5 MCP agents, and bundled DocIntel - replacing a $450/mo 6-vendor stack.",
+      note: "$49/mo ($39/mo annual) · Indie & Small Teams",
+      cta: "Start Cloud SaaS →",
+      href: "/checkout/create-session/?plan=cloud-saas&billing=monthly",
+      primary: true,
+    },
+    {
+      name: "Enterprise VPC, On-Prem & Air-Gapped",
+      line: "Deploy inside your own AWS/Azure/GCP VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network with unlimited nodes & agents, SSO/OIDC, BYO KMS, SuperGraph, Autonomous SOC, and 24×7 SLAs.",
+      note: "Custom Annual License · Sovereign & Enterprise",
       cta: "Contact Us",
-      href: mailto(`Purple8 ${product} - Enterprise Inquiry`),
+      href: mailto(`Purple8 ${product} - Enterprise Licensing Inquiry`),
       primary: false,
     },
   ];

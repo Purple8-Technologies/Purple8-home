@@ -22,7 +22,9 @@ const PRODUCTS = [
 
 const NAV = [
   { href: "/architecture/", name: "Architecture" },
+  { href: "/pricing/", name: "Pricing" },
   { href: "/quickstart/", name: "Developers" },
+  { href: "https://docs.graph.purple8.ai", name: "Docs ↗", external: true },
   { href: "/benchmarks/", name: "Benchmarks" },
   { href: "mailto:sales@purple8.ai?subject=Purple8%20Inquiry", name: "Contact Us" },
 ];
@@ -113,7 +115,10 @@ export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }
   return (
     <header className="relative z-20">
       <div className="bg-[var(--p8-button,var(--p8-accent))] py-1.5 text-center text-xs font-medium text-white">
-        Hyper Graph Cloud: <span className="font-semibold">coming soon</span>
+        <Link href="/pricing/" className="hover:underline">
+          Purple8 Cloud SaaS (Full HA · $49/mo for Indie &amp; Small Teams) &amp; Instant Agent Sandbox:{" "}
+          <span className="font-semibold">Live Now →</span>
+        </Link>
       </div>
       <nav
         aria-label="Main navigation"
@@ -156,7 +161,9 @@ export default function SiteHeader(props: { theme?: Theme; toggle?: () => void }
             )}
           </div>
           <Link href="/architecture/" className={link}>Architecture</Link>
+          <Link href="/pricing/" className={link}>Pricing</Link>
           <Link href="/quickstart/" className={link}>Developers</Link>
+          <a href="https://docs.graph.purple8.ai" target="_blank" rel="noopener noreferrer" className={link}>Docs ↗</a>
           <Link href="/benchmarks/" className={link}>Benchmarks</Link>
           <a href="mailto:sales@purple8.ai?subject=Purple8%20Inquiry" className={link}>Contact Us</a>
         </div>

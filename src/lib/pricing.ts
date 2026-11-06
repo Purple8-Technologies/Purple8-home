@@ -18,11 +18,12 @@
 
 export type GraphTierId =
   | "developer"
+  | "cloud-saas"
   | "enterprise";
 
 export type BillingCycle = "monthly" | "annual";
 
-export type FeatureFamily = "free" | "enterprise";
+export type FeatureFamily = "free" | "cloud" | "enterprise";
 
 export interface GraphTier {
   id: GraphTierId;
@@ -48,20 +49,35 @@ export interface GraphTier {
 export const GRAPH_TIERS: GraphTier[] = [
   {
     id: "developer",
-    name: "Cloud Sandbox & Evaluation",
+    name: "Cloud Sandbox & Local Dev",
     priceMonthly: 0,
     priceAnnual: 0,
     nodes: 50_000,
-    nodesLabel: "Evaluation Sandbox",
+    nodesLabel: "10K Cloud / 50K Local",
     agents: 1,
     family: "free",
     tagline:
-      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox - connect Claude, Cursor, or Copilot over MCP (?profile=starter), run hybrid GraphRAG, and test stateful Journey workflows with HITL gates.",
+      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox (or locally via Docker up to 50K nodes) - connect Claude, Cursor, or Copilot over MCP (?profile=starter), run hybrid GraphRAG, and test stateful Journey workflows with HITL gates.",
     cta: "Try Cloud Sandbox",
   },
   {
+    id: "cloud-saas",
+    name: "Purple8 Cloud SaaS (Managed HA)",
+    priceMonthly: 49,
+    priceAnnual: 39,
+    nodes: 500_000,
+    nodesLabel: "500K nodes",
+    agents: 5,
+    family: "cloud",
+    tagline:
+      "For indie developers, startups, and small businesses: fully managed Cloud SaaS with Full HA (SYNC RPO ≈ 0 + auto-failover), automated cloud backups, AES-256-GCM encryption, up to 500K nodes, 5 concurrent MCP/A2A agents, and bundled 70+ format DocIntel.",
+    cta: "Start Cloud SaaS →",
+    highlight: true,
+    badge: "Indie & Small Teams · Full HA",
+  },
+  {
     id: "enterprise",
-    name: "Commercial & Enterprise License",
+    name: "Enterprise VPC, On-Prem & Air-Gapped",
     priceMonthly: null,
     priceAnnual: null,
     nodes: Number.POSITIVE_INFINITY,
@@ -69,22 +85,29 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: null,
     family: "enterprise",
     tagline:
-      "Annual software licensing for VPC, on-premise, air-gapped, and OEM deployments - unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and SLA-backed support.",
+      "Annual software licensing for sovereign VPC, on-premise, Red Hat OpenShift (UBI9), air-gapped, and OEM deployments - unlimited nodes & MCP agents, SSO/OIDC, 4-tier RBAC, immutable audit, managed KMS (Vault · AWS · GCP · Azure), Raft HA & failover, Supergraph federation, autonomous SOC, and 24×7 SLA support.",
     cta: "Contact Us",
-    highlight: true,
-    badge: "VPC · On-Prem · Cloud Marketplaces",
+    badge: "VPC · On-Prem · Air-Gapped",
   },
 ];
 
 /** Format a USD price for display. */
 export function priceLabel(
   tier: GraphTier,
-  _cycle: BillingCycle,
+  cycle: BillingCycle,
 ): { amount: string; suffix: string; note?: string } {
   if (tier.id === "developer") {
-    return { amount: "Cloud Sandbox", suffix: "", note: "Evaluate in browser & over MCP" };
+    return { amount: "$0", suffix: "", note: "Cloud Sandbox (30 days) & Local Dev (50K nodes)" };
   }
-  return { amount: "Contact Us", suffix: "", note: "Tailored to your infrastructure, capacity & SLA" };
+  if (tier.id === "cloud-saas") {
+    const amt = cycle === "annual" ? tier.priceAnnual : tier.priceMonthly;
+    return {
+      amount: `$${amt}`,
+      suffix: "/mo",
+      note: cycle === "annual" ? "Billed annually ($468/yr) · Managed Full HA" : "Billed monthly · Managed Full HA",
+    };
+  }
+  return { amount: "Contact Us", suffix: "", note: "Tailored to your VPC, capacity & SLA" };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

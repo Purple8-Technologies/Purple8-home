@@ -27,7 +27,6 @@ const PULL_CMD = "docker pull ghcr.io/purple8-technologies/purple8-graph:develop
 const RUN_CMD = `docker run -d \\
   --name purple8 \\
   -p 8100:8100 \\
-  -e PURPLE8_LICENSE_JWT="<your-license-key>" \\
   -v purple8-data:/data \\
   ghcr.io/purple8-technologies/purple8-graph:developer`;
 
@@ -124,26 +123,76 @@ export default function QuickstartPage() {
             Back to purple8.ai
           </a>
           <p className="text-sm font-medium uppercase tracking-wide text-purple-400">
-            Developer Edition - Free
+            Developers &amp; AI Agents - Cloud Playground, Cloud SaaS ($49/mo HA) &amp; Local Docker
           </p>
           <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
-            Install Purple8
+            Start Building with Purple8 in 10 Seconds
           </h1>
           <p className="mt-3 text-gray-400">
-            Purple8 Hyper Graph is your entire backend in one container - graph,
-            vector, document &amp; full-text storage, a built-in RAG pipeline, a
-            {F.mcpTools}-tool MCP server, workflows, auth, and encryption. No external
-            services. The free Developer edition runs it all locally.
+            Purple8 Hyper Graph is your entire application backend in one engine - graph,
+            vector, relational tables, document &amp; full-text storage, a built-in RAG pipeline, a{" "}
+            {F.mcpTools}-tool MCP server, stateful workflows, auth, and encryption. Connect immediately
+            to the <strong className="text-white">Zero-Install Cloud Sandbox ($0)</strong>, launch in production on{" "}
+            <strong className="text-white">Purple8 Cloud SaaS with Full HA ($49/mo)</strong>, or run{" "}
+            <strong className="text-white">Self-Hosted via Docker</strong> (free up to 50K nodes, no license key required).
           </p>
         </div>
 
-        {/* ── One-click install (recommended) ── */}
+        {/* ── Option 0: Instant Cloud Playground & Cloud SaaS (Zero Docker Install) ── */}
+        <section className="mb-10 rounded-2xl border border-purple-600/60 bg-gradient-to-b from-purple-950/40 to-[#11111b] p-6 sm:p-8">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-emerald-600 px-3 py-0.5 text-xs font-semibold text-white">
+              Fastest · 0 Install
+            </span>
+            <h2 className="text-lg font-semibold text-white">
+              Connect an AI Agent Instantly to Purple8 Cloud (No Docker Required)
+            </h2>
+          </div>
+          <p className="mt-3 text-sm text-gray-300">
+            Point Claude Code, Cursor, VS Code Copilot, or OpenAI Codex directly at the hosted Cloud Sandbox MCP endpoint.
+            On first connection, it automatically provisions an isolated sandbox tenant (or mint a dedicated 30-day API key in one command):
+          </p>
+          <div className="mt-4">
+            <p className="text-xs font-medium uppercase tracking-wider text-gray-400">
+              1. Instant Zero-Key Cloud MCP Endpoint (or 1-Call Key Provisioning)
+            </p>
+            <CommandBlock
+              code={`# Connect Claude Code directly to the hosted Cloud Sandbox (auto-isolated tenant):
+claude mcp add purple8 --transport http "https://purple8-graph-sandbox.fly.dev/mcp?profile=starter"
+
+# Or mint a dedicated 30-day sandbox API key (p8g_...) in <50ms with zero email wait:
+curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant`}
+            />
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              href="/try/graph/"
+              className="rounded-full bg-purple-600 px-5 py-2 text-xs font-semibold text-white hover:bg-purple-500"
+            >
+              Open Cloud Sandbox →
+            </Link>
+            <Link
+              href="/checkout/create-session/?plan=cloud-saas&billing=monthly"
+              className="rounded-full border border-purple-500 px-5 py-2 text-xs font-semibold text-purple-300 hover:bg-purple-950/50"
+            >
+              Upgrade to Cloud SaaS (Full HA · $49/mo) →
+            </Link>
+            <a
+              href="/mcp-tools.json"
+              className="rounded-full border border-gray-700 px-5 py-2 text-xs font-semibold text-gray-300 hover:border-purple-500"
+            >
+              View All {F.mcpTools} MCP Tool Schemas (JSON) →
+            </a>
+          </div>
+        </section>
+
+        {/* ── One-click local install ── */}
         <section className="mb-12 rounded-2xl border border-purple-700/50 bg-gradient-to-b from-purple-950/30 to-[#11111b] p-6 sm:p-8">
           <div className="flex items-center gap-2">
             <span className="rounded-full bg-purple-600 px-3 py-0.5 text-xs font-semibold text-white">
-              Recommended
+              Self-Hosted Local Dev ($0)
             </span>
-            <h2 className="text-lg font-semibold text-white">One-click install</h2>
+            <h2 className="text-lg font-semibold text-white">One-click local Docker install (Up to 50K nodes free)</h2>
           </div>
           <p className="mt-3 text-sm text-gray-400">
             One command does everything: it installs Docker if you don&rsquo;t
@@ -327,10 +376,10 @@ export default function QuickstartPage() {
           <p className="mt-2 text-sm text-gray-400">
             Port <code className="text-purple-200">8100</code> serves the REST API,
             MCP server, and admin console; the volume persists your data across
-            restarts. Replace{" "}
-            <code className="text-purple-300">&lt;your-license-key&gt;</code> with the{" "}
-            <code className="text-purple-300">PURPLE8_LICENSE_JWT</code> from your
-            activation screen or email.
+            restarts. The free Developer edition runs up to 50,000 nodes with{" "}
+            <strong className="text-white">no license key required</strong> (only pass{" "}
+            <code className="text-purple-300">-e PURPLE8_LICENSE_JWT=&quot;...&quot;</code> when
+            unlocking a Commercial or Enterprise license).
           </p>
           <CommandBlock code={RUN_CMD} />
         </section>

@@ -95,6 +95,9 @@ export default function BrandHome() {
           <p className="mt-1.5 max-w-2xl text-xs tracking-wider text-[var(--p8-muted)] sm:text-sm">
             Read · Remember · Reason · Answer · Run · Protect · Prove · One Engine built to solve complex problems.
           </p>
+          <p className="mt-3 max-w-2xl text-xs leading-relaxed text-[var(--p8-muted)] sm:text-sm">
+            The complete AI-native application backend (170+ MCP tools across 19 namespaces) &amp; 70+ format document intelligence - available as <strong className="text-[var(--p8-fg)]">Managed Cloud SaaS with Full HA ($49/mo)</strong> for indie builders &amp; small teams, or <strong className="text-[var(--p8-fg)]">Sovereign VPC, On-Premise &amp; Air-Gapped</strong> for enterprises.
+          </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link href="/try/docintel/" className="rounded-full bg-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:opacity-90">
@@ -103,9 +106,9 @@ export default function BrandHome() {
             <Link href="/try/graph/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
               Try Hyper Graph
             </Link>
-            <a href="mailto:sales@purple8.ai?subject=Purple8%20Inquiry" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold text-[var(--p8-fg)] hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
-              Contact Us
-            </a>
+            <Link href="/pricing/" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold text-[var(--p8-fg)] hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
+              Cloud SaaS &amp; Pricing
+            </Link>
           </div>
 
           <div className="mt-12 flex flex-col items-center gap-3">

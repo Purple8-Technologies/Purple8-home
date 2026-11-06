@@ -56,14 +56,16 @@ test("exported product is standalone, accurate about retention, and routes licen
   assert.doesNotMatch(html, /DocIntel keeps no data|documents never leave your network|\$10 free credit|\$100\/month/);
 });
 
-test("licensing offers Cloud Sandbox and Commercial & Enterprise License without hardcoded dollar prices", () => {
+test("licensing offers Cloud Sandbox, Cloud SaaS ($49/mo), and Enterprise VPC", () => {
   assert.deepEqual(
     Array.from(exports.GRAPH_TIERS, (t) => t.id),
-    ["developer", "enterprise"],
+    ["developer", "cloud-saas", "enterprise"],
   );
+  assert.equal(exports.checkoutPlan("cloud-saas"), "cloud-saas");
   const hgHtml = readFileSync(new URL("out/products/hyper-graph/index.html", root), "utf8");
   assert.match(hgHtml, /Contact Us/);
   assert.match(hgHtml, /Cloud Sandbox/);
+  assert.match(hgHtml, /Purple8 Cloud SaaS/);
   assert.doesNotMatch(hgHtml, /Pro and Enterprise|\$119\/mo/);
 });
 
