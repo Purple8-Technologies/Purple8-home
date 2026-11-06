@@ -8,25 +8,25 @@
   "homepage": "https://www.purple8.ai",
   "documentation": "https://docs.graph.purple8.ai/guides/ai-agent-blueprint",
   "categories": [
-    "databases",
-    "knowledge-graph",
-    "rag",
-    "workflow-automation",
     "developer-tools",
+    "backend-as-a-service",
+    "workflow-automation",
+    "rag",
+    "knowledge-graph",
     "security"
   ],
   "tags": [
-    "graph-database",
-    "rdf",
-    "lpg",
-    "opencypher",
-    "vector-search",
-    "hybrid-rag",
-    "graphrag",
+    "application-backend",
+    "backend-as-a-service",
+    "ai-native-backend",
+    "developer-tools",
     "workflow-engine",
     "human-in-the-loop",
-    "backend-as-a-service",
-    "multi-agent",
-    "qubo"
+    "hybrid-rag",
+    "graphrag",
+    "rdf",
+    "lpg",
+    "vector-search",
+    "multi-agent"
   ]
 }

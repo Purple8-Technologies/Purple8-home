@@ -1,10 +1,10 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "ai.purple8.www/purple8-hyper-graph",
-  "title": "Purple8 Hyper Graph",
-  "description": "AI-Native Complete Backend: LPG+RDF+Hypergraph, Vector Search, Hybrid RAG & Workflows (176 tools)",
+  "title": "Purple8 — AI-Native Application Backend",
+  "description": "Complete backend for AI-built apps: data, auth, workflows, SLAs, HITL & RAG in 176 MCP tools.",
   "websiteUrl": "https://www.purple8.ai/products/hyper-graph/",
-  "version": "0.72.0",
+  "version": "0.72.1",
   "remotes": [
     {
       "type": "streamable-http",
