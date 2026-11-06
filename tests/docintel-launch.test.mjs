@@ -70,6 +70,37 @@ test("licensing offers separate Hyper Graph and DocIntel ladders wired to Stripe
   assert.doesNotMatch(hgHtml, /Pro and Enterprise|\$119\/mo/);
 });
 
+test("pricing.ts matches canonical SSOT catalog.json when sibling repo is present", () => {
+  const catalogPath = new URL("../purple8-command-center/src/command_center/catalog.json", root);
+  let catalog;
+  try {
+    catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+  } catch {
+    return; // sibling repo not checked out in CI
+  }
+  const graphProduct = catalog.products.find((p) => p.id === "graph");
+  assert.deepEqual(
+    Array.from(exports.GRAPH_TIERS, (t) => t.id),
+    graphProduct.tiers.map((t) => t.id),
+  );
+  for (const tier of exports.GRAPH_TIERS) {
+    const ssot = graphProduct.tiers.find((t) => t.id === tier.id);
+    assert.equal(tier.priceMonthly, ssot.price_monthly, `graph/${tier.id} priceMonthly`);
+    assert.equal(tier.priceAnnual, ssot.price_annual, `graph/${tier.id} priceAnnual`);
+  }
+  const diProduct = catalog.products.find((p) => p.id === "docintel");
+  for (const [homeId, ssotId] of [
+    ["docintel-builder", "solo"],
+    ["docintel-production", "self_hosted"],
+    ["docintel-growth", "enterprise"],
+  ]) {
+    const homeTier = exports.DOCINTEL_TIERS.find((t) => t.id === homeId);
+    const ssotTier = diProduct.tiers.find((t) => t.id === ssotId);
+    assert.equal(homeTier.price, `$${ssotTier.price_monthly}`, `docintel/${homeId} monthly`);
+    assert.equal(homeTier.priceAnnual, `$${ssotTier.price_annual}`, `docintel/${homeId} annual`);
+  }
+});
+
 test("NVIDIA Inception badge and legal attribution render on homepage without pre-certification Red Hat badge", () => {
   const homeHtml = readFileSync(new URL("out/index.html", root), "utf8");
   assert.match(homeHtml, /NVIDIA Inception Program Member/);

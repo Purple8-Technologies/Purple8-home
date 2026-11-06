@@ -239,8 +239,8 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   {
     id: "docintel-growth",
     name: "DocIntel Growth",
-    price: "$599",
-    priceAnnual: "$499",
+    price: "$799",
+    priceAnnual: "$665",
     priceUnit: "/mo",
     quota: "Unlimited docs",
     seats: "Multi-tenant · SSO & Custom Adapters",
@@ -437,10 +437,15 @@ export function recommendTier(input: CalculatorInput): CalculatorResult {
     return { tier, estimatedNodes, useCase, reason };
   }
 
-  // Governance (SSO/RBAC/audit/PII) or commercial production → Enterprise / Custom.
+  // Governance (SSO/RBAC/audit/PII) → Growth ($499/mo) up to 5M nodes, or Enterprise beyond 5M.
   if (input.needsGovernance) {
-    tier = tierById("enterprise");
-    reason = "SSO, audit logs, regulated-data controls, and commercial self-hosted deployments use Enterprise / Custom.";
+    if (estimatedNodes <= 5_000_000) {
+      tier = tierById("growth");
+      reason = "OIDC/SSO, multi-tenant RBAC, and Cloud KMS are included starting in Growth ($499/mo).";
+    } else {
+      tier = tierById("enterprise");
+      reason = "Beyond 5M nodes with SSO, audit logs, and regulated-data controls, use Enterprise / BYOC.";
+    }
   }
 
   return { tier, estimatedNodes, useCase, reason };
