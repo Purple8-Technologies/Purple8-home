@@ -106,7 +106,7 @@ This is not possible with a pure LLM - you cannot ask GPT-4o to optimally route 
 
 ## What Purple8 ships today
 
-Purple8 Hyper Graph includes a production-ready quantum-inspired optimisation engine, callable by AI agents via 13 MCP tools:
+Purple8 Hyper Graph includes a production-ready quantum-inspired optimisation engine, callable by AI agents via 8 `quantum.*` MCP tools (part of Purple8's 176 MCP tools across 19 namespaces):
 
 | Tool | What it solves |
 |------|---------------|

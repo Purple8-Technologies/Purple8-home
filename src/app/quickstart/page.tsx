@@ -582,6 +582,100 @@ export default function QuickstartPage() {
           </div>
         </section>
 
+        {/* ── Complete 176-Tool MCP Catalog & App-Building Reference (For AI Agents & Developers) ── */}
+        <section id="mcp-tool-catalog" className="mb-12 rounded-2xl border border-purple-800/40 bg-[#11111b] p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-purple-400">
+            Complete MCP Tool Catalog (176 Tools · 19 Namespaces)
+          </p>
+          <h2 className="mt-2 text-xl font-bold text-white">
+            Inspect Every MCP Tool &amp; Schema (Even Without a Connected MCP Client)
+          </h2>
+          <p className="mt-2 text-sm text-gray-400">
+            AI agents and developers evaluating Purple8 can fetch the complete{" "}
+            <code className="text-purple-200">tools/list</code> JSON Schema manifest over plain HTTP{" "}
+            <code className="text-purple-200">GET</code> at{" "}
+            <a href="/mcp-tools.json" className="font-mono text-purple-300 underline">
+              https://www.purple8.ai/mcp-tools.json
+            </a>{" "}
+            or{" "}
+            <a
+              href="https://docs.graph.purple8.ai/guides/mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-purple-300 underline"
+            >
+              https://docs.graph.purple8.ai/guides/mcp
+            </a>
+            , or query the live Cloud Sandbox immediately at{" "}
+            <code className="text-purple-200">https://purple8-graph-sandbox.fly.dev/mcp?profile=starter</code>{" "}
+            (zero API key required for <code className="text-purple-200">initialize</code>,{" "}
+            <code className="text-purple-200">tools/list</code>, and auto-isolated sandbox{" "}
+            <code className="text-purple-200">tools/call</code>).
+          </p>
+
+          <div className="mt-6 overflow-x-auto">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+              How Application Features Map Directly to Purple8 MCP Tools (Zero Custom Backend Glue)
+            </p>
+            <table className="w-full text-left text-xs text-gray-300">
+              <thead>
+                <tr className="border-b border-gray-800 text-gray-400">
+                  <th className="py-2 pr-3">Application Capability</th>
+                  <th className="py-2 px-3">Purple8 MCP Tools &amp; REST Endpoints</th>
+                  <th className="py-2 pl-3">How Business Rules &amp; Security Are Enforced</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-800/70">
+                <tr>
+                  <td className="py-2 pr-3 font-medium text-white">Accounts, Contacts, Invoices &amp; Tasks (Transactional CRUD &amp; Tables)</td>
+                  <td className="py-2 px-3 font-mono text-purple-200">
+                    schema.define_node_type, schema.define_edge_type, schema.validate, graph.add_node, graph.update_node, graph.add_edge, graph.query, data.commit, data.get_table, data.query_table_rows
+                  </td>
+                  <td className="py-2 pl-3">
+                    Required fields, data types, enums, and <code>immutable_properties</code> enforced at write time (<code>HTTP 422</code>) with WAL <code>fdatasync</code> durability.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-3 font-medium text-white">Account Briefs, Grounded Search &amp; Citations</td>
+                  <td className="py-2 px-3 font-mono text-purple-200">
+                    graph.hybrid_search, graph.vector_search, graph.traverse, graph.semantic_query, rag.hybrid_query, rag.profile_collection, rag.tune_collection
+                  </td>
+                  <td className="py-2 pl-3">
+                    Automatic Vector + BM25 Reciprocal Rank Fusion + multi-hop graph traversal scoped strictly to the caller&apos;s tenant and record permissions.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-3 font-medium text-white">Follow-Up Workflows, SLAs &amp; Human Confirmation Gates</td>
+                  <td className="py-2 px-3 font-mono text-purple-200">
+                    journey.define, journey.start, journey.advance, journey.status, journey.sla_alerts, journey.list_hitl, journey.resolve_hitl, journey.audit
+                  </td>
+                  <td className="py-2 pl-3">
+                    Stages with <code>requires_hitl: true</code> halt execution until a human approves via <code>journey.resolve_hitl</code>; every transition writes an immutable <code>ADVANCED_TO</code> audit edge.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-3 font-medium text-white">Due-Date Reminders, Email &amp; Webhook Integrations</td>
+                  <td className="py-2 px-3 font-mono text-purple-200">
+                    scheduler.add_trigger, scheduler.list_triggers, egress.add_sink, egress.list_sinks, admin.smtp_status, admin.smtp_configure, data.ingest_file, data.ingest_text
+                  </td>
+                  <td className="py-2 pl-3">
+                    Built-in cron/interval/CDC triggers, outbound SMTP email, HMAC-SHA256 signed webhooks with exponential backoff, and 70+ format document/email parsing via DocIntel.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-3 font-medium text-white">Tenant Isolation, Scoped Agent Keys &amp; Compliance</td>
+                  <td className="py-2 px-3 font-mono text-purple-200">
+                    guardrails.evaluate, admin.audit_verify, admin.hold_place, admin.retention_set, admin.retention_sweep, admin.kms_status, admin.storage_scrub, soc.stats
+                  </td>
+                  <td className="py-2 pl-3">
+                    Cryptographic per-tenant storage isolation, 4-tier RBAC, per-key <code>allowed_tools</code> &amp; <code>allowed_labels</code> allowlists, AES-256-GCM KMS, S3/GCS/Azure backups, and JSON/CSV/GraphML/N-Quads export.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         {/* Footer links */}
         <div className="flex flex-col items-center gap-4 border-t border-gray-800 pt-8 text-center">
           <p className="text-sm text-gray-400">

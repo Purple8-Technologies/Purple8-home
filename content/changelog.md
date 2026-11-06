@@ -58,7 +58,7 @@ Files can now be replaced, patched, and inspected through a full version history
 - **Version history (`GET /files/{id}/versions`)**: Returns the full ordered list of every stored version - version number, filename, size, and timestamp. Existing uploads before this release get a synthesised v1 record automatically; no migration required.
 - **Download a specific version (`GET /files/{id}/versions/{n}`)**: Fetch any historical version by number.
 
-**Three new MCP tools in the `data.*` namespace (74 tools total)**
+**Three new MCP tools in the `data.*` namespace (now part of 176 MCP tools across 19 namespaces in v0.72.0)**
 
 AI agents can now manage file versions without human intermediaries:
 
