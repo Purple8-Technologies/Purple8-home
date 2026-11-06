@@ -1,16 +1,16 @@
 import { FACTS as F } from "@/lib/facts";
 const hyperGraphFeatures = [
   "Write only the frontend - storage, search, RAG, workflows, auth, and encryption are all Purple8",
-  "Storage, vector search, document store, and full-text - one embedded engine, one process, one port",
-  "Native hybrid search with a cost-based query planner - no separate search service",
-  "Three built-in RAG modes: flat vector, graph-augmented, and hybrid retrieval",
-  "Autonomous RAG tuning - the system profiles your corpus and persists optimal retrieval configuration",
-  "Stateful workflow engine: multi-stage pipelines, SLA monitoring, human-approval gates, AI step persistence",
-  `${F.mcpTools}-tool MCP agent interface - RBAC-enforced, works with Claude, Cursor, Copilot, and any MCP-compatible agent`,
-  "Cross-instance federated queries with human approval gates",
-  "AES-256-GCM envelope encryption via Local, Vault, AWS, GCP, or Azure key management",
-  "Per-tenant storage isolation enforced at the storage layer - not row filtering. Each tenant gets cryptographically separate data partitions with autonomous threat detection.",
-  "Browser-based admin console - zero npm, zero config",
+  "Unified LPG + RDF + Hypergraph + relational Table/Row storage (data.commit, data.query_table_rows) + vector + full-text in one process",
+  "Strict schema authority (schema.define_node_type / define_edge_type) with required fields, property types, enums, and WAL fdatasync durability",
+  "Native hybrid search with a cost-based query planner + automatic Vector & BM25 Reciprocal Rank Fusion",
+  "Three built-in RAG modes (vector, graph-augmented, hybrid) with autonomous corpus profiling and tuning",
+  "Stateful workflow engine: multi-stage pipelines, SLA monitoring, human-approval gates (requires_hitl), scheduled triggers, and signed webhooks",
+  `${F.mcpTools}-tool MCP & A2A agent interface with per-key allowed_tools and allowed_labels scoping - expose only the exact safe tools your app assistant needs`,
+  "Zero lock-in portability: full export to JSON, CSV, GraphML, W3C N-Quads, and 1-call /sandbox/blueprint migration",
+  "Incremental streaming backups to AWS S3, GCS, Azure Blob, or local disk + WAL replication (SYNC RPO ≈ 0) and automatic failover",
+  "AES-256-GCM envelope encryption via Local, Vault, AWS, GCP, or Azure KMS + hash-chained audit verification, legal holds, and GDPR retention sweeps",
+  "Per-tenant storage isolation enforced at the storage layer - not row filtering. Each tenant gets cryptographically separate data partitions with autonomous SOC containment.",
 ];
 
 const docIntelFeatures = [
