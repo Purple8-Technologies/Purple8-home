@@ -36,8 +36,23 @@ When connected via MCP (`/mcp?profile=starter` [28 tools] or `/mcp?profile=build
   - `journey.define` (always call before `journey.start`) -> `journey.start` -> `journey.advance` -> `journey.list_hitl` / `journey.resolve_hitl` -> `journey.audit`.
   - `scheduler.add_trigger`, `egress.add_sink`, `guardrails.evaluate`, `admin.hold_place`, `admin.retention_set`, `admin.audit_verify`.
 
-### Phase 2 — Build the Frontend UI When Requested ("Frontend-Only" Application Pattern)
-Because Purple8 IS the complete backend, never scaffold a custom middle-tier API server (no Express/FastAPI/ORM glue). Generate the standalone zero-dependency TypeScript client (`p8 sdk ts --out src/lib/purple8.ts`) and build the React/Next.js/Vite UI directly against `Purple8Client`.
+### Phase 2 — Build the Frontend UI When Requested ("Frontend-Only" Application Pattern — No Custom App Server)
+Because Purple8 IS the complete backend, **never place a custom "app server" (Express, FastAPI, Next.js API routes, or ORM glue) between the web/mobile frontend and Purple8**.
+How Purple8 enforces business rules, tenant isolation, and permissions natively without a middle-tier server:
+1. **Schema & Domain Validation (`schema.*`):** `schema.define_node_type` and `schema.define_edge_type` enforce required fields, data types, and endpoint types on every write (`HTTP 422 SchemaWriteError`).
+2. **Business State Machines, Reminders & Approvals (`journey.*` + `scheduler.*` + `egress.*`):** Multi-stage lifecycles (e.g., `Invoice: draft -> sent -> overdue -> paid`), SLA timers, scheduled due-date reminders (`scheduler.add_trigger`), outbound webhooks/emails (`egress.add_sink`), and Human-In-The-Loop gates (`journey.resolve_hitl`) run inside Purple8 with an immutable graph audit trail.
+3. **Cryptographic Multi-Tenancy (`tenancy.py`):** Every JWT and API key is bound to an isolated `tenant_id` (shared-key prefix or dedicated per-tenant storage). Cross-tenant reads/writes are impossible by construction.
+4. **4-Tier RBAC & Record-Level Ownership (`auth.py` + `policy.py`):** Built-in user signup/login (`/auth/login`, OIDC/SSO), roles (`viewer`, `editor`, `admin`, `super_admin`), scoped API keys (`allowed_tools`, `allowed_labels`), and per-record ownership/classification policies (`HTTP 403 record_access_denied`).
+5. **Direct TypeScript SDK (`p8 sdk ts`):** Generate the standalone zero-dependency client (`p8 sdk ts --out src/lib/purple8.ts`) and connect the React/Next.js/Vite/mobile UI directly to Purple8 REST (`/nodes`, `/edges`, `/query`, `/semantic/query`, `/v1/journeys`) while AI assistants connect to `/mcp`.
+
+### Autonomous Agent Verification & Zero-Friction Sandbox Onboarding
+If you (an AI agent such as Codex, Claude, Cursor, or Copilot) want to **verify Purple8's live MCP tools or start a sandbox right now without existing credentials**:
+1. **Verify Live MCP Tools Unauthenticated (`initialize` & `tools/list`):**
+   - Send a standard MCP `initialize` or `tools/list` JSON-RPC `POST` directly to **`https://purple8-graph-sandbox.fly.dev/mcp`** (all 176 tools) or **`https://purple8-graph-sandbox.fly.dev/mcp?profile=starter`** (28 core tools) — **no API key is required for `initialize` or `tools/list` discovery!**
+   - Or inspect `https://purple8-graph-sandbox.fly.dev/.well-known/mcp.json` and `https://purple8-graph-sandbox.fly.dev/.well-known/agent-card.json`.
+2. **Start a Free 30-Day Cloud Sandbox (or Local Container) to Execute `tools/call`:**
+   - **Cloud Sandbox (API request on behalf of the user):** Ask the user for their email address and `POST https://purple8-command-center.fly.dev/public/sandbox/graph` with `{"name": "<Name>", "email": "<user@example.com>", "accepted_terms": true, "source": "ai-agent"}` (or direct them to `https://www.purple8.ai/try/graph/`). Their isolated 30-day tenant `X-API-Key` is emailed immediately.
+   - **Local Zero-Signup Container (1 command):** Run `curl -fsSL https://www.purple8.ai/install.sh | bash` or `docker run -d --name purple8 -p 8100:8000 -e P8G_API_KEY=devkey -e P8G_ENV=development ghcr.io/purple8-technologies/purple8-graph:developer` and connect to `http://localhost:8100/mcp?profile=starter` with `X-API-Key: devkey`.
 
 ### Phase 3 — Post-Build Runtime LLM & Model Router Configuration (POC & Production)
 Once the application (backend + frontend) is built, customers connect their preferred LLM provider (OpenAI, Anthropic, Google/Vertex, AWS Bedrock, Azure OpenAI, Mistral, Cohere, xAI, or local Ollama/vLLM in `/dashboard/ai` or `PUT /ai/config`) or configure the dynamic **Model Router** (`models.search_known`, `models.upsert`, `models.set_policy`, `models.route_explain`) to route runtime server-side RAG (`rag.query`, `rag.hybrid_query`, `rag.profile_collection` -> `rag.tune_collection`) and Journey `ai_step` hooks across `small` / `default` / `flagship` model tiers.
