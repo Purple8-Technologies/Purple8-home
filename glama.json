@@ -1,0 +1,32 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "maintainers": [
+    "Redlock666"
+  ],
+  "name": "Purple8 Hyper Graph",
+  "description": "AI-Native Complete Backend in one process — Unified LPG + RDF + Hypergraph, Vector Search, Structured Tables, Hybrid GraphRAG, Stateful Journey Workflows with SLAs & HITL Gates, AEC/BIM Engineering, SOC & SuperGraph, Event Automation, Quantum-Inspired QUBO Optimisation, and Cryptographic Audit Governance (176 MCP tools across 19 namespaces).",
+  "homepage": "https://www.purple8.ai",
+  "documentation": "https://docs.graph.purple8.ai/guides/ai-agent-blueprint",
+  "categories": [
+    "databases",
+    "knowledge-graph",
+    "rag",
+    "workflow-automation",
+    "developer-tools",
+    "security"
+  ],
+  "tags": [
+    "graph-database",
+    "rdf",
+    "lpg",
+    "opencypher",
+    "vector-search",
+    "hybrid-rag",
+    "graphrag",
+    "workflow-engine",
+    "human-in-the-loop",
+    "backend-as-a-service",
+    "multi-agent",
+    "qubo"
+  ]
+}

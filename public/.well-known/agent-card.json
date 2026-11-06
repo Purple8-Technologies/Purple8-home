@@ -1,0 +1,374 @@
+{
+  "name": "Purple8 Hyper Graph",
+  "description": "AI-native complete backend infrastructure: Unified LPG + RDF + Hypergraph, vector search, structured tables, hybrid RAG, stateful workflows (SLAs + HITL), AEC/BIM engineering, SOC & SuperGraph, event automation, and cryptographic governance in one process. Send a question as text or name a skill to call any of the 176 tools.",
+  "supportedInterfaces": [
+    {
+      "url": "https://purple8-graph-sandbox.fly.dev/a2a",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "organization": "Purple8 Inc.",
+    "url": "https://www.purple8.ai"
+  },
+  "version": "0",
+  "documentationUrl": "https://docs.graph.purple8.ai/guides/a2a",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "extendedAgentCard": false
+  },
+  "securitySchemes": {
+    "apiKey": {
+      "apiKeySecurityScheme": {
+        "location": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "bearer": {
+      "httpAuthSecurityScheme": {
+        "scheme": "Bearer",
+        "description": "Purple8 API key (p8g_...)"
+      }
+    }
+  },
+  "securityRequirements": [
+    {
+      "schemes": {
+        "apiKey": {
+          "list": []
+        }
+      }
+    },
+    {
+      "schemes": {
+        "bearer": {
+          "list": []
+        }
+      }
+    }
+  ],
+  "defaultInputModes": [
+    "text/plain",
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "text/plain",
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "admin",
+      "name": "admin.*",
+      "description": "Cryptographic audit chain verification, legal holds, data retention policies, and SMTP administration. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "admin.audit_verify",
+        "admin.hold_list",
+        "admin.hold_place",
+        "admin.hold_release",
+        "admin.kms_status",
+        "admin.lineage_get",
+        "admin.recovery_status",
+        "admin.retention_delete",
+        "admin.retention_list",
+        "admin.retention_set",
+        "admin.retention_sweep",
+        "admin.smtp_configure",
+        "admin.smtp_status",
+        "admin.storage_scrub"
+      ]
+    },
+    {
+      "id": "aec",
+      "name": "aec.*",
+      "description": "AEC/BIM engineering vertical: stored BIM buildings, Space Syntax VGA, 2D/3D structural rigidity & critical members, BIM clash/change-impact, emergency egress, MEP max-flow/fault-impact, Laplacian spectral connectivity, 3D SIMP topology optimisation, MORL layout generation, MPNN physics surrogate, hypergraphs, and IFC rewriting. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "aec.bim_clashes",
+        "aec.buildings_analyses",
+        "aec.buildings_delete",
+        "aec.buildings_demo",
+        "aec.buildings_get",
+        "aec.buildings_list",
+        "aec.buildings_run",
+        "aec.design_egress",
+        "aec.hypergraph_build",
+        "aec.ifc_rewrite",
+        "aec.mep_max_flow",
+        "aec.morl_generate",
+        "aec.mpnn_propagate",
+        "aec.spectral_fiedler",
+        "aec.structural_critical_members",
+        "aec.structural_rigidity",
+        "aec.topo_optimise",
+        "aec.vga_build"
+      ]
+    },
+    {
+      "id": "data",
+      "name": "data.*",
+      "description": "Commit entities, Markdown chunks, and structured tables directly (data.commit) or ingest 70+ file formats via DocIntel. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "data.commit",
+        "data.get_table",
+        "data.index_table_columns",
+        "data.ingest_file",
+        "data.ingest_text",
+        "data.link_table_rows",
+        "data.list_file_versions",
+        "data.list_files",
+        "data.patch_file_properties",
+        "data.query_table_rows",
+        "data.replace_file"
+      ]
+    },
+    {
+      "id": "egress",
+      "name": "egress.*",
+      "description": "Stream graph and workflow changes to external HMAC-signed webhooks. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "egress.add_sink",
+        "egress.list_sinks",
+        "egress.remove_sink",
+        "egress.status"
+      ]
+    },
+    {
+      "id": "evolution",
+      "name": "evolution.*",
+      "description": "Evolutionary multi-objective optimisation for RAG parameters, model routing, and online experiments. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "evolution.create_experiment",
+        "evolution.list_experiments",
+        "evolution.production",
+        "evolution.propose",
+        "evolution.rag_retrieval",
+        "evolution.report",
+        "evolution.routing_policy",
+        "evolution.suggest"
+      ]
+    },
+    {
+      "id": "feedback",
+      "name": "feedback.*",
+      "description": "Collect and resolve human and agent quality feedback. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "feedback.open",
+        "feedback.record",
+        "feedback.resolve",
+        "feedback.summary"
+      ]
+    },
+    {
+      "id": "graph",
+      "name": "graph.*",
+      "description": "Unified LPG + RDF + Vector graph engine: read/write LPG nodes & edges, assert/import RDF quads, run conjunctive LPG+RDF semantic_query, hybrid_search, and graph algorithms (PageRank, communities, shortest_path, centrality, link_prediction, Moran's I). Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "graph.add_edge",
+        "graph.add_edges_bulk",
+        "graph.add_node",
+        "graph.add_nodes_bulk",
+        "graph.articulation_points",
+        "graph.assert_statement",
+        "graph.attack_paths",
+        "graph.auto_config",
+        "graph.bipartite_check",
+        "graph.bipartite_matching",
+        "graph.bridges",
+        "graph.centrality",
+        "graph.communities",
+        "graph.counts",
+        "graph.delete_edge",
+        "graph.delete_node",
+        "graph.dynamic_communities",
+        "graph.dynamic_pagerank",
+        "graph.edges_count",
+        "graph.edges_exist",
+        "graph.explain_query",
+        "graph.fraud_rings",
+        "graph.get_edge",
+        "graph.get_node",
+        "graph.hybrid_search",
+        "graph.import_nquads",
+        "graph.labels",
+        "graph.laundering_paths",
+        "graph.link_prediction",
+        "graph.local_morans_i",
+        "graph.morans_i",
+        "graph.motifs",
+        "graph.mst",
+        "graph.pagerank",
+        "graph.personalised_pagerank",
+        "graph.poll_changes",
+        "graph.query",
+        "graph.recommend",
+        "graph.retract_statement",
+        "graph.rolesim",
+        "graph.semantic_query",
+        "graph.shortest_path",
+        "graph.simrank",
+        "graph.structural_roles",
+        "graph.supply_chain_route",
+        "graph.temporal_pagerank",
+        "graph.text_search",
+        "graph.traverse",
+        "graph.triangles",
+        "graph.update_node",
+        "graph.vector_search",
+        "graph.wait_for_changes"
+      ]
+    },
+    {
+      "id": "guardrails",
+      "name": "guardrails.*",
+      "description": "Evaluate input, output, and structural agent payloads against safety/PII/injection guardrails. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "guardrails.evaluate"
+      ]
+    },
+    {
+      "id": "journey",
+      "name": "journey.*",
+      "description": "Run stateful multi-stage workflows with SLAs, Human-In-The-Loop (HITL) gates, and immutable audit trails. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "journey.advance",
+        "journey.audit",
+        "journey.define",
+        "journey.list",
+        "journey.list_hitl",
+        "journey.resolve_hitl",
+        "journey.sla_alerts",
+        "journey.start",
+        "journey.status"
+      ]
+    },
+    {
+      "id": "memory",
+      "name": "memory.*",
+      "description": "Search and read conversation session memory. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "memory.history",
+        "memory.search"
+      ]
+    },
+    {
+      "id": "models",
+      "name": "models.*",
+      "description": "Manage the LLM model catalogue and dynamic System-1/System-2 routing policy. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "models.get_policy",
+        "models.list",
+        "models.remove",
+        "models.route_explain",
+        "models.search_known",
+        "models.set_policy",
+        "models.upsert"
+      ]
+    },
+    {
+      "id": "quantum",
+      "name": "quantum.*",
+      "description": "Quantum-inspired QUBO/Ising optimisation (routing, scheduling, portfolio allocation, tensor networks). Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "quantum.anneal",
+        "quantum.compare",
+        "quantum.encode_state",
+        "quantum.measure",
+        "quantum.optimize",
+        "quantum.profile",
+        "quantum.simulate",
+        "quantum.vqe_step"
+      ]
+    },
+    {
+      "id": "rag",
+      "name": "rag.*",
+      "description": "Answer questions over the knowledge graph (vector, graph and hybrid RAG). Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "rag.graph_query",
+        "rag.hybrid_query",
+        "rag.profile_collection",
+        "rag.query",
+        "rag.rerank",
+        "rag.tune_collection"
+      ],
+      "examples": [
+        "Which suppliers are linked to the delayed shipments?"
+      ]
+    },
+    {
+      "id": "registry",
+      "name": "registry.*",
+      "description": "Federate external REST tools, downstream MCP servers, and peer A2A agents. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "registry.list_tools",
+        "registry.register_a2a_agent",
+        "registry.register_mcp_server",
+        "registry.register_tool",
+        "registry.remove_tool",
+        "registry.test_tool"
+      ]
+    },
+    {
+      "id": "scheduler",
+      "name": "scheduler.*",
+      "description": "Schedule interval, cron, and CDC event/drift-triggered automations. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "scheduler.add_trigger",
+        "scheduler.list_triggers",
+        "scheduler.remove_trigger",
+        "scheduler.status"
+      ]
+    },
+    {
+      "id": "schema",
+      "name": "schema.*",
+      "description": "Declare and validate the data model (node types, edge types, property constraints, IAM classifications). Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "schema.define_edge_type",
+        "schema.define_node_type",
+        "schema.delete_edge_type",
+        "schema.delete_node_type",
+        "schema.get",
+        "schema.get_edge_type",
+        "schema.get_node_type",
+        "schema.list_edge_types",
+        "schema.list_node_types",
+        "schema.update_edge_type",
+        "schema.update_node_type",
+        "schema.validate"
+      ]
+    },
+    {
+      "id": "sentinel",
+      "name": "sentinel.*",
+      "description": "Autonomous data-drift and risk-threshold findings gated by human approval. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "sentinel.drift_check",
+        "sentinel.get_finding",
+        "sentinel.list_findings",
+        "sentinel.reject",
+        "sentinel.summary"
+      ]
+    },
+    {
+      "id": "soc",
+      "name": "soc.*",
+      "description": "Autonomous Security Operations Center (SOC): threat detection statistics, active session containments, and security incident audit logs. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "soc.audit_log",
+        "soc.containments_active",
+        "soc.stats"
+      ]
+    },
+    {
+      "id": "supergraph",
+      "name": "supergraph.*",
+      "description": "Federated multi-graph stitching: list declared regional/domain peers and execute approved cross-graph queries. Invoke a specific tool with message.metadata.skill = one of the tags.",
+      "tags": [
+        "supergraph.peers_list",
+        "supergraph.query"
+      ]
+    }
+  ]
+}

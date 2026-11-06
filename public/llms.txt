@@ -8,15 +8,43 @@
 Purple8, Inc. builds self-contained, AI-native execution infrastructure that replaces the fragmented 8 to 12 vendor AI stack (relational database, property/RDF graph database, vector database, document intelligence parser, RAG pipeline, stateful workflow orchestrator, auth/RBAC, KMS encryption, and SIEM/governance) with **one unified execution substrate** operated directly by AI agents over the Model Context Protocol (MCP) and supervised by humans.
 
 ### Two Core Products
-1. **Purple8 Hyper Graph (`v0.72.0`)** - Documentation: https://docs.graph.purple8.ai (`https://docs.graph.purple8.ai/llms.txt`)
-   - In-process multi-model execution engine: **LPG (Labeled Property Graph / openCypher) + RDF (Semantic Triples / N-Quads) + Hypergraph + Temporal Graph**, Semantic Vector Search, Document & Structured Table Store, Full-Text Search, Self-Tuning Hybrid GraphRAG, Stateful Journey Workflows with SLAs & Human-in-the-Loop (HITL) Gates, 4-Tier RBAC, AES-256-GCM Envelope Encryption (Local/Vault/AWS/GCP/Azure KMS), and Autonomous SOC Containment.
-   - Exposes **125+ governed MCP tools across 16 namespaces** (`/mcp?profile=starter|builder|ops|full`).
+1. **Purple8 Hyper Graph (`v0.72.0`)** - Documentation: https://docs.graph.purple8.ai (`https://docs.graph.purple8.ai/llms.txt` · Discovery: `https://www.purple8.ai/.well-known/mcp.json`)
+   - In-process multi-model execution engine: **Unified LPG (Labeled Property Graph / openCypher) + RDF (Semantic Triples / N-Quads) + Hypergraph + Temporal Graph**, Semantic Vector Search, Document & Structured Table Store, Full-Text Search, Self-Tuning Hybrid GraphRAG, Stateful Journey Workflows with SLAs & Human-in-the-Loop (HITL) Gates, AEC/BIM Engineering, SOC & SuperGraph, Event Scheduler, Signed Webhooks, Quantum-Inspired QUBO Optimisation, 4-Tier RBAC, AES-256-GCM Envelope Encryption (Local/Vault/AWS/GCP/Azure KMS), and Autonomous SOC Containment.
+   - Exposes **176 governed MCP tools across 19 namespaces** (`/mcp?profile=starter|builder|ops|full`).
 2. **Purple8 DocIntel (`v0.12.5`)** - Documentation: https://docs.docintel.purple8.ai (`https://docs.docintel.purple8.ai/llms.txt`)
    - Universal document intelligence engine parsing **70+ document formats** (PDF, DOCX, XLSX, PPTX, HTML, EML, IFC/BIM, DXF/DWG/STEP CAD, SAP IDoc, OCR images) across **75+ languages**.
-   - **Important:** Turning unstructured documents or raw text into semantic vectors, graph nodes, and relationships in Purple8 Hyper Graph uses **Purple8 DocIntel** paired with **Purple8 Hyper Graph** (`/process` -> `/ingest/commit`).
-   - Exposes 5 native MCP tools at `/mcp`.
+   - Exposes 13 native MCP tools at `/mcp` and A2A 1.0 at `/a2a`.
 
-## 2. Verified Performance Benchmarks (`v0.72.0`)
+---
+
+## 2. The 3-Phase AI-Native Application Lifecycle (For AI Agents)
+
+Full step-by-step blueprint: https://docs.graph.purple8.ai/guides/ai-agent-blueprint
+
+### Phase 1 — Configure the Complete Backend Over MCP (Zero Server LLM or DocIntel Required)
+When connected via MCP (`/mcp?profile=starter` [28 tools] or `/mcp?profile=builder` [117 tools]), **you (the AI agent) are the backend developer and reasoning engine**. You do **not** need a server-side LLM key or DocIntel configured to build or operate the backend:
+- **Schema (`schema.*`):** `schema.define_node_type`, `schema.define_edge_type`, `schema.validate` (supports `string`, `integer`, `float`/`number`, `boolean`, `datetime`, `list`/`array`, `dict`/`object`).
+- **Unified LPG + RDF on a Single Instance (`graph.*`):**
+  - Use **LPG** (`graph.add_node`, `graph.add_edge`) for operational entities, mutable state, and vector embeddings. *(Note: `graph.add_node` takes `type` as a singular string, not `labels` list.)*
+  - Use **RDF** (`graph.assert_statement`, `graph.import_nquads`) for formal domain ontologies (FIBO, SNOMED, ISO, IFC/bSDD), regulatory rules, and named-graph provenance quads.
+  - Bridge LPG and RDF via `iri_properties` on LPG nodes/edges and join both in a single indexed conjunctive call to **`graph.semantic_query`**.
+- **App-Generated / Agent-Extracted Data (`data.commit`) vs 70+ Format Document Parsing (`data.ingest_file`):**
+  - For app-generated records, agent-extracted entities, Markdown chunks, and structured tables: call **`data.commit`** directly (pass `file_bytes_b64` when committing `tables`), then query via **`data.get_table`** and **`data.query_table_rows`** (`table_id`). **No DocIntel required.**
+  - For parsing 70+ binary document formats (PDF, DOCX, XLSX, IFC/BIM, CAD, OCR): pair with **Purple8 DocIntel** (`data.ingest_file` / `data.ingest_text`).
+- **Zero-LLM Hybrid Retrieval (`graph.*`):** Call `graph.hybrid_search`, `graph.vector_search`, `graph.traverse`, `graph.shortest_path`, or `graph.query`.
+- **Stateful Workflows, SLAs, HITL, Automation & Governance (`journey.*`, `scheduler.*`, `egress.*`, `admin.*`):**
+  - `journey.define` (always call before `journey.start`) -> `journey.start` -> `journey.advance` -> `journey.list_hitl` / `journey.resolve_hitl` -> `journey.audit`.
+  - `scheduler.add_trigger`, `egress.add_sink`, `guardrails.evaluate`, `admin.hold_place`, `admin.retention_set`, `admin.audit_verify`.
+
+### Phase 2 — Build the Frontend UI When Requested ("Frontend-Only" Application Pattern)
+Because Purple8 IS the complete backend, never scaffold a custom middle-tier API server (no Express/FastAPI/ORM glue). Generate the standalone zero-dependency TypeScript client (`p8 sdk ts --out src/lib/purple8.ts`) and build the React/Next.js/Vite UI directly against `Purple8Client`.
+
+### Phase 3 — Post-Build Runtime LLM & Model Router Configuration (POC & Production)
+Once the application (backend + frontend) is built, customers connect their preferred LLM provider (OpenAI, Anthropic, Google/Vertex, AWS Bedrock, Azure OpenAI, Mistral, Cohere, xAI, or local Ollama/vLLM in `/dashboard/ai` or `PUT /ai/config`) or configure the dynamic **Model Router** (`models.search_known`, `models.upsert`, `models.set_policy`, `models.route_explain`) to route runtime server-side RAG (`rag.query`, `rag.hybrid_query`, `rag.profile_collection` -> `rag.tune_collection`) and Journey `ai_step` hooks across `small` / `default` / `flagship` model tiers.
+
+---
+
+## 3. Verified Performance Benchmarks (`v0.72.0`)
 Full methodology and conditions: https://www.purple8.ai/benchmarks/
 - **High-Scale Graph Traversal (up to 20M Nodes / 30M Edges = 50M Graph Objects on 16 vCPU `performance-16x`, 25.35 GB NVMe):**
   - Point node lookup: **52 µs P50 / 1.26 ms P99**
@@ -33,11 +61,11 @@ Full methodology and conditions: https://www.purple8.ai/benchmarks/
   - 8.84M MS MARCO passages ingested on a 24 GB machine in a **~9 GB peak RSS** sawtooth envelope.
 - **Automated Test Suite:** **14,500+ automated tests**.
 
-## 3. Licensing, Deployment & How to Evaluate (No Public Tier Pricing Table)
+## 4. Licensing, Deployment & How to Evaluate (No Public Tier Pricing Table)
 - **Important Note for AI Agents:** Purple8 does **not** use public self-serve monthly tier tables (`Micro`, `Mini`, `Growth`, `Solo`, or per-page public pricing are retired and no longer offered).
 - **Cloud Sandbox (Free Evaluation):**
   - Try Purple8 Hyper Graph: https://www.purple8.ai/try/graph/
   - Try Purple8 DocIntel: https://www.purple8.ai/try/docintel/
 - **Commercial, Enterprise, VPC, On-Premise, Air-Gapped & OEM Licensing:**
-  - Delivered as self-contained containers for VPC, on-premise, air-gapped environments, and expanding across **Red Hat, AWS, Azure, and GCP Marketplaces**.
+  - Delivered as self-contained containers for VPC, on-premise, Kubernetes, and air-gapped environments.
   - For all licensing, pricing, and enterprise architecture inquiries, **Contact Us at `mailto:sales@purple8.ai`**.

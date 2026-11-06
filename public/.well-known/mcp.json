@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0",
+  "name": "purple8-hyper-graph",
+  "title": "Purple8 Hyper Graph \u2014 AI-Native Complete Backend",
+  "version": "0.72.0",
+  "description": "In-process multi-model AI execution engine: Unified LPG (openCypher) + RDF (N-Quads) + Hypergraph, HNSW Vector Search, Structured Table & Document Store, Hybrid GraphRAG, Stateful Journey Workflows with SLAs & HITL Gates, AEC/BIM Engineering, SOC & SuperGraph, Event Scheduler, Signed Webhooks, Quantum-Inspired QUBO Optimisation, and Cryptographic Audit Governance exposed via 176 RBAC-governed MCP tools across 19 namespaces.",
+  "provider": {
+    "organization": "Purple8, Inc.",
+    "url": "https://www.purple8.ai",
+    "documentationUrl": "https://docs.graph.purple8.ai/guides/ai-agent-blueprint",
+    "llmsTxtUrl": "https://purple8-graph-sandbox.fly.dev/llms.txt",
+    "agentCardUrl": "https://purple8-graph-sandbox.fly.dev/.well-known/agent-card.json"
+  },
+  "endpoints": {
+    "streamableHttp": "https://purple8-graph-sandbox.fly.dev/mcp",
+    "sse": "https://purple8-graph-sandbox.fly.dev/mcp/sse",
+    "recommendedStarter": "https://purple8-graph-sandbox.fly.dev/mcp?profile=starter",
+    "recommendedBuilder": "https://purple8-graph-sandbox.fly.dev/mcp?profile=builder",
+    "invokeRest": "https://purple8-graph-sandbox.fly.dev/mcp/invoke"
+  },
+  "authentication": {
+    "schemes": [
+      {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      },
+      {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT or API Key"
+      }
+    ],
+    "sandboxUrl": "https://www.purple8.ai/try/graph/"
+  },
+  "profiles": [
+    {
+      "id": "starter",
+      "name": "Starter (Core 28)",
+      "description": "Focused 28-tool starter belt for Claude Desktop, Cursor, Copilot, and rapid app building: Schema modeling, Unified LPG + RDF graph CRUD/queries, hybrid search, structured table & Markdown commit, and Journey workflows + HITL.",
+      "tool_count": 28,
+      "url": "https://purple8-graph-sandbox.fly.dev/mcp?profile=starter"
+    },
+    {
+      "id": "builder",
+      "name": "App Builder (117 tools)",
+      "description": "Full application-building toolbelt for Cursor, Claude Code, and Copilot: all Starter tools plus schema modeling, structured tables, memory, model routing, webhooks, scheduled triggers, feedback loops, and tool federation.",
+      "tool_count": 117,
+      "url": "https://purple8-graph-sandbox.fly.dev/mcp?profile=builder"
+    },
+    {
+      "id": "ops",
+      "name": "Operations & Governance (37 tools)",
+      "description": "Operational monitoring, SLA alerts, HITL approvals, Sentinel findings, guardrails, and audit/retention compliance.",
+      "tool_count": 37,
+      "url": "https://purple8-graph-sandbox.fly.dev/mcp?profile=ops"
+    },
+    {
+      "id": "full",
+      "name": "Full Platform (All 176 tools)",
+      "description": "Complete 176-tool manifest across all 19 namespaces, including AEC/BIM engineering, SOC, SuperGraph, quantum optimization, evolutionary search, Sentinel, and system administration.",
+      "tool_count": 176,
+      "url": "https://purple8-graph-sandbox.fly.dev/mcp"
+    }
+  ],
+  "toolCount": 176,
+  "namespaces": [
+    "admin",
+    "aec",
+    "data",
+    "egress",
+    "evolution",
+    "feedback",
+    "graph",
+    "guardrails",
+    "journey",
+    "memory",
+    "models",
+    "quantum",
+    "rag",
+    "registry",
+    "scheduler",
+    "schema",
+    "sentinel",
+    "soc",
+    "supergraph"
+  ],
+  "capabilities": {
+    "unifiedLpgAndRdf": true,
+    "zeroLlmBackendBuild": true,
+    "frontendOnlySdk": "p8 sdk ts",
+    "postBuildModelRouter": true,
+    "docintelOptional": "https://docs.docintel.purple8.ai"
+  }
+}

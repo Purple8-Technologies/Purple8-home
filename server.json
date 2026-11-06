@@ -1,0 +1,78 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.json",
+  "name": "ai.purple8/purple8-hyper-graph",
+  "description": "AI-Native Complete Backend in one process: Unified LPG + RDF + Hypergraph, HNSW Vector Search, Structured Tables, Hybrid GraphRAG, Stateful Journey Workflows (SLAs + HITL), AEC/BIM Engineering, SOC & SuperGraph, Event Automation, Quantum QUBO Solver, and Cryptographic Governance via 176 MCP tools across 19 namespaces.",
+  "status": "active",
+  "repository": {
+    "url": "https://github.com/Purple8-Technologies/Purple8-graph",
+    "source": "github"
+  },
+  "version_detail": {
+    "version": "0.72.0"
+  },
+  "remotes": [
+    {
+      "transport_type": "streamable-http",
+      "url": "https://purple8-graph-sandbox.fly.dev/mcp?profile=starter",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "Purple8 API key or free 30-day Cloud Sandbox key from https://www.purple8.ai/try/graph/",
+          "is_required": true,
+          "is_secret": true
+        }
+      ]
+    },
+    {
+      "transport_type": "sse",
+      "url": "https://purple8-graph-sandbox.fly.dev/mcp/sse?profile=starter",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "Purple8 API key or free 30-day Cloud Sandbox key from https://www.purple8.ai/try/graph/",
+          "is_required": true,
+          "is_secret": true
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "registry_name": "pypi",
+      "name": "purple8-hyper-graph",
+      "version": "0.72.0",
+      "runtime_hint": "python",
+      "package_arguments": [
+        {
+          "type": "positional",
+          "value": "mcp-server"
+        },
+        {
+          "type": "named",
+          "name": "--url",
+          "description": "Purple8 Hyper Graph server URL (e.g. https://purple8-graph-sandbox.fly.dev or http://localhost:8100)",
+          "default": "https://purple8-graph-sandbox.fly.dev",
+          "is_required": true
+        },
+        {
+          "type": "named",
+          "name": "--api-key",
+          "description": "Purple8 API key or Cloud Sandbox key",
+          "is_required": true,
+          "is_secret": true
+        },
+        {
+          "type": "named",
+          "name": "--profile",
+          "description": "Focused MCP tool profile: starter (28 tools), builder (117 tools), ops (37 tools), or full (176 tools)",
+          "default": "starter"
+        }
+      ]
+    },
+    {
+      "registry_name": "oci",
+      "name": "ghcr.io/purple8-technologies/purple8-graph:developer",
+      "version": "0.72.0"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import StartPaths from "@/components/revamp/StartPaths";
 import Numbers from "@/components/revamp/Numbers";
 import Differentiators from "@/components/revamp/Differentiators";
 import SystemFlow from "@/components/SystemFlow";
+import { FACTS as F } from "@/lib/facts";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -69,7 +70,7 @@ export default function HyperGraphPage() {
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Licensing &amp; Deployment</p>
         <h2 className="mt-3 text-3xl font-bold tracking-tight">Evaluate in the Cloud Sandbox. License for VPC, On-Premise &amp; Air-Gapped Production.</h2>
         <p className="mt-5 text-lg text-[var(--p8-muted)]">
-          Start immediately in the free Cloud Sandbox with all {features.length > 0 ? "125+ MCP tools" : "MCP tools"}, hybrid GraphRAG pipelines, and Journey workflows.
+          Start immediately in the free Cloud Sandbox with all {F.mcpTools} MCP tools, hybrid GraphRAG pipelines, and Journey workflows.
           For commercial, enterprise, multi-cluster HA, or OEM deployments across your own <strong className="text-[var(--p8-fg)]">VPC, on-premise, Kubernetes, or air-gapped infrastructure</strong> - contact our team.
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
