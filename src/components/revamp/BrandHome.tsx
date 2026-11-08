@@ -3,10 +3,8 @@
 import Link from "next/link";
 import Purple8Logo from "@/components/Purple8Logo";
 import NvidiaInceptionBadge from "@/components/NvidiaInceptionBadge";
-import SiteHeader, { useRootTheme } from "@/components/revamp/SiteHeader";
+import SiteHeader from "@/components/revamp/SiteHeader";
 import Footer from "@/components/Footer";
-
-type Theme = "day" | "night";
 
 /* ── Large multi-layered purple waves through the centre ────────────── */
 // Each layer is a filled ribbon between two sine curves. Width 2400 = two
@@ -67,10 +65,8 @@ function PurpleWave() {
 
 /* ── Page shell ─────────────────────────────────────────────────────── */
 export default function BrandHome() {
-  const [theme] = useRootTheme();
-
   return (
-    <div data-p8-theme={theme} className="p8-shell relative min-h-screen text-[var(--p8-fg)] transition-colors duration-500">
+    <div className="p8-shell relative min-h-screen text-[var(--p8-fg)] transition-colors duration-500">
       <style>{CSS}</style>
       <SiteHeader />
 
@@ -79,7 +75,7 @@ export default function BrandHome() {
 
         <div className="relative z-10 flex w-full flex-col items-center">
           <Purple8Logo className="h-36 w-72 sm:h-56 sm:w-[28rem]" animated />
-          <h1 className="mt-2 text-5xl font-bold tracking-tight sm:text-7xl">
+          <h1 className="mt-2 text-5xl font-bold tracking-tight text-[var(--p8-fg)] sm:text-7xl">
             Purple<span className="text-[var(--p8-accent)]">8</span>
           </h1>
 
@@ -100,7 +96,7 @@ export default function BrandHome() {
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Link href="/try/docintel/" className="rounded-full bg-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:opacity-90">
+            <Link href="/try/docintel/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:opacity-90">
               Try DocIntel
             </Link>
             <Link href="/try/graph/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
@@ -129,12 +125,13 @@ export default function BrandHome() {
 }
 
 const CSS = `
-.p8-shell[data-p8-theme="day"] {
+.p8-shell {
   --p8-bg:#ffffff; --p8-fg:#18181b; --p8-muted:#52525b; --p8-accent:#7c3aed;
   --p8-surface:#ffffff; --p8-border:#e4e4e7; --p8-hover:#f5f3ff;
+  --p8-button:#7c3aed;
   --p8-comet:#7c3aed; --p8-wave:#a855f7;
 }
-.p8-shell[data-p8-theme="night"] {
+html[data-p8-theme="night"] .p8-shell {
   --p8-bg:#0a0a0f; --p8-fg:#f4f4f5; --p8-muted:#a1a1aa; --p8-accent:#a855f7;
   --p8-surface:#11111a; --p8-border:#2e1065; --p8-hover:#1e1036;
   --p8-comet:#e9d5ff; --p8-wave:#7c3aed;
