@@ -145,7 +145,7 @@ export function priceLabel(
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface DocIntelTier {
-  id: "beta" | "docintel-builder" | "docintel-production" | "docintel-growth" | "enterprise" | "cloud";
+  id: "beta" | "enterprise" | "cloud" | "prepaid";
   name: string;
   price: string;
   priceAnnual?: string;
@@ -157,6 +157,7 @@ export interface DocIntelTier {
   ctaHref: string;
   highlight?: boolean;
   badge?: string;
+  unavailable?: boolean;
 }
 
 /** Checkout plan id for monthly access plus graduated metered usage. */
@@ -208,47 +209,32 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     ctaHref: "/try/docintel/",
   },
   {
-    id: "docintel-builder",
-    name: "DocIntel Builder",
-    price: "$79",
-    priceAnnual: "$65",
+    id: "cloud",
+    name: "Monthly subscription",
+    price: "$100",
     priceUnit: "/mo",
-    quota: "10,000 docs/mo",
-    seats: "2 parallel workers · 13 MCP tools",
+    quota: "10,000 pages/month included",
+    seats: "Account subscription · Project API keys",
     tagline:
-      "For indie developers and startups: 10,000 documents/month, 2 workers, all 70+ formats & 75+ languages, OCR + table + LPG/RDF entity extraction, and BYO LLM.",
-    cta: "Start DocIntel Builder →",
-    ctaHref: "/checkout/create-session/?plan=docintel-builder&billing=monthly",
-    badge: "Indie & Startups",
-  },
-  {
-    id: "docintel-production",
-    name: "DocIntel Production",
-    price: "$299",
-    priceAnnual: "$249",
-    priceUnit: "/mo",
-    quota: "Unlimited docs",
-    seats: "Unlimited workers · All connectors",
-    tagline:
-      "For production document pipelines: unlimited documents & workers, SharePoint, Confluence, S3 & Webhook connectors, domain extraction profiles (AEC, Legal, Financial, Scientific), and production support.",
-    cta: "Start DocIntel Production →",
-    ctaHref: "/checkout/create-session/?plan=docintel-production&billing=monthly",
+      "$100/month includes 10,000 pages, then $0.01 per additional page. Included pages reset each billing month without rollover. One subscription covers all projects in your account.",
+    cta: "Open DocIntel workspace",
+    ctaHref: "https://docintel.purple8.ai/try?view=billing",
     highlight: true,
-    badge: "Most Popular",
+    badge: "Managed Cloud",
   },
   {
-    id: "docintel-growth",
-    name: "DocIntel Growth",
-    price: "$799",
-    priceAnnual: "$665",
-    priceUnit: "/mo",
-    quota: "Unlimited docs",
-    seats: "Multi-tenant · SSO & Custom Adapters",
+    id: "prepaid",
+    name: "Pay as you go",
+    price: "$0.015",
+    priceUnit: "/page",
+    quota: "Prepaid balance required",
+    seats: "No monthly access fee",
     tagline:
-      "For scaling organizations: unlimited documents & workers, OIDC/SAML SSO, custom domain ontologies & connectors, and priority engineering support.",
-    cta: "Start DocIntel Growth →",
-    ctaHref: "/checkout/create-session/?plan=docintel-growth&billing=monthly",
-    badge: "Multi-Tenant & SSO",
+      "Processing requires sufficient prepaid credit. Prepaid billing is not yet available.",
+    cta: "Not yet available",
+    ctaHref: "",
+    unavailable: true,
+    badge: "Prepaid",
   },
   {
     id: "enterprise",
@@ -264,11 +250,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
   },
 ];
 
-export const DOCINTEL_PURCHASABLE_PLANS: ReadonlySet<string> = new Set<string>([
-  "docintel-builder",
-  "docintel-production",
-  "docintel-growth",
-]);
+export const DOCINTEL_PURCHASABLE_PLANS: ReadonlySet<string> = new Set<string>();
 
 /**
  * Every plan ID that the pricing UI can POST to /checkout/create-session.
@@ -276,7 +258,7 @@ export const DOCINTEL_PURCHASABLE_PLANS: ReadonlySet<string> = new Set<string>([
  * can never drift from the offered tiers (see issue #3):
  *   - Graph tiers with a real positive price (excludes free Developer and
  *     contact-sales Enterprise).
- *   - DocIntel self-serve plans + DocIntel Cloud (metered, monthly only).
+ *   - DocIntel Cloud (monthly only); legacy licenses are sales-assisted.
  */
 export const PURCHASABLE_PLAN_IDS: ReadonlySet<string> = new Set<string>([
   ...GRAPH_TIERS.filter(

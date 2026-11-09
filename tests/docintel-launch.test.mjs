@@ -42,6 +42,11 @@ test("exported pricing advertises the hosted included-page contract", () => {
   assert.match(html, /\$100\/month includes 10,000 pages/);
   assert.match(html, /\$0\.01 per additional page/);
   assert.match(html, /Included pages reset each billing month/);
+  assert.match(html, /\$0\.015/);
+  assert.match(html, /Prepaid billing is not yet available/);
+  assert.match(html, /<button disabled=""[^>]*>Not yet available<\/button>/);
+  const docintel = html.split('id="docintel"')[1].split("</main>")[0];
+  assert.doesNotMatch(docintel, /DocIntel Builder|DocIntel Production|DocIntel Growth|\$79|\$299|\$799|plan=docintel-(builder|production|growth)/);
 });
 
 test("exported trial uses account handoff and retains existing-key support", () => {
@@ -68,8 +73,11 @@ test("licensing offers separate Hyper Graph and DocIntel ladders wired to Stripe
     Array.from(exports.GRAPH_TIERS, (t) => t.id),
     ["developer", "builder", "production", "growth", "enterprise"],
   );
-  for (const plan of ["builder", "production", "growth", "docintel-builder", "docintel-production", "docintel-growth"]) {
+  for (const plan of ["builder", "production", "growth"]) {
     assert.equal(exports.checkoutPlan(plan), plan);
+  }
+  for (const plan of ["docintel-builder", "docintel-production", "docintel-growth", "prepaid"]) {
+    assert.equal(exports.checkoutPlan(plan), null);
   }
   const hgHtml = readFileSync(new URL("out/products/hyper-graph/index.html", root), "utf8");
   assert.match(hgHtml, /Contact Us/);
@@ -103,8 +111,8 @@ test("pricing.ts matches canonical SSOT catalog.json when sibling repo is presen
   ]) {
     const homeTier = exports.DOCINTEL_TIERS.find((t) => t.id === homeId);
     const ssotTier = diProduct.tiers.find((t) => t.id === ssotId);
-    assert.equal(homeTier.price, `$${ssotTier.price_monthly}`, `docintel/${homeId} monthly`);
-    assert.equal(homeTier.priceAnnual, `$${ssotTier.price_annual}`, `docintel/${homeId} annual`);
+    assert.equal(homeTier, undefined, `docintel/${homeId} is not publicly offered`);
+    assert.ok(ssotTier, `docintel/${homeId} retains its legacy catalog record`);
   }
 });
 

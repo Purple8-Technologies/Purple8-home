@@ -7,6 +7,10 @@ pages, then $0.01 per additional page. Included pages reset each billing month
 without rollover. The Stripe usage lookup key is
 `docintel_graduated_pages_monthly_v2`; existing subscriptions retain their
 contracted prices.
+The public pricing cards show the evaluation sandbox, monthly Cloud subscription,
+prepaid PAYG at $0.015/page (not yet available), and custom Enterprise deployment.
+Legacy Builder, Production and Growth DocIntel licenses are not offered for new
+public checkout.
 
 First, run the development server:
 

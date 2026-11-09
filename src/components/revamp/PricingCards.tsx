@@ -209,7 +209,11 @@ export default function PricingCards() {
                   {d.tagline}
                 </p>
                 <div className="mt-6 flex flex-col gap-2">
-                  <a
+                  {d.unavailable ? (
+                    <button disabled className="cursor-not-allowed rounded-full border border-[var(--p8-border)] px-4 py-2.5 text-center text-xs font-semibold opacity-60">
+                      {d.cta}
+                    </button>
+                  ) : <a
                     href={href}
                     className={
                       "rounded-full px-4 py-2.5 text-center text-xs font-semibold transition " +
@@ -219,7 +223,7 @@ export default function PricingCards() {
                     }
                   >
                     {d.cta}
-                  </a>
+                  </a>}
                   {isPaid && d.priceAnnual && (
                     <a
                       href={`/checkout/create-session/?plan=${d.id}&billing=${altBilling}`}
