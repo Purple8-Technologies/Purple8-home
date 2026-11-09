@@ -43,8 +43,9 @@ test("exported pricing advertises the hosted included-page contract", () => {
   assert.match(html, /\$0\.01 per additional page/);
   assert.match(html, /Included pages reset each billing month/);
   assert.match(html, /\$0\.015/);
-  assert.match(html, /Prepaid billing is not yet available/);
-  assert.match(html, /<button disabled=""[^>]*>Not yet available<\/button>/);
+  assert.match(html, /Sign in to buy page credits/);
+  assert.match(html, /href="https:\/\/docintel\.purple8\.ai\/try\?view=billing"[^>]*>Sign in to add credits<\/a>/);
+  assert.doesNotMatch(html, /Prepaid billing is not yet available|<button disabled=""[^>]*>Not yet available<\/button>/);
   const docintel = html.split('id="docintel"')[1].split("</main>")[0];
   assert.doesNotMatch(docintel, /DocIntel Builder|DocIntel Production|DocIntel Growth|\$79|\$299|\$799|plan=docintel-(builder|production|growth)/);
 });

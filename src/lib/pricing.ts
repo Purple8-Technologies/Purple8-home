@@ -230,10 +230,9 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     quota: "Prepaid balance required",
     seats: "No monthly access fee",
     tagline:
-      "Processing requires sufficient prepaid credit. Prepaid billing is not yet available.",
-    cta: "Not yet available",
-    ctaHref: "",
-    unavailable: true,
+      "Sign in to buy page credits: 1,000 for $15, 5,000 for $75, or 10,000 for $150. Processing requires sufficient prepaid credit.",
+    cta: "Sign in to add credits",
+    ctaHref: "https://docintel.purple8.ai/try?view=billing",
     badge: "Prepaid",
   },
   {
