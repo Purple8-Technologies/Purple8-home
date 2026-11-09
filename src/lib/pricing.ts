@@ -165,7 +165,7 @@ export const DOCINTEL_CLOUD_PLAN = "docintel-graduated";
 /**
  * DocIntel Cloud monthly bands - mirrors the Stripe price with lookup key
  * `docintel_graduated_access_monthly_v1` (access fee) and
- * `docintel_graduated_pages_monthly_v1` (graduated metered pages).
+ * `docintel_graduated_pages_monthly_v2` (included pages plus metered overage).
  * Stripe is the source of truth; update this table when the price changes.
  */
 export interface DocIntelCloudBand {
@@ -175,8 +175,8 @@ export interface DocIntelCloudBand {
 }
 
 export const DOCINTEL_CLOUD_BANDS: DocIntelCloudBand[] = [
-  { upTo: 10_000, flatUsd: 100, perPageUsd: 0.02 },
-  { upTo: null, flatUsd: 0, perPageUsd: 0.018 },
+  { upTo: 10_000, flatUsd: 100, perPageUsd: 0 },
+  { upTo: null, flatUsd: 0, perPageUsd: 0.01 },
 ];
 
 /** Monthly access plus graduated usage, excluding tax. */

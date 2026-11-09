@@ -160,6 +160,17 @@ export default function PricingCards() {
           </p>
         </div>
 
+        <div className="mb-6 rounded-2xl border border-[var(--p8-accent)] bg-[var(--p8-surface)] p-6">
+          <h3 className="text-lg font-bold">DocIntel Cloud subscription</h3>
+          <p className="mt-2">$100/month includes 10,000 pages, then $0.01 per additional page.</p>
+          <p className="mt-2 text-xs text-[var(--p8-muted)]">
+            Included pages reset each billing month without rollover. One subscription covers all projects in your account.
+            Applies to new subscriptions; existing subscriptions retain their contracted prices. Prices exclude tax.
+          </p>
+          <a href="https://docintel.purple8.ai/try?view=billing" className="mt-4 inline-block text-sm font-semibold text-[var(--p8-accent)]">
+            Open DocIntel workspace
+          </a>
+        </div>
         <div className="grid gap-5 md:grid-cols-3 lg:grid-cols-5">
           {DOCINTEL_TIERS.map((d) => {
             const isPaid = d.id.startsWith("docintel-");

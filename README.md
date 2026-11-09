@@ -2,6 +2,12 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+DocIntel Cloud pricing for new subscriptions is $100/month including 10,000
+pages, then $0.01 per additional page. Included pages reset each billing month
+without rollover. The Stripe usage lookup key is
+`docintel_graduated_pages_monthly_v2`; existing subscriptions retain their
+contracted prices.
+
 First, run the development server:
 
 ```bash

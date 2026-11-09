@@ -26,7 +26,7 @@ test("current and legacy Cloud links select account billing, not anonymous check
 });
 
 test("monthly access and graduated usage match the published bill at boundaries", () => {
-  for (const [pages, total] of [[0, 100], [1, 100.02], [9999, 299.98], [10000, 300], [10001, 300.02], [50000, 1020]]) {
+  for (const [pages, total] of [[0, 100], [1, 100], [9999, 100], [10000, 100], [10001, 100.01], [50000, 500]]) {
     assert.equal(exports.docIntelCloudBill(pages), total);
   }
   for (const pages of [-1, 0.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1]) {
@@ -35,6 +35,13 @@ test("monthly access and graduated usage match the published bill at boundaries"
   const sandbox = exports.DOCINTEL_TIERS.find((tier) => tier.id === "beta");
   assert.match(sandbox.name, /Sandbox/);
   assert.equal(sandbox.ctaHref, "/try/docintel/");
+});
+
+test("exported pricing advertises the hosted included-page contract", () => {
+  const html = readFileSync(new URL("out/pricing/index.html", root), "utf8");
+  assert.match(html, /\$100\/month includes 10,000 pages/);
+  assert.match(html, /\$0\.01 per additional page/);
+  assert.match(html, /Included pages reset each billing month/);
 });
 
 test("exported trial uses account handoff and retains existing-key support", () => {
