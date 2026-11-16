@@ -73,7 +73,7 @@ const plans = [
   {
     name: "Sandbox",
     price: "$0",
-    detail: "Free evaluation keys from the workspace. Same API, same formats \u2014 sized for trying it out, not production volume.",
+    detail: "Free evaluation keys from the workspace. Same API, same formats \u2014 capped at 50 documents per key per month.",
   },
   {
     name: "DocIntel Cloud",
@@ -83,7 +83,7 @@ const plans = [
   {
     name: "Pay as you go",
     price: "$0.015/page",
-    detail: "Prepaid page credits, no monthly access fee. Buy credits in the workspace; processing draws down the balance.",
+    detail: "Prepaid page credits, no monthly access fee. Top up any amount from $5 \u2014 most buyers start with 1,000 pages for $15. Processing draws down the balance.",
   },
 ];
 

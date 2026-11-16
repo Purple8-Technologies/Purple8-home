@@ -230,7 +230,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     quota: "Prepaid balance required",
     seats: "No monthly access fee",
     tagline:
-      "Sign in to buy page credits: 1,000 for $15, 5,000 for $75, or 10,000 for $150. Processing requires sufficient prepaid credit.",
+      "Sign in to buy page credits: choose any amount from $5 — most buyers start with 1,000 pages for $15. Processing requires sufficient prepaid credit.",
     cta: "Sign in to add credits",
     ctaHref: "https://docintel.purple8.ai/try?view=billing",
     badge: "Prepaid",
