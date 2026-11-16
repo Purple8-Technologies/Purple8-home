@@ -26,10 +26,10 @@ export default function StartPaths({ product, sandboxHref }: Props) {
           primary: false,
         },
         {
-          name: "DocIntel Cloud & Self-Hosted",
+          name: "DocIntel Cloud",
           line:
-            "Start with DocIntel Builder ($79/mo for 10K docs/mo), Production ($299/mo unlimited docs + SharePoint/Confluence/S3 connectors), or Growth ($599/mo multi-tenant + SSO).",
-          note: "$79 · $299 · $599/mo (or Annual)",
+            "Hosted document processing: $100/mo includes 10,000 pages, then $0.01 per additional page. Or pay as you go with prepaid credits at $0.015/page, no monthly fee.",
+          note: "$100/mo + usage · or Prepaid per page",
           cta: "View DocIntel Plans →",
           href: "/pricing/#docintel",
           primary: true,

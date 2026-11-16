@@ -67,6 +67,14 @@ test("exported product is standalone, accurate about retention, and routes licen
   assert.match(html, /RAM-only session/);
   assert.match(html, /Contact Us/);
   assert.doesNotMatch(html, /DocIntel keeps no data|documents never leave your network|\$10 free credit|\$100\/month/);
+  assert.doesNotMatch(html, /DocIntel Builder|DocIntel Production|DocIntel Growth|\$79|\$299|\$599|plan=docintel-(builder|production|growth)/);
+});
+
+test("llms.txt advertises only purchasable DocIntel plans", () => {
+  const txt = readFileSync(new URL("public/llms.txt", root), "utf8");
+  assert.match(txt, /plan=docintel-graduated/);
+  assert.match(txt, /\$0\.015\/page/);
+  assert.doesNotMatch(txt, /DocIntel Builder|DocIntel Production|DocIntel Growth|plan=docintel-(builder|production|growth)|\$79\/mo|\$299\/mo|\$599\/mo/);
 });
 
 test("licensing offers separate Hyper Graph and DocIntel ladders wired to Stripe checkout", () => {

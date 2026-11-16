@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Pricing - Purple8 Hyper Graph & Purple8 DocIntel",
   description:
-    "Transparent monthly and annual pricing for Purple8 Hyper Graph (Free Playground $0, Builder $39/mo, Production $149/mo, Growth $499/mo, Enterprise BYOC) and Purple8 DocIntel (Free Sandbox $0, Builder $79/mo, Production $299/mo, Growth $599/mo, Enterprise).",
+    "Transparent monthly and annual pricing for Purple8 Hyper Graph (Free Playground $0, Builder $39/mo, Production $149/mo, Growth $499/mo, Enterprise BYOC) and Purple8 DocIntel (Free Sandbox $0, Cloud $100/mo with 10,000 pages included then $0.01/page, Prepaid $0.015/page, Enterprise BYOC).",
   path: "/pricing",
 });
 
