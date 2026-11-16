@@ -79,7 +79,10 @@ export default function DocIntelPage() {
           <DocIntelWorkspaceLink view="playground" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
             Try DocIntel
           </DocIntelWorkspaceLink>
-          <a href="https://docs.docintel.purple8.ai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
+          <a href="/products/docintel/api/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
+            Use the API
+          </a>
+          <a href="https://docs.docintel.purple8.ai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
             DocIntel Docs ↗
           </a>
           <a href="#start" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">

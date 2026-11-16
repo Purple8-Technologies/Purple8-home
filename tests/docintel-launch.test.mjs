@@ -77,6 +77,19 @@ test("llms.txt advertises only purchasable DocIntel plans", () => {
   assert.doesNotMatch(txt, /DocIntel Builder|DocIntel Production|DocIntel Growth|plan=docintel-(builder|production|growth)|\$79\/mo|\$299\/mo|\$599\/mo/);
 });
 
+test("exported DocIntel API page documents real endpoints and canonical pricing", () => {
+  const html = readFileSync(new URL("out/products/docintel/api/index.html", root), "utf8");
+  assert.match(html, /POST \/process|\/process/);
+  assert.match(html, /Authorization: Bearer/);
+  assert.match(html, /\/jobs\//);
+  assert.match(html, /docintel\.purple8\.ai\/docs/);
+  assert.match(html, /view=api/);
+  assert.match(html, /\$100\/mo/);
+  assert.match(html, /10,000 pages\/month included, then \$0\.01 per additional page/);
+  assert.match(html, /\$0\.015\/page/);
+  assert.doesNotMatch(html, /DocIntel Builder|DocIntel Production|DocIntel Growth|\$79|\$299|\$599/);
+});
+
 test("licensing offers separate Hyper Graph and DocIntel ladders wired to Stripe checkout", () => {
   assert.deepEqual(
     Array.from(exports.GRAPH_TIERS, (t) => t.id),
