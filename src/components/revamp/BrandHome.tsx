@@ -92,7 +92,10 @@ export default function BrandHome() {
             Read · Remember · Reason · Answer · Run · Protect · Prove · One Engine built to solve complex problems.
           </p>
           <p className="mt-3 max-w-2xl text-xs leading-relaxed text-[var(--p8-muted)] sm:text-sm">
-            The complete AI-native application backend (170+ MCP tools across 19 namespaces) &amp; 70+ format document intelligence - available as <strong className="text-[var(--p8-fg)]">Purple8 Cloud (from $39/mo)</strong> for builders &amp; startups, or <strong className="text-[var(--p8-fg)]">Self-Hosted / Sovereign VPC &amp; Air-Gapped</strong> for enterprises.
+            The complete AI-native application backend &amp; document intelligence.
+            Start in the free playground, explore <strong className="text-[var(--p8-fg)]">Graph Cloud preview</strong>,
+            or use DocIntel Cloud. For <strong className="text-[var(--p8-fg)]">Self-Hosted / Enterprise</strong>,
+            talk to us about sovereign VPC and air-gapped deployment.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">

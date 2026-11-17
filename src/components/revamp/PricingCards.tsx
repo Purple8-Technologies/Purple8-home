@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BillingCycle, DOCINTEL_TIERS, GRAPH_TIERS } from "@/lib/pricing";
+import { BillingCycle, DOCINTEL_TIERS, GRAPH_TIERS, graphLicenseLimits } from "@/lib/pricing";
 import { FACTS as F } from "@/lib/facts";
 
 export default function PricingCards() {
@@ -48,7 +48,7 @@ export default function PricingCards() {
                   : "bg-[var(--p8-accent)]/15 text-[var(--p8-accent)]")
               }
             >
-              Save ~17% (2 mos free)
+              Annual pricing
             </span>
           </button>
         </div>
@@ -70,7 +70,7 @@ export default function PricingCards() {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid gap-5 md:grid-cols-3 lg:grid-cols-4">
           {GRAPH_TIERS.map((t) => {
             const isFree = t.id === "developer";
             const isPaid = typeof t.priceMonthly === "number" && t.priceMonthly > 0;
@@ -79,10 +79,8 @@ export default function PricingCards() {
             const href = isFree
               ? "/try/graph/"
               : isPaid
-              ? `/checkout/create-session/?plan=${t.id}&billing=${billing}`
+              ? `mailto:sales@purple8.ai?subject=Purple8%20Cloud%20${encodeURIComponent(t.name)}%20Access`
               : "mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Enterprise%20Inquiry";
-            const altBilling: BillingCycle = isAnnual ? "monthly" : "annual";
-
             return (
               <div
                 key={t.id}
@@ -108,9 +106,12 @@ export default function PricingCards() {
                     ? "10K Cloud Sandbox / 50K Local Docker"
                     : isPaid
                     ? isAnnual
-                      ? `Billed annually ($${annualTotal}/yr) · ${t.nodesLabel}`
-                      : `Billed monthly ($${t.priceAnnual}/mo annual) · ${t.nodesLabel}`
+                      ? `Proposed annual total: $${annualTotal}/yr · ${t.nodesLabel}`
+                      : `Proposed monthly price · ${t.nodesLabel}`
                     : "Unlimited scale · Sovereign VPC & Air-Gap"}
+                </p>
+                <p className="mt-2 text-xs text-[var(--p8-muted)]">
+                  Default RS256 license limits: {graphLicenseLimits(t)}
                 </p>
                 <p className="mt-4 flex-1 text-xs leading-relaxed text-[var(--p8-muted)]">
                   {t.tagline}
@@ -127,16 +128,9 @@ export default function PricingCards() {
                   >
                     {t.cta}
                   </a>
-                  {isPaid && (
-                    <a
-                      href={`/checkout/create-session/?plan=${t.id}&billing=${altBilling}`}
-                      className="text-center text-[11px] text-[var(--p8-accent)] hover:underline"
-                    >
-                      {isAnnual
-                        ? `Or pay monthly ($${t.priceMonthly}/mo) →`
-                        : `Or pay annually ($${t.priceAnnual}/mo) →`}
-                    </a>
-                  )}
+                  {isPaid && <p className="text-center text-[11px] text-[var(--p8-muted)]">
+                    Proposed pricing · Paid activation pending
+                  </p>}
                 </div>
               </div>
             );
@@ -160,15 +154,19 @@ export default function PricingCards() {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3 lg:grid-cols-5">
+        <div className="mb-6 rounded-2xl border border-[var(--p8-accent)] bg-[var(--p8-surface)] p-6">
+          <h3 className="text-lg font-bold">DocIntel Cloud subscription</h3>
+          <p className="mt-2">$100/month includes 10,000 pages, then $0.01 per additional page.</p>
+          <p className="mt-2 text-xs text-[var(--p8-muted)]">
+            Included pages reset each billing month without rollover. One subscription covers all projects in your account.
+            Applies to new subscriptions; existing subscriptions retain their contracted prices. Prices exclude tax.
+          </p>
+          <a href="https://docintel.purple8.ai/try?view=billing" className="mt-4 inline-block text-sm font-semibold text-[var(--p8-accent)]">
+            Open DocIntel workspace
+          </a>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
           {DOCINTEL_TIERS.map((d) => {
-            const isPaid = d.id.startsWith("docintel-");
-            const displayPrice = isPaid && isAnnual && d.priceAnnual ? d.priceAnnual : d.price;
-            const href = isPaid
-              ? `/checkout/create-session/?plan=${d.id}&billing=${billing}`
-              : d.ctaHref;
-            const altBilling: BillingCycle = isAnnual ? "monthly" : "annual";
-
             return (
               <div
                 key={d.id}
@@ -184,22 +182,22 @@ export default function PricingCards() {
                 </p>
                 <h3 className="mt-2 text-lg font-bold">{d.name}</h3>
                 <div className="mt-3 flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold">{displayPrice}</span>
+                  <span className="text-3xl font-extrabold">{d.price}</span>
                   {d.priceUnit && <span className="text-xs text-[var(--p8-muted)]">{d.priceUnit}</span>}
                 </div>
                 <p className="mt-1 text-xs text-[var(--p8-muted)]">
-                  {isPaid && d.priceAnnual
-                    ? isAnnual
-                      ? `Billed annually · ${d.quota}`
-                      : `Billed monthly (${d.priceAnnual}/mo annual) · ${d.quota}`
-                    : `${d.quota} · ${d.seats}`}
+                  {d.quota} · {d.seats}
                 </p>
                 <p className="mt-4 flex-1 text-xs leading-relaxed text-[var(--p8-muted)]">
                   {d.tagline}
                 </p>
                 <div className="mt-6 flex flex-col gap-2">
-                  <a
-                    href={href}
+                  {d.unavailable ? (
+                    <button disabled className="cursor-not-allowed rounded-full border border-[var(--p8-border)] px-4 py-2.5 text-center text-xs font-semibold opacity-60">
+                      {d.cta}
+                    </button>
+                  ) : <a
+                    href={d.ctaHref}
                     className={
                       "rounded-full px-4 py-2.5 text-center text-xs font-semibold transition " +
                       (d.highlight
@@ -208,17 +206,7 @@ export default function PricingCards() {
                     }
                   >
                     {d.cta}
-                  </a>
-                  {isPaid && d.priceAnnual && (
-                    <a
-                      href={`/checkout/create-session/?plan=${d.id}&billing=${altBilling}`}
-                      className="text-center text-[11px] text-[var(--p8-accent)] hover:underline"
-                    >
-                      {isAnnual
-                        ? `Or pay monthly (${d.price}/mo) →`
-                        : `Or pay annually (${d.priceAnnual}/mo) →`}
-                    </a>
-                  )}
+                  </a>}
                 </div>
               </div>
             );

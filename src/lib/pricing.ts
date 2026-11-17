@@ -1,19 +1,15 @@
 /**
- * pricing.ts - Single source of truth for Purple8 pricing + the tier calculator.
- *
- * Mirrors the simplified self-hosted model:
- *   - Developer (Free): full local engine up to 50K nodes for dev, testing & evaluation.
- *   - Enterprise / Custom (Self-Hosted): one commercial self-hosted tier tailored to your
- *     infrastructure, capacity, compliance, and HA requirements.
+ * pricing.ts - Public view of the canonical Command Center tier catalog.
+ * Graph quotas mirror the existing runtime plan defaults.
  *
  * DocIntel offers:
- *   - Community (Self-Hosted Free): up to 500 docs/mo.
- *   - Enterprise / Custom (Self-Hosted): unlimited commercial self-hosted deployment.
- *   - Cloud Graduated: hosted by Purple8 ($100/mo access + per-page usage).
+ *   - Cloud Sandbox: free evaluation.
+ *   - Cloud: hosted subscription or prepaid usage.
+ *   - Enterprise / BYOC: custom self-hosted deployment.
  */
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Purple8 (flagship) tiers - Self-Hosted: Developer (Free) + Enterprise / Custom
+// Purple8 Hyper Graph tiers - public prices are proposals until Cloud fulfillment is ready.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type GraphTierId =
@@ -36,10 +32,10 @@ export interface GraphTier {
   priceAnnual: number | null;
   /** Node capacity ceiling - used by the calculator to map an estimate → tier. */
   nodes: number;
+  /** Maximum edges under the default runtime plan. -1 = unlimited. */
+  edges: number;
   /** Human label for the capacity, e.g. "50K" or "Custom / Unlimited". */
   nodesLabel: string;
-  /** Included MCP agents. null = unlimited. */
-  agents: number | null;
   family: FeatureFamily;
   /** One-line "who it's for". */
   tagline: string;
@@ -55,11 +51,11 @@ export const GRAPH_TIERS: GraphTier[] = [
     priceMonthly: 0,
     priceAnnual: 0,
     nodes: 50_000,
+    edges: 200_000,
     nodesLabel: "10K Cloud / 50K Local",
-    agents: null,
     family: "free",
     tagline:
-      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox (or locally via Docker up to 50K nodes) - all 176 MCP tools, unlimited MCP agent connections, LPG + RDF + Vector + Tables + Journey workflows.",
+      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox (10K nodes) or locally via Docker. The Developer license defaults to 50K nodes and 200K edges, with no tenant-count cap.",
     cta: "Try Cloud Sandbox",
   },
   {
@@ -68,13 +64,13 @@ export const GRAPH_TIERS: GraphTier[] = [
     priceMonthly: 39,
     priceAnnual: 32,
     nodes: 250_000,
+    edges: 1_000_000,
     nodesLabel: "250K nodes",
-    agents: null,
     family: "cloud",
     tagline:
-      "For indie developers, AI startups, and small internal tools: Shared Purple8 Cloud (or Self-Hosted license), up to 250,000 nodes, unlimited MCP connections, BYO LLM key, and standard email support.",
-    cta: "Start Builder →",
-    badge: "Indie & Startups",
+      "Planned managed Cloud offer. Paid activation awaits tenant-bound fulfillment.",
+    cta: "Request Cloud access",
+    badge: "250K nodes",
   },
   {
     id: "production",
@@ -82,14 +78,14 @@ export const GRAPH_TIERS: GraphTier[] = [
     priceMonthly: 149,
     priceAnnual: 124,
     nodes: 1_000_000,
+    edges: 4_000_000,
     nodesLabel: "1M nodes",
-    agents: null,
     family: "cloud",
     tagline:
-      "For customer-facing production applications: up to 1,000,000 nodes, automated daily cloud backups & restore, High Availability (SYNC replication), health/SLA monitoring, and production support.",
-    cta: "Start Production →",
+      "Planned managed Cloud offer. Paid activation awaits tenant-bound fulfillment.",
+    cta: "Request Cloud access",
     highlight: true,
-    badge: "Most Popular · HA & Backups",
+    badge: "Most popular · HA & Backups",
   },
   {
     id: "growth",
@@ -97,29 +93,39 @@ export const GRAPH_TIERS: GraphTier[] = [
     priceMonthly: 499,
     priceAnnual: 415,
     nodes: 5_000_000,
+    edges: 20_000_000,
     nodesLabel: "5M nodes",
-    agents: null,
     family: "cloud",
     tagline:
-      "For scaling SaaS products, multi-tenant apps, and agencies: up to 5,000,000 nodes, multi-tenant RBAC & team controls, OIDC / SSO, Cloud KMS integration, and priority support.",
-    cta: "Start Growth →",
-    badge: "Multi-Tenant & SSO",
+      "Planned managed Cloud offer. Paid activation awaits tenant-bound fulfillment.",
+    cta: "Request Cloud access",
+    badge: "5M nodes",
   },
   {
     id: "enterprise",
-    name: "Enterprise / BYOC",
+    name: "Enterprise / BYOC (Custom)",
     priceMonthly: null,
     priceAnnual: null,
-    nodes: Number.POSITIVE_INFINITY,
+    nodes: -1,
+    edges: -1,
     nodesLabel: "Custom / Unlimited",
-    agents: null,
     family: "enterprise",
     tagline:
-      "Annual software licensing for sovereign VPC, on-premise, Red Hat OpenShift (UBI9), air-gapped, and OEM deployments - unlimited nodes (20M+/shard), OIDC/SAML SSO, Vault/AWS/GCP/Azure KMS, Raft HA, Supergraph, Autonomous SOC, Legal Holds, and 24×7 Severity-1 SLA.",
-    cta: "Contact Us",
+      "Annual software licensing for sovereign VPC, on-premise, Red Hat OpenShift (UBI9), air-gapped, and OEM deployments - custom capacity, OIDC/SAML SSO, Vault/AWS/GCP/Azure KMS, Raft HA, Supergraph, Autonomous SOC, Legal Holds, and 24×7 Severity-1 SLA.",
+    cta: "Talk to us",
     badge: "VPC · On-Prem · Air-Gapped",
   },
 ];
+
+const limitLabel = (value: number, unit: string): string =>
+  value === -1 ? `Unlimited ${unit}` : `${value.toLocaleString("en-US")} ${unit}`;
+
+export function graphLicenseLimits(tier: GraphTier): string {
+  return [
+    limitLabel(tier.nodes, "nodes"),
+    limitLabel(tier.edges, "edges"),
+  ].join(" · ");
+}
 
 /** Format a USD price for display. */
 export function priceLabel(
@@ -141,11 +147,11 @@ export function priceLabel(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DocIntel tiers (mirrors purple8_docintel/licensing/models.py)
+// DocIntel's current public offers; historical license tiers remain internal.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface DocIntelTier {
-  id: "beta" | "docintel-builder" | "docintel-production" | "docintel-growth" | "enterprise" | "cloud";
+  id: "beta" | "enterprise" | "cloud" | "prepaid";
   name: string;
   price: string;
   priceAnnual?: string;
@@ -157,6 +163,7 @@ export interface DocIntelTier {
   ctaHref: string;
   highlight?: boolean;
   badge?: string;
+  unavailable?: boolean;
 }
 
 /** Checkout plan id for monthly access plus graduated metered usage. */
@@ -165,7 +172,7 @@ export const DOCINTEL_CLOUD_PLAN = "docintel-graduated";
 /**
  * DocIntel Cloud monthly bands - mirrors the Stripe price with lookup key
  * `docintel_graduated_access_monthly_v1` (access fee) and
- * `docintel_graduated_pages_monthly_v1` (graduated metered pages).
+ * `docintel_graduated_pages_monthly_v2` (included pages plus metered overage).
  * Stripe is the source of truth; update this table when the price changes.
  */
 export interface DocIntelCloudBand {
@@ -175,8 +182,8 @@ export interface DocIntelCloudBand {
 }
 
 export const DOCINTEL_CLOUD_BANDS: DocIntelCloudBand[] = [
-  { upTo: 10_000, flatUsd: 100, perPageUsd: 0.02 },
-  { upTo: null, flatUsd: 0, perPageUsd: 0.018 },
+  { upTo: 10_000, flatUsd: 100, perPageUsd: 0 },
+  { upTo: null, flatUsd: 0, perPageUsd: 0.01 },
 ];
 
 /** Monthly access plus graduated usage, excluding tax. */
@@ -208,82 +215,52 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     ctaHref: "/try/docintel/",
   },
   {
-    id: "docintel-builder",
-    name: "DocIntel Builder",
-    price: "$79",
-    priceAnnual: "$65",
+    id: "cloud",
+    name: "DocIntel Cloud",
+    price: `$${DOCINTEL_CLOUD_BANDS[0].flatUsd}`,
     priceUnit: "/mo",
-    quota: "10,000 docs/mo",
-    seats: "2 parallel workers · 13 MCP tools",
+    quota: "10,000 pages/month included",
+    seats: "Account subscription · Project API keys",
     tagline:
-      "For indie developers and startups: 10,000 documents/month, 2 workers, all 70+ formats & 75+ languages, OCR + table + LPG/RDF entity extraction, and BYO LLM.",
-    cta: "Start DocIntel Builder →",
-    ctaHref: "/checkout/create-session/?plan=docintel-builder&billing=monthly",
-    badge: "Indie & Startups",
+      "Hosted document processing: $100/month includes 10,000 pages, then $0.01 per additional page. Included pages reset each billing month and do not roll over. Manage billing in the signed-in DocIntel workspace.",
+    cta: "Open DocIntel workspace",
+    ctaHref: `/checkout/create-session/?plan=${DOCINTEL_CLOUD_PLAN}`,
+    badge: "Managed Cloud",
   },
   {
-    id: "docintel-production",
-    name: "DocIntel Production",
-    price: "$299",
-    priceAnnual: "$249",
-    priceUnit: "/mo",
-    quota: "Unlimited docs",
-    seats: "Unlimited workers · All connectors",
+    id: "prepaid",
+    name: "Pay as you go",
+    price: "$0.015",
+    priceUnit: "/page",
+    quota: "Prepaid balance required",
+    seats: "No monthly access fee",
     tagline:
-      "For production document pipelines: unlimited documents & workers, SharePoint, Confluence, S3 & Webhook connectors, domain extraction profiles (AEC, Legal, Financial, Scientific), and production support.",
-    cta: "Start DocIntel Production →",
-    ctaHref: "/checkout/create-session/?plan=docintel-production&billing=monthly",
-    highlight: true,
-    badge: "Most Popular",
-  },
-  {
-    id: "docintel-growth",
-    name: "DocIntel Growth",
-    price: "$799",
-    priceAnnual: "$665",
-    priceUnit: "/mo",
-    quota: "Unlimited docs",
-    seats: "Multi-tenant · SSO & Custom Adapters",
-    tagline:
-      "For scaling organizations: unlimited documents & workers, OIDC/SAML SSO, custom domain ontologies & connectors, and priority engineering support.",
-    cta: "Start DocIntel Growth →",
-    ctaHref: "/checkout/create-session/?plan=docintel-growth&billing=monthly",
-    badge: "Multi-Tenant & SSO",
+      "Sign in to buy page credits: 1,000 for $15, 5,000 for $75, or 10,000 for $150. Processing requires sufficient prepaid credit.",
+    cta: "Sign in to add credits",
+    ctaHref: "https://docintel.purple8.ai/try?view=billing",
+    badge: "Prepaid",
   },
   {
     id: "enterprise",
-    name: "Enterprise / BYOC (VPC & Air-Gapped)",
-    price: "Contact Us",
+    name: "Enterprise / BYOC (Self-Hosted)",
+    price: "Custom",
     quota: "Custom / Unlimited",
     seats: "Unlimited workers",
     tagline:
-      "Deploy DocIntel in your own VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network. Auto-commits entities, relationships, and chunks into Purple8 Hyper Graph with 24×7 Severity-1 SLA support.",
-    cta: "Contact Us",
+      "Deploy DocIntel in your own VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network. Use extracted data independently or connect Purple8 Hyper Graph as an optional destination. Includes 24×7 Severity-1 SLA support.",
+    cta: "Talk to us",
     ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20Inquiry",
     badge: "VPC · On-Prem · Air-Gapped",
   },
 ];
 
-export const DOCINTEL_PURCHASABLE_PLANS: ReadonlySet<string> = new Set<string>([
-  "docintel-builder",
-  "docintel-production",
-  "docintel-growth",
-]);
+export const DOCINTEL_PURCHASABLE_PLANS: ReadonlySet<string> = new Set<string>();
 
 /**
- * Every plan ID that the pricing UI can POST to /checkout/create-session.
- * Derived from the shared tier definitions so the checkout bootstrap route
- * can never drift from the offered tiers (see issue #3):
- *   - Graph tiers with a real positive price (excludes free Developer and
- *     contact-sales Enterprise).
- *   - DocIntel self-serve plans + DocIntel Cloud (metered, monthly only).
+ * Account-bound DocIntel Cloud billing is the only public paid entry point.
+ * Graph Cloud is in preview. Self-hosted and Enterprise are sales-assisted.
  */
 export const PURCHASABLE_PLAN_IDS: ReadonlySet<string> = new Set<string>([
-  ...GRAPH_TIERS.filter(
-    (t) => typeof t.priceMonthly === "number" && t.priceMonthly > 0,
-  ).map((t) => t.id),
-  ...DOCINTEL_PURCHASABLE_PLANS,
-  "cloud-saas",
   DOCINTEL_CLOUD_PLAN,
 ]);
 
@@ -437,11 +414,11 @@ export function recommendTier(input: CalculatorInput): CalculatorResult {
     return { tier, estimatedNodes, useCase, reason };
   }
 
-  // Governance (SSO/RBAC/audit/PII) → Growth ($499/mo) up to 5M nodes, or Enterprise beyond 5M.
+  // Governance (SSO/RBAC/audit/PII) → Growth ($699/mo) up to 5M nodes, or Enterprise beyond 5M.
   if (input.needsGovernance) {
     if (estimatedNodes <= 5_000_000) {
       tier = tierById("growth");
-      reason = "OIDC/SSO, multi-tenant RBAC, and Cloud KMS are included starting in Growth ($499/mo).";
+      reason = "Growth is a planned Cloud offer. Confirm SSO, RBAC, and key-management requirements with us before deployment.";
     } else {
       tier = tierById("enterprise");
       reason = "Beyond 5M nodes with SSO, audit logs, and regulated-data controls, use Enterprise / BYOC.";

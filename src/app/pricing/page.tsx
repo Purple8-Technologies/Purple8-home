@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Pricing - Purple8 Hyper Graph & Purple8 DocIntel",
   description:
-    "Transparent monthly and annual pricing for Purple8 Hyper Graph (Free Playground $0, Builder $39/mo, Production $149/mo, Growth $499/mo, Enterprise BYOC) and Purple8 DocIntel (Free Sandbox $0, Builder $79/mo, Production $299/mo, Growth $599/mo, Enterprise).",
+    "Explore Purple8 Hyper Graph Cloud preview and DocIntel Cloud. Start in the free playground. Self-hosted and Enterprise: talk to us.",
   path: "/pricing",
 });
 
@@ -20,14 +20,13 @@ export default function PricingPage() {
             Pricing &amp; Editions
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
-            Start in the Free Playground. Scale by Capacity &amp; Operational Guarantees.
+            Start in the Free Playground. Choose Cloud or Talk to Us.
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-[var(--p8-muted)]">
-            Two independent products, each available with flexible{" "}
-            <strong className="text-[var(--p8-fg)]">Monthly or Annual (Save ~17%)</strong>{" "}
-            subscriptions on <strong className="text-[var(--p8-fg)]">Purple8 Cloud</strong>{" "}
-            (zero infrastructure to manage) or <strong className="text-[var(--p8-fg)]">Self-Hosted / BYOC</strong>{" "}
-            (in your own VPC, Red Hat OpenShift, or air-gapped network). We never meter or restrict by MCP agent connections - every tier includes all {F.mcpTools} Hyper Graph MCP tools (or 13 DocIntel MCP tools).
+            Two independent products. Graph Cloud paid plans are in preview;
+            DocIntel Cloud subscriptions are managed in your signed-in workspace.
+            For <strong className="text-[var(--p8-fg)]">Self-Hosted / Enterprise</strong>,
+            talk to us about deployment, licensing, and support. Explore all {F.mcpTools} Hyper Graph MCP tools in the free playground.
           </p>
         </div>
 

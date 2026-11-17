@@ -175,7 +175,7 @@ curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant`}
               href="/pricing/"
               className="rounded-full border border-purple-500 px-5 py-2 text-xs font-semibold text-purple-300 hover:bg-purple-950/50"
             >
-              Upgrade to Builder ($39/mo) or Production ($149/mo HA) →
+              Explore Micro through Pro Cloud tiers →
             </Link>
             <a
               href="/mcp-tools.json"
@@ -571,7 +571,7 @@ curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant`}
             <div>• Journey Engine (workflows, SLA, HITL, audit)</div>
             <div>• LCNC admin console</div>
             <div>• AES-256-GCM encryption at rest</div>
-            <div>• 50K nodes, 1 MCP agent (free tier)</div>
+            <div>• 50K nodes, 200K edges, no tenant-count cap</div>
             <div>• Perpetual license - no expiry</div>
           </div>
         </section>

@@ -16,15 +16,30 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Commercial entry points
+
+Self-hosted and Enterprise use **Talk to us**, not public checkout. Historical
+fixed DocIntel links are no longer purchasable; existing subscription fulfillment
+and key retrieval remain supported. Graph Cloud prices are explicitly proposed,
+with paid activation blocked until hosted fulfillment and runtime-tier gates are
+validated. A portable self-hosted key never grants playground or hosted access.
+
 ## DocIntel Cloud checkout rehearsal
 
 DocIntel Cloud subscriptions use `docintel-graduated`: a monthly access item plus
-graduated metered pages. New purchases require the signed-in DocIntel workspace,
+graduated metered pages: $100/month includes 10,000 pages, then $0.01 per
+additional page. Included pages reset each billing month without rollover.
+The usage price lookup key is `docintel_graduated_pages_monthly_v2`; existing
+subscriptions retain their original price. New purchases require the signed-in DocIntel workspace,
 with one subscription covering all projects in the account. Legacy Cloud
 checkout links direct customers to that workspace without creating a session.
 Stripe is the pricing source of truth; the display and
 estimator in `src/lib/pricing.ts` must match its configured prices. The prepaid
 usage-only option has no activation CTA until its balance gate is implemented.
+The public pricing cards show the evaluation sandbox, monthly Cloud subscription,
+prepaid PAYG at $0.015/page (not yet available), and custom Enterprise deployment.
+Legacy Builder, Production and Growth DocIntel licenses are not offered for new
+public checkout.
 
 The checkout success page uses the fulfilled product returned by Command
 Center, not a query parameter, to distinguish Cloud API access from self-hosted
@@ -40,7 +55,7 @@ Your account, Connections, API keys & access, and Usage & billing.
 `/try/docintel/` now explains the same sign-in -> upload -> review journey instead
 of collecting an email and sending a sandbox key. Existing emailed keys still
 work through the secondary key-connection link.
-Hyper Graph's start paths are unchanged. `NEXT_PUBLIC_DOCINTEL_WORKSPACE_URL`
+Hyper Graph's paid start paths request Cloud access rather than payment. `NEXT_PUBLIC_DOCINTEL_WORKSPACE_URL`
 can select the rehearsal endpoint at build time; it defaults to
 `https://docintel.purple8.ai/try`. Do not point a rehearsal at production processing.
 Both current `docintel-graduated` and legacy `docintel-payg` checkout links lead

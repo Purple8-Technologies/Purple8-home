@@ -249,7 +249,7 @@ It is as important to be clear about what Purple8 is not as what it is.
 | A LangChain replacement | LangChain orchestrates LLM calls. Purple8 is the persistent substrate LangChain chains talk to. |
 | An AI agent | Purple8 is what agents operate on, not an agent itself. |
 | A no-code tool | The LCNC console is governance UI. Purple8's "no-code" interface is the MCP server — AI agents call it in natural language. |
-| A cloud service | Purple8 runs in your infrastructure. No data leaves unless you choose to connect an external LLM. |
+| A cloud-only service | Cloud and self-hosted/BYOC deployments are separate choices. |
 
 ---
 
@@ -261,26 +261,29 @@ Each product is available independently or together. No forced bundling.
 
 | Tier | Price | Limits |
 |---|---|---|
-| **Developer** | Free | 50K nodes · 1 MCP agent · local only · full Journey Engine (HITL · SLA) for evaluation |
-| **Starter** | $1,199/mo · $999/mo annual | 5M nodes · 3 MCP agents · production scale · agentic/late-chunking RAG · local KMS · lineage · backup |
-| **Pro** | $6,999/mo · $5,832/mo annual | 50M nodes · 10 MCP agents · SSO · AEC · SOC · CDC · cloud backup |
-| **Enterprise** | Custom | Unlimited · Raft HA · sharding · federation · managed KMS · dedicated support |
+| **Developer** | Free | Cloud sandbox or local evaluation |
+| **Builder** | Proposed Cloud pricing | Development and smaller applications |
+| **Production** | Proposed Cloud pricing | Customer-facing applications |
+| **Growth** | Proposed Cloud pricing | Scaling applications |
+| **Enterprise / BYOC** | Custom | Sovereign and self-hosted deployments; talk to us |
 
 **Purple8 DocIntel**
 
 | Tier | Price | Limits |
 |---|---|---|
-| **Beta** | Free | 500 docs/mo · 1 worker · webhook · Tesseract + P8OCR |
-| **Self-Hosted** | $299/mo | Unlimited docs · All connectors · All OCR · All LLMs |
-| **Enterprise** | Custom | Self-Hosted + SSO/SAML · Air-gapped · Custom connectors |
+| **Cloud Sandbox** | Free | Evaluate document intelligence in the browser or via MCP |
+| **DocIntel Cloud** | See [current Cloud pricing](./src/lib/pricing.ts) | Hosted subscription or prepaid usage |
+| **Enterprise / BYOC (Self-Hosted)** | Custom | VPC, on-premise or air-gapped deployment; talk to us |
 
-Self-hosted. One license key per product. No usage metering. No data leaving your environment. No per-seat fees. No per-document charges.
+Graph and DocIntel are independent products. Enterprise/BYOC terms are agreed
+per contract; DocIntel Cloud billing is separate from self-hosted licensing.
 
 **The adoption argument:**
 Start with one. Add the other when you need it. You are never locked into the full stack on day one — but the full stack is always one port number away.
 
 **The pricing argument:**
-> The 12 services Purple8 replaces cost more than $1,199/month to run, before a single engineer's time is counted. DocIntel at $299/month is the same argument for document intelligence alone.
+> Choose the product and deployment model that fits the workload. Contact us
+> for Enterprise/BYOC pricing; neither product requires the other.
 
 ---
 
