@@ -162,6 +162,49 @@ export default function DocIntelApiPage() {
         </div>
       </section>
 
+      {/* Bring your own */}
+      <section className="border-t border-[var(--p8-border)]">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+          <h2 className="text-center text-3xl font-bold tracking-tight">Bring your own</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-[var(--p8-muted)]">
+            Every job can carry its own extraction schema, OCR engine, and LLM — per request, no account-level
+            configuration, no model training.
+          </p>
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            <div className="flex flex-col rounded-2xl border border-[var(--p8-border)] bg-[var(--p8-surface)] p-7">
+              <h3 className="text-xl font-semibold">Custom ontology</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--p8-muted)]">
+                Send an <code className="text-xs">ontology</code> form field with your own entity and relationship
+                types. Extraction runs zero-shot against your labels and descriptions — no training required.
+              </p>
+              <pre className="mt-4 flex-1 overflow-x-auto rounded-xl border border-[var(--p8-border)] bg-[var(--p8-bg)] p-3 text-left text-xs leading-relaxed"><code>{`-F 'ontology={"entity_types":
+  [{"name":"Vessel","description":
+    "A named cargo ship"}]}'`}</code></pre>
+            </div>
+            <div className="flex flex-col rounded-2xl border border-[var(--p8-border)] bg-[var(--p8-surface)] p-7">
+              <h3 className="text-xl font-semibold">Your OCR engine</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--p8-muted)]">
+                Route a single job to Azure, Google, or AWS OCR with <code className="text-xs">X-OCR-*</code> headers —
+                handwriting (personal cheques, field notes) needs it. Keys are used for that job only, never stored.
+              </p>
+              <pre className="mt-4 flex-1 overflow-x-auto rounded-xl border border-[var(--p8-border)] bg-[var(--p8-bg)] p-3 text-left text-xs leading-relaxed"><code>{`-H "X-OCR-Engine: azure"
+-H "X-OCR-Azure-Endpoint: https://…"
+-H "X-OCR-Api-Key: $AZURE_KEY"`}</code></pre>
+            </div>
+            <div className="flex flex-col rounded-2xl border border-[var(--p8-border)] bg-[var(--p8-surface)] p-7">
+              <h3 className="text-xl font-semibold">Your LLM</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--p8-muted)]">
+                Run the relationship pass on your own model and key with <code className="text-xs">X-LLM-*</code> headers —
+                OpenAI, Anthropic, Google, Azure OpenAI, or AWS Bedrock.
+              </p>
+              <pre className="mt-4 flex-1 overflow-x-auto rounded-xl border border-[var(--p8-border)] bg-[var(--p8-bg)] p-3 text-left text-xs leading-relaxed"><code>{`-H "X-LLM-Provider: anthropic"
+-H "X-LLM-Model: claude-sonnet-4"
+-H "X-LLM-Api-Key: $KEY"`}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section className="border-t border-[var(--p8-border)]">
         <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">

@@ -87,6 +87,9 @@ test("exported DocIntel API page documents real endpoints and canonical pricing"
   assert.match(html, /\$100\/mo/);
   assert.match(html, /10,000 pages\/month included, then \$0\.01 per additional page/);
   assert.match(html, /\$0\.015\/page/);
+  assert.match(html, /Custom ontology/);
+  assert.match(html, /X-OCR-Engine/);
+  assert.match(html, /no training required/);
   assert.doesNotMatch(html, /DocIntel Builder|DocIntel Production|DocIntel Growth|\$79|\$299|\$599/);
 });
 
