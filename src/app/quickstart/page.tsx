@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Install Purple8 - Docker Quickstart",
   description:
-    "Install Purple8 Hyper Graph in one command. The one-click script installs Docker if needed, pulls the Developer image, starts the container, and opens the admin console. Manual Docker steps included.",
+    "Install Purple8 AI Engine in one command. The one-click script installs Docker if needed, pulls the Developer image, starts the container, and opens the admin console. Manual Docker steps included.",
   path: "/quickstart",
 });
 
@@ -129,7 +129,7 @@ export default function QuickstartPage() {
             Start Building with Purple8 in 10 Seconds
           </h1>
           <p className="mt-3 text-gray-400">
-            Purple8 Hyper Graph is your entire application backend in one engine - graph,
+            Purple8 AI Engine is your entire application backend in one engine - graph,
             vector, relational tables, document &amp; full-text storage, a built-in RAG pipeline, a{" "}
             {F.mcpTools}-tool MCP server, stateful workflows, auth, and encryption. Connect immediately
             to the <strong className="text-white">Zero-Install Cloud Sandbox ($0)</strong>, launch in production on{" "}
@@ -158,10 +158,10 @@ export default function QuickstartPage() {
             </p>
             <CommandBlock
               code={`# Connect Claude Code directly to the hosted Cloud Sandbox (auto-isolated tenant):
-claude mcp add purple8 --transport http "https://purple8-graph-sandbox.fly.dev/mcp?profile=starter"
+claude mcp add purple8 --transport http "https://core.purple8.ai/mcp?profile=starter"
 
 # Or mint a dedicated 30-day sandbox API key (p8g_...) in <50ms with zero email wait:
-curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant`}
+curl -s -X POST https://core.purple8.ai/sandbox/instant`}
             />
           </div>
           <div className="mt-5 flex flex-wrap gap-3">
@@ -656,7 +656,7 @@ curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant`}
               https://docs.graph.purple8.ai/guides/mcp
             </a>
             , or query the live Cloud Sandbox immediately at{" "}
-            <code className="text-purple-200">https://purple8-graph-sandbox.fly.dev/mcp?profile=starter</code>{" "}
+            <code className="text-purple-200">https://core.purple8.ai/mcp?profile=starter</code>{" "}
             (zero API key required for <code className="text-purple-200">initialize</code>,{" "}
             <code className="text-purple-200">tools/list</code>, and auto-isolated sandbox{" "}
             <code className="text-purple-200">tools/call</code>).
@@ -730,7 +730,7 @@ curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant`}
           <p className="text-sm text-gray-400">
             Evaluate in the Cloud Sandbox:{" "}
             <Link href="/try/graph/" className="text-purple-400 underline">
-              Try Hyper Graph
+              Try AI Engine
             </Link>{" "}
             ·{" "}
             <Link href="/try/docintel/" className="text-purple-400 underline">

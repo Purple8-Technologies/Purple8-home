@@ -8,7 +8,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://purple8-graph-sandbox.fly.dev/mcp?profile=starter",
+      "url": "https://core.purple8.ai/mcp?profile=starter",
       "headers": [
         {
           "name": "X-API-Key",
@@ -20,7 +20,7 @@
     },
     {
       "type": "sse",
-      "url": "https://purple8-graph-sandbox.fly.dev/mcp/sse?profile=starter",
+      "url": "https://core.purple8.ai/mcp/sse?profile=starter",
       "headers": [
         {
           "name": "X-API-Key",

@@ -4,17 +4,17 @@ import { useState } from "react";
 import { CC_BASE_URL } from "@/lib/cc";
 import { ClassicShell } from "@/components/revamp/BrandShell";
 
-const SANDBOX_URL = "https://purple8-graph-sandbox.fly.dev/sandbox/start";
+const SANDBOX_URL = "https://core.purple8.ai/sandbox/start";
 
 const dataPoints = [
   "Sandbox data lives in your own isolated tenant and is deleted after 30 days.",
   "Only you (and the AI agents you connect with your key) can see your graph.",
   "Limits: ~500 queries and 50 RAG answers per day, 10K nodes / 100K edges.",
-  "Please don't upload sensitive or personal data. For real data, use self-hosted Hyper Graph.",
+  "Please don't upload sensitive or personal data. For real data, use self-hosted AI Engine.",
 ];
 
 /**
- * Hosted Hyper Graph sandbox - self-serve key request.
+ * Hosted AI Engine sandbox - self-serve key request.
  *
  * The key is only ever emailed (never shown here), so receiving it proves the
  * person owns the inbox. The response is the same for new, existing and
@@ -78,11 +78,11 @@ export default function TryHyperGraphPage() {
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Back to Hyper Graph
+          Back to AI Engine
         </a>
 
         <h1 className="text-3xl font-bold text-white sm:text-4xl">
-          Try Hyper Graph in your browser
+          Try AI Engine in your browser
         </h1>
         <p className="mt-3 text-gray-400">
           Connect your AI agent (Claude, Cursor, VS Code) over MCP and build your backend
@@ -106,13 +106,13 @@ export default function TryHyperGraphPage() {
           </p>
           <pre className="mt-3 overflow-x-auto rounded-lg border border-gray-800 bg-black px-4 py-3 text-xs text-purple-200">
             <code>{`# 1. Connect any MCP client immediately (auto-isolated sandbox tenant):
-https://purple8-graph-sandbox.fly.dev/mcp?profile=starter
+https://core.purple8.ai/mcp?profile=starter
 
 # 2. Or mint a dedicated 30-day sandbox API key via REST in <50ms:
-curl -s -X POST https://purple8-graph-sandbox.fly.dev/sandbox/instant
+curl -s -X POST https://core.purple8.ai/sandbox/instant
 
 # 3. Ready for Production? Export your entire schema + workflows in 1 call:
-curl -s https://purple8-graph-sandbox.fly.dev/sandbox/blueprint -H "X-API-Key: <key>" > blueprint.json`}</code>
+curl -s https://core.purple8.ai/sandbox/blueprint -H "X-API-Key: <key>" > blueprint.json`}</code>
           </pre>
         </div>
 

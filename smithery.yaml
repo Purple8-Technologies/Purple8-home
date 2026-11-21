@@ -1,4 +1,4 @@
-# Smithery.ai MCP Server Configuration for Purple8 Hyper Graph
+# Smithery.ai MCP Server Configuration for Purple8 AI Engine
 startCommand:
   type: stdio
   configSchema:
@@ -9,8 +9,8 @@ startCommand:
       url:
         type: string
         title: Purple8 Server URL
-        description: Base URL of your Purple8 Hyper Graph instance or Cloud Sandbox.
-        default: https://purple8-graph-sandbox.fly.dev
+        description: Base URL of your Purple8 AI Engine instance or Cloud Sandbox.
+        default: https://core.purple8.ai
       apiKey:
         type: string
         title: Purple8 API / Sandbox Key
@@ -32,7 +32,7 @@ startCommand:
         '-m',
         'purple8_graph.mcp_server',
         '--url',
-        config.url || 'https://purple8-graph-sandbox.fly.dev',
+        config.url || 'https://core.purple8.ai',
         '--api-key',
         config.apiKey,
         '--profile',

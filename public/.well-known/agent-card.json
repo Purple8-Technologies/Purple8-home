@@ -1,9 +1,9 @@
 {
-  "name": "Purple8 Hyper Graph",
+  "name": "Purple8 AI Engine",
   "description": "AI-native complete backend infrastructure: Unified LPG + RDF + Hypergraph, vector search, structured tables, hybrid RAG, stateful workflows (SLAs + HITL), AEC/BIM engineering, SOC & SuperGraph, event automation, and cryptographic governance in one process. Send a question as text or name a skill to call any of the 176 tools.",
   "supportedInterfaces": [
     {
-      "url": "https://purple8-graph-sandbox.fly.dev/a2a",
+      "url": "https://core.purple8.ai/a2a",
       "protocolBinding": "JSONRPC",
       "protocolVersion": "1.0"
     }

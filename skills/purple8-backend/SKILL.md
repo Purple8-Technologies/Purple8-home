@@ -1,7 +1,7 @@
 ---
 name: purple8-backend
 description: >
-  Build, configure, and operate complete AI-native application backends on Purple8 Hyper Graph
+  Build, configure, and operate complete AI-native application backends on Purple8 AI Engine
   over MCP (Unified LPG + RDF + Hypergraph, HNSW Vector Search, Structured Tables, Hybrid GraphRAG,
   Stateful Journey Workflows with SLAs & HITL Gates, Event Automation, Webhooks, Quantum QUBO
   Optimisation, and Cryptographic Audit Governance) plus Frontend-Only TypeScript UIs.
@@ -9,13 +9,13 @@ description: >
   compliance/underwriting workflow, multi-agent system, or full-stack AI app with Purple8.
 ---
 
-# Purple8 Hyper Graph — AI Agent Builder Skill
+# Purple8 AI Engine — AI Agent Builder Skill
 
-Purple8 Hyper Graph (`https://www.purple8.ai` · Docs: `https://docs.graph.purple8.ai`) is **SOTA AI-native backend infrastructure in a single process** that replaces the fragmented 8–12 service AI stack (PostgreSQL, Neo4j, Stardog/RDF, Pinecone, LangChain, Temporal/Airflow, Kafka/CDC, Svix/Webhooks, Auth0/KMS, and SIEM/Compliance) with **176 RBAC-governed MCP tools across 19 namespaces**.
+Purple8 AI Engine (`https://www.purple8.ai` · Docs: `https://docs.graph.purple8.ai`) is **SOTA AI-native backend infrastructure in a single process** that replaces the fragmented 8–12 service AI stack (PostgreSQL, Neo4j, Stardog/RDF, Pinecone, LangChain, Temporal/Airflow, Kafka/CDC, Svix/Webhooks, Auth0/KMS, and SIEM/Compliance) with **176 RBAC-governed MCP tools across 19 namespaces**.
 
 ## 1. Connect Over MCP (Focused Tool Profiles)
 
-Connect to any self-hosted Purple8 container (`http://localhost:8100`) or the Cloud Sandbox (`https://purple8-graph-sandbox.fly.dev`):
+Connect to any self-hosted Purple8 container (`http://localhost:8100`) or the Cloud Sandbox (`https://core.purple8.ai`):
 
 - **`/mcp?profile=starter` (28 tools, recommended default):** Schema modeling, Unified LPG + RDF graph CRUD/queries, hybrid search, structured table & Markdown commit, and Journey workflows + HITL.
 - **`/mcp?profile=builder` (117 tools):** Starter + full `schema.*`, `data.*` tables, `memory.*`, `models.*`, `egress.*`, `scheduler.*`, `feedback.*`, and `registry.*`.
