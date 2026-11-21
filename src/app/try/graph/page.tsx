@@ -219,6 +219,9 @@ curl -s https://core.purple8.ai/sandbox/blueprint -H "X-API-Key: <key>" > bluepr
               Already have a key?{" "}
               <a href={SANDBOX_URL} className="text-purple-400 underline">Open the sandbox</a>
               {" · "}
+              Lost your key?{" "}
+              <a href="/account/" className="text-purple-400 underline">Retrieve it</a>
+              {" · "}
               Want it on your own machine?{" "}
               <a href="mailto:hello@purple8.ai?subject=Self-hosted%20Hyper%20Graph" className="text-purple-400 underline">Self-host</a>
             </p>
