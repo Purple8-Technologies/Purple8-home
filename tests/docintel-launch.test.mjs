@@ -39,11 +39,13 @@ test("monthly access and graduated usage match the published bill at boundaries"
 
 test("exported pricing advertises the hosted included-page contract", () => {
   const html = readFileSync(new URL("out/pricing/index.html", root), "utf8");
-  assert.match(html, /\$100\/month includes 10,000 pages/);
-  assert.match(html, /\$0\.01 per additional page/);
-  assert.match(html, /Included pages reset each billing month/);
+  assert.match(html, /\$100\/month includes 10,000 credits/);
+  assert.match(html, /\$0\.01 per additional credit/);
+  assert.match(html, /Credits reset each billing month/);
   assert.match(html, /\$0\.015/);
-  assert.match(html, /Sign in to buy page credits/);
+  assert.match(html, /Fast 0\.1 credit\/page/);
+  assert.match(html, /Precise 6 credits\/page/);
+  assert.match(html, /Sign in to buy credits/);
   assert.match(html, /href="https:\/\/docintel\.purple8\.ai\/try\?view=billing"[^>]*>Sign in to add credits<\/a>/);
   assert.doesNotMatch(html, /Prepaid billing is not yet available|<button disabled=""[^>]*>Not yet available<\/button>/);
   const docintel = html.split('id="docintel"')[1].split("</main>")[0];
@@ -85,8 +87,8 @@ test("exported DocIntel API page documents real endpoints and canonical pricing"
   assert.match(html, /docintel\.purple8\.ai\/docs/);
   assert.match(html, /view=api/);
   assert.match(html, /\$100\/mo/);
-  assert.match(html, /10,000 pages\/month included, then \$0\.01 per additional page/);
-  assert.match(html, /\$0\.015\/page/);
+  assert.match(html, /10,000 credits\/month included, then \$0\.01 per additional credit/);
+  assert.match(html, /\$0\.015\/credit/);
   assert.match(html, /Custom ontology/);
   assert.match(html, /X-OCR-Engine/);
   assert.match(html, /no training required/);
