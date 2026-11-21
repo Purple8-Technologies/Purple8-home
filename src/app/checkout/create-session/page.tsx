@@ -15,10 +15,20 @@ function CheckoutCreateSessionContent() {
   const sessionRequest = useRef<{
     plan: string;
     billing: BillingCycle;
+    registrationId: string;
+    environmentLabel: string;
     checkoutUrl: Promise<string>;
   } | null>(null);
 
   const plan = useMemo(() => checkoutPlan(params.get("plan") || ""), [params]);
+  const registrationId = useMemo(
+    () => (params.get("registration_id") || "").trim(),
+    [params],
+  );
+  const environmentLabel = useMemo(
+    () => (params.get("environment") || params.get("environment_label") || "Production").trim(),
+    [params],
+  );
 
   const billing = useMemo<BillingCycle>(() => {
     const raw = (params.get("billing") || "monthly").trim().toLowerCase();
@@ -35,7 +45,12 @@ function CheckoutCreateSessionContent() {
     }
     let cancelled = false;
     setError("");
-    if (sessionRequest.current?.plan !== plan || sessionRequest.current.billing !== billing) {
+    if (
+      sessionRequest.current?.plan !== plan ||
+      sessionRequest.current.billing !== billing ||
+      sessionRequest.current.registrationId !== registrationId ||
+      sessionRequest.current.environmentLabel !== environmentLabel
+    ) {
       // Reuse the in-flight request when React replays this effect.
       const checkoutUrl = (async () => {
         const res = await fetch(`${CC_BASE_URL}/billing/checkout/create-session`, {
@@ -44,6 +59,9 @@ function CheckoutCreateSessionContent() {
           body: JSON.stringify({
             plan, billing,
             theme: document.documentElement.dataset.p8Theme === "night" ? "night" : "day",
+            registration_id: registrationId,
+            environment_label: environmentLabel,
+            deployment_model: "shared-saas",
           }),
         });
 
@@ -67,7 +85,13 @@ function CheckoutCreateSessionContent() {
 
         return checkoutUrl;
       })();
-      sessionRequest.current = { plan, billing, checkoutUrl };
+      sessionRequest.current = {
+        plan,
+        billing,
+        registrationId,
+        environmentLabel,
+        checkoutUrl,
+      };
     }
     sessionRequest.current.checkoutUrl.then((url) => {
       if (!cancelled) window.location.assign(url);
@@ -81,7 +105,7 @@ function CheckoutCreateSessionContent() {
       }
     });
     return () => { cancelled = true; };
-  }, [plan, billing]);
+  }, [plan, billing, registrationId, environmentLabel]);
 
   if (plan === DOCINTEL_CLOUD_PLAN) {
     return (

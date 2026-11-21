@@ -3,11 +3,15 @@ import BrandShell from "@/components/revamp/BrandShell";
 import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
-import { DOCINTEL_CLOUD_BANDS } from "@/lib/pricing";
+import {
+  DOCINTEL_ACCESS_USD,
+  DOCINTEL_CREDIT_OVERAGE_USD,
+  DOCINTEL_INCLUDED_CREDITS,
+} from "@/lib/pricing";
 
-const INCLUDED_PAGES = DOCINTEL_CLOUD_BANDS[0].upTo ?? 10_000;
-const ACCESS_USD = DOCINTEL_CLOUD_BANDS[0].flatUsd;
-const OVERAGE_USD = DOCINTEL_CLOUD_BANDS[1].perPageUsd;
+const INCLUDED_PAGES = DOCINTEL_INCLUDED_CREDITS;
+const ACCESS_USD = DOCINTEL_ACCESS_USD;
+const OVERAGE_USD = DOCINTEL_CREDIT_OVERAGE_USD;
 
 export const metadata: Metadata = pageMetadata({
   title: "DocIntel API: document processing & entity extraction API",
@@ -65,7 +69,7 @@ const endpoints = [
   { method: "GET", path: "/jobs/{id}/stream", what: "Live progress over Server-Sent Events" },
   { method: "GET", path: "/jobs/{id}/markdown", what: "Structure-aware markdown rendition" },
   { method: "GET", path: "/jobs/{id}/entities", what: "Extracted entities for the job" },
-  { method: "POST", path: "/jobs/{id}/send-to-graph", what: "Commit results into a Purple8 Hyper Graph" },
+  { method: "POST", path: "/jobs/{id}/send-to-graph", what: "Commit results into a Purple8 AI Engine" },
   { method: "MCP", path: "/mcp", what: "Same capabilities as MCP tools for AI agents" },
 ];
 
@@ -78,12 +82,12 @@ const plans = [
   {
     name: "DocIntel Cloud",
     price: `$${ACCESS_USD}/mo`,
-    detail: `${INCLUDED_PAGES.toLocaleString("en-US")} pages/month included, then $${OVERAGE_USD.toFixed(2)} per additional page. Project API keys for team integrations. Only finished jobs are billed.`,
+    detail: `${INCLUDED_PAGES.toLocaleString("en-US")} credits/month included, then $${OVERAGE_USD.toFixed(2)} per additional credit. Quality is a per-job choice: Fast 0.1 credit/page, Balanced 1 credit/page (default), Precise 6 credits/page. Project API keys for team integrations. Only finished jobs are billed.`,
   },
   {
     name: "Pay as you go",
-    price: "$0.015/page",
-    detail: "Prepaid page credits, no monthly access fee. Top up any amount from $5 \u2014 most buyers start with 1,000 pages for $15. Processing draws down the balance.",
+    price: "$0.015/credit",
+    detail: "Prepaid credits, no monthly access fee. Top up any amount from $5. Fast $0.0015/page, Balanced $0.015/page, Precise $0.09/page. Processing draws down the balance.",
   },
 ];
 
@@ -210,7 +214,7 @@ export default function DocIntelApiPage() {
         <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
           <h2 className="text-center text-3xl font-bold tracking-tight">API pricing</h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-[var(--p8-muted)]">
-            Billed per page of processed output. Failed, cancelled and timed-out jobs cost nothing.
+            Billed in credits per page of processed output, weighted by the quality you pick per job. Failed, cancelled and timed-out jobs cost nothing.
           </p>
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {plans.map((p) => (

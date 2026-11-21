@@ -59,7 +59,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: null,
     family: "free",
     tagline:
-      "Evaluate Purple8 Hyper Graph immediately in the Cloud Sandbox (or locally via Docker up to 50K nodes) - all 176 MCP tools, unlimited MCP agent connections, LPG + RDF + Vector + Tables + Journey workflows.",
+      "Evaluate Purple8 AI Engine immediately in the Cloud Sandbox (or locally via Docker up to 50K nodes) - all 176 MCP tools, unlimited MCP agent connections, LPG + RDF + Vector + Tables + Journey workflows.",
     cta: "Try Cloud Sandbox",
   },
   {
@@ -89,21 +89,21 @@ export const GRAPH_TIERS: GraphTier[] = [
       "For customer-facing production applications: up to 1,000,000 nodes, automated daily cloud backups & restore, High Availability (SYNC replication), health/SLA monitoring, and production support.",
     cta: "Start Production →",
     highlight: true,
-    badge: "Most Popular · HA & Backups",
+    badge: "Most Popular",
   },
   {
     id: "growth",
     name: "Growth",
-    priceMonthly: 499,
-    priceAnnual: 415,
+    priceMonthly: 599,
+    priceAnnual: 499,
     nodes: 5_000_000,
     nodesLabel: "5M nodes",
     agents: null,
     family: "cloud",
     tagline:
-      "For scaling SaaS products, multi-tenant apps, and agencies: up to 5,000,000 nodes, multi-tenant RBAC & team controls, OIDC / SSO, Cloud KMS integration, and priority support.",
+      "For scaling SaaS products, multi-tenant apps, and agencies: up to 5,000,000 nodes at full in-memory performance - same complete feature set as every tier, with priority support.",
     cta: "Start Growth →",
-    badge: "Multi-Tenant & SSO",
+    badge: "5M Nodes · Priority Support",
   },
   {
     id: "enterprise",
@@ -115,7 +115,7 @@ export const GRAPH_TIERS: GraphTier[] = [
     agents: null,
     family: "enterprise",
     tagline:
-      "Annual software licensing for sovereign VPC, on-premise, Red Hat OpenShift (UBI9), air-gapped, and OEM deployments - unlimited nodes (20M+/shard), OIDC/SAML SSO, Vault/AWS/GCP/Azure KMS, Raft HA, Supergraph, Autonomous SOC, Legal Holds, and 24×7 Severity-1 SLA.",
+      "Annual software licensing for sovereign VPC, on-premise, Red Hat OpenShift (UBI9), air-gapped, and OEM deployments - same full feature set as every tier (SSO, KMS, Raft HA, Supergraph, Autonomous SOC, Legal Holds), at custom capacity (20M+ nodes/shard) with a 24×7 Severity-1 SLA.",
     cta: "Contact Us",
     badge: "VPC · On-Prem · Air-Gapped",
   },
@@ -163,37 +163,88 @@ export interface DocIntelTier {
 /** Checkout plan id for monthly access plus graduated metered usage. */
 export const DOCINTEL_CLOUD_PLAN = "docintel-graduated";
 
-/**
- * DocIntel Cloud monthly bands - mirrors the Stripe price with lookup key
- * `docintel_graduated_access_monthly_v1` (access fee) and
- * `docintel_graduated_pages_monthly_v2` (included pages plus metered overage).
- * Stripe is the source of truth; update this table when the price changes.
- */
-export interface DocIntelCloudBand {
-  upTo: number | null; // inclusive upper bound; null = no limit
-  flatUsd: number;
-  perPageUsd: number;
+// ─────────────────────────────────────────────────────────────────────────────
+// DocIntel extraction quality ladder.
+// Quality is a per-job choice available to every customer — never a customer
+// gate. Credits are the single billing unit: 1 credit = 1 Balanced page.
+// Stripe lookup keys: `docintel_graduated_access_monthly_v1` (access fee) and
+// `docintel_graduated_pages_monthly_v2` (metered usage). Stripe is the source
+// of truth; update these constants when the price changes.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type DocIntelQuality = "fast" | "balanced" | "precise";
+
+export interface DocIntelQualityTier {
+  id: DocIntelQuality;
+  name: string;
+  /** Credits consumed per page (1 credit = 1 Balanced page). */
+  credits: number;
+  /** Effective price per page beyond the included quota ($0.01/credit). */
+  overagePerPageUsd: number;
+  /** Effective price per page on prepaid balance ($0.015/credit). */
+  prepaidPerPageUsd: number;
+  /** What the pipeline runs at this level. */
+  pipeline: string;
 }
 
-export const DOCINTEL_CLOUD_BANDS: DocIntelCloudBand[] = [
-  { upTo: 10_000, flatUsd: 100, perPageUsd: 0 },
-  { upTo: null, flatUsd: 0, perPageUsd: 0.01 },
+/** Monthly access fee for the Cloud subscription. */
+export const DOCINTEL_ACCESS_USD = 100;
+/** Credits included with the subscription each month (no rollover). */
+export const DOCINTEL_INCLUDED_CREDITS = 10_000;
+/** Overage price per credit beyond the included quota. */
+export const DOCINTEL_CREDIT_OVERAGE_USD = 0.01;
+/** Prepaid (pay-as-you-go) price per credit — no access fee. */
+export const DOCINTEL_CREDIT_PREPAID_USD = 0.015;
+
+export const DOCINTEL_QUALITY_TIERS: DocIntelQualityTier[] = [
+  {
+    id: "fast",
+    name: "Fast",
+    credits: 0.1,
+    overagePerPageUsd: 0.001,
+    prepaidPerPageUsd: 0.0015,
+    pipeline:
+      "GLiNER entity extraction plus a compact-model relationship pass. Ideal for high-volume structured documents.",
+  },
+  {
+    id: "balanced",
+    name: "Balanced",
+    credits: 1,
+    overagePerPageUsd: 0.01,
+    prepaidPerPageUsd: 0.015,
+    pipeline:
+      "GLiNER extraction plus an LLM refinement pass (the default). Best quality-per-dollar for most documents.",
+  },
+  {
+    id: "precise",
+    name: "Precise",
+    credits: 6,
+    overagePerPageUsd: 0.06,
+    prepaidPerPageUsd: 0.09,
+    pipeline:
+      "Highest-quality two-pass LLM extraction: complex tables, long-document reasoning, precision-critical domains.",
+  },
 ];
 
-/** Monthly access plus graduated usage, excluding tax. */
-export function docIntelCloudBill(pages: number): number {
-  if (!Number.isSafeInteger(pages) || pages < 0) {
-    throw new RangeError("Pages must be a non-negative safe integer.");
+/**
+ * Monthly bill: access fee plus credit overage, excluding tax.
+ * Accepts a plain page count (treated as Balanced) or a per-quality breakdown.
+ */
+export function docIntelCloudBill(
+  pages: number | Partial<Record<DocIntelQuality, number>>,
+): number {
+  const byQuality = typeof pages === "number" ? { balanced: pages } : pages;
+  let credits = 0;
+  for (const tier of DOCINTEL_QUALITY_TIERS) {
+    const count = byQuality[tier.id] ?? 0;
+    if (!Number.isSafeInteger(count) || count < 0) {
+      throw new RangeError("Pages must be non-negative safe integers.");
+    }
+    credits += count * tier.credits;
   }
-  let total = DOCINTEL_CLOUD_BANDS[0].flatUsd;
-  let previousLimit = 0;
-  for (const band of DOCINTEL_CLOUD_BANDS) {
-    const limit = band.upTo ?? pages;
-    total += Math.max(0, Math.min(pages, limit) - previousLimit) * band.perPageUsd;
-    if (pages <= limit) break;
-    previousLimit = limit;
-  }
-  return Math.round(total * 100) / 100;
+  const overage =
+    Math.max(0, credits - DOCINTEL_INCLUDED_CREDITS) * DOCINTEL_CREDIT_OVERAGE_USD;
+  return Math.round((DOCINTEL_ACCESS_USD + overage) * 100) / 100;
 }
 
 export const DOCINTEL_TIERS: DocIntelTier[] = [
@@ -213,10 +264,10 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     name: "Monthly subscription",
     price: "$100",
     priceUnit: "/mo",
-    quota: "10,000 pages/month included",
+    quota: "10,000 credits/month included",
     seats: "Account subscription · Project API keys",
     tagline:
-      "$100/month includes 10,000 pages, then $0.01 per additional page. Included pages reset each billing month without rollover. One subscription covers all projects in your account.",
+      "$100/month includes 10,000 credits, then $0.01 per additional credit. Pick extraction quality per job: Fast 0.1 credit/page, Balanced 1 credit/page (default), Precise 6 credits/page. Credits reset each billing month without rollover. One subscription covers all projects in your account.",
     cta: "Open DocIntel workspace",
     ctaHref: "https://docintel.purple8.ai/try?view=billing",
     highlight: true,
@@ -226,11 +277,11 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     id: "prepaid",
     name: "Pay as you go",
     price: "$0.015",
-    priceUnit: "/page",
+    priceUnit: "/credit",
     quota: "Prepaid balance required",
     seats: "No monthly access fee",
     tagline:
-      "Sign in to buy page credits: choose any amount from $5 — most buyers start with 1,000 pages for $15. Processing requires sufficient prepaid credit.",
+      "Sign in to buy credits: choose any amount from $5. Quality is your per-job choice — Fast $0.0015/page, Balanced $0.015/page, Precise $0.09/page. Processing requires sufficient prepaid credit.",
     cta: "Sign in to add credits",
     ctaHref: "https://docintel.purple8.ai/try?view=billing",
     badge: "Prepaid",
@@ -242,7 +293,7 @@ export const DOCINTEL_TIERS: DocIntelTier[] = [
     quota: "Custom / Unlimited",
     seats: "Unlimited workers",
     tagline:
-      "Deploy DocIntel in your own VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network. Auto-commits entities, relationships, and chunks into Purple8 Hyper Graph with 24×7 Severity-1 SLA support.",
+      "Deploy DocIntel in your own VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network. Auto-commits entities, relationships, and chunks into Purple8 AI Engine with 24×7 Severity-1 SLA support.",
     cta: "Contact Us",
     ctaHref: "mailto:sales@purple8.ai?subject=DocIntel%20Self-Hosted%20Enterprise%20Inquiry",
     badge: "VPC · On-Prem · Air-Gapped",
@@ -400,33 +451,27 @@ function tierForNodes(nodes: number): GraphTier {
   return GRAPH_TIERS[GRAPH_TIERS.length - 1]; // enterprise
 }
 
-const tierById = (id: GraphTierId): GraphTier =>
-  GRAPH_TIERS.find((t) => t.id === id) ?? GRAPH_TIERS[0];
-
 export function recommendTier(input: CalculatorInput): CalculatorResult {
   const useCase =
     USE_CASES.find((u) => u.id === input.useCaseId) ?? USE_CASES[USE_CASES.length - 1];
   const estimatedNodes = estimateNodes(useCase, input.totalUsers);
 
-  let tier = tierForNodes(estimatedNodes);
+  // Every tier gets every feature (HA, SSO/RBAC, KMS, audit, SOC). The
+  // recommendation is purely a capacity fit — customers pay only to scale.
+  const tier = tierForNodes(estimatedNodes);
   let reason = `~${formatCount(estimatedNodes)} graph objects fits ${tier.name}.`;
 
-  // Mission-critical uptime → Enterprise / Custom (Raft HA, failover, sharding).
+  const reassurance: string[] = [];
   if (input.needsHighAvailability) {
-    tier = tierById("enterprise");
-    reason = "High-availability / mission-critical uptime is included in Enterprise / Custom (Raft HA, failover, sharding).";
-    return { tier, estimatedNodes, useCase, reason };
+    reassurance.push("HA (replication, failover, Raft)");
   }
-
-  // Governance (SSO/RBAC/audit/PII) → Growth ($499/mo) up to 5M nodes, or Enterprise beyond 5M.
   if (input.needsGovernance) {
-    if (estimatedNodes <= 5_000_000) {
-      tier = tierById("growth");
-      reason = "OIDC/SSO, multi-tenant RBAC, and Cloud KMS are included starting in Growth ($499/mo).";
-    } else {
-      tier = tierById("enterprise");
-      reason = "Beyond 5M nodes with SSO, audit logs, and regulated-data controls, use Enterprise / BYOC.";
-    }
+    reassurance.push("SSO/OIDC, RBAC, audit logs, and KMS encryption");
+  }
+  if (reassurance.length > 0) {
+    reason += ` ${reassurance.join(" and ")} ${
+      reassurance.length > 1 ? "are" : "is"
+    } included in every tier — you only pay for capacity.`;
   }
 
   return { tier, estimatedNodes, useCase, reason };

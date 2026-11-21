@@ -5,9 +5,9 @@ import { FACTS as F } from "@/lib/facts";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Pricing - Purple8 Hyper Graph & Purple8 DocIntel",
+  title: "Pricing - Purple8 AI Engine & Purple8 DocIntel",
   description:
-    "Transparent monthly and annual pricing for Purple8 Hyper Graph (Free Playground $0, Builder $39/mo, Production $149/mo, Growth $499/mo, Enterprise BYOC) and Purple8 DocIntel (Free Sandbox $0, Cloud $100/mo with 10,000 pages included then $0.01/page, Prepaid $0.015/page, Enterprise BYOC).",
+    "Transparent monthly and annual pricing for Purple8 AI Engine (Free Playground $0, Builder $39/mo, Production $149/mo, Growth $599/mo, Enterprise BYOC) and Purple8 DocIntel (Free Sandbox $0, Cloud $100/mo with 10,000 credits included then $0.01/credit — quality per job: Fast 0.1, Balanced 1, Precise 6 credits/page — Prepaid $0.015/credit, Enterprise BYOC).",
   path: "/pricing",
 });
 
@@ -27,7 +27,7 @@ export default function PricingPage() {
             <strong className="text-[var(--p8-fg)]">Monthly or Annual (Save ~17%)</strong>{" "}
             subscriptions on <strong className="text-[var(--p8-fg)]">Purple8 Cloud</strong>{" "}
             (zero infrastructure to manage) or <strong className="text-[var(--p8-fg)]">Self-Hosted / BYOC</strong>{" "}
-            (in your own VPC, Red Hat OpenShift, or air-gapped network). We never meter or restrict by MCP agent connections - every tier includes all {F.mcpTools} Hyper Graph MCP tools (or 13 DocIntel MCP tools).
+            (in your own VPC, Red Hat OpenShift, or air-gapped network). We never meter or restrict by MCP agent connections - every tier includes all {F.mcpTools} AI Engine MCP tools (or 13 DocIntel MCP tools).
           </p>
         </div>
 

@@ -162,7 +162,7 @@ export default function PricingCards() {
 
         <div className="mb-6 rounded-2xl border border-[var(--p8-accent)] bg-[var(--p8-surface)] p-6">
           <h3 className="text-lg font-bold">DocIntel Cloud subscription</h3>
-          <p className="mt-2">$100/month includes 10,000 pages, then $0.01 per additional page.</p>
+          <p className="mt-2">$100/month includes 10,000 credits, then $0.01 per additional credit — pick quality per job: Fast 0.1, Balanced 1, Precise 6 credits/page.</p>
           <p className="mt-2 text-xs text-[var(--p8-muted)]">
             Included pages reset each billing month without rollover. One subscription covers all projects in your account.
             Applies to new subscriptions; existing subscriptions retain their contracted prices. Prices exclude tax.

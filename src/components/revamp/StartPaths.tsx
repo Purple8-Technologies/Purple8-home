@@ -28,8 +28,8 @@ export default function StartPaths({ product, sandboxHref }: Props) {
         {
           name: "DocIntel Cloud",
           line:
-            "Hosted document processing: $100/mo includes 10,000 pages, then $0.01 per additional page. Or pay as you go with prepaid credits at $0.015/page, no monthly fee.",
-          note: "$100/mo + usage · or Prepaid per page",
+            "Hosted document processing: $100/mo includes 10,000 credits, then $0.01 per additional credit. Quality is a per-job choice — Fast 0.1, Balanced 1, Precise 6 credits/page. Or pay as you go at $0.015/credit, no monthly fee.",
+          note: "$100/mo + usage · or Prepaid credits",
           cta: "View DocIntel Plans →",
           href: "/pricing/#docintel",
           primary: true,
