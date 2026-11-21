@@ -3,7 +3,7 @@
 /**
  * DocIntelFlow - "How DocIntel works" animated pipeline.
  *
- * Mirrors SystemFlow on the Hyper Graph page: sources on the left, one
+ * Mirrors SystemFlow on the AI Engine page: sources on the left, one
  * stateless pipeline in the middle, graph outputs on the right. Pulses travel
  * along each connector. Colours come only from --p8-* tokens, so it follows
  * day/night with no overrides.
@@ -72,7 +72,7 @@ export default function DocIntelFlow() {
           <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--p8-muted)]">
             Turn documents into entities and relationships with stable IDs. Review the results,
             then export them to <span className="text-[var(--p8-accent)]">your graph or application</span>.
-            No Hyper Graph installation required.
+            No AI Engine installation required.
           </p>
         </div>
 
@@ -141,7 +141,7 @@ export default function DocIntelFlow() {
 
         <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-[var(--p8-muted)]">
           Hosted content and results stay in memory for the processing session; account, job and billing metadata
-          are retained separately. Choose where your exported knowledge lives. Hyper Graph is optional.
+          are retained separately. Choose where your exported knowledge lives. AI Engine is optional.
         </p>
       </div>
     </section>

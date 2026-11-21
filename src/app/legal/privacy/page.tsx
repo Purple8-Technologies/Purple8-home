@@ -40,7 +40,7 @@ export default function PrivacyPage() {
 
       <h2>2. The most important point: your operational data</h2>
       <p>
-        Purple8 Hyper Graph and Purple8 DocIntel run <strong>in your own
+        Purple8 AI Engine and Purple8 DocIntel run <strong>in your own
         environment</strong> - your hardware, your cloud, or your on-premises
         infrastructure. The content you process with the Software (documents,
         entities, embeddings, graph data, prompts, and query results) is stored

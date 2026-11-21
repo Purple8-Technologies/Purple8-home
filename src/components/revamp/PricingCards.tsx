@@ -54,7 +54,7 @@ export default function PricingCards() {
         </div>
       </div>
 
-      {/* ── Product 1: Purple8 Hyper Graph ── */}
+      {/* ── Product 1: Purple8 AI Engine ── */}
       <div id="hyper-graph" className="mt-14 scroll-mt-24">
         <div className="mb-8 flex flex-col justify-between gap-2 border-b border-[var(--p8-border)] pb-4 sm:flex-row sm:items-end">
           <div>
@@ -62,7 +62,7 @@ export default function PricingCards() {
               Product 1 · AI-Native Application Backend
             </p>
             <h2 className="mt-1 text-2xl font-bold sm:text-3xl">
-              Purple8 Hyper Graph
+              Purple8 AI Engine
             </h2>
           </div>
           <p className="text-xs text-[var(--p8-muted)]">

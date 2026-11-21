@@ -49,7 +49,7 @@ export default function SupportPage() {
                   <li>
                     <a href="/try/graph/"
                        className="hover:text-purple-400 transition-colors">
-                      → Try Hyper Graph in the sandbox
+                      → Try AI Engine in the sandbox
                     </a>
                   </li>
                   <li>

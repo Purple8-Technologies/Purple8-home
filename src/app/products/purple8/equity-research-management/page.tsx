@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Equity Research Management - Purple8 Hyper Graph",
+  title: "Equity Research Management - Purple8 AI Engine",
   description:
     "Purple8 replaces the fragmented sell-side research stack - market data ingestion, version-controlled authoring, HITL approval, event-driven publishing, and semantic client search - with a single in-process backend and a complete, queryable audit trail.",
   path: "/products/purple8/equity-research-management",
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Equity Research Management - Purple8 Hyper Graph",
+  name: "Equity Research Management - Purple8 AI Engine",
   description:
     "Research workflows break down because approval, data lineage, and audit live in separate systems. Purple8 replaces the fragmented stack with a single in-process backend: market data ingestion, version-controlled authoring, HITL approval, event-driven publishing, and semantic client search - with a complete, queryable audit trail.",
   url: "https://www.purple8.ai/products/purple8/equity-research-management/",
@@ -23,7 +23,7 @@ const jsonLd = {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Equity Research Management", item: "https://www.purple8.ai/products/purple8/equity-research-management/" },
     ],
   },
@@ -212,7 +212,7 @@ export default function EquityResearchManagementPage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Equity Research Management</span>
           </nav>
@@ -226,7 +226,7 @@ export default function EquityResearchManagementPage() {
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-700/40 bg-purple-950/40 px-4 py-1.5 text-sm font-medium text-purple-200">
               <span className="text-base">📈</span>
-              Purple8 Hyper Graph · Sell-Side Research · Workflow Intelligence
+              Purple8 AI Engine · Sell-Side Research · Workflow Intelligence
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Research workflows break down because{" "}
@@ -372,7 +372,7 @@ export default function EquityResearchManagementPage() {
               <p className="text-sm font-semibold uppercase tracking-widest text-purple-400">Six pillars</p>
               <h2 className="mt-3 text-3xl font-bold text-white">Six problems. One platform.</h2>
               <p className="mt-4 max-w-2xl mx-auto text-zinc-400">
-                Each pillar below is a capability that ships as part of Purple8 Hyper Graph - not a separate integration.
+                Each pillar below is a capability that ships as part of Purple8 AI Engine - not a separate integration.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -535,7 +535,7 @@ export default function EquityResearchManagementPage() {
                 Request a demo
               </a>
               <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Explore Purple8 AI Engine →
               </a>
             </div>
           </div>

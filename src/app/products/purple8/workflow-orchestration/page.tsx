@@ -5,25 +5,25 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Workflow Orchestration - Purple8 Hyper Graph",
+  title: "Workflow Orchestration - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph ships workflow orchestration out of the box - stateful multi-stage pipelines, SLA enforcement, human-in-the-loop gates, event-driven triggers, and a full audit trail. No Airflow, no Temporal, no LangGraph. Just one process.",
+    "Purple8 AI Engine ships workflow orchestration out of the box - stateful multi-stage pipelines, SLA enforcement, human-in-the-loop gates, event-driven triggers, and a full audit trail. No Airflow, no Temporal, no LangGraph. Just one process.",
   path: "/products/purple8/workflow-orchestration",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Workflow Orchestration - Purple8 Hyper Graph",
+  name: "Workflow Orchestration - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph provides production-grade workflow orchestration in-process: stateful stage machines, SLA monitoring, human-in-the-loop approval gates, CDC event triggers, and an immutable audit trail - all through journey.* MCP tools.",
+    "Purple8 AI Engine provides production-grade workflow orchestration in-process: stateful stage machines, SLA monitoring, human-in-the-loop approval gates, CDC event triggers, and an immutable audit trail - all through journey.* MCP tools.",
   url: "https://www.purple8.ai/products/purple8/workflow-orchestration/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Workflow Orchestration", item: "https://www.purple8.ai/products/purple8/workflow-orchestration/" },
     ],
   },
@@ -190,7 +190,7 @@ export default function WorkflowOrchestrationPage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Workflow Orchestration</span>
           </nav>
@@ -207,7 +207,7 @@ export default function WorkflowOrchestrationPage() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
               </span>
-              Part of Purple8 Hyper Graph · No extra services · Built in
+              Part of Purple8 AI Engine · No extra services · Built in
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Workflow Orchestration.{" "}
@@ -374,7 +374,7 @@ export default function WorkflowOrchestrationPage() {
                 Start free
               </a>
               <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Explore Purple8 AI Engine →
               </a>
             </div>
           </div>

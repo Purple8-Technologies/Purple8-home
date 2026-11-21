@@ -4,7 +4,7 @@ import { ClassicShell } from "@/components/revamp/BrandShell";
 /**
  * Shared chrome + prose styling for legal documents (EULA, Developer Agreement,
  * etc.). Product-neutral so a single page applies to every Purple8 product
- * (Purple8 Hyper Graph, Purple8 DocIntel, and future products).
+ * (Purple8 AI Engine, Purple8 DocIntel, and future products).
  *
  * Content is passed as plain semantic HTML (h2/h3/p/ul/table/…) and styled via
  * Tailwind child selectors - no typography plugin required.

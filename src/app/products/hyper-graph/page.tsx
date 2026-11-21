@@ -8,7 +8,7 @@ import { FACTS as F } from "@/lib/facts";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Purple8 Hyper Graph: AI-Native Execution Infrastructure",
+  title: "Purple8 AI Engine: AI-Native Execution Infrastructure",
   description:
     "Infrastructure that enables AI systems to autonomously build, execute and operate applications, with native intelligence, adaptive computing and human-supervised governance.",
   path: "/products/hyper-graph",
@@ -29,7 +29,7 @@ export default function HyperGraphPage() {
     <BrandShell>
       {/* What is it? */}
       <section className="mx-auto max-w-4xl px-4 pt-28 pb-24 text-center sm:px-6">
-        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Purple8 Hyper Graph</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--p8-accent)]">Purple8 AI Engine</p>
         <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-6xl">AI-Native Execution Infrastructure</h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--p8-muted)]">
           Infrastructure that enables AI systems to autonomously build, execute and operate applications, with native intelligence, adaptive computing and human-supervised governance.
@@ -45,10 +45,10 @@ export default function HyperGraphPage() {
         </p>
         <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
           <a href="/try/graph/" className="rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">
-            Try Hyper Graph
+            Try AI Engine
           </a>
           <a href="https://docs.graph.purple8.ai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
-            Hyper Graph Docs ↗
+            AI Engine Docs ↗
           </a>
           <a href="#start" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
             All ways to start
@@ -87,7 +87,7 @@ export default function HyperGraphPage() {
       <section id="start" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-24 sm:px-6 lg:px-8">
         <h2 className="text-center text-3xl font-bold tracking-tight">How do I start?</h2>
         <div className="mt-12">
-          <StartPaths product="Hyper Graph" sandboxHref="/try/graph/" />
+          <StartPaths product="AI Engine" sandboxHref="/try/graph/" />
         </div>
       </section>
 

@@ -53,7 +53,7 @@ const CATEGORIES: { value: Category; label: string; emoji: string }[] = [
 ];
 
 const PRODUCTS: { value: Product; label: string }[] = [
-  { value: "hyper_graph", label: "Purple8 Hyper Graph" },
+  { value: "hyper_graph", label: "Purple8 AI Engine" },
   { value: "docintel",    label: "Purple8 DocIntel"    },
   { value: "general",     label: "General / other"     },
 ];

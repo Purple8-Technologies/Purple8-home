@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Opinion Engine - Belief Graphs & Stance Detection - Purple8 Hyper Graph",
+  title: "Opinion Engine - Belief Graphs & Stance Detection - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph models who believes what, why, and how strongly - across documents, organisations, and people. Track opinion propagation, detect consensus vs controversy, and surface influence networks using graph algorithms and temporal analysis.",
+    "Purple8 AI Engine models who believes what, why, and how strongly - across documents, organisations, and people. Track opinion propagation, detect consensus vs controversy, and surface influence networks using graph algorithms and temporal analysis.",
   path: "/products/purple8/opinion-engine",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Opinion Engine - Belief Graphs & Stance Detection - Purple8 Hyper Graph",
+  name: "Opinion Engine - Belief Graphs & Stance Detection - Purple8 AI Engine",
   description:
     "Model beliefs, stances, and influence as a typed graph. Nodes are entities - people, organisations, documents, claims. Edges are SUPPORTS, CONTRADICTS, INFLUENCES, CITES. Temporal PageRank shows which opinions are gaining influence. Community detection finds belief clusters.",
   url: "https://www.purple8.ai/products/purple8/opinion-engine/",
@@ -23,7 +23,7 @@ const jsonLd = {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Opinion Engine", item: "https://www.purple8.ai/products/purple8/opinion-engine/" },
     ],
   },
@@ -131,7 +131,7 @@ export default function OpinionEnginePage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Opinion Engine</span>
           </nav>
@@ -145,7 +145,7 @@ export default function OpinionEnginePage() {
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-700/40 bg-purple-950/40 px-4 py-1.5 text-sm font-medium text-purple-200">
               <span className="text-base">💡</span>
-              Part of Purple8 Hyper Graph · Belief graphs · Stance detection
+              Part of Purple8 AI Engine · Belief graphs · Stance detection
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Model what the world{" "}
@@ -282,7 +282,7 @@ export default function OpinionEnginePage() {
             <p className="mt-4 text-zinc-400">Free to start. Graph algorithms, temporal PageRank, and GraphRAG work on day one.</p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a href="/register/" className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500">Start free</a>
-              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 Hyper Graph →</a>
+              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 AI Engine →</a>
             </div>
           </div>
         </section>

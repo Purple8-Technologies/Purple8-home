@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Financial Crime Intelligence - Purple8 Hyper Graph",
+  title: "Financial Crime Intelligence - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph covers AML, transaction screening, fraud detection, KYC, beneficial ownership, elder financial abuse, and market surveillance in a single graph-native platform. No rules engine. No siloed tools. One graph.",
+    "Purple8 AI Engine covers AML, transaction screening, fraud detection, KYC, beneficial ownership, elder financial abuse, and market surveillance in a single graph-native platform. No rules engine. No siloed tools. One graph.",
   path: "/products/purple8/financial-crime-intelligence",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Financial Crime Intelligence - Purple8 Hyper Graph",
+  name: "Financial Crime Intelligence - Purple8 AI Engine",
   description:
     "Purple8 is not an AML product. It is a graph intelligence backend. AML, fraud, transaction screening, KYC, elder financial abuse, and market surveillance are things it does natively, without external dependencies, and without data leaving your infrastructure.",
   url: "https://www.purple8.ai/products/purple8/financial-crime-intelligence/",
@@ -23,7 +23,7 @@ const jsonLd = {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Financial Crime Intelligence", item: "https://www.purple8.ai/products/purple8/financial-crime-intelligence/" },
     ],
   },
@@ -207,7 +207,7 @@ export default function FinancialCrimeIntelligencePage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Financial Crime Intelligence</span>
           </nav>
@@ -221,7 +221,7 @@ export default function FinancialCrimeIntelligencePage() {
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-700/40 bg-purple-950/40 px-4 py-1.5 text-sm font-medium text-purple-200">
               <span className="text-base">🛡️</span>
-              Purple8 Hyper Graph · Financial Crime · Compliance Intelligence
+              Purple8 AI Engine · Financial Crime · Compliance Intelligence
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Financial crime that hides{" "}
@@ -447,7 +447,7 @@ export default function FinancialCrimeIntelligencePage() {
                 Request a demo
               </a>
               <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Explore Purple8 AI Engine →
               </a>
             </div>
           </div>

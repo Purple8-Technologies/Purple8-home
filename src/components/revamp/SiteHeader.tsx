@@ -17,7 +17,7 @@ export type ThemeMode = "day" | "night" | "auto";
 
 const PRODUCTS = [
   { href: "/products/docintel/", name: "DocIntel", desc: "Any document → entities & relationships" },
-  { href: "/products/hyper-graph/", name: "Hyper Graph", desc: "Graph + vector + RAG + workflows, one process" },
+  { href: "/products/hyper-graph/", name: "AI Engine", desc: "Graph + vector + RAG + workflows, one process" },
 ];
 
 const NAV = [

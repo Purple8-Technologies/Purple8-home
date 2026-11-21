@@ -11,7 +11,7 @@ Acknowledgments: https://www.purple8.ai/security#acknowledgments
 # We welcome security researchers reporting vulnerabilities in:
 #   - purple8.ai and all subdomains
 #   - github.com/Purple8-Technologies (public repositories)
-#   - Purple8 Hyper Graph, Purple8 DocIntel, Purple8 Command Center
+#   - Purple8 AI Engine, Purple8 DocIntel, Purple8 Command Center
 #
 # Please report via email to security@purple8.ai.
 # Do NOT open public GitHub issues for security vulnerabilities.

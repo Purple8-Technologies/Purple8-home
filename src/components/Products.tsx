@@ -100,7 +100,7 @@ export default function Products({
 
         {/* Product cards */}
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          {/* ── Hyper Graph ── */}
+          {/* ── AI Engine ── */}
           <div className="group relative overflow-hidden rounded-2xl border border-purple-900/40 bg-[#11111b] p-8 transition-all hover:border-purple-600/50">
             <div className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-purple-700/10 blur-3xl transition-all group-hover:bg-purple-600/20" />
 

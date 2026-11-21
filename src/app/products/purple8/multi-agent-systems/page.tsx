@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Multi-Agent Systems & AI Agent Swarms - Purple8 Hyper Graph",
+  title: "Multi-Agent Systems & AI Agent Swarms - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph is the shared-memory substrate for multi-agent AI systems. Agent swarms read and write the same persistent knowledge graph, coordinate via CDC events, and are governed by per-agent RBAC - all in one process.",
+    "Purple8 AI Engine is the shared-memory substrate for multi-agent AI systems. Agent swarms read and write the same persistent knowledge graph, coordinate via CDC events, and are governed by per-agent RBAC - all in one process.",
   path: "/products/purple8/multi-agent-systems",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Multi-Agent Systems & AI Agent Swarms - Purple8 Hyper Graph",
+  name: "Multi-Agent Systems & AI Agent Swarms - Purple8 AI Engine",
   description:
     "Purple8 provides the persistent shared memory, coordination primitives, and RBAC governance that AI agent swarms need. Multiple agents - researcher, analyst, writer, reviewer - all operate on the same knowledge graph, with full auditability.",
   url: "https://www.purple8.ai/products/purple8/multi-agent-systems/",
@@ -23,7 +23,7 @@ const jsonLd = {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Multi-Agent Systems", item: "https://www.purple8.ai/products/purple8/multi-agent-systems/" },
     ],
   },
@@ -150,7 +150,7 @@ export default function MultiAgentSystemsPage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Multi-Agent Systems</span>
           </nav>
@@ -167,7 +167,7 @@ export default function MultiAgentSystemsPage() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
               </span>
-              Part of Purple8 Hyper Graph · Shared memory · No message passing
+              Part of Purple8 AI Engine · Shared memory · No message passing
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Agent swarms that{" "}
@@ -293,7 +293,7 @@ export default function MultiAgentSystemsPage() {
             <p className="mt-4 text-zinc-400">Free to start. Shared graph memory, CDC coordination, and per-agent RBAC work from day one.</p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a href="/register/" className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500">Start free</a>
-              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 Hyper Graph →</a>
+              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 AI Engine →</a>
             </div>
           </div>
         </section>

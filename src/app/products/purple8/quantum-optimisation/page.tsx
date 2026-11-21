@@ -5,25 +5,25 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Quantum-Inspired Optimisation - Purple8 Hyper Graph",
+  title: "Quantum-Inspired Optimisation - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph ships quantum-inspired optimisation out of the box - QUBO, simulated annealing, VRP, portfolio selection, job scheduling, and tensor networks - callable by AI agents via 13 MCP tools. No quantum hardware required.",
+    "Purple8 AI Engine ships quantum-inspired optimisation out of the box - QUBO, simulated annealing, VRP, portfolio selection, job scheduling, and tensor networks - callable by AI agents via 13 MCP tools. No quantum hardware required.",
   path: "/products/purple8/quantum-optimisation",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Quantum-Inspired Optimisation - Purple8 Hyper Graph",
+  name: "Quantum-Inspired Optimisation - Purple8 AI Engine",
   description:
-    "Quantum-inspired optimisation for AI agents: QUBO formulation, simulated annealing, VRP, portfolio selection, job scheduling, tensor networks - 13 MCP tools, CPU-only, built into Purple8 Hyper Graph.",
+    "Quantum-inspired optimisation for AI agents: QUBO formulation, simulated annealing, VRP, portfolio selection, job scheduling, tensor networks - 13 MCP tools, CPU-only, built into Purple8 AI Engine.",
   url: "https://www.purple8.ai/products/purple8/quantum-optimisation/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Quantum-Inspired Optimisation", item: "https://www.purple8.ai/products/purple8/quantum-optimisation/" },
     ],
   },
@@ -103,7 +103,7 @@ export default function QuantumOptimisationPage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Quantum-Inspired Optimisation</span>
           </nav>
@@ -117,7 +117,7 @@ export default function QuantumOptimisationPage() {
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-700/40 bg-violet-950/30 px-4 py-1.5 text-sm font-medium text-violet-200">
               <span className="text-base">⚛️</span>
-              Part of Purple8 Hyper Graph · CPU-only · No quantum hardware
+              Part of Purple8 AI Engine · CPU-only · No quantum hardware
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Quantum-Inspired Optimisation.{" "}
@@ -129,7 +129,7 @@ export default function QuantumOptimisationPage() {
               Solve NP-hard combinatorial problems - vehicle routing, job scheduling,
               portfolio selection - that classical AI cannot handle. Runs on ordinary CPUs
               via 13 MCP tools. No quantum computer. No special hardware. Built into Purple8
-              Hyper Graph.
+              AI Engine.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a
@@ -263,7 +263,7 @@ export default function QuantumOptimisationPage() {
                 Start free
               </a>
               <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Explore Purple8 AI Engine →
               </a>
             </div>
             <div className="mt-6">

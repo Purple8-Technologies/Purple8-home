@@ -6,25 +6,25 @@ import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Agentic Process Automation - Purple8 Hyper Graph",
+  title: "Agentic Process Automation - Purple8 AI Engine",
   description:
-    `Purple8 Hyper Graph is the AI-native backend for agentic process automation. Journey Engine, ${F.mcpTools} MCP tools, graph memory, SLA enforcement, and human-in-the-loop gates - all built in. No Airflow, no LangGraph, no custom glue code.`,
+    `Purple8 AI Engine is the AI-native backend for agentic process automation. Journey Engine, ${F.mcpTools} MCP tools, graph memory, SLA enforcement, and human-in-the-loop gates - all built in. No Airflow, no LangGraph, no custom glue code.`,
   path: "/products/purple8/agentic-process-automation",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Agentic Process Automation - Purple8 Hyper Graph",
+  name: "Agentic Process Automation - Purple8 AI Engine",
   description:
-    `Purple8 Hyper Graph provides out-of-the-box agentic process automation: AI agents orchestrate multi-stage workflows, enforce SLAs, handle human-in-the-loop approvals, and maintain an immutable audit trail - all through ${F.mcpTools} MCP tools, with no custom orchestration code.`,
+    `Purple8 AI Engine provides out-of-the-box agentic process automation: AI agents orchestrate multi-stage workflows, enforce SLAs, handle human-in-the-loop approvals, and maintain an immutable audit trail - all through ${F.mcpTools} MCP tools, with no custom orchestration code.`,
   url: "https://www.purple8.ai/products/purple8/agentic-process-automation/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Agentic Process Automation", item: "https://www.purple8.ai/products/purple8/agentic-process-automation/" },
     ],
   },
@@ -148,7 +148,7 @@ export default function AgenticProcessAutomationPage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Agentic Process Automation</span>
           </nav>
@@ -165,7 +165,7 @@ export default function AgenticProcessAutomationPage() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
               </span>
-              Part of Purple8 Hyper Graph · Built in · No extra services
+              Part of Purple8 AI Engine · Built in · No extra services
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Agentic Process Automation.{" "}
@@ -290,7 +290,7 @@ export default function AgenticProcessAutomationPage() {
             </div>
             <div className="mt-6">
               <span className="rounded-full border border-purple-700/60 bg-purple-950/40 px-6 py-2.5 text-base font-semibold text-purple-200">
-                Purple8 Hyper Graph - all of the above, in one process
+                Purple8 AI Engine - all of the above, in one process
               </span>
             </div>
           </div>
@@ -341,7 +341,7 @@ export default function AgenticProcessAutomationPage() {
                 Start free
               </a>
               <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Explore Purple8 AI Engine →
               </a>
             </div>
           </div>

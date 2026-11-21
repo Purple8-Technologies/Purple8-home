@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "GraphRAG & Hybrid RAG Pipeline - Purple8 Hyper Graph",
+  title: "GraphRAG & Hybrid RAG Pipeline - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph ships three RAG modes out of the box - flat vector, graph-augmented (GraphRAG), and hybrid retrieval - with self-tuning parameter optimisation. No Pinecone, no LangChain, no separate vector database.",
+    "Purple8 AI Engine ships three RAG modes out of the box - flat vector, graph-augmented (GraphRAG), and hybrid retrieval - with self-tuning parameter optimisation. No Pinecone, no LangChain, no separate vector database.",
   path: "/products/purple8/rag-pipeline",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "GraphRAG & Hybrid RAG Pipeline - Purple8 Hyper Graph",
+  name: "GraphRAG & Hybrid RAG Pipeline - Purple8 AI Engine",
   description:
     "Three RAG modes built in: flat vector search, graph-augmented retrieval (GraphRAG), and hybrid BM25+vector+graph. Self-tuning via rag.tune_collection. No external vector database, no LangChain, no separate retrieval service.",
   url: "https://www.purple8.ai/products/purple8/rag-pipeline/",
@@ -23,7 +23,7 @@ const jsonLd = {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "RAG Pipeline", item: "https://www.purple8.ai/products/purple8/rag-pipeline/" },
     ],
   },
@@ -59,7 +59,7 @@ const jsonLd = {
         name: "Does Purple8 require a separate vector database?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "No. Purple8 Hyper Graph includes an HNSW vector index built directly into the engine. Embeddings are stored alongside graph nodes - the same store that holds your knowledge graph holds your vectors. There is no Pinecone, no Weaviate, no pgvector, no Qdrant. Vector search and graph traversal run in the same process, with no network hop between them.",
+          text: "No. Purple8 AI Engine includes an HNSW vector index built directly into the engine. Embeddings are stored alongside graph nodes - the same store that holds your knowledge graph holds your vectors. There is no Pinecone, no Weaviate, no pgvector, no Qdrant. Vector search and graph traversal run in the same process, with no network hop between them.",
         },
       },
       {
@@ -161,7 +161,7 @@ export default function RagPipelinePage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">RAG Pipeline</span>
           </nav>
@@ -178,7 +178,7 @@ export default function RagPipelinePage() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
               </span>
-              Part of Purple8 Hyper Graph · No Pinecone · No LangChain
+              Part of Purple8 AI Engine · No Pinecone · No LangChain
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               GraphRAG that actually{" "}
@@ -396,7 +396,7 @@ export default function RagPipelinePage() {
               <p className="mt-4 text-zinc-400">Free to start. All three retrieval modes work out of the box. Bring your own documents.</p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a href="/register/" className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500">Start free</a>
-              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 Hyper Graph →</a>
+              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 AI Engine →</a>
             </div>
           </div>
         </section>

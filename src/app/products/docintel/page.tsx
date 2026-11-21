@@ -36,7 +36,7 @@ const lead = [
   {
     tag: "Graph-ready",
     title: "Built to feed a graph, not a chatbot",
-    body: "Most document tools stop at text chunks for a vector store. DocIntel returns the people, organisations, money, dates and relationships between them, with stable IDs. Download structured results or send them to your chosen graph or application. Hyper Graph is an optional destination, not a requirement.",
+    body: "Most document tools stop at text chunks for a vector store. DocIntel returns the people, organisations, money, dates and relationships between them, with stable IDs. Download structured results or send them to your chosen graph or application. AI Engine is an optional destination, not a requirement.",
   },
   {
     tag: "Two-pass",
@@ -60,7 +60,7 @@ const features = [
   { group: "Quality", items: ["Stable entity IDs", "De-duplication", "Confidence thresholds per profile"] },
   { group: "Connectors", items: ["SharePoint", "Confluence", "Amazon S3 and webhooks"] },
   { group: "Operations", items: ["Async jobs with live progress", "RAM-only hosted document sessions", "Metrics, health and readiness"] },
-  { group: "Output", items: ["Structured exports and REST API", "Preview before sending", "Optional Hyper Graph integration"] },
+  { group: "Output", items: ["Structured exports and REST API", "Preview before sending", "Optional AI Engine integration"] },
 ];
 
 export default function DocIntelPage() {
@@ -105,7 +105,7 @@ export default function DocIntelPage() {
         <h2 className="mt-3 text-3xl font-bold tracking-tight">Evaluate in the Cloud Sandbox. License for Cloud, VPC, or Air-Gapped Production.</h2>
         <p className="mt-5 text-lg text-[var(--p8-muted)]">
           Test DocIntel immediately in the interactive Cloud Sandbox or connect your AI agent directly over MCP (<code className="text-sm">/mcp</code>).
-          When turning unstructured documents or text into semantic vectors, graph nodes, and relationships in <strong className="text-[var(--p8-fg)]">Purple8 Hyper Graph</strong> - or running standalone document extraction at enterprise scale - contact us for Commercial or Enterprise licensing across <strong className="text-[var(--p8-fg)]">VPC, On-Premise, and Cloud</strong> deployments.
+          When turning unstructured documents or text into semantic vectors, graph nodes, and relationships in <strong className="text-[var(--p8-fg)]">Purple8 AI Engine</strong> - or running standalone document extraction at enterprise scale - contact us for Commercial or Enterprise licensing across <strong className="text-[var(--p8-fg)]">VPC, On-Premise, and Cloud</strong> deployments.
         </p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <DocIntelWorkspaceLink view="playground" className="inline-block rounded-full bg-[var(--p8-button)] px-7 py-3 text-sm font-semibold text-white hover:opacity-90">

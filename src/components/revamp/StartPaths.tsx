@@ -5,7 +5,7 @@
 import DocIntelWorkspaceLink from "@/components/DocIntelWorkspaceLink";
 
 type Props = {
-  product: "Hyper Graph" | "DocIntel";
+  product: "AI Engine" | "DocIntel";
   sandboxHref: string;
 };
 
@@ -48,7 +48,7 @@ export default function StartPaths({ product, sandboxHref }: Props) {
           name: "Free Playground ($0)",
           line: "Evaluate immediately in the Cloud Sandbox (10K nodes), connect your AI agent over MCP in 0 seconds, or run locally via Docker (50K nodes).",
           note: "$0 Free · Unlimited MCP Connections",
-          cta: "Try Hyper Graph",
+          cta: "Try AI Engine",
           href: sandboxHref,
           primary: false,
         },
@@ -66,7 +66,7 @@ export default function StartPaths({ product, sandboxHref }: Props) {
           line: "Deploy inside your own AWS/Azure/GCP VPC, Red Hat OpenShift (UBI9), on-premise, or air-gapped network with unlimited nodes, BYO KMS, SuperGraph, Autonomous SOC, and 24×7 SLAs.",
           note: "Custom Annual License · Sovereign & Enterprise",
           cta: "Contact Us",
-          href: mailto("Purple8 Hyper Graph - Enterprise Licensing Inquiry"),
+          href: mailto("Purple8 AI Engine - Enterprise Licensing Inquiry"),
           primary: false,
         },
       ];

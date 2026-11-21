@@ -2,7 +2,7 @@ import Purple8Logo from "@/components/Purple8Logo";
 import { NVIDIA_LEGAL_ATTRIBUTION } from "@/components/NvidiaInceptionBadge";
 
 const productLinks = [
-  { label: "Purple8 Hyper Graph", href: "/products/hyper-graph/" },
+  { label: "Purple8 AI Engine", href: "/products/hyper-graph/" },
   { label: "Purple8 DocIntel", href: "/products/docintel/" },
   { label: "Architecture", href: "/architecture/" },
   { label: "Features", href: "/features/" },
@@ -23,7 +23,7 @@ const solutionLinks = [
 ];
 
 const resourceLinks = [
-  { label: "Hyper Graph Docs ↗", href: "https://docs.graph.purple8.ai", external: true },
+  { label: "AI Engine Docs ↗", href: "https://docs.graph.purple8.ai", external: true },
   { label: "DocIntel Docs ↗", href: "https://docs.docintel.purple8.ai", external: true },
   { label: "Developers & Quickstart", href: "/quickstart/" },
   { label: "Case Studies", href: "/case-studies/" },

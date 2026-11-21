@@ -44,7 +44,7 @@
     <text x="0" y="0" font-family="Inter, sans-serif" font-size="48" font-weight="700" fill="#ffffff">Purple8</text>
     <text x="0" y="56" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#cbd5e1">AI-native infrastructure for knowledge-intensive systems</text>
 
-    <text x="0" y="110" font-family="Inter, sans-serif" font-size="18" fill="#94a3b8">Hyper Graph • DocIntel • MCP-native agents • Self-hosted</text>
+    <text x="0" y="110" font-family="Inter, sans-serif" font-size="18" fill="#94a3b8">AI Engine • DocIntel • MCP-native agents • Self-hosted</text>
 
     <!-- CTA pill -->
     <g transform="translate(0,150)">

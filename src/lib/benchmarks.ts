@@ -84,7 +84,7 @@ export const benchmarkGroups: BenchmarkGroup[] = [
       },
       {
         value: "25,596 docs/hr",
-        label: "Coupled DocIntel -> Hyper Graph atomic commits",
+        label: "Coupled DocIntel -> AI Engine atomic commits",
         conditions:
           "v0.72.0 · 7.11 full 10-page documents/s (442.4 nodes/s + 619.4 edges/s + tables + chunks) committed atomically (141.8 ms P50, 0.65 ms P50 table row lookup).",
       },

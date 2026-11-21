@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Autonomous M&A Due Diligence - Purple8 Hyper Graph",
+  title: "Autonomous M&A Due Diligence - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph runs M&A due diligence as a multi-agent workflow: ingest the data room, build a relational knowledge graph of the target, run legal, financial, technical, and regulatory review in parallel, stress-test scenarios, and produce a board-ready output with a regulator-auditable trail.",
+    "Purple8 AI Engine runs M&A due diligence as a multi-agent workflow: ingest the data room, build a relational knowledge graph of the target, run legal, financial, technical, and regulatory review in parallel, stress-test scenarios, and produce a board-ready output with a regulator-auditable trail.",
   path: "/products/purple8/ma-due-diligence",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Autonomous M&A Due Diligence - Purple8 Hyper Graph",
+  name: "Autonomous M&A Due Diligence - Purple8 AI Engine",
   description:
     "Purple8 runs the entire M&A due diligence process as a coordinated agent workflow: document ingestion, knowledge graph construction, parallel specialist review, scenario stress-testing, deal structure optimisation, and staged human approval. All in a single platform with a tamper-evident audit trail.",
   url: "https://www.purple8.ai/products/purple8/ma-due-diligence/",
@@ -23,7 +23,7 @@ const jsonLd = {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "M&A Due Diligence", item: "https://www.purple8.ai/products/purple8/ma-due-diligence/" },
     ],
   },
@@ -183,7 +183,7 @@ export default function MaDueDiligencePage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">M&amp;A Due Diligence</span>
           </nav>
@@ -197,7 +197,7 @@ export default function MaDueDiligencePage() {
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-700/40 bg-purple-950/40 px-4 py-1.5 text-sm font-medium text-purple-200">
               <span className="text-base">🏦</span>
-              Purple8 Hyper Graph · M&amp;A · Transaction Advisory
+              Purple8 AI Engine · M&amp;A · Transaction Advisory
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Due diligence that reads{" "}
@@ -406,7 +406,7 @@ export default function MaDueDiligencePage() {
                 Request a demo
               </a>
               <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Explore Purple8 AI Engine →
               </a>
             </div>
           </div>

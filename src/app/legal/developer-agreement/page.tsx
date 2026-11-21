@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Developer Agreement",
   description:
-    "The Developer Agreement for the free Purple8 Developer edition, covering Purple8 Hyper Graph and Purple8 DocIntel.",
+    "The Developer Agreement for the free Purple8 Developer edition, covering Purple8 AI Engine and Purple8 DocIntel.",
   path: "/legal/developer-agreement",
 });
 
@@ -13,7 +13,7 @@ export default function DeveloperAgreementPage() {
   return (
     <LegalDoc
       title="Developer Agreement"
-      subtitle="Terms for the free Developer edition of all Purple8 software, including Purple8 Hyper Graph and Purple8 DocIntel. This Agreement supplements the End User License Agreement."
+      subtitle="Terms for the free Developer edition of all Purple8 software, including Purple8 AI Engine and Purple8 DocIntel. This Agreement supplements the End User License Agreement."
       effective="June 8, 2026"
       version="2026-06-08"
     >

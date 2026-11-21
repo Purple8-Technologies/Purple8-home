@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "End User License Agreement",
   description:
-    "The End User License Agreement (EULA) governing all Purple8 software, including Purple8 Hyper Graph and Purple8 DocIntel.",
+    "The End User License Agreement (EULA) governing all Purple8 software, including Purple8 AI Engine and Purple8 DocIntel.",
   path: "/legal/eula",
 });
 
@@ -13,7 +13,7 @@ export default function EulaPage() {
   return (
     <LegalDoc
       title="End User License Agreement"
-      subtitle="Enterprise Platform & Commercial Redistribution License - applies to all Purple8 software, including Purple8 Hyper Graph and Purple8 DocIntel."
+      subtitle="Enterprise Platform & Commercial Redistribution License - applies to all Purple8 software, including Purple8 AI Engine and Purple8 DocIntel."
       effective="July 13, 2026"
       version="1.1"
     >
@@ -44,7 +44,7 @@ export default function EulaPage() {
       <p>
         <strong>1.1 &ldquo;Software&rdquo;</strong> means any Purple8 product
         that you license, download, or use, including{" "}
-        <strong>Purple8 Hyper Graph</strong> (the multi-model graph, vector,
+        <strong>Purple8 AI Engine</strong> (the multi-model graph, vector,
         document, and full-text engine) and{" "}
         <strong>Purple8 DocIntel</strong> (the document intelligence service),
         together with their respective engines, indexes, pipelines, MCP servers,
@@ -268,7 +268,7 @@ export default function EulaPage() {
       </p>
       <p>
         <strong>7.2 Trademarks.</strong> &ldquo;Purple8&rdquo;, &ldquo;Purple8
-        Hyper Graph&rdquo;, &ldquo;Purple8 DocIntel&rdquo;, the Purple8 logo, and
+        AI Engine&rdquo;, &ldquo;Purple8 DocIntel&rdquo;, the Purple8 logo, and
         related marks are trademarks or registered trademarks of Purple8, Inc.
         You may not use these marks in your Application name, marketing, or
         domain names without prior written consent.

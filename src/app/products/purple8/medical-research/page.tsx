@@ -6,16 +6,16 @@ import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Quantum AI for Medical Research - Purple8 Hyper Graph",
+  title: "Quantum AI for Medical Research - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph brings quantum-inspired AI to medical research: drug discovery via VQE, clinical trial optimisation, genomic variant prioritisation, patient cohort assignment, and medical imaging similarity search - all callable by AI agents via MCP tools.",
+    "Purple8 AI Engine brings quantum-inspired AI to medical research: drug discovery via VQE, clinical trial optimisation, genomic variant prioritisation, patient cohort assignment, and medical imaging similarity search - all callable by AI agents via MCP tools.",
   path: "/products/purple8/medical-research",
 });
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Quantum AI for Medical Research - Purple8 Hyper Graph",
+  name: "Quantum AI for Medical Research - Purple8 AI Engine",
   description:
     "Apply Purple8's quantum-inspired compute layer to medical research: molecular ground-state estimation (VQE), clinical trial scheduling, genomic optimisation, patient cohort assignment, and fidelity-based imaging similarity - no quantum hardware required.",
   url: "https://www.purple8.ai/products/purple8/medical-research/",
@@ -24,7 +24,7 @@ const jsonLd = {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Medical Research", item: "https://www.purple8.ai/products/purple8/medical-research/" },
     ],
   },
@@ -130,7 +130,7 @@ export default function MedicalResearchPage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Medical Research</span>
           </nav>
@@ -144,7 +144,7 @@ export default function MedicalResearchPage() {
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-700/40 bg-violet-950/30 px-4 py-1.5 text-sm font-medium text-violet-200">
               <span className="text-base">🧬</span>
-              Built on Purple8 Hyper Graph · Quantum-inspired · CPU-only
+              Built on Purple8 AI Engine · Quantum-inspired · CPU-only
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Quantum AI for{" "}
@@ -197,13 +197,13 @@ export default function MedicalResearchPage() {
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {[
-                    ["Compound & trial knowledge graph", "Neo4j / Amazon Neptune", "Purple8 Hyper Graph"],
+                    ["Compound & trial knowledge graph", "Neo4j / Amazon Neptune", "Purple8 AI Engine"],
                     ["Literature & EHR retrieval (RAG)", "Pinecone + LangChain", "Purple8 RAG - hybrid graph + vector retrieval"],
                     ["Molecular ground-state estimation", "IBM Quantum / PySCF + cloud", "Purple8 Quantum - VQE, CPU-only, in-process"],
                     ["Cohort & trial scheduling", "Custom ILP solver + Gurobi", "Purple8 Quantum - scheduling & annealing"],
                     ["Imaging similarity search", "Cosine vector search only", "Purple8 Quantum - fidelity-based state similarity"],
                     ["IRB / regulatory workflow", "Jira + manual email chains", "Purple8 Journey Engine - SLA + approval gates"],
-                    ["Audit trail", "Separate logging service", "Purple8 Hyper Graph - immutable audit trail"],
+                    ["Audit trail", "Separate logging service", "Purple8 AI Engine - immutable audit trail"],
                     ["AI agent interface", "Custom API + LangGraph", `Purple8 MCP Server - ${F.mcpTools} tools, agent-native`],
                   ].map(([cap, old, p8]) => (
                     <tr key={cap}>
@@ -345,7 +345,7 @@ export default function MedicalResearchPage() {
                 Start free
               </a>
               <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">
-                Explore Purple8 Hyper Graph →
+                Explore Purple8 AI Engine →
               </a>
             </div>
             <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">

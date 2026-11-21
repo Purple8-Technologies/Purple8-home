@@ -285,7 +285,7 @@ export default function AirGapArch() {
 
         {/* Stack badge */}
         <div className="mt-5 flex flex-wrap gap-2">
-          {["Purple8 Hyper Graph", "Purple8 DocIntel", "Ollama"].map((s) => (
+          {["Purple8 AI Engine", "Purple8 DocIntel", "Ollama"].map((s) => (
             <span
               key={s}
               className="inline-flex items-center gap-1.5 rounded-full border border-purple-800/50 bg-purple-950/40 px-3 py-1 text-xs font-medium text-purple-300"
@@ -348,9 +348,9 @@ export default function AirGapArch() {
                 <line x1="265" y1="111" x2="265" y2="148" stroke="#52525b" strokeWidth="1.2" markerEnd="url(#arr)" />
                 <line x1="430" y1="111" x2="430" y2="148" stroke="#7c3aed" strokeWidth="1.2" markerEnd="url(#arr)" />
 
-                {/* ── Purple8 Hyper Graph ── */}
+                {/* ── Purple8 AI Engine ── */}
                 <rect x="40" y="150" width="380" height="80" rx="10" fill="#1a0a2e" stroke="#7c3aed" strokeWidth="1.5" />
-                <text x="230" y="172" fill="#c4b5fd" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="700">Purple8 Hyper Graph</text>
+                <text x="230" y="172" fill="#c4b5fd" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="700">Purple8 AI Engine</text>
                 <text x="230" y="188" fill="#71717a" fontSize="9" fontFamily="monospace" textAnchor="middle">:8100</text>
                 <text x="110" y="206" fill="#a78bfa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">graph · vector · RAG</text>
                 <text x="240" y="206" fill="#a78bfa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">journey · SOC · RBAC</text>
@@ -381,9 +381,9 @@ export default function AirGapArch() {
                 {/* Storage row */}
                 <line x1="230" y1="230" x2="150" y2="285" stroke="#3b82f6" strokeWidth="1.2" markerEnd="url(#arrB)" />
 
-                {/* Purple8 Hyper Graph storage */}
+                {/* Purple8 AI Engine storage */}
                 <rect x="40" y="287" width="220" height="72" rx="10" fill="#0a0f1a" stroke="#3b82f6" strokeWidth="1.5" />
-                <text x="150" y="308" fill="#93c5fd" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="700">Purple8 Hyper Graph</text>
+                <text x="150" y="308" fill="#93c5fd" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="700">Purple8 AI Engine</text>
                 <text x="150" y="323" fill="#71717a" fontSize="9" fontFamily="monospace" textAnchor="middle">Durable log · Vector index · NVMe</text>
                 <text x="98" y="341" fill="#60a5fa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">Bounded memory</text>
                 <text x="210" y="341" fill="#60a5fa" fontSize="9" fontFamily="sans-serif" textAnchor="middle">hardware-aware</text>
@@ -420,7 +420,7 @@ export default function AirGapArch() {
             {/* Legend */}
             <div className="mt-4 flex flex-wrap gap-4 text-xs text-zinc-500">
               {[
-                { col: "border-purple-600", label: "Purple8 Hyper Graph - primary engine" },
+                { col: "border-purple-600", label: "Purple8 AI Engine - primary engine" },
                 { col: "border-green-700", label: "Purple8 DocIntel - document pipeline" },
                 { col: "border-orange-600", label: "Ollama - local LLM inference" },
                 { col: "border-blue-700", label: "Storage + search layer" },
@@ -558,7 +558,7 @@ export default function AirGapArch() {
             </p>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <p className="text-xs font-semibold text-purple-400 mb-2 uppercase tracking-wider">Purple8 Hyper Graph - <code className="normal-case font-mono">.env</code></p>
+                <p className="text-xs font-semibold text-purple-400 mb-2 uppercase tracking-wider">Purple8 AI Engine - <code className="normal-case font-mono">.env</code></p>
                 <pre className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-5 py-4 text-xs text-purple-300 font-mono overflow-x-auto leading-relaxed">
 {`# Point LLM calls at local Ollama
 LLM_PROVIDER=ollama
@@ -661,7 +661,7 @@ services:
       - OLLAMA_HOST=0.0.0.0:11434
     restart: unless-stopped
 
-  # ── Purple8 Hyper Graph ───────────────────────────────────────────────
+  # ── Purple8 AI Engine ───────────────────────────────────────────────
   purple8-graph:
     image: purple8/purple8-graph:latest
     container_name: p8-graph

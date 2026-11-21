@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Scenario Simulation & What-If Analysis - Purple8 Hyper Graph",
+  title: "Scenario Simulation & What-If Analysis - Purple8 AI Engine",
   description:
     "Run what-if simulations on any system modelled as a graph - supply chains, clinical pathways, financial portfolios, infrastructure networks. Clone, shock, optimise, compare. No separate simulation engine required.",
   path: "/products/purple8/scenario-simulation",
@@ -14,16 +14,16 @@ export const metadata: Metadata = pageMetadata({
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Scenario Simulation & What-If Analysis - Purple8 Hyper Graph",
+  name: "Scenario Simulation & What-If Analysis - Purple8 AI Engine",
   description:
-    "Purple8 Hyper Graph enables scenario simulation by combining graph cloning (multi-tenant isolation), graph algorithms (flow, centrality, shortest path), and quantum-inspired optimisation (VRP, scheduling, portfolio). Model a system, apply shocks, run solvers, compare outcomes.",
+    "Purple8 AI Engine enables scenario simulation by combining graph cloning (multi-tenant isolation), graph algorithms (flow, centrality, shortest path), and quantum-inspired optimisation (VRP, scheduling, portfolio). Model a system, apply shocks, run solvers, compare outcomes.",
   url: "https://www.purple8.ai/products/purple8/scenario-simulation/",
   publisher: { "@type": "Organization", name: "Purple8 Inc.", url: "https://www.purple8.ai" },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://www.purple8.ai/" },
-      { "@type": "ListItem", position: 2, name: "Purple8 Hyper Graph", item: "https://www.purple8.ai/products/purple8/" },
+      { "@type": "ListItem", position: 2, name: "Purple8 AI Engine", item: "https://www.purple8.ai/products/purple8/" },
       { "@type": "ListItem", position: 3, name: "Scenario Simulation", item: "https://www.purple8.ai/products/purple8/scenario-simulation/" },
     ],
   },
@@ -151,7 +151,7 @@ export default function ScenarioSimulationPage() {
           <nav className="flex items-center gap-2 text-xs text-zinc-600">
             <Link href="/" className="hover:text-zinc-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 Hyper Graph</Link>
+            <Link href="/products/purple8/" className="hover:text-zinc-400 transition-colors">Purple8 AI Engine</Link>
             <span>/</span>
             <span className="text-zinc-400">Scenario Simulation</span>
           </nav>
@@ -165,7 +165,7 @@ export default function ScenarioSimulationPage() {
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-700/40 bg-violet-950/30 px-4 py-1.5 text-sm font-medium text-violet-200">
               <span className="text-base">🔮</span>
-              Part of Purple8 Hyper Graph · What-if analysis · No simulation software
+              Part of Purple8 AI Engine · What-if analysis · No simulation software
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Ask what happens{" "}
@@ -295,7 +295,7 @@ export default function ScenarioSimulationPage() {
             <p className="mt-4 text-zinc-400">Free to start. Graph cloning, algorithms, and quantum solvers are part of the base product. Nothing extra to buy.</p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a href="/register/" className="rounded-full bg-purple-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-900/40 transition-colors hover:bg-purple-500">Start free</a>
-              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 Hyper Graph →</a>
+              <a href="/products/purple8/" className="text-base font-semibold text-zinc-300 transition-colors hover:text-white">Explore Purple8 AI Engine →</a>
             </div>
           </div>
         </section>

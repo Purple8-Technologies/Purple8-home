@@ -126,7 +126,7 @@ export default function BlueGreenSection() {
             <div className="space-y-3">
               {[
                 { step: "1", title: "Provision green", detail: "Spin up 3 new replicas from the new binary. No external services to update.", colour: "text-emerald-400 border-emerald-900/40" },
-                { step: "2", title: "Warm the vector index", detail: "Green replicas replay the durable log and rebuild the in-memory vector index from Purple8 Hyper Graph. Typically 60–120 s for multi-million-node corpora.", colour: "text-blue-400 border-blue-900/40" },
+                { step: "2", title: "Warm the vector index", detail: "Green replicas replay the durable log and rebuild the in-memory vector index from Purple8 AI Engine. Typically 60–120 s for multi-million-node corpora.", colour: "text-blue-400 border-blue-900/40" },
                 { step: "3", title: "Cut over load balancer", detail: "LB health checks confirm green is ready → shift 100% traffic in one atomic update. Zero connection drops.", colour: "text-purple-400 border-purple-900/40" },
                 { step: "4", title: "Drain and terminate blue", detail: "In-flight requests complete on the old replicas. Terminate blue. Total downtime: 0 ms.", colour: "text-zinc-400 border-zinc-800" },
               ].map((s) => (
@@ -188,7 +188,7 @@ export default function BlueGreenSection() {
                   <span className="text-sm font-bold text-white">{n.label}</span>
                 </div>
                 <div className="space-y-1.5">
-                  {["Purple8 Hyper Graph", "Vector Index", "Journey Engine", "SOC Agent", "Durable Log"].map((c) => (
+                  {["Purple8 AI Engine", "Vector Index", "Journey Engine", "SOC Agent", "Durable Log"].map((c) => (
                     <div key={c} className="rounded-md bg-[#11111b] px-2.5 py-1 text-[10px] text-zinc-500">{c}</div>
                   ))}
                 </div>
@@ -207,7 +207,7 @@ export default function BlueGreenSection() {
           {/* Storage layer */}
           <div className="flex w-full max-w-3xl gap-4">
             {[
-              { title: "Purple8 Hyper Graph", sub: "Replication-ready · AES-256 at rest" },
+              { title: "Purple8 AI Engine", sub: "Replication-ready · AES-256 at rest" },
               { title: "Durable Write Log", sub: "fsync before mutation · crash-safe replay" },
               { title: "Prometheus /metrics", sub: "One endpoint · one alert surface" },
             ].map((s) => (

@@ -100,7 +100,7 @@ export default function BrandHome() {
               Try DocIntel
             </Link>
             <Link href="/try/graph/" className="rounded-full border border-[var(--p8-accent)] px-7 py-3 text-sm font-semibold text-[var(--p8-accent)] hover:bg-[var(--p8-hover)]">
-              Try Hyper Graph
+              Try AI Engine
             </Link>
             <Link href="/pricing/" className="rounded-full border border-[var(--p8-border)] px-7 py-3 text-sm font-semibold text-[var(--p8-fg)] hover:border-[var(--p8-accent)] hover:text-[var(--p8-accent)]">
               Cloud SaaS &amp; Pricing

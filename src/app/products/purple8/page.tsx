@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { FACTS as F } from "@/lib/facts";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Purple8 Hyper Graph - AI-Native Execution Infrastructure",
+  title: "Purple8 AI Engine - AI-Native Execution Infrastructure",
   description:
     `Graph + vector + document + full-text + agentic process automation in one process. AI agents orchestrate end-to-end workflows via ${F.mcpTools} MCP tools. Built for AI, Operated by AI and Supervised by Humans.`,
   path: "/products/purple8",
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "Purple8 Hyper Graph",
+  name: "Purple8 AI Engine",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Linux, macOS, Windows, Docker",
   description: "AI-native multi-model execution engine - graph, vector, document store, full-text search, workflow engine, RAG, auth, encryption, and autonomous SOC in a single container.",
@@ -25,7 +25,7 @@ const jsonLd = {
 };
 
 const capabilities = [
-  { icon: "🕸️", label: "LPG, RDF & Hyper Graph", desc: "Supports both Labeled Property Graph (LPG / openCypher) and RDF semantic triples / N-Quads with reification - sub-millisecond multi-hop traversal." },
+  { icon: "🕸️", label: "LPG, RDF & AI Engine", desc: "Supports both Labeled Property Graph (LPG / openCypher) and RDF semantic triples / N-Quads with reification - sub-millisecond multi-hop traversal." },
   { icon: "🔍", label: "Semantic & Hybrid Search", desc: "Native vector + full-text + graph hybrid RAG out of the box." },
   { icon: "📄", label: "Document Store", desc: "Store and retrieve structured documents with full-text search. Pair with DocIntel to extract vectors, nodes & relations." },
   { icon: "🔄", label: "Journey Engine", desc: "Multi-stage workflow orchestration with HITL gates and SLA enforcement." },
@@ -68,7 +68,7 @@ export default function HyperGraphPage() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
-              Purple8 Hyper Graph is an embedded multi-model database purpose-built for
+              Purple8 AI Engine is an embedded multi-model database purpose-built for
               AI applications. Graph + vector + document + full-text + workflows +
               {F.mcpTools} MCP tools - in a single process, with zero external dependencies.
             </p>
@@ -85,7 +85,7 @@ export default function HyperGraphPage() {
                 rel="noopener noreferrer"
                 className="rounded-full border border-purple-700/60 px-6 py-3.5 text-base font-semibold text-purple-300 transition-colors hover:border-purple-500 hover:text-white"
               >
-                Hyper Graph Docs ↗
+                AI Engine Docs ↗
               </a>
               <a
                 href="mailto:sales@purple8.ai?subject=Purple8%20Hyper%20Graph%20Inquiry"
