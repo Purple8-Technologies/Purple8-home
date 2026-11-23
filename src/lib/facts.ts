@@ -10,6 +10,7 @@
 
 export const FACTS = {
   // ── Product surface ────────────────────────────────────────────────
+  graphVersion: "1.0.0", //     source: purple8-graph pyproject.toml
   mcpTools: "170+", //           source: purple8-graph mcp_server.py (176 exact)
   docFormats: "70+", //          source: Purple8-DocIntel DocumentFormat enum
   languages: "75+", //           source: DocIntel lingua detector
