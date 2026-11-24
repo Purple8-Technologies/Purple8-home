@@ -1,10 +1,32 @@
 # Content - repo-authored blog & case studies
 
-The repo is the CMS. There is no admin login, no database, and no server - the
-Purple8.ai site is a static export served from GitHub Pages. To publish, you add
-a Markdown file here and merge it. The build regenerates the pages.
+The repo is the CMS - the Purple8.ai site is a static export served from GitHub
+Pages, and every page is rebuilt from the Markdown files in this folder.
 
-## How to publish
+## Publishing without GitHub (communications team)
+
+Go to **https://purple8.ai/admin/** and sign in with your Command Center
+email and password. From there you can write, preview, publish, unpublish and
+delete blog posts and case studies, and upload images. The website updates
+2-4 minutes after you press Publish; the dashboard shows when it is live.
+
+Behind the scenes, Command Center (`/cms/*` API) commits the Markdown to this
+repo on your behalf - each commit names the editor, so git history is the
+revision history and audit trail.
+
+**Granting access (admin):** in Command Center → Access & Roles, tick
+**Website Publishing** for the person (any role works - a `viewer` with this
+grant can only publish website content). Admins and above always have access.
+
+**One-time setup (engineering):** set `CMS_GITHUB_TOKEN` on the Command Center
+app to a fine-grained GitHub token scoped to this repo only, with
+*Contents: Read and write* and *Actions: Read*:
+
+```bash
+fly secrets set CMS_GITHUB_TOKEN=github_pat_... -a purple8-command-center
+```
+
+## Publishing with git (engineers)
 
 1. Create a Markdown file:
    - Blog post → `content/blog/my-post.md`
