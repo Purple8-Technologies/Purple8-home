@@ -176,12 +176,12 @@ function Login({ onToken }: { onToken: (t: string) => void }) {
       <h2 className="text-2xl font-bold text-white">Sign in</h2>
       <p className="text-sm text-zinc-400">Use your Purple8 Command Center email and password.</p>
       <label className="block text-sm">
-        <span className="mb-1 block text-zinc-300">Email</span>
+        <span className="admin-field-label mb-1 block">Email</span>
         <input className={input} type="email" autoComplete="username" required value={email}
           onChange={(e) => setEmail(e.target.value)} />
       </label>
       <label className="block text-sm">
-        <span className="mb-1 block text-zinc-300">Password</span>
+        <span className="admin-field-label mb-1 block">Password</span>
         <input className={input} type="password" autoComplete="current-password" required value={password}
           onChange={(e) => setPassword(e.target.value)} />
       </label>
@@ -200,20 +200,32 @@ function Dashboard({ api }: { api: Api }) {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [editing, setEditing] = useState<Draft | null>(null);
+  const [editing, setEditing] = useState<{ collection: Collection; draft: Draft } | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [deploy, setDeploy] = useState<DeployStatus | null>(null);
   const [watchDeploy, setWatchDeploy] = useState(false);
+  const collectionRef = useRef(collection);
+  const listRequest = useRef(0);
+  const openRequest = useRef(0);
 
   const load = useCallback(async () => {
+    const requestId = ++listRequest.current;
+    const requestedCollection = collection;
     setLoading(true);
     setErr(null);
     try {
-      setItems((await api(`/posts/${collection}`)).items);
+      const result = await api(`/posts/${requestedCollection}`);
+      if (requestId === listRequest.current && collectionRef.current === requestedCollection) {
+        setItems(result.items);
+      }
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Could not load.");
+      if (requestId === listRequest.current && collectionRef.current === requestedCollection) {
+        setErr(e instanceof Error ? e.message : "Could not load.");
+      }
     } finally {
-      setLoading(false);
+      if (requestId === listRequest.current && collectionRef.current === requestedCollection) {
+        setLoading(false);
+      }
     }
   }, [api, collection]);
 
@@ -244,16 +256,24 @@ function Dashboard({ api }: { api: Api }) {
   }, [watchDeploy, api]);
 
   async function open(slug: string) {
+    const requestedCollection = collectionRef.current;
+    const requestId = ++openRequest.current;
     setErr(null);
     try {
-      const d = await api(`/posts/${collection}/${slug}`);
+      const d = await api(`/posts/${requestedCollection}/${slug}`);
+      if (requestId !== openRequest.current || collectionRef.current !== requestedCollection) return;
       setEditing({
-        slug: d.slug, sha: d.sha, title: d.title, description: d.description, date: d.date || today(),
-        author: d.author, tags: (d.tags || []).join(", "), cover: d.cover, customer: d.customer,
-        industry: d.industry, result: d.result, body: d.body, draft: d.draft,
+        collection: requestedCollection,
+        draft: {
+          slug: d.slug, sha: d.sha, title: d.title, description: d.description, date: d.date || today(),
+          author: d.author, tags: (d.tags || []).join(", "), cover: d.cover, customer: d.customer,
+          industry: d.industry, result: d.result, body: d.body, draft: d.draft,
+        },
       });
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Could not open.");
+      if (requestId === openRequest.current && collectionRef.current === requestedCollection) {
+        setErr(e instanceof Error ? e.message : "Could not open.");
+      }
     }
   }
 
@@ -269,8 +289,8 @@ function Dashboard({ api }: { api: Api }) {
     return (
       <Editor
         api={api}
-        collection={collection}
-        initial={editing}
+        collection={editing.collection}
+        initial={editing.draft}
         onCancel={() => setEditing(null)}
         onSaved={saved}
       />
@@ -288,13 +308,22 @@ function Dashboard({ api }: { api: Api }) {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex gap-2">
           {COLLECTIONS.map((c) => (
-            <button key={c.id} onClick={() => setCollection(c.id)}
-              className={`${btn} ${collection === c.id ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"}`}>
+            <button key={c.id} onClick={() => {
+              if (collectionRef.current === c.id) return;
+              collectionRef.current = c.id;
+              listRequest.current += 1;
+              openRequest.current += 1;
+              setItems([]);
+              setLoading(true);
+              setErr(null);
+              setCollection(c.id);
+            }}
+              className={`${btn} ${collection === c.id ? "admin-selected-surface" : "text-zinc-400 hover:text-white"}`}>
               {c.label}
             </button>
           ))}
         </div>
-        <button onClick={() => setEditing(emptyDraft())} className={`${btn} bg-purple-600 text-white hover:bg-purple-500`}>
+        <button onClick={() => setEditing({ collection, draft: emptyDraft() })} className={`${btn} bg-purple-600 text-white hover:bg-purple-500`}>
           + New {collection === "blog" ? "post" : "case study"}
         </button>
       </div>
@@ -311,7 +340,7 @@ function Dashboard({ api }: { api: Api }) {
               <p className="mt-1 text-xs text-zinc-500">{it.date}{it.author ? ` · ${it.author}` : ""} · {it.url}</p>
             </div>
             <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${
-              it.draft ? "bg-zinc-800 text-zinc-300" : "bg-emerald-900/60 text-emerald-300"}`}>
+              it.draft ? "admin-draft-badge" : "bg-emerald-900/60 text-emerald-300"}`}>
               {it.draft ? "Draft" : "Live"}
             </span>
           </button>
@@ -399,7 +428,7 @@ function Editor({
   }
 
   async function save(asDraft: boolean) {
-    const slug = d.slug || slugify(d.title);
+    const slug = slugify(d.slug || d.title);
     if (!d.title.trim() || !d.description.trim() || !slug) {
       setErr("Title, summary and URL name are required.");
       return;
@@ -482,7 +511,11 @@ function Editor({
         </Field>
         <Field label={`Web address: purple8.ai/${collection}/…`}>
           <input className={`${input} ${isNew ? "" : "opacity-60"}`} value={d.slug} disabled={!isNew}
-            onChange={(e) => { setSlugTouched(true); set("slug", slugify(e.target.value)); }} />
+            onChange={(e) => {
+              setSlugTouched(true);
+              set("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, "-").slice(0, 80));
+            }}
+            onBlur={(e) => set("slug", slugify(e.target.value))} />
         </Field>
         <Field label="Date">
           <input className={input} type="date" value={d.date} onChange={(e) => set("date", e.target.value)} />
@@ -503,14 +536,14 @@ function Editor({
           </>
         )}
         <div className="text-sm sm:col-span-2">
-          <span className="mb-1 block text-zinc-300">Cover image (optional)</span>
+          <span className="admin-field-label mb-1 block">Cover image (optional)</span>
           <div className="flex items-center gap-3">
             {d.cover && (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={coverPreview} alt="" className="h-16 w-28 rounded object-cover" />
             )}
             <button type="button" disabled={busy} onClick={() => coverInput.current?.click()}
-              className={`${btn} border border-zinc-700 text-zinc-200 hover:bg-zinc-800`}>
+              className={`${btn} border border-zinc-700 text-zinc-200 admin-hover-surface`}>
               {d.cover ? "Replace" : "Upload"}
             </button>
             {d.cover && <button type="button" onClick={() => set("cover", "")} className="text-sm text-zinc-400 hover:text-white">Remove</button>}
@@ -521,14 +554,14 @@ function Editor({
       <div className="mt-6 rounded-xl border border-zinc-800">
         <div className="flex flex-wrap items-center gap-1 border-b border-zinc-800 p-2">
           <button type="button" onClick={() => setTab("write")}
-            className={`${btn} py-1 ${tab === "write" ? "bg-zinc-800 text-white" : "text-zinc-400"}`}>Write</button>
+            className={`${btn} py-1 ${tab === "write" ? "admin-selected-surface" : "text-zinc-400"}`}>Write</button>
           <button type="button" onClick={() => setTab("preview")}
-            className={`${btn} py-1 ${tab === "preview" ? "bg-zinc-800 text-white" : "text-zinc-400"}`}>Preview</button>
+            className={`${btn} py-1 ${tab === "preview" ? "admin-selected-surface" : "text-zinc-400"}`}>Preview</button>
           {tab === "write" && (
             <span className="ml-2 flex flex-wrap gap-1 border-l border-zinc-800 pl-2">
               {toolbar.map(([label, fn]) => (
                 <button key={label} type="button" onClick={fn} disabled={busy}
-                  className="rounded px-2 py-1 text-xs text-zinc-300 hover:bg-zinc-800">{label}</button>
+                  className="admin-field-label admin-hover-surface rounded px-2 py-1 text-xs">{label}</button>
               ))}
             </span>
           )}
@@ -564,7 +597,7 @@ function Editor({
         <button disabled={busy} onClick={() => save(false)} className={`${btn} bg-purple-600 text-white hover:bg-purple-500`}>
           {busy ? "Working..." : isNew || initial.draft ? "Publish" : "Update live page"}
         </button>
-        <button disabled={busy} onClick={() => save(true)} className={`${btn} border border-zinc-700 text-zinc-200 hover:bg-zinc-800`}>
+        <button disabled={busy} onClick={() => save(true)} className={`${btn} border border-zinc-700 text-zinc-200 admin-hover-surface`}>
           {!isNew && !initial.draft ? "Unpublish (move to drafts)" : "Save draft"}
         </button>
         {!isNew && (
@@ -578,7 +611,7 @@ function Editor({
 function Field({ label, className = "", children }: { label: string; className?: string; children: React.ReactNode }) {
   return (
     <label className={`block text-sm ${className}`}>
-      <span className="mb-1 block text-zinc-300">{label}</span>
+      <span className="admin-field-label mb-1 block">{label}</span>
       {children}
     </label>
   );

@@ -127,6 +127,21 @@ body {
   .purple8-logo-streak { animation: none; opacity: 0; }
 }
 
+.admin-field-label { color: #d4d4d8; }
+.admin-selected-surface { background-color: #27272a; color: #fff; }
+.admin-draft-badge { background-color: #27272a; color: #d4d4d8; }
+.admin-hover-surface:hover { background-color: #27272a; }
+html[data-p8-theme="day"] .p8-themed .admin-field-label { color: #3f3f46; }
+html[data-p8-theme="day"] .p8-themed .admin-selected-surface {
+  background-color: #e4e4e7;
+  color: #18181b;
+}
+html[data-p8-theme="day"] .p8-themed .admin-draft-badge {
+  background-color: #f4f4f5;
+  color: #3f3f46;
+}
+html[data-p8-theme="day"] .p8-themed .admin-hover-surface:hover { background-color: #f4f4f5; }
+
 /* ═══════════════════════════════════════════════════════════════════════
    Day / night theme for opt-in pages (revamp doc 02 §2, doc 10 §3)
    ─────────────────────────────────────────────────────────────────────

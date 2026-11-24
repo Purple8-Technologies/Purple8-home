@@ -7,8 +7,5 @@ Disallow: /pricing
 Disallow: /pricing/
 Disallow: /checkout
 Disallow: /checkout/
-Disallow: /admin
-Disallow: /admin/
-
 Sitemap: https://www.purple8.ai/sitemap.xml
 
